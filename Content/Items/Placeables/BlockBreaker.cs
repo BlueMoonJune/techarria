@@ -20,6 +20,7 @@ namespace techarria.Content.Items.Placeables
             Item.maxStack = 999;
             Item.consumable = true;
             Item.value = Item.buyPrice(0, 0, 1, 0);
+            Item.mech = true;
 
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
