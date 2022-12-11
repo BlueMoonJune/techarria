@@ -26,7 +26,7 @@ namespace techarria.Content.Tiles
         public override bool Slope(int i, int j)
         {
             Tile tile = Framing.GetTileSafely(i, j);
-            tile.TileFrameX = (short)((tile.TileFrameX + 18) % 64);
+            tile.TileFrameX = (short)((tile.TileFrameX + 16) % 64);
             return false;
         }
 
