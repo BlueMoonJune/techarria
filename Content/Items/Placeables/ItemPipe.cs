@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Placeables
 {
-    internal class BlockBreaker : ModItem
+    internal class ItemPipe : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,8 +15,8 @@ namespace Techarria.Content.Items.Placeables
         
         public override void SetDefaults()
         {
-            Item.width = 16;
-            Item.height = 16;
+            Item.width = 32;
+            Item.height = 32;
             Item.maxStack = 999;
             Item.consumable = true;
             Item.value = Item.buyPrice(0, 0, 1, 0);
@@ -28,7 +28,7 @@ namespace Techarria.Content.Items.Placeables
             Item.useTime = 10;
             Item.autoReuse = true;
 
-            Item.createTile = ModContent.TileType<Tiles.BlockBreaker>();
+            Item.createTile = ModContent.TileType<Tiles.ItemPipe>();
         }
     }
 }

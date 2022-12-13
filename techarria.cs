@@ -1,8 +1,10 @@
 using Terraria.ModLoader;
 
-namespace techarria
+namespace Techarria
 {
-	public class techarria : Mod
+	public class Techarria : Mod
 	{
+		public static bool[] tileIsItemPipe = new bool[TileLoader.TileCount];
+		public static bool[] tileConnectToPipe = new bool[TileLoader.TileCount];
 	}
 }

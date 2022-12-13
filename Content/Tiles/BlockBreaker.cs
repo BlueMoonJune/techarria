@@ -4,7 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 
-namespace techarria.Content.Tiles
+namespace Techarria.Content.Tiles
 {
     internal class BlockBreaker : ModTile
     {
@@ -14,7 +14,7 @@ namespace techarria.Content.Tiles
             Main.tileBlockLight[Type] = true;
             Main.tileFrameImportant[Type] = true;
 
-            AddMapEntry(Color.Blue, CreateMapEntryName());
+            AddMapEntry(Color.DarkSlateGray, CreateMapEntryName());
 
             DustType = DustID.Stone;
             ItemDrop = ModContent.ItemType<Items.Placeables.BlockBreaker>();
