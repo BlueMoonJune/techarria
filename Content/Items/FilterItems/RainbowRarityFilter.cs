@@ -4,9 +4,9 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 
-namespace Techarria.Content.Items.Placeables
+namespace Techarria.Content.Items.FilterItems
 {
-    internal class ItemPipe : ModItem
+    internal class RainbowRarityFilter : FilterItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,20 +15,16 @@ namespace Techarria.Content.Items.Placeables
         
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
+            Item.width = 10;
+            Item.height = 10;
             Item.maxStack = 999;
-            Item.consumable = true;
             Item.value = Item.buyPrice(0, 0, 1, 0);
-            Item.mech = true;
+        }
 
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTurn = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.autoReuse = true;
-
-            Item.createTile = ModContent.TileType<Tiles.ItemPipe>();
+        public override bool AcceptsItem(Item item)
+        {
+            bool accepts = item.rare == ItemRarityID.Expert;
+            return accepts;
         }
     }
 }

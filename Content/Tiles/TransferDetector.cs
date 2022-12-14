@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
 {
-    internal class TransferDetector : ItemPipe
+    internal class TransferDetector : TransferDuct
     {
         public override void SetStaticDefaults()
         {
@@ -38,9 +38,9 @@ namespace Techarria.Content.Tiles
 
             int i = x + dirToX(origin);
             int j = y + dirToY(origin);
-            if (Techarria.tileIsItemPipe[Main.tile[i, j].TileType])
+            if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType])
             {
-                FoundContainer target = ((ItemPipe)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(origin), y + dirToY(origin), item, origin, depth + 1);
+                FoundContainer target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(origin), y + dirToY(origin), item, origin, depth + 1);
                 if (!target.isNull)
                 {
                     Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());

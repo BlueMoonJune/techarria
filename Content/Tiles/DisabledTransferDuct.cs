@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Tiles
 {
-    internal class DisabledItemPipe : ModTile
+    internal class DisabledTransferDuct : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -17,14 +17,14 @@ namespace Techarria.Content.Tiles
             AddMapEntry(Color.Blue, CreateMapEntryName());
 
             DustType = DustID.Stone;
-            ItemDrop = ModContent.ItemType<Items.Placeables.ItemPipe>();
+            ItemDrop = ModContent.ItemType<Items.Placeables.TransferDuct>();
 
             HitSound = SoundID.Tink;
         }
 
         public override void HitWire(int i, int j)
         {
-            Main.tile[i, j].TileType = (ushort) ModContent.TileType<ItemPipe>();
+            Main.tile[i, j].TileType = (ushort) ModContent.TileType<TransferDuct>();
         }
     }
 }

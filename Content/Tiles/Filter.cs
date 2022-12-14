@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Techarria.Content.Items.FilterItems;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
 {
-    internal class Junction : TransferDuct
+    internal class Filter : TransferDuct
     {
+
+        Item[,] filters = new Item[Main.maxTilesX, Main.maxTilesY];
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -23,11 +26,21 @@ namespace Techarria.Content.Tiles
 
         public override FoundContainer EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
-            if (depth >= 256)
-            {
-                Main.LocalPlayer.PickTile(x, y, 40000);
+            if (filters[x, y] != null && filters[x, y].ModItem is FilterItem filterItem) 
+            {   
+                
+                if (!filterItem.AcceptsItem(item))
+                {
+                    return new FoundContainer().setNull(true);
+                }
             }
+            else if (filters[x, y] != null && item.type != filters[x, y].type)
+            {
+                return new FoundContainer().setNull(true);
+            }
+
             FoundContainer container = FindAdjacentContainer(x, y);
+            
             if (!container.isNull && container.dir == origin)
             {
                 CreateParticles(x, y, container.dir);
@@ -52,6 +65,13 @@ namespace Techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
+        }
+
+        public override bool RightClick(int i, int j)
+        {
+            filters[i, j] = Main.player[Main.myPlayer].HeldItem.Clone();
+            Main.NewText("Used Item " + Main.player[Main.myPlayer].HeldItem.Name + " on Filter");
+            return true;
         }
     }
 }

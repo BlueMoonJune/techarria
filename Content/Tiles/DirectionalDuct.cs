@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
 {
-    internal class DirectionalDuct : ItemPipe
+    internal class DirectionalDuct : TransferDuct
     {
         public override void SetStaticDefaults()
         {
@@ -49,9 +49,9 @@ namespace Techarria.Content.Tiles
 
             int i = x + dirToX(dir);
             int j = y + dirToY(dir);
-            if (Techarria.tileIsItemPipe[Main.tile[i, j].TileType] && dir != origin)
+            if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType] && dir != origin)
             {
-                FoundContainer target = ((ItemPipe)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(dir), y + dirToY(dir), item, dir, depth + 1);
+                FoundContainer target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(dir), y + dirToY(dir), item, dir, depth + 1);
                 if (!target.isNull)
                 {
                     CreateParticles(x, y, dir);

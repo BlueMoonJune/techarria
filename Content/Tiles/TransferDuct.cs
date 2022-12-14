@@ -62,7 +62,7 @@ namespace Techarria.Content.Tiles
         }
     }
 
-    internal class ItemPipe : ModTile
+    internal class TransferDuct : ModTile
     {
 
         int[,] lastDir = new int[Main.maxTilesX, Main.maxTilesY];
@@ -133,24 +133,40 @@ namespace Techarria.Content.Tiles
             return 3;
         }
 
+        public bool MatchingPaint(int x, int y, int i, int j)
+        {
+            return
+                Main.tile[x, y].TileColor == 0
+                ||
+                Main.tile[i, j].TileColor == 0
+                ||
+                Main.tile[i, j].TileColor == Main.tile[x, y].TileColor;
+        }
+
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
 
-            Techarria.tileIsItemPipe[Type] = true;
+            Techarria.tileIsTransferDuct[Type] = true;
             Techarria.tileConnectToPipe[Type] = true;
 
             AddMapEntry(Color.Blue, CreateMapEntryName());
 
             DustType = DustID.Stone;
-            ItemDrop = ModContent.ItemType<Items.Placeables.ItemPipe>();
+            ItemDrop = ModContent.ItemType<Items.Placeables.TransferDuct>();
 
             HitSound = SoundID.Tink;
         }
 
-        public bool ShouldConnect(int i, int j)
+        public bool ShouldConnect(int i, int j, int sourceX, int sourceY)
         {
-            return (Techarria.tileConnectToPipe[Main.tile[i, j].TileType] || !FindContainer(i, j).isNull);
+            return (
+                Techarria.tileConnectToPipe[Main.tile[i, j].TileType] 
+                && 
+                MatchingPaint(sourceX, sourceY, i, j)
+                || 
+                !FindContainer(i, j).isNull
+            );
 
         }
 
@@ -158,21 +174,21 @@ namespace Techarria.Content.Tiles
         {
             Tile tile = Framing.GetTileSafely(i, j);
             tile.TileFrameX = 0;
-            if (ShouldConnect(i + 1, j)) 
+            if (ShouldConnect(i + 1, j, i, j)) 
             {
                 tile.TileFrameX += 16;
             }
-            if (ShouldConnect(i, j - 1))
+            if (ShouldConnect(i - 1, j, i, j))
             {
                 tile.TileFrameX += 32;
             }
 
             tile.TileFrameY = 0;
-            if (ShouldConnect(i - 1, j))
+            if (ShouldConnect(i, j + 1, i, j))
             {
                 tile.TileFrameY += 16;
             }
-            if (ShouldConnect(i, j + 1))
+            if (ShouldConnect(i, j - 1, i, j))
             {
                 tile.TileFrameY += 32;
             }
@@ -280,9 +296,9 @@ namespace Techarria.Content.Tiles
                 int dir = (c + lastDir[x, y] + 1) % 4;
                 int i = x + dirToX(dir);
                 int j = y + dirToY(dir);
-                if (Techarria.tileIsItemPipe[Main.tile[i, j].TileType] && dir != origin)
+                if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType] && MatchingPaint(x, y, i, j) && dir != origin)
                 {
-                    FoundContainer target = ((ItemPipe) TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(dir), y + dirToY(dir), item, dir, depth + 1);
+                    FoundContainer target = ((TransferDuct) TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(dir), y + dirToY(dir), item, dir, depth + 1);
                     if (!target.isNull)
                     {
                         lastDir[x, y] = dir;
@@ -299,7 +315,7 @@ namespace Techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
-            //Main.NewText("ItemPipe.HitWire(" + i + ", " + j + ")");
+            //Main.NewText("TransferDuct.HitWire(" + i + ", " + j + ")");
             FoundContainer container = FindAdjacentContainer(i, j);
             if (!container.isNull && !container.isEmpty())
             {
@@ -358,7 +374,7 @@ namespace Techarria.Content.Tiles
                 }
             } else
             {
-                Main.tile[i, j].TileType = (ushort)ModContent.TileType<DisabledItemPipe>();
+                Main.tile[i, j].TileType = (ushort)ModContent.TileType<DisabledTransferDuct>();
             }
         }
     }
