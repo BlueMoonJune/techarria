@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Placeables
 {
+    /// <summary>
+    /// Item form of Filter
+    /// </summary>
     internal class Filter : ModItem
     {
         public override void SetStaticDefaults()

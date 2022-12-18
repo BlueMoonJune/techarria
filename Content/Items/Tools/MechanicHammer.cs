@@ -38,7 +38,7 @@ namespace Techarria.Content.Items.Tools
 			}
 
         }
-        public override bool AltFunctionUse(Player player)
+		public override bool AltFunctionUse(Player player)
 		{
 			if (player.whoAmI == Main.myPlayer)
 			{

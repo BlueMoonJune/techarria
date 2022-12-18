@@ -8,20 +8,28 @@ using Terraria.Audio;
 
 namespace Techarria.Content.Tiles
 {
+    ///<summary>
+    ///A class containing some information relating to containers used by item transport
+    ///</summary>
     public class FoundContainer
     {
         public int x;
         public int y;
+        /// <summary>Direction from the source. 0 = right, 1 = down, 2 = left, 3 = up</summary>
         public int dir;
+        /// <summary>The tile that is the top left of the container</summary>
         public Tile tile;
+        /// <summary>Set to true when no container is found</summary>
         public bool isNull = false;
 
+        /// <summary>Sets 'isNull' to 'setTo' and returns the container</summary>
         public FoundContainer setNull(bool setTo)
         {
             isNull = setTo;
             return this;
         }
 
+        /// <summary>Scans the contents of the container, checking if it is empty</summary>
         public bool isEmpty()
         {
             if (isNull)
@@ -40,6 +48,7 @@ namespace Techarria.Content.Tiles
             return true;
         }
 
+        /// <summary>Scans the contents of the container, checking if 'item' can be inserted</summary>
         public bool canDeposit(Item item)
         {
             if (isNull)
@@ -62,12 +71,17 @@ namespace Techarria.Content.Tiles
         }
     }
 
+    /// <summary>Basic item transportation tile. Other item transfer tiles should extend this</summary>
     internal class TransferDuct : ModTile
     {
 
+        /// <summary>That last direction that an item was sent in. Used for round-robin</summary>
         int[,] lastDir = new int[Main.maxTilesX, Main.maxTilesY];
 
-        public int dirToX(int dir)
+        /// <summary>takes a direction and returns the X component of the coresponding vector</summary>
+        /// <param name="dir">The input direction. 0 = right, 1 = down, 2 = left, 3 = up</param>
+        /// <returns>The X component of the vector coresponding to 'dir'</returns>
+        public static int dirToX(int dir)
         {
             switch(dir % 4)
             {
@@ -79,7 +93,11 @@ namespace Techarria.Content.Tiles
                     return 0;
             }
         }
-        public int dirToY(int dir)
+
+        /// <summary>takes a direction and returns the Y component of the coresponding vector</summary>
+        /// <param name="dir">The input direction. 0 = right, 1 = down, 2 = left, 3 = up</param>
+        /// <returns>The Y component of the vector coresponding to 'dir'</returns>
+        public static int dirToY(int dir)
         {
             switch (dir % 4)
             {
@@ -92,12 +110,18 @@ namespace Techarria.Content.Tiles
             }
         }
 
-        public Vector2 dirToVec(int dir)
+        /// <summary>takes a direction and returns the coresponding vector</summary>
+        /// <param name="dir">The input direction. 0 = right, 1 = down, 2 = left, 3 = up</param>
+        /// <returns>The vector coresponding to 'dir'</returns>
+        public static Point dirToVec(int dir)
         {
-            return new Vector2(dirToX(dir), dirToY(dir));
+            return new Point(dirToX(dir), dirToY(dir));
         }
 
-        public int posToDir(Vector2 vec)
+        /// <summary>Takes a point and returns the coresponding direction</summary>
+        /// <param name="dir">The input point</param>
+        /// <returns>The coresponding direction. 0 = right, 1 = down, 2 = left, 3 = up</returns>
+        public static int posToDir(Point vec)
         {
             int x = (int) vec.X;
             int y = (int) vec.Y;
@@ -116,6 +140,9 @@ namespace Techarria.Content.Tiles
             return 3;
         }
 
+        /// <summary>Takes a point and returns the coresponding direction</summary>
+        /// <param name="dir">The input point</param>
+        /// <returns>The coresponding direction. 0 = right, 1 = down, 2 = left, 3 = up</returns>
         public int posToDir(int x, int y)
         {
             if (x == 1 && y == 0)
@@ -133,6 +160,12 @@ namespace Techarria.Content.Tiles
             return 3;
         }
 
+        /// <summary>Checks if the 2 tiles have matching paints. If one of the tiles has no paint, returns true</summary>
+        /// <param name="x">X coordinate of tile 1</param>
+        /// <param name="y">Y coordinate of tile 1</param>
+        /// <param name="i">X coordinate of tile 2</param>
+        /// <param name="j">Y coordinate of tile 2</param>
+        /// <returns>Whether the 2 tiles have matching paints. If one of the tiles has no paint, will be true</returns>
         public bool MatchingPaint(int x, int y, int i, int j)
         {
             return
@@ -158,12 +191,20 @@ namespace Techarria.Content.Tiles
             HitSound = SoundID.Tink;
         }
 
-        public bool ShouldConnect(int i, int j, int sourceX, int sourceY)
+        /// <summary>
+        /// Returns whether the source tile should connect to the target tile
+        /// </summary>
+        /// <param name="i">X coordinate of the target tile</param>
+        /// <param name="j">Y coordinate of the target tile</param>
+        /// <param name="x">X coordinate of the source tile</param>
+        /// <param name="y">Y coordinate of the source tile</param>
+        /// <returns></returns>
+        public bool ShouldConnect(int i, int j, int x, int y)
         {
             return (
                 Techarria.tileConnectToPipe[Main.tile[i, j].TileType] 
                 && 
-                MatchingPaint(sourceX, sourceY, i, j)
+                MatchingPaint(x, y, i, j)
                 || 
                 !FindContainer(i, j).isNull
             );
@@ -196,8 +237,18 @@ namespace Techarria.Content.Tiles
             return true;
         }
 
+        /// <summary>
+        /// Finds a container at the specified coordinates
+        /// </summary>
+        /// <param name="i">X coordinate</param>
+        /// <param name="j">Y coordinate</param>
+        /// <returns>The FoundContainer object coresponding to the found container</returns>
         public FoundContainer FindContainer(int i, int j)
         {
+            if (i < 0 || j < 0) 
+            {
+                return new FoundContainer().setNull(true);
+            }
             int chest = Chest.FindChest(i, j);
             if (chest >= 0)
             {
@@ -207,7 +258,7 @@ namespace Techarria.Content.Tiles
                 container.tile = Main.tile[i, j];
                 return container;
             }
-            else if (Main.tileContainer[Main.tile[i, j].TileType])
+            if (Main.tileContainer[Main.tile[i, j].TileType])
             {
                 var tileData = TileObjectData.GetTileData(Main.tile[i, j]);
                 int frameX = Main.tile[i, j].TileFrameX;
@@ -237,6 +288,12 @@ namespace Techarria.Content.Tiles
             return new FoundContainer().setNull(true);
         }
 
+        /// <summary>
+        /// Finds a container adjacent to the specified coordinates
+        /// </summary>
+        /// <param name="i">X coordinate</param>
+        /// <param name="j">Y coordinate</param>
+        /// <returns>The FoundContainer object coresponding to the found container</returns>
         public FoundContainer FindAdjacentContainer(int i, int j)
         {
             FoundContainer container;
@@ -267,17 +324,43 @@ namespace Techarria.Content.Tiles
             return container;
         }
 
+        /// <summary>
+        /// Checks to see if the tile at the specified coordinates is of the specified type. Does not check for extending types
+        /// </summary>
+        /// <typeparam name="T">The type to test for</typeparam>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
+        /// <returns></returns>
         public bool IsMatchingTile<T>(int x, int y) where T : ModTile
         {   
             return Main.tile[x, y].TileType == ModContent.TileType<T>();
         }
         
-        public void CreateParticles(int x, int y, int dir)
+        /// <summary>
+        /// Creates particles for item transfer
+        /// </summary>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinates</param>
+        /// <param name="dir">Direction of item transfer. -1 causes no motion and is used for transfer failure</param>
+        public virtual void CreateParticles(int x, int y, int dir)
         {
             Dust dust = Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Transfer>());
-            dust.velocity = new Vector2(dirToX(dir), dirToY(dir));
+            if (dir >= 0)
+            {
+                dust.velocity = new Vector2(dirToX(dir), dirToY(dir));
+                return;
+            }
         }
 
+        /// <summary>
+        /// The pathfinding function for item transfer. This is a recursive algorithm that stops once a container is found
+        /// </summary>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
+        /// <param name="item">The item that is trying to be transfered</param>
+        /// <param name="origin">The direction the item is being sent from</param>
+        /// <param name="depth">How 'deep' the recursive algorithm has gone. Should cause breakage after a certain threshold</param>
+        /// <returns>The container that was found, either by this call or passed back up from the recursion</returns>
         public virtual FoundContainer EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
             origin = (origin + 2) % 4;
@@ -308,6 +391,8 @@ namespace Techarria.Content.Tiles
                 }
             }
 
+            CreateParticles(x, y , -1);
+
 
             return new FoundContainer().setNull(true);
         }
@@ -315,39 +400,32 @@ namespace Techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
-            //Main.NewText("TransferDuct.HitWire(" + i + ", " + j + ")");
             FoundContainer container = FindAdjacentContainer(i, j);
             if (!container.isNull && !container.isEmpty())
             {
                 Dust suction = Dust.NewDustDirect(new Vector2(i + dirToX(container.dir), j + dirToY(container.dir)) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Suction>());
                 suction.velocity = new Vector2(-dirToX(container.dir), -dirToY(container.dir));
-                //Main.NewText("Found Source!");
                 Chest source = Main.chest[Chest.FindChest(container.x, container.y)];
                 foreach (Item item in source.item)
                 {
                     if (!item.IsAir)
                     {
-                        //Main.NewText("Found an item: " + item.Name);
 
                         FoundContainer target = EvaluatePath(i, j, item, (container.dir + 2) % 4, 0);
                         if (!target.isNull && target.canDeposit(item))
                         {
-                            //CreateParticles(i + dirToX(container.dir), j + dirToY(container.dir), (container.dir + 2) % 4);
-                            //Main.NewText("Destination found at X:" + target.x + " Y:" + target.y);
                             SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer"), new Vector2(i, j) * 16);
                             Wiring.SkipWire(i, j);
                             Chest destination = Main.chest[Chest.FindChest(target.x, target.y)];
                             foreach (Item destSlot in destination.item)
                             {
                                 if (destSlot.type == item.type && destSlot.stack < destSlot.maxStack) {
-                                    //Main.NewText("Destination has existing stack of " + item.Name + ", sending there");
                                     destSlot.stack++;
                                     item.stack--;
                                     if (item.stack <= 0)
                                     {
                                         item.TurnToAir();
                                     }
-                                    //Main.NewText("Item Transfered");
                                     return;
                                 }
                             }

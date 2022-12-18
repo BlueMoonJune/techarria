@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Tiles
 {
+    /// <summary>
+    /// The disabled variant of TransferDuct
+    /// </summary>
     internal class DisabledTransferDuct : ModTile
     {
         public override void SetStaticDefaults()

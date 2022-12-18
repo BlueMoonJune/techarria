@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.FilterItems
 {
+    /// <summary>
+    /// Prevents extraction of singular items
+    /// </summary>
     internal class StackPreserver : FilterItem
     {
         public override void SetStaticDefaults()

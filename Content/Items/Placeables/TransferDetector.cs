@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Placeables
 {
+    /// <summary>
+    /// Item form of TransferDetector
+    /// </summary>
     internal class TransferDetector : ModItem
     {
         public override void SetStaticDefaults()

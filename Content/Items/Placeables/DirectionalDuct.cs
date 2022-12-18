@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Placeables
 {
+    /// <summary>
+    /// Item form of DirectionalDuct
+    /// </summary>
     internal class DirectionalDuct : ModItem
     {
         public override void SetStaticDefaults()

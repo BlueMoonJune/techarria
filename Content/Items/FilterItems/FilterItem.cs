@@ -9,6 +9,9 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.FilterItems
 {
+    /// <summary>
+    /// A class for items that do something special in a Filter
+    /// </summary>
     internal abstract class FilterItem : ModItem
     {
         public override void SetStaticDefaults()
@@ -24,6 +27,12 @@ namespace Techarria.Content.Items.FilterItems
             Item.value = Item.buyPrice(0, 0, 1, 0);
         }
 
+
+        /// <summary>
+        /// Whether or not this filter should accept 'item'
+        /// </summary>
+        /// <param name="item">The item to test</param>
+        /// <returns></returns>
         public virtual bool AcceptsItem(Item item)
         {
             return true;

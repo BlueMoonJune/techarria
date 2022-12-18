@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Placeables
 {
+    /// <summary>
+    /// Item form of Junction
+    /// </summary>
     internal class Junction : ModItem
     {
         public override void SetStaticDefaults()

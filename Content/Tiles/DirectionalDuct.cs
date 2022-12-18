@@ -9,6 +9,9 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
 {
+    /// <summary>
+    /// A tile that can only send items in the direction it is facing
+    /// </summary>
     internal class DirectionalDuct : TransferDuct
     {
         public override void SetStaticDefaults()
