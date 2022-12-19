@@ -7,6 +7,7 @@ using Techarria.Content.Items.FilterItems;
 using Terraria;
 using Terraria.ModLoader;
 using Techarria;
+using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Tiles
 {
@@ -18,7 +19,7 @@ namespace Techarria.Content.Tiles
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ItemDrop = ModContent.ItemType<Items.Placeables.Junction>();
+            ItemDrop = ModContent.ItemType<Items.Placeables.Filter>();
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -64,6 +65,31 @@ namespace Techarria.Content.Tiles
 
 
             return new FoundContainer().setNull(true);
+        }
+
+        public override void PlaceInWorld(int i, int j, Item item)
+        {
+            base.PlaceInWorld(i, j, item);
+            for (int x = 0; x < 2048; x++)
+            {
+                if (Techarria.filterPositions[x] == Point.Zero)
+                {
+                    Techarria.filterPositions[x] = new Point(i, j);
+                    Techarria.filterIDs[i, j] = x;
+                    return;
+                }
+            }
+        }
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+            if (Techarria.filterIDs[i, j] >= 0)
+            {
+                Techarria.filterPositions[Techarria.wormholeIDs[i, j]] = Point.Zero;
+                Techarria.filterItems[Techarria.wormholeIDs[i, j]] = 0;
+                Techarria.filterIDs[i, j] = -1;
+            }
         }
 
         public override void HitWire(int i, int j)

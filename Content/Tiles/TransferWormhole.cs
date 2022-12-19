@@ -226,6 +226,9 @@ namespace Techarria.Content.Tiles
                 player.cursorItemIconEnabled = true;
                 player.cursorItemIconID = Techarria.wormholeLinkItems[Techarria.wormholeIDs[i, j]];
             }
+
+            Item item = new Item();
+            item.TurnToAir();
         }
     }
 }

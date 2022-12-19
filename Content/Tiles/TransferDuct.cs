@@ -179,6 +179,7 @@ namespace Techarria.Content.Tiles
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = false;
 
             Techarria.tileIsTransferDuct[Type] = true;
             Techarria.tileConnectToPipe[Type] = true;
