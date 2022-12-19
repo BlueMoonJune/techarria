@@ -34,17 +34,17 @@ namespace Techarria.Content.Tiles
         }
 
 
-        public override FoundContainer EvaluatePath(int x, int y, Item item, int origin, int depth)
+        public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
             origin = (origin + 2) % 4;
             if (depth >= 256)
             {
                 Main.LocalPlayer.PickTile(x, y, 40000);
             }
-            FoundContainer container = FindAdjacentContainer(x, y);
+            ContainerInterface container = FindAdjacentContainer(x, y);
 
             int dir = Main.tile[x, y].TileFrameX % 64 / 16;
-            if (!container.isNull && (container.dir == dir))
+            if (container != null && (container.dir == dir))
             {
                 CreateParticles(x, y, container.dir);
                 return container;
@@ -54,8 +54,8 @@ namespace Techarria.Content.Tiles
             int j = y + dirToY(dir);
             if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType] && dir != origin)
             {
-                FoundContainer target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(dir), y + dirToY(dir), item, dir, depth + 1);
-                if (!target.isNull)
+                ContainerInterface target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(dir), y + dirToY(dir), item, dir, depth + 1);
+                if (target != null)
                 {
                     CreateParticles(x, y, dir);
                     return target;
@@ -63,7 +63,7 @@ namespace Techarria.Content.Tiles
             }
 
 
-            return new FoundContainer().setNull(true);
+            return null;
         }
 
         public override void HitWire(int i, int j)

@@ -11,7 +11,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Particles for item transfer
 	/// </summary>
-    internal class Transfer : ModDust
+    internal class TransferDust : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

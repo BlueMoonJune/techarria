@@ -27,7 +27,7 @@ namespace Techarria.Content.Tiles
             return true;
         }
 
-        public override FoundContainer EvaluatePath(int x, int y, Item item, int origin, int depth)
+        public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
             int filterItemType = Techarria.filterItems[Techarria.filterIDs[x, y]];
             if (filterItemType != 0 && ModContent.GetModItem(filterItemType) is FilterItem filterItem) 
@@ -35,17 +35,17 @@ namespace Techarria.Content.Tiles
                 
                 if (!filterItem.AcceptsItem(item))
                 {
-                    return new FoundContainer().setNull(true);
+                    return null;
                 }
             }
             else if (filterItemType != 0 && item.type != filterItemType)
             {
-                return new FoundContainer().setNull(true);
+                return null;
             }
 
-            FoundContainer container = FindAdjacentContainer(x, y);
+            ContainerInterface container = FindAdjacentContainer(x, y);
             
-            if (!container.isNull && container.dir == origin)
+            if (container != null && container.dir == origin)
             {
                 CreateParticles(x, y, container.dir);
                 return container;
@@ -55,8 +55,8 @@ namespace Techarria.Content.Tiles
             int j = y + dirToY(origin);
             if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType])
             {
-                FoundContainer target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(origin), y + dirToY(origin), item, origin, depth + 1);
-                if (!target.isNull)
+                ContainerInterface target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(origin), y + dirToY(origin), item, origin, depth + 1);
+                if (target != null)
                 {
                     CreateParticles(x, y, origin);
                     return target;
@@ -64,7 +64,7 @@ namespace Techarria.Content.Tiles
             }
 
 
-            return new FoundContainer().setNull(true);
+            return null;
         }
 
         public override void PlaceInWorld(int i, int j, Item item)

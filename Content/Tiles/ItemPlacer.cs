@@ -39,6 +39,7 @@ namespace techarria.Content.Tiles
         public override void HitWire(int i, int j)
         {
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
+            Main.NewText(item.stack);
             int xOff = 0;
             int yOff = 0;
             Tile tile = Framing.GetTileSafely(i, j);
@@ -57,7 +58,7 @@ namespace techarria.Content.Tiles
                 item.TurnToAir();
                 Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
             }
-            if (item.createTile >= 0 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
+            if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
                 item.stack--;
                 if (item.stack <= 0)
                 {
@@ -83,6 +84,15 @@ namespace techarria.Content.Tiles
                 {
                     Techarria.Techarria.itemPlacerPositions[x] = new Point(i, j);
                     Techarria.Techarria.itemPlacerIDs[i, j] = x;
+
+                    Item myItem = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
+                    if (myItem == null)
+                    {
+                        Main.NewText("Item was null");
+                        myItem = new Item();
+                        myItem.TurnToAir();
+                        Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = myItem;
+                    }
                     return;
                 }
             }
