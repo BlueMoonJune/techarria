@@ -139,22 +139,22 @@ namespace Techarria.Content.Tiles
             return true;
         }
 
-        public override FoundContainer EvaluatePath(int x, int y, Item item, int origin, int depth)
+        public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
             if (dusts[Techarria.wormholeIDs[x, y]] != null && dusts[Techarria.wormholeIDs[x, y]].active)
             {
-                return new FoundContainer().setNull(true);
+                return null;
             }
 
             foreach (Point receiver in findTarget(x, y))
             {
                 if (receiver.X == -1 && receiver.Y == -1)
                 {
-                    return new FoundContainer().setNull(true);
+                    return null;
                 }
 
-                FoundContainer container = FindAdjacentContainer(receiver.X, receiver.Y);
-                if (!container.isNull && container.dir == origin)
+                ContainerInterface container = FindAdjacentContainer(receiver.X, receiver.Y);
+                if (container != null && container.dir == origin)
                 {
                     CreateTargetParticles(receiver.X, receiver.Y);
                     CreateParticles(x, y, container.dir);
@@ -166,8 +166,8 @@ namespace Techarria.Content.Tiles
                 int j = dirToY(origin) + receiver.Y;
                 if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType])
                 {
-                    FoundContainer target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(i, j, item, origin, depth + 1);
-                    if (!target.isNull)
+                    ContainerInterface target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(i, j, item, origin, depth + 1);
+                    if (target != null)
                     {
                         lastTarget[Techarria.wormholeIDs[x, y]] = Techarria.wormholeIDs[receiver.X, receiver.Y];
                         CreateTargetParticles(receiver.X, receiver.Y);
@@ -179,7 +179,7 @@ namespace Techarria.Content.Tiles
 
             CreateFailureParticles(x, y);
 
-            return new FoundContainer().setNull(true);
+            return null;
         }
 
         public override void PlaceInWorld(int i, int j, Item item)

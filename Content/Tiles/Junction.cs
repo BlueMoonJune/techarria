@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Techarria.Content.Dusts;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
@@ -24,14 +27,14 @@ namespace Techarria.Content.Tiles
             return true;
         }
 
-        public override FoundContainer EvaluatePath(int x, int y, Item item, int origin, int depth)
+        public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
             if (depth >= 256)
             {
                 Main.LocalPlayer.PickTile(x, y, 40000);
             }
-            FoundContainer container = FindAdjacentContainer(x, y);
-            if (!container.isNull && container.dir == origin)
+            ContainerInterface container = FindAdjacentContainer(x, y);
+            if (container != null && container.dir == origin)
             {
                 CreateParticles(x, y, container.dir);
                 return container;
@@ -41,8 +44,8 @@ namespace Techarria.Content.Tiles
             int j = y + dirToY(origin);
             if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType])
             {
-                FoundContainer target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(origin), y + dirToY(origin), item, origin, depth + 1);
-                if (!target.isNull)
+                ContainerInterface target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(origin), y + dirToY(origin), item, origin, depth + 1);
+                if (target != null)
                 {
                     CreateParticles(x, y, origin);
                     return target;
@@ -50,10 +53,10 @@ namespace Techarria.Content.Tiles
             }
 
 
-            return new FoundContainer().setNull(true);
+            return null;
         }
 
-        public override void HitWire(int i, int j)
+        public override void HitWire(int x, int y)
         {
         }
     }
