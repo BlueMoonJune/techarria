@@ -65,7 +65,7 @@ namespace techarria.Content.Tiles
                 }
             } else
             {
-                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5);
+                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 3);
                 
                 item.stack--;
                 if (item.stack <= 0)
