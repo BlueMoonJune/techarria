@@ -86,8 +86,8 @@ namespace Techarria.Content.Tiles
             base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
             if (Techarria.filterIDs[i, j] >= 0)
             {
-                Techarria.filterPositions[Techarria.wormholeIDs[i, j]] = Point.Zero;
-                Techarria.filterItems[Techarria.wormholeIDs[i, j]] = 0;
+                Techarria.filterPositions[Techarria.filterIDs[i, j]] = Point.Zero;
+                Techarria.filterItems[Techarria.filterIDs[i, j]] = 0;
                 Techarria.filterIDs[i, j] = -1;
             }
         }

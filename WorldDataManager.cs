@@ -107,6 +107,40 @@ namespace Techarria
             tag["wormholeItems"] = shortenedWormholeItems;
             tag["wormholePosX"] = shortenedWormholePosX;
             tag["wormholePosY"] = shortenedWormholePosY;
+
+            Item[] tempItemPlacerItems = new Item[Techarria.itemPlacerItems.Length];
+            int[] tempItemPlacerPosX = new int[Techarria.itemPlacerPositions.Length];
+            int[] tempItemPlacerPosY = new int[Techarria.itemPlacerPositions.Length];
+            count = 0;
+
+            for (int i = 0; i < Techarria.itemPlacerItems.Length; i++)
+            {
+                if (Techarria.itemPlacerPositions[i] != Point.Zero)
+                {
+                    tempItemPlacerItems[count] = Techarria.itemPlacerItems[i];
+                    tempItemPlacerPosX[count] = Techarria.itemPlacerPositions[i].X;
+                    tempItemPlacerPosY[count] = Techarria.itemPlacerPositions[i].Y;
+                    count++;
+                }
+            }
+
+            int[] shortenedItemPlacerItemTypes = new int[count];
+            int[] shortenedItemPlacerItemStacks = new int[count];
+            int[] shortenedItemPlacerPosX = new int[count];
+            int[] shortenedItemPlacerPosY = new int[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                shortenedItemPlacerItemTypes[i] = tempItemPlacerItems[i].type;
+                shortenedItemPlacerItemStacks[i] = tempItemPlacerItems[i].stack;
+                shortenedItemPlacerPosX[i] = tempItemPlacerPosX[i];
+                shortenedItemPlacerPosY[i] = tempItemPlacerPosY[i];
+            }
+
+            tag["itemPlacerItemTypes"] = shortenedItemPlacerItemTypes;
+            tag["itemPlacerItemStacks"] = shortenedItemPlacerItemStacks;
+            tag["itemPlacerPosX"] = shortenedItemPlacerPosX;
+            tag["itemPlacerPosY"] = shortenedItemPlacerPosY;
         }
     }
 }

@@ -57,7 +57,16 @@ namespace techarria.Content.Tiles
                 item.TurnToAir();
                 Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
             }
-            if (WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
+            if (item.createTile >= 0 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
+                item.stack--;
+                if (item.stack <= 0)
+                {
+                    item.TurnToAir();
+                }
+            } else
+            {
+                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5);
+                
                 item.stack--;
                 if (item.stack <= 0)
                 {
@@ -98,6 +107,10 @@ namespace techarria.Content.Tiles
         {
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
             Item playerItem = Main.player[Main.myPlayer].HeldItem;
+            if (!Main.mouseItem.IsAir)
+            {
+
+            }
             if (item == null)
             {
                 item = new Item();
