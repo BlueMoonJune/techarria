@@ -51,7 +51,19 @@ namespace techarria.Content.Tiles
             } else {
                 yOff = 1;
             }
-            WorldGen.PlaceTile(i + xOff, j + yOff, item.type);
+            if (item == null)
+            {
+                item = new Item();
+                item.TurnToAir();
+                Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
+            }
+            if (WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
+                item.stack--;
+                if (item.stack <= 0)
+                {
+                    item.TurnToAir();
+                }
+            }
         }
         public override void PlaceInWorld(int i, int j, Item item)
         {
@@ -70,9 +82,14 @@ namespace techarria.Content.Tiles
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+            Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
+            if (item != null) {
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, item.stack);
+            }
             if (Techarria.Techarria.itemPlacerIDs[i, j] >= 0)
             {
                 Techarria.Techarria.itemPlacerPositions[Techarria.Techarria.itemPlacerIDs[i, j]] = Point.Zero;
+                Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = null;
                 Techarria.Techarria.itemPlacerIDs[i, j] = -1;
             }
         }
@@ -100,10 +117,11 @@ namespace techarria.Content.Tiles
                 Main.NewText("Player's Item isn't air");
                 if (item.IsAir)
                 {
-                    item.type = playerItem.type;
+                    item = playerItem.Clone();
+                    Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
                     item.stack = 1;
                     playerItem.stack--;
-                } else if ((item.type == playerItem.type) && (item.stack < item.maxStack))
+                } else if (item.type == playerItem.type)
                 {
                     Main.NewText("Not empty, incrementing stack size");
                     item.stack++;
@@ -113,7 +131,6 @@ namespace techarria.Content.Tiles
                         playerItem.TurnToAir();
                     }
                 }
-                Main.NewText(item.stack + ", " + item.maxStack);
             }
             return true;
         }
@@ -123,7 +140,7 @@ namespace techarria.Content.Tiles
             Item item = Techarria.Techarria.itemPlacerItems[id];
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            if ((item != null) && (item.IsAir))
+            if ((item != null) && (!item.IsAir))
             {
                 player.cursorItemIconEnabled = true;
                 player.cursorItemIconText = ""+item.stack;
