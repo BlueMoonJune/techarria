@@ -10,15 +10,16 @@ namespace Techarria.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Left click to spark wires\nRight click to trigger blocks");
+			Item.SetNameOverride("Mechanic's Hammer");
+			Tooltip.SetDefault("Left click to trigger blocks\nRight click to spark wires");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.width = 52;
-			Item.height = 52;
+			Item.width = 40;
+			Item.height = 40;
 			Item.useTime = 5;
 			Item.useAnimation = 5;
 			Item.useStyle = ItemUseStyleID.Swing;
