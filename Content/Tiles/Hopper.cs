@@ -14,6 +14,7 @@ namespace Techarria.Content.Tiles
         {
             base.SetStaticDefaults();
             Main.tileSolidTop[Type] = true;
+            ItemDrop = ModContent.ItemType<Items.Placeables.Hopper>();
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
