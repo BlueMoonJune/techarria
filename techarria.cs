@@ -21,6 +21,13 @@ namespace Techarria
         /// <summary>contains the wormhole ID for that position</summary>
         public static int[,] wormholeIDs = new int[Main.maxTilesX, Main.maxTilesY];
 
+        ///
+        public static Item[] itemPlacerItems = new Item[8192];
+        ///
+        public static Point[] itemPlacerPositions = new Point[8192];
+        ///
+        public static int[,] itemPlacerIDs = new int[Main.maxTilesX, Main.maxTilesY];
+
         /// <summary>Whether or not this type is an item transfer tile</summary>
         public static bool[] tileIsTransferDuct = new bool[TileLoader.TileCount];
         /// <summary>Whether or not transfer ducts should connect to this type of tile</summary>

@@ -18,7 +18,7 @@ namespace Techarria.Content.Tiles
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ItemDrop = ModContent.ItemType<Items.Placeables.Junction>();
+            ItemDrop = ModContent.ItemType<Items.Placeables.Filter>();
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
