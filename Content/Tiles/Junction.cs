@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Techarria.Content.Dusts;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
@@ -53,7 +56,7 @@ namespace Techarria.Content.Tiles
             return null;
         }
 
-        public override void HitWire(int i, int j)
+        public override void HitWire(int x, int y)
         {
         }
     }
