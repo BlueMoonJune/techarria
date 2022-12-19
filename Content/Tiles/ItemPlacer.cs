@@ -80,13 +80,14 @@ namespace techarria.Content.Tiles
         public override bool RightClick(int i, int j)
         {
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
+            Item playerItem = Main.player[Main.myPlayer].HeldItem;
             if (item == null)
             {
                 item = new Item();
                 item.TurnToAir();
                 Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
             }
-            if (Main.player[Main.myPlayer].HeldItem.IsAir && !item.IsAir)
+            if (playerItem.IsAir && !item.IsAir)
             {
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type);
                 item.stack--;
@@ -94,30 +95,35 @@ namespace techarria.Content.Tiles
                 {
                     item.TurnToAir();
                 }
-            } else {
+            } else
+            {
+                Main.NewText("Player's Item isn't air");
                 if (item.IsAir)
                 {
-                    item.type = Main.player[Main.myPlayer].HeldItem.type;
+                    item.type = playerItem.type;
                     item.stack = 1;
-                    Main.player[Main.myPlayer].HeldItem.stack--;
-                } else if ((item.type == Main.player[Main.myPlayer].HeldItem.type) && (item.stack < item.maxStack))
+                    playerItem.stack--;
+                } else if ((item.type == playerItem.type) && (item.stack < item.maxStack))
                 {
+                    Main.NewText("Not empty, incrementing stack size");
                     item.stack++;
-                    Main.player[Main.myPlayer].HeldItem.stack--;
-                    if (Main.player[Main.myPlayer].HeldItem.stack <= 0)
+                    playerItem.stack--;
+                    if (playerItem.stack <= 0)
                     {
-                        Main.player[Main.myPlayer].HeldItem.TurnToAir();
+                        playerItem.TurnToAir();
                     }
                 }
+                Main.NewText(item.stack + ", " + item.maxStack);
             }
             return true;
         }
         public override void MouseOver(int i, int j)
         {
-            Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
+            int id = Techarria.Techarria.itemPlacerIDs[i, j];
+            Item item = Techarria.Techarria.itemPlacerItems[id];
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            if ((item != null) && (item.type != 0))
+            if ((item != null) && (item.IsAir))
             {
                 player.cursorItemIconEnabled = true;
                 player.cursorItemIconText = ""+item.stack;
