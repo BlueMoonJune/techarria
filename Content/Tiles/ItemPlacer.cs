@@ -38,6 +38,7 @@ namespace techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
+            Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
             int xOff = 0;
             int yOff = 0;
             Tile tile = Framing.GetTileSafely(i, j);
@@ -50,7 +51,7 @@ namespace techarria.Content.Tiles
             } else {
                 yOff = 1;
             }
-            WorldGen.PlaceTile(i + xOff, j + yOff, 31);
+            WorldGen.PlaceTile(i + xOff, j + yOff, item.type);
         }
         public override void PlaceInWorld(int i, int j, Item item)
         {
@@ -79,35 +80,33 @@ namespace techarria.Content.Tiles
         public override bool RightClick(int i, int j)
         {
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-            Item playerItem = Main.player[Main.myPlayer].HeldItem;
             if (item == null)
             {
                 item = new Item();
                 item.TurnToAir();
+                Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
             }
-            if (playerItem.IsAir)
+            if (Main.player[Main.myPlayer].HeldItem.IsAir && !item.IsAir)
             {
-                if (!item.IsAir)
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type);
+                item.stack--;
+                if (item.stack <= 0)
                 {
-                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type);
-                    item.stack--;
-                    if (item.stack <= 0)
-                    {
-                        item.TurnToAir();
-                    }
+                    item.TurnToAir();
                 }
             } else {
                 if (item.IsAir)
                 {
-                    item.type = playerItem.type;
+                    item.type = Main.player[Main.myPlayer].HeldItem.type;
                     item.stack = 1;
-                } else if ((item.type == playerItem.type) && (item.stack < item.maxStack))
+                    Main.player[Main.myPlayer].HeldItem.stack--;
+                } else if ((item.type == Main.player[Main.myPlayer].HeldItem.type) && (item.stack < item.maxStack))
                 {
                     item.stack++;
-                    playerItem.stack--;
-                    if (playerItem.stack <= 0)
+                    Main.player[Main.myPlayer].HeldItem.stack--;
+                    if (Main.player[Main.myPlayer].HeldItem.stack <= 0)
                     {
-                        playerItem.TurnToAir();
+                        Main.player[Main.myPlayer].HeldItem.TurnToAir();
                     }
                 }
             }
