@@ -38,8 +38,9 @@ namespace techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
+            Main.NewText("Techarria.Techarria.itemPlacerIDs[i, j]");
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-            Main.NewText(item.stack);
+            Main.NewText(item.type);
             int xOff = 0;
             int yOff = 0;
             Tile tile = Framing.GetTileSafely(i, j);
@@ -60,19 +61,17 @@ namespace techarria.Content.Tiles
             }
             if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
                 item.stack--;
-                if (item.stack <= 0)
-                {
-                    item.TurnToAir();
-                }
             } else
             {
                 Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 3);
                 
                 item.stack--;
-                if (item.stack <= 0)
-                {
-                    item.TurnToAir();
-                }
+            }
+
+            if (item.stack <= 0)
+            {
+                item.TurnToAir();
+                item.createTile = -1;
             }
         }
         public override void PlaceInWorld(int i, int j, Item item)
@@ -101,6 +100,7 @@ namespace techarria.Content.Tiles
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+            if (effectOnly) { return; }
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
             if (item != null) {
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, item.stack);
@@ -160,6 +160,7 @@ namespace techarria.Content.Tiles
         public override void MouseOver(int i, int j)
         {
             int id = Techarria.Techarria.itemPlacerIDs[i, j];
+            Main.NewText(id);
             Item item = Techarria.Techarria.itemPlacerItems[id];
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
