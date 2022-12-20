@@ -30,7 +30,7 @@ namespace Techarria.Transfer
         public override bool InsertItem(Item item)
         {
             Item myItem = Techarria.itemPlacerItems[Techarria.itemPlacerIDs[x, y]];
-            if (myItem.IsAir)
+            if (myItem == null || myItem.IsAir)
             {
                 myItem = item.Clone();
                 myItem.stack = 1;

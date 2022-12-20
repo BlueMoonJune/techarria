@@ -38,8 +38,10 @@ namespace techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
+            
             Main.NewText("Techarria.Techarria.itemPlacerIDs[i, j]");
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
+            if (item == null) { return; }
             Main.NewText(item.type);
             int xOff = 0;
             int yOff = 0;
@@ -63,7 +65,7 @@ namespace techarria.Content.Tiles
                 item.stack--;
             } else
             {
-                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 3);
+                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 1);
                 
                 item.stack--;
             }
@@ -81,6 +83,7 @@ namespace techarria.Content.Tiles
             {
                 if (Techarria.Techarria.itemPlacerPositions[x] == Point.Zero)
                 {
+                    Main.NewText("Placed ItemPlacer " + x);
                     Techarria.Techarria.itemPlacerPositions[x] = new Point(i, j);
                     Techarria.Techarria.itemPlacerIDs[i, j] = x;
 
@@ -116,7 +119,15 @@ namespace techarria.Content.Tiles
         public override bool RightClick(int i, int j)
         {
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-            Item playerItem = Main.player[Main.myPlayer].HeldItem;
+            Item playerItem;
+            if (Main.mouseItem != null && !Main.mouseItem.IsAir)
+            {
+                playerItem = Main.mouseItem;
+            } 
+            else
+            {
+                playerItem = Main.player[Main.myPlayer].HeldItem;
+            }
             if (!Main.mouseItem.IsAir)
             {
 
@@ -127,7 +138,7 @@ namespace techarria.Content.Tiles
                 item.TurnToAir();
                 Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
             }
-            if (playerItem.IsAir && !item.IsAir)
+            if (playerItem.type != item.type && !item.IsAir)
             {
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type);
                 item.stack--;
