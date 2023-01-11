@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Techarria.Content.Dusts;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
@@ -48,7 +49,10 @@ namespace Techarria.Content.Tiles
                 {
                     Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());
                     CreateParticles(x, y, origin);
-                    Wiring.TripWire(x, y, 1, 1);
+                    if (!Wiring._toProcess.Keys.Contains(new Point16(x, y)))
+                    {
+                        Wiring._toProcess.Add(new Point16(x, y), 3);
+                    }
                 }
                 return target;
             }
