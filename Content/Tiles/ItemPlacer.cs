@@ -88,14 +88,12 @@ namespace techarria.Content.Tiles
             {
                 if (Techarria.Techarria.itemPlacerPositions[x] == Point.Zero)
                 {
-                    Main.NewText("Placed ItemPlacer " + x);
                     Techarria.Techarria.itemPlacerPositions[x] = new Point(i, j);
                     Techarria.Techarria.itemPlacerIDs[i, j] = x;
 
                     Item myItem = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
                     if (myItem == null)
                     {
-                        Main.NewText("Item was null");
                         myItem = new Item();
                         myItem.TurnToAir();
                         Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = myItem;
@@ -153,16 +151,14 @@ namespace techarria.Content.Tiles
                 }
             } else
             {
-                Main.NewText("Player's Item isn't air");
                 if (item.IsAir)
                 {
                     item = playerItem.Clone();
                     Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
                     item.stack = 1;
                     playerItem.stack--;
-                } else if (item.type == playerItem.type)
+                } else if (item.type == playerItem.type && item.stack < item.maxStack)
                 {
-                    Main.NewText("Not empty, incrementing stack size");
                     item.stack++;
                     playerItem.stack--;
                     if (playerItem.stack <= 0)
@@ -176,7 +172,6 @@ namespace techarria.Content.Tiles
         public override void MouseOver(int i, int j)
         {
             int id = Techarria.Techarria.itemPlacerIDs[i, j];
-            Main.NewText(id);
             Item item = Techarria.Techarria.itemPlacerItems[id];
             Player player = Main.LocalPlayer;
             player.noThrow = 2;

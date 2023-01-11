@@ -325,7 +325,7 @@ namespace Techarria.Content.Tiles
                         return;
                     }
                 }
-            } else
+            } else if (container == null)
             {
                 Main.tile[i, j].TileType = (ushort)ModContent.TileType<DisabledTransferDuct>();
             }
