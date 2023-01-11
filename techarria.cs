@@ -5,8 +5,15 @@ using Techarria.Content.Items;
 
 namespace Techarria
 {
+
 	public class Techarria : Mod
     {
+        public static void print(object obj)
+        {
+            System.Console.WriteLine(obj);
+            Main.NewText(obj);
+        }
+
         /// <summary>contains the filter item types. 'filterItems[filterIDs[x,y]]' gives you the for the filter at those coords</summary>
         public static int[] filterItems = new int[8192];
         /// <summary>contains the positions filters of each ID are located at</summary>

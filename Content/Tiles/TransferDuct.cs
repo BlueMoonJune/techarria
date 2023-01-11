@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using Terraria.ObjectData;
 using Techarria.Content.Dusts;
 using Terraria.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 namespace Techarria.Content.Tiles
 {
@@ -117,6 +119,9 @@ namespace Techarria.Content.Tiles
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = false;
+            Main.tileSolidTop[Type] = true;
+            Main.tileSolid[Type] = true;
+            Main.tileTable[Type] = true;
 
             Techarria.tileIsTransferDuct[Type] = true;
             Techarria.tileConnectToPipe[Type] = true;
@@ -127,6 +132,11 @@ namespace Techarria.Content.Tiles
             ItemDrop = ModContent.ItemType<Items.Placeables.TransferDuct>();
 
             HitSound = SoundID.Tink;
+        }
+
+        public override bool Slope(int i, int j)
+        {
+            return false;
         }
 
         /// <summary>
@@ -151,6 +161,8 @@ namespace Techarria.Content.Tiles
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
+            SetStaticDefaults();
+
             Tile tile = Framing.GetTileSafely(i, j);
             tile.TileFrameX = 0;
             if (ShouldConnect(i + 1, j, i, j)) 
@@ -309,17 +321,70 @@ namespace Techarria.Content.Tiles
                     {
                         SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer"), new Vector2(i, j) * 16);
                         Wiring.SkipWire(i, j);
-                        item.stack--;
-                        if (item.stack <= 0)
-                        {
-                            item.TurnToAir();
-                        }
+                        container.ExtractItem(item);
                         return;
                     }
                 }
             } else
             {
                 Main.tile[i, j].TileType = (ushort)ModContent.TileType<DisabledTransferDuct>();
+            }
+        }
+
+        public Rectangle[] GetExtensionDestination(int i, int j)
+        {
+            Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
+            Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
+
+            Rectangle[] rects = new Rectangle[4];
+            if (FindContainer(i + 1, j) != null)
+            {
+                rects[0] = new Rectangle((int)pos.X + 16, (int)pos.Y, 16, 16);
+            }
+            if (FindContainer(i, j + 1) != null)
+            {
+                rects[1] = new Rectangle((int)pos.X, (int)pos.Y + 16, 16, 16);
+            }
+            if (FindContainer(i - 1, j) != null)
+            {
+                rects[2] = new Rectangle((int)pos.X - 16, (int)pos.Y, 16, 16);
+            }
+            if (FindContainer(i, j - 1) != null)
+            {
+                rects[3] = new Rectangle((int)pos.X, (int)pos.Y - 16, 16, 16);
+            }
+            return rects;
+        }
+
+        public Rectangle[] GetExtensionSource(int i, int j)
+        {
+            Rectangle[] rects = new Rectangle[4];
+            if (FindContainer(i + 1, j) != null)
+            {
+                rects[0] = new Rectangle(0, 0, 16, 16);
+            }
+            if (FindContainer(i, j + 1) != null)
+            {
+                rects[1] = new Rectangle(16, 16, 16, 16);
+            }
+            if (FindContainer(i - 1, j) != null)
+            {
+                rects[2] = new Rectangle(0, 16, 16, 16);
+            }
+            if (FindContainer(i, j - 1) != null)
+            {
+                rects[3] = new Rectangle(16, 0, 16, 16);
+            }
+            return rects;
+        }
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            Rectangle[] sourceRects = GetExtensionSource(i, j);
+            Rectangle[] destinationRects = GetExtensionDestination(i, j);
+            for (int x = 0; x < 4; x++) {
+                if (sourceRects[x] != new Rectangle())
+                spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/TransferDuctExtensions").Value, destinationRects[x], sourceRects[x], Color.White);
             }
         }
     }

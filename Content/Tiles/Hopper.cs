@@ -24,7 +24,7 @@ namespace Techarria.Content.Tiles
 
         public override void HitWire(int x, int y)
         {
-            Rectangle collectArea = new Rectangle(x * 16 + 4, (y - 1) * 16, 0, 16);
+            Rectangle collectArea = new Rectangle(x * 16 + 4, (y - 1) * 16, 16, 16);
             Dust suction = Dust.NewDustDirect(new Vector2(x, y - 1) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Suction>());
             suction.velocity = new Vector2(0, 1);
             for (int i = 0; i < Main.item.Length; i++)

@@ -20,14 +20,30 @@ namespace Techarria
         {
             Point point = ChestInterface.FindTopLeft(x, y);
             if (point != Point.Zero)
-            {
                 return new ChestInterface(point.X, point.Y);
-            }
+
+            point = ExternalInterfaceInterface.FindTopLeft(x, y);
+            if (point != Point.Zero)
+                return new ExternalInterfaceInterface(point.X, point.Y);
+
             if (ItemPlacerInterface.Check(x, y))
-            {
                 return new ItemPlacerInterface(x, y);
-            }
+
             return null;
+        }
+
+        public static Item decrementItem(Item item)
+        {
+            item.stack--;
+            if (item.stack <= 0)
+                item.TurnToAir();
+            return item;
+        }
+
+        public virtual bool ExtractItem(Item item)
+        {
+            decrementItem(item);
+            return true;
         }
 
         /// <summary>

@@ -8,21 +8,12 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// The disabled variant of TransferDuct
     /// </summary>
-    internal class DisabledTransferDuct : ModTile
+    internal class DisabledTransferDuct : TransferDuct
     {
         public override void SetStaticDefaults()
         {
-            Main.tileBlockLight[Type] = true;
-            Main.tileFrameImportant[Type] = true;
-
-            Techarria.tileConnectToPipe[Type] = true;
-
-            AddMapEntry(Color.Blue, CreateMapEntryName());
-
-            DustType = DustID.Stone;
-            ItemDrop = ModContent.ItemType<Items.Placeables.TransferDuct>();
-
-            HitSound = SoundID.Tink;
+            base.SetStaticDefaults();
+            Techarria.tileIsTransferDuct[Type] = false;
         }
 
         public override void HitWire(int i, int j)

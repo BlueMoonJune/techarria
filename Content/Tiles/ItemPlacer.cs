@@ -63,7 +63,7 @@ namespace techarria.Content.Tiles
             }
             if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
                 item.stack--;
-            } else
+            } else if (item.createTile <= -1)
             {
                 Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 1);
                 
@@ -103,7 +103,7 @@ namespace techarria.Content.Tiles
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
-            if (effectOnly) { return; }
+            if (effectOnly || noItem || fail) { return; }
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
             if (item != null) {
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, item.stack);

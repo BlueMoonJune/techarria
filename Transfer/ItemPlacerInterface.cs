@@ -35,11 +35,13 @@ namespace Techarria.Transfer
                 myItem = item.Clone();
                 myItem.stack = 1;
                 Techarria.itemPlacerItems[Techarria.itemPlacerIDs[x, y]] = myItem;
+                decrementItem(item);
                 return true;
             }
             if (myItem.type == item.type && myItem.stack < myItem.maxStack)
             {
                 myItem.stack++;
+                decrementItem(item);
                 return true;
             }
 

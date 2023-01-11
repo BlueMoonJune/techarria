@@ -32,6 +32,7 @@ namespace Techarria.Content.Items.Tools
         {
 			if (player.whoAmI == Main.myPlayer)
 			{
+				ModContent.GetInstance<Tiles.PlayerInterface>().SetStaticDefaults();
 				bool idc = false;
 				Point pos = Main.MouseWorld.ToTileCoordinates();
 				ModTile tile = TileLoader.GetTile(Main.tile[pos.X, pos.Y].TileType);

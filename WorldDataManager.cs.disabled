@@ -31,7 +31,7 @@ namespace Techarria
                 }
             }
 
-            if (tag["wormholePosX"] is int[] wormholePosX && tag["wormholePosY"] is int[] wormholePosY && tag["wormholeItems"] is int[] wormholeItems)
+            if (tag["wormholePosX"] is int[] wormholePosX && tag["wormholePosY"] is int[] wormholePosY && tag["wormholeItems"] is int[] wormholeItems && wormholePosX.Length > 0 && wormholePosY.Length > 0 && wormholeItems.Length > 0)
             {
                 for (int i = 0; i < wormholePosX.Length; i++)
                 {

@@ -29,16 +29,17 @@ namespace Techarria.Content.Tiles
 
         public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
+            bool mode = Main.tile[x, y].TileFrameX != 0;
             int filterItemType = Techarria.filterItems[Techarria.filterIDs[x, y]];
             if (filterItemType != 0 && ModContent.GetModItem(filterItemType) is FilterItem filterItem) 
             {   
                 
-                if (!filterItem.AcceptsItem(item))
+                if (!filterItem.AcceptsItem(item) ^ mode)
                 {
                     return null;
                 }
             }
-            else if (filterItemType != 0 && item.type != filterItemType)
+            else if ((filterItemType != 0 && item.type != filterItemType) ^ mode)
             {
                 return null;
             }
@@ -94,6 +95,9 @@ namespace Techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
+            Tile tile = Main.tile[i, j];
+            tile.TileFrameX += 16;
+            tile.TileFrameX %= 32;
         }
 
         public override bool RightClick(int i, int j)
