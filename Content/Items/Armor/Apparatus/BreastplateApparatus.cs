@@ -27,7 +27,7 @@ namespace Techarria.Content.Items.Armor.Apparatus
             if (player.armor[0] == null && player.armor[0].ModItem.IsArmorSet(player.armor[0], player.armor[1], player.armor[2]))
             {
                 if (player.armor[0].ModItem is RadiatorApparatus)
-                    tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set Bonus:\n" + color + "Uses some charge to superheat melee weapons, setting hit enemies on fire]"));
+                    tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set bonus:\n" + color + "Uses some charge to superheat melee weapons, setting hit enemies on fire]"));
 
             }
             base.ModifyTooltips(tooltips);
@@ -41,8 +41,6 @@ namespace Techarria.Content.Items.Armor.Apparatus
             Item.value = Item.sellPrice(gold: 1); // How many coins the item is worth
             Item.rare = ItemRarityID.Green; // The rarity of the item
             Item.defense = 4; // The amount of defense the item will give when equipped
-            Item.useTime = 10;
-            Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item1;
         }

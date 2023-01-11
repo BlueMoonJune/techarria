@@ -9,7 +9,6 @@ namespace Techarria.Content.Items.Armor.Apparatus
     [AutoloadEquip(EquipType.Legs)]
     internal class LeggingsApparatus : PowerArmor
     {
-        static int defaultDefense = 8;
 
         public override void SetStaticDefaults()
         {
@@ -41,9 +40,7 @@ namespace Techarria.Content.Items.Armor.Apparatus
             Item.height = 18; // Height of the item
             Item.value = Item.sellPrice(gold: 1); // How many coins the item is worth
             Item.rare = ItemRarityID.Green; // The rarity of the item
-            Item.defense = defaultDefense; // The amount of defense the item will give when equipped
-            Item.useTime = 10;
-            Item.useAnimation = 10;
+            Item.defense = 3; // The amount of defense the item will give when equipped
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item1;
         }
