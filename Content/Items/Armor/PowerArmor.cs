@@ -50,7 +50,6 @@ namespace Techarria.Content.Items.Armor
 
             if (Player.armor[2].ModItem is LeggingsApparatus leggings && leggings.charge > 0)
             {
-                Main.NewText("Equiped Leggings Apparatus");
                 hasMechJump = true;
                 return;
             }
@@ -90,7 +89,6 @@ namespace Techarria.Content.Items.Armor
                 {
                     if (Player.jump > 0)
                     {
-                        Main.NewText("Just Jumped");
                         waitMechJump = true;
                         return ;
                     }
@@ -113,8 +111,9 @@ namespace Techarria.Content.Items.Armor
             Main.NewText(Player.armor);
             if (Player.armor[0].ModItem is RadiatorApparatus helmet && helmet.IsArmorSet(Player.armor[0], Player.armor[1], Player.armor[2]))
             {
-                foreach (Item item in Player.armor)
+                for (int i = 0; i < 3; i++)
                 {
+                    Item item = Player.armor[i];
                     if (item.ModItem is PowerArmor armor && 1 != armor.Deplete(1))
                     {
                         Player.meleeEnchant = 0;

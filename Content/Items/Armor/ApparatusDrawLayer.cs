@@ -30,7 +30,6 @@ namespace Techarria.Content.Items.Armor
             }
 
             DrawData data = new DrawData(ModContent.Request<Texture2D>("Techarria/Content/Items/Armor/Apparatus/BreastplateApparatus_Body_Overlay").Value, pos, drawPlayer.bodyFrame, Color.White, drawPlayer.bodyRotation, drawInfo.bodyVect, 1f, effects, 0);
-            Main.NewText("Drawing");
             drawInfo.DrawDataCache.Add(data);
 
         }
