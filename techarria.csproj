@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MagicStorage">
-      <HintPath>..\..\..\tModLoader-preview\ModReader\MagicStorage\MagicStorage.dll</HintPath>
+      <HintPath>..\..\ModReader\MagicStorage\MagicStorage.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
