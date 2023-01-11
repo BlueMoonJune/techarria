@@ -90,7 +90,6 @@ namespace Techarria.Content.Items.Armor
                 {
                     if (Player.jump > 0)
                     {
-                        Main.NewText("Just Jumped");
                         waitMechJump = true;
                         return ;
                     }
