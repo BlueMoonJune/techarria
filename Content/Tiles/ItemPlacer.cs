@@ -60,10 +60,6 @@ namespace techarria.Content.Tiles
             }
             if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
                 item.stack--;
-                if (item.stack <= 0)
-                {
-                    item.TurnToAir();
-                }
             } else
             {
                 Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 3);
@@ -73,6 +69,11 @@ namespace techarria.Content.Tiles
                 {
                     item.TurnToAir();
                 }
+            }
+            if (item.stack <= 0)
+            {
+                item.TurnToAir();
+                item.createTile = -1;
             }
         }
         public override void PlaceInWorld(int i, int j, Item item)
