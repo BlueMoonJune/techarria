@@ -38,8 +38,11 @@ namespace techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
+            
+            Main.NewText("Techarria.Techarria.itemPlacerIDs[i, j]");
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-            Main.NewText(item.stack);
+            if (item == null) { return; }
+            Main.NewText(item.type);
             int xOff = 0;
             int yOff = 0;
             Tile tile = Framing.GetTileSafely(i, j);
@@ -62,13 +65,15 @@ namespace techarria.Content.Tiles
                 item.stack--;
             } else
             {
-                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 3);
+                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 1);
                 
                 item.stack--;
-                if (item.stack <= 0)
-                {
-                    item.TurnToAir();
-                }
+            }
+
+            if (item.stack <= 0)
+            {
+                item.TurnToAir();
+                item.createTile = -1;
             }
             if (item.stack <= 0)
             {
@@ -83,6 +88,7 @@ namespace techarria.Content.Tiles
             {
                 if (Techarria.Techarria.itemPlacerPositions[x] == Point.Zero)
                 {
+                    Main.NewText("Placed ItemPlacer " + x);
                     Techarria.Techarria.itemPlacerPositions[x] = new Point(i, j);
                     Techarria.Techarria.itemPlacerIDs[i, j] = x;
 
@@ -102,6 +108,7 @@ namespace techarria.Content.Tiles
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+            if (effectOnly) { return; }
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
             if (item != null) {
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, item.stack);
@@ -117,7 +124,15 @@ namespace techarria.Content.Tiles
         public override bool RightClick(int i, int j)
         {
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-            Item playerItem = Main.player[Main.myPlayer].HeldItem;
+            Item playerItem;
+            if (Main.mouseItem != null && !Main.mouseItem.IsAir)
+            {
+                playerItem = Main.mouseItem;
+            } 
+            else
+            {
+                playerItem = Main.player[Main.myPlayer].HeldItem;
+            }
             if (!Main.mouseItem.IsAir)
             {
 
@@ -128,7 +143,7 @@ namespace techarria.Content.Tiles
                 item.TurnToAir();
                 Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
             }
-            if (playerItem.IsAir && !item.IsAir)
+            if (playerItem.type != item.type && !item.IsAir)
             {
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type);
                 item.stack--;
@@ -161,6 +176,7 @@ namespace techarria.Content.Tiles
         public override void MouseOver(int i, int j)
         {
             int id = Techarria.Techarria.itemPlacerIDs[i, j];
+            Main.NewText(id);
             Item item = Techarria.Techarria.itemPlacerItems[id];
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
