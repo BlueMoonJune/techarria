@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
+/*
 namespace Techarria
 {
     /// <summary>
@@ -144,3 +145,4 @@ namespace Techarria
         }
     }
 }
+*/

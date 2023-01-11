@@ -8,12 +8,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="WorldDataManager.cs.disabled" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="WorldDataManager.cs.disabled" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
