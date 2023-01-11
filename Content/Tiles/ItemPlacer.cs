@@ -75,6 +75,11 @@ namespace techarria.Content.Tiles
                 item.TurnToAir();
                 item.createTile = -1;
             }
+            if (item.stack <= 0)
+            {
+                item.TurnToAir();
+                item.createTile = -1;
+            }
         }
         public override void PlaceInWorld(int i, int j, Item item)
         {
