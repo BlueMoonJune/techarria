@@ -2,12 +2,43 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using Techarria.Content.Items;
+using Terraria.DataStructures;
+using System;
 
 namespace Techarria
 {
 
 	public class Techarria : Mod
     {
+        public static bool Intersects(Rectangle rect, LineSegment line)
+        {
+            Rectangle aabb = new Rectangle();
+            aabb.X = (int)Math.Min(line.Start.X, (int)line.End.X);
+            aabb.Y = (int)Math.Min(line.Start.Y, (int)line.End.Y);
+            aabb.Width = (int)Math.Max(line.Start.X, (int)line.End.X) - aabb.X;
+            aabb.Height = (int)Math.Max(line.Start.Y, (int)line.End.Y) - aabb.Y;
+            if (!aabb.Intersects(rect))
+            {
+                return false;
+            }
+
+            float m = (line.Start.Y - line.End.Y) / (line.Start.X - line.End.X);
+
+            Vector2 slideTR = new Vector2(rect.Left, rect.Top - rect.Width * m);
+            Vector2 slideBR = new Vector2(rect.Left, slideTR.Y + rect.Width);
+
+            float topBound = Math.Max(rect.Top, rect.Bottom);
+            topBound = Math.Max(topBound, slideTR.Y);
+            topBound = Math.Max(topBound, slideBR.Y);
+            float bottomBound = Math.Min(rect.Top, rect.Bottom);
+            bottomBound = Math.Min(bottomBound, slideTR.Y);
+            bottomBound = Math.Min(bottomBound, slideBR.Y);
+
+            float b = m * (rect.Left - line.Start.X) + line.Start.Y;
+
+            return b <= topBound && b >= bottomBound;
+        }
+
         public static void print(object obj)
         {
             System.Console.WriteLine(obj);

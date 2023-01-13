@@ -29,8 +29,6 @@ namespace Techarria.Content.Dusts
 
 			float light = 1f * dust.scale;
 
-			Lighting.AddLight(dust.position, light, light, light);
-
 			if (dust.scale < 0.1f)
 			{
 				dust.active = false;

@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Terraria.ModLoader.IO;
 
 namespace Techarria.Content.Items
 {
@@ -51,6 +52,19 @@ namespace Techarria.Content.Items
             }
             charge -= amount;
             return amount;
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("charge", charge);
+            base.SaveData(tag);
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.ContainsKey("charge"))
+                charge = tag.GetAsInt("charge");
+            base.LoadData(tag);
         }
     }
 }

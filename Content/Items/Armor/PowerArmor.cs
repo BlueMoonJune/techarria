@@ -9,11 +9,16 @@ namespace Techarria.Content.Items.Armor
 {
     internal abstract class PowerArmor : ChargableItem
     {
+        public int damageClass = 0;
         public static int ApparatusMaxCharge = 200;
+
     }
 
     public class PowerArmorPlayer : ModPlayer
     {
+        public int visorCooldown = 0;
+        public int frames = 0;
+
         UserInterface EnergyUI = new UserInterface();
 
         bool hasMechJump = false;
@@ -64,11 +69,15 @@ namespace Techarria.Content.Items.Armor
 
         public override void PostUpdate()
         {
+
+            frames++;
+            if (visorCooldown > 0)
+                visorCooldown--;
             if (Player.armor[0].ModItem is PowerArmor helmet && combatTimer > 0)
             {
                 if (helmetDepleteTimer == 0)
                 {
-                    helmetDepleteTimer = 20;
+                    helmetDepleteTimer = 60;
                     helmet.Deplete(1);
                     combatTimer--;
                 } else
@@ -108,18 +117,18 @@ namespace Techarria.Content.Items.Armor
         public override void OnHitAnything(float x, float y, Entity victim)
         {
             combatTimer = 120;
-            Main.NewText(Player.armor);
-            if (Player.armor[0].ModItem is RadiatorApparatus helmet && helmet.IsArmorSet(Player.armor[0], Player.armor[1], Player.armor[2]))
+            if (Player.armor[0].ModItem is RadiatorApparatus helmet && helmet.IsArmorSet(Player.armor[0], Player.armor[1], Player.armor[2]) && victim is NPC npc)
             {
+                npc.AddBuff(Terraria.ID.BuffID.OnFire, 600);
                 for (int i = 0; i < 3; i++)
                 {
                     Item item = Player.armor[i];
                     if (item.ModItem is PowerArmor armor && 1 != armor.Deplete(1))
                     {
-                        Player.meleeEnchant = 0;
                     }
                 }
             }
+
         }
     }
 }

@@ -27,7 +27,13 @@ namespace Techarria.Content.Items.Armor.Apparatus
             if (player.armor[0] == null && player.armor[0].ModItem.IsArmorSet(player.armor[0], player.armor[1], player.armor[2]))
             {
                 if (player.armor[0].ModItem is RadiatorApparatus)
-                    tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set Bonus:\n" + color + "Uses some charge to superheat melee weapons, setting hit enemies on fire]"));
+                    tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set bonus:" + color + "Uses some charge to superheat melee weapons, setting hit enemies on fire]"));
+                if (player.armor[0].ModItem is VisorApparatus)
+                    tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set Bonus:" + color + "Has a chance to create a burst of lightning when using ranged weapons. Uses some charge]"));
+                if (player.armor[0].ModItem is RadiatorApparatus)
+                    tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set bonus:" + color + "Has a chance to create a burst of shrapnel when a magic projectile hits an enemy, using some charge]"));
+                if (player.armor[0].ModItem is VisorApparatus)
+                    tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set Bonus:" + color + "Summons a drone minion to attack enemies. The drone drains charge when attacking]"));
 
             }
             base.ModifyTooltips(tooltips);

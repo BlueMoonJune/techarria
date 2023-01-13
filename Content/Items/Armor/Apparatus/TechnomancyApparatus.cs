@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Techarria.Content.Items.Armor.Apparatus
 {
     [AutoloadEquip(EquipType.Head)]
-    internal class RadiatorApparatus : PowerArmor
+    internal class TechnomancyApparatus : PowerArmor
     {
 
         public override void SetStaticDefaults()
@@ -24,24 +24,24 @@ namespace Techarria.Content.Items.Armor.Apparatus
             {
                 color = "[c/BFDFFF:";
             }
-            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "12% increased melee damage]\n" + color + "4% increased melee speed]\n" + color + "5% increased critical strike chance]\n" + color + "Slowly consumes charge while in combat]"));
+            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "6% increased magic damage]\n" + color + "+40 mana]\n" + color + "5% increased critical strike chance]\n" + color + "Slowly consumes charge while in combat]"));
             Player player = Main.player[Main.myPlayer];
             if (IsArmorSet(player.armor[0], player.armor[1], player.armor[2]))
             {
-                tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set Bonus:\n" + color + "Uses some charge to superheat melee weapons, setting hit enemies on fire]"));
+                tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set bonus:" + color + "Has a chance to create a burst of shrapnel when a magic projectile hits an enemy, using some charge]"));
             }
             base.ModifyTooltips(tooltips);
         }
 
         public override void SetDefaults()
         {
-            damageClass = 1;
+            damageClass = 3;
             maxcharge = ApparatusMaxCharge;
-            Item.width = 24; // Width of the item
-            Item.height = 22; // Height of the item
+            Item.width = 22; // Width of the item
+            Item.height = 20; // Height of the item
             Item.value = Item.sellPrice(gold: 1); // How many coins the item is worth
             Item.rare = ItemRarityID.Green; // The rarity of the item
-            Item.defense = 9; // The amount of defense the item will give when equipped
+            Item.defense = 5; // The amount of defense the item will give when equipped
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item1;
         }
@@ -78,10 +78,11 @@ namespace Techarria.Content.Items.Armor.Apparatus
         {
             if (charge > 0)
             {
-                player.GetDamage(DamageClass.Melee) += 0.12f;
-                player.GetAttackSpeed(DamageClass.Melee) += 0.04f;
-                player.GetCritChance(DamageClass.Melee) += 0.05f;
+                player.GetDamage(DamageClass.Magic) += 0.06f;
+                player.statManaMax2 += 40;
+                player.manaCost -= 0.05f;
             }
+
         }
     }
 }
