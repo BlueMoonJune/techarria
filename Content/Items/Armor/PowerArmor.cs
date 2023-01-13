@@ -112,6 +112,7 @@ namespace Techarria.Content.Items.Armor
                 }
                 waitMechJump = Player.controlJump;
             }
+
         }
 
         public override void OnHitAnything(float x, float y, Entity victim)
@@ -130,5 +131,7 @@ namespace Techarria.Content.Items.Armor
             }
 
         }
+
+
     }
 }
