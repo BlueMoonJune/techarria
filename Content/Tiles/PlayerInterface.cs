@@ -25,11 +25,9 @@ namespace Techarria.Content.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
 			TileObjectData.addTile(Type);
 
-			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-
 			// Etc
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Table");
+			name.SetDefault("Player Interface");
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 

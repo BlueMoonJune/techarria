@@ -10,6 +10,10 @@ namespace Techarria
 
 	public class Techarria : Mod
     {
+        public static float GenerationMultiplier = 1;
+        public static float CapacityMultiplier = 1;
+        public static float UsageMultiplier = 1;
+
         public static bool Intersects(Rectangle rect, LineSegment line)
         {
             Rectangle aabb = new Rectangle();
