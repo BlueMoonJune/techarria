@@ -15,7 +15,7 @@ namespace Techarria.Content.Items.Placeables
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
         }
-        
+
         public override void SetDefaults()
         {
             Item.width = 32;

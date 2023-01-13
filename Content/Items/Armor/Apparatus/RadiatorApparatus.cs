@@ -12,7 +12,7 @@ namespace Techarria.Content.Items.Armor.Apparatus
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'1000° Night's Edge Challenge'");
+            Tooltip.SetDefault("'1000° night's edge challenge'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
