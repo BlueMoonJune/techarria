@@ -132,7 +132,9 @@ namespace Techarria.Content.Tiles
             destTile.WallFrameX = destTileReset.WallFrameX;
             destTile.WallFrameY = destTileReset.WallFrameY;
             destTile.WallType = destTileReset.WallType;
+            Techarria.BlockDusts = true;
             WorldGen.KillTile(i, j, false, false, true);
+            Techarria.BlockDusts = false;
         }
 
         public static bool isImmovable(int type)
@@ -217,7 +219,9 @@ namespace Techarria.Content.Tiles
             int x = i + dirToX(dir);
             int y = j + dirToY(dir);
 
+            Techarria.BlockDusts = true;
             WorldGen.KillTile(x, y, false, false, true);
+            Techarria.BlockDusts = false;
             tile.TileFrameY = 0;
         }
 

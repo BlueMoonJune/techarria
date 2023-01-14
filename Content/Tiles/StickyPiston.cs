@@ -7,11 +7,12 @@ namespace Techarria.Content.Tiles
     internal class StickyPiston : Piston
     {
 
+
         public override void SetStaticDefaults()
         {
-            myType = ModContent.TileType<StickyPiston>();
             base.SetStaticDefaults();
-            ItemDrop = ModContent.ItemType<Items.Placeables.Piston>();
+            myType = ModContent.TileType<StickyPiston>();
+            ItemDrop = ModContent.ItemType<Items.Placeables.StickyPiston>();
         }
 
         public override void Retract(int i, int j, int dir)
@@ -21,7 +22,9 @@ namespace Techarria.Content.Tiles
             int x = i + dirToX(dir);
             int y = j + dirToY(dir);
 
+            Techarria.BlockDusts = true;
             WorldGen.KillTile(x, y, false, false, true);
+            Techarria.BlockDusts = false;
             tile.TileFrameY = 0;
             PushTile(x - i + x, y - j + y, (dir + 2) % 4, dir);
         }

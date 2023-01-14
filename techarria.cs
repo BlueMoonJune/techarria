@@ -14,6 +14,8 @@ namespace Techarria
         public static float CapacityMultiplier = 1;
         public static float UsageMultiplier = 1;
 
+        public static bool BlockDusts = false;
+
         public static bool Intersects(Rectangle rect, LineSegment line)
         {
             Rectangle aabb = new Rectangle();
@@ -90,10 +92,22 @@ namespace Techarria
             }
         }
 
+
         public override void Load()
         {
             On.Terraria.WorldGen.paintTile += WorldGen_paintTile;
+            On.Terraria.Dust.NewDust += DustDetour;
         }
+
+        private int DustDetour(On.Terraria.Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+        {
+            if (BlockDusts)
+            {
+                return Main.maxDust;
+            }
+            return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale);
+        }
+
         public override void Unload()
         {
             On.Terraria.WorldGen.paintTile -= WorldGen_paintTile;

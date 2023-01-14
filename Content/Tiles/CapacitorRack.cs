@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using System.Collections.Generic;
 
 namespace Techarria.Content.Tiles
 {
@@ -18,6 +19,7 @@ namespace Techarria.Content.Tiles
 		public int lastCharged = 0;
 		public bool discharged = false;
 
+
         public override bool IsTileValidForEntity(int x, int y)
         {
             return Main.tile[x, y].TileType == ModContent.TileType<CapacitorRack>();
@@ -25,6 +27,7 @@ namespace Techarria.Content.Tiles
 
         public override void Update()
 		{
+			Dust.NewDust(new Vector2(Position.X, Position.Y) * 16, 0, 0, ModContent.DustType<TransferDust>());
 			if (discharged)
 			{
 				for (int x = 0; x < 3; x++)
@@ -61,9 +64,13 @@ namespace Techarria.Content.Tiles
     }
 
     internal class CapacitorRack : ModTile
-    {
+	{
+		public static Dictionary<int, string> capacitorTextures = new Dictionary<int, string>();
+
 		public override void SetStaticDefaults()
 		{
+			capacitorTextures.Add(ModContent.ItemType<Capacitor>(), "Capacitor");
+
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -82,8 +89,6 @@ namespace Techarria.Content.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Player Interface");
 			AddMapEntry(new Color(200, 200, 200), name);
-
-			ItemDrop = ModContent.ItemType<Items.Placeables.CapacitorRack>();
 		}
 
 		public CapacitorRackTE GetTileEntity(int i, int j)
@@ -91,7 +96,8 @@ namespace Techarria.Content.Tiles
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 2;
-			return TileEntity.ByPosition[new Point16(i, j)] as CapacitorRackTE;
+			TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity tileEntity);
+			return tileEntity as CapacitorRackTE;
 		}
 
         public override void PlaceInWorld(int i, int j, Item item)
@@ -103,13 +109,24 @@ namespace Techarria.Content.Tiles
 			ModContent.GetInstance<CapacitorRackTE>().Place(i, j);
         }
 
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
+		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			if (tileEntity == null) return;
 			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
-			Main.NewText(i + " " + j);
-			ModContent.GetInstance<CapacitorRackTE>().Kill(i, j);
+			int c = tile.TileFrameX / 18;
+			if (tile.TileFrameY / 36 == 0 && !tileEntity.items[c].IsAir) { 
+				Item newItem = Main.item[Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, tileEntity.items[c].type)];
+				Capacitor newCapacitor = newItem.ModItem as Capacitor;
+				Capacitor capacitor = tileEntity.items[c].ModItem as Capacitor;
+				newCapacitor.charge = capacitor.charge;
+			}
+			if (tile.TileFrameX % 54 == 0 && tile.TileFrameY % 36 == 0)
+            {
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<Items.Placeables.CapacitorRack>());
+
+				ModContent.GetInstance<CapacitorRackTE>().Kill(i, j);
+			}
 		}
 
 		public static bool AcceptsItem(Item item)
@@ -121,6 +138,8 @@ namespace Techarria.Content.Tiles
         {
 			Main.NewText("RightClick");
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			if (tileEntity == null) return false;
+
 			Item item = tileEntity.items[i-tileEntity.Position.X];
 			Item playerItem;
 			if (!Main.mouseItem.IsAir)
@@ -157,9 +176,11 @@ namespace Techarria.Content.Tiles
 			}
 			return false;
 		}
+
 		public override void MouseOver(int i, int j)
 		{
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			if (tileEntity == null) return;
 			if (j != tileEntity.Position.Y)
             {
 				return;
@@ -202,8 +223,25 @@ namespace Techarria.Content.Tiles
             {
 				tileEntity.discharged = true;
 			}
+		}
 
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+			Tile tile = Main.tile[i, j];
+			if (tile.TileFrameY != 0)
+            {
+				return;
+            }
+			Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
+			Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
 
+			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			if (tileEntity == null) return;
+			int c = tile.TileFrameX / 18;
+				Item item = tileEntity.items[c];
+				if (item == null || item.IsAir)
+					return;
+				spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Capacitors/" + capacitorTextures[item.type]).Value, new Rectangle((int)pos.X, (int)pos.Y, 16, 16), Color.White);
 		}
     }
 }
