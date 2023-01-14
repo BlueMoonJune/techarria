@@ -124,14 +124,23 @@ namespace Techarria.Content.Tiles
         {
             Tile sourceTile = Main.tile[i, j];
             Tile destTile = Main.tile[x, y];
-            Tile destTileReset = (Tile) destTile.Clone();
-            WorldGen.PlaceTile(x, y, sourceTile.TileType, true, true);
+            Tile destTileReset = new Tile();
+            destTileReset.CopyFrom(destTile);
             destTile.CopyFrom(sourceTile);
+            sourceTile.ClearEverything();
+
+            sourceTile.WallColor = destTile.WallColor;
+            sourceTile.WallFrameNumber = destTile.WallFrameNumber;
+            sourceTile.WallFrameX = destTile.WallFrameX;
+            sourceTile.WallFrameY = destTile.WallFrameY;
+            sourceTile.WallType = destTile.WallType;
+
             destTile.WallColor = destTileReset.WallColor;
             destTile.WallFrameNumber = destTileReset.WallFrameNumber;
             destTile.WallFrameX = destTileReset.WallFrameX;
             destTile.WallFrameY = destTileReset.WallFrameY;
             destTile.WallType = destTileReset.WallType;
+
             Techarria.BlockDusts = true;
             WorldGen.KillTile(i, j, false, false, true);
             Techarria.BlockDusts = false;
@@ -205,7 +214,6 @@ namespace Techarria.Content.Tiles
             if (!destTile.HasTile || PushTile(x, y, dir))
             {
                 CloneTile(i, j, x, y);
-                myTile.ClearEverything();
                 blockCount++;
                 return true;
             }
