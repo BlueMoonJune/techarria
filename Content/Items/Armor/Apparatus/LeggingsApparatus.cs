@@ -10,7 +10,7 @@ using Terraria.DataStructures;
 namespace Techarria.Content.Items.Armor.Apparatus
 {
     [AutoloadEquip(EquipType.Legs)]
-    internal class LeggingsApparatus : PowerArmor
+    public class LeggingsApparatus : PowerArmor
     {
 
         public override void SetStaticDefaults()

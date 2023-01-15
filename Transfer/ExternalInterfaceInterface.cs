@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-    internal class ExternalInterfaceInterface : ContainerInterface
+    public class ExternalInterfaceInterface : ContainerInterface
     {
         public ExternalInterfaceInterface(int i, int j)
         {

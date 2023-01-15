@@ -9,7 +9,7 @@ namespace Techarria
     /// <summary>
     /// Saves and loads world data for this mod
     /// </summary>
-    internal class WorldDataManager : ModSystem
+    public class WorldDataManager : ModSystem
     {
         public override void LoadWorldData(TagCompound tag)
         {

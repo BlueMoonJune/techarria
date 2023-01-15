@@ -11,7 +11,7 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles
 {
-    internal class GelatinousTurbineTE : ModTileEntity
+    public class GelatinousTurbineTE : ModTileEntity
     {
 		public Item item;
 		public int burnTime = 0;
@@ -50,19 +50,20 @@ namespace Techarria.Content.Tiles
 				for (int i = 0; i < (int)Techarria.GenerationMultiplier; i++)
                 {
 					Wiring.TripWire(Position.X, Position.Y, 3, 2);
+					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
                 }
 				pulseFraction += Techarria.GenerationMultiplier % 1f;
 				if (pulseFraction >= 1)
                 {
 					pulseFraction -= 1;
-					Wiring.TripWire(Position.X, Position.Y, 3, 2);
+					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
 				}
 				burnTime--;
             }
 
 			if (burnTime % 15 == 1)
 			{
-				frame = (frame + 1) % 3;
+				frame = (frame + 1) % 4;
 				for (int i = 0; i < 3; i++)
 				{
 					for (int j = 0; j < 2; j++)
@@ -118,7 +119,7 @@ namespace Techarria.Content.Tiles
         }
     }
 
-    internal class GelatinousTurbine : ModTile
+    public class GelatinousTurbine : ModTile
     {
 		public override void SetStaticDefaults()
 		{

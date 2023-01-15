@@ -2,7 +2,7 @@
 
 namespace Techarria.Content.Items
 {
-    internal class Capacitor : ChargableItem
+    public class Capacitor : ChargableItem
     {
         public override void SetStaticDefaults()
         {

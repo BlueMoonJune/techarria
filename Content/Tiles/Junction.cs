@@ -14,7 +14,7 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// Sends items straight through itself
     /// </summary>
-    internal class Junction : TransferDuct
+    public class Junction : TransferDuct
     {
         public override void SetStaticDefaults()
         {

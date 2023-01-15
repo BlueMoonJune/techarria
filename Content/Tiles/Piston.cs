@@ -9,7 +9,7 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// A tile that pushes blocks when powered. Has a push limit of 32.
     /// </summary>
-    internal class Piston : ModTile
+    public class Piston : ModTile
     {
         public int myType;
         public static int blockCount = 0;

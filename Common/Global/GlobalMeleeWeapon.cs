@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Common.Global
 {
-    internal class GlobalMeleeWeapon : GlobalItem
+    public class GlobalMeleeWeapon : GlobalItem
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {

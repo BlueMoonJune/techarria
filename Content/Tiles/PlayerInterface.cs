@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles
 {
-	public class PlayerInterface : ModTile
+	public class PlayerInterface : PowerConsumer
 	{
 		public override void SetStaticDefaults()
 		{
@@ -41,7 +41,7 @@ namespace Techarria.Content.Tiles
 			Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 48, 32, ModContent.ItemType<Items.Placeables.ExampleTable>());
 		}
 
-        public override void HitWire(int i, int j)
+        public override void InsertPower(int i, int j, int amount)
         {
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18;
@@ -52,20 +52,37 @@ namespace Techarria.Content.Tiles
             {
 				if (scanRect.Intersects(player.getRect()))
                 {
-					foreach (Item item in player.inventory)
-                    {
-						if (item.ModItem is ChargableItem chargable)
-                        {
-							chargable.Charge( 1 );
-                        }
-					}
-
-					foreach (Item item in player.armor)
+					for (int c = 0; c < amount;)
 					{
-						if (item.ModItem is ChargableItem chargable)
+						bool founditem = false;
+						foreach (Item item in player.inventory)
 						{
-							chargable.Charge( 1 );
+							if (item.ModItem is ChargableItem chargable)
+							{
+								if (c < amount && chargable.Charge(1) == 1)
+								{
+									Main.NewText("Charged Inventory");
+									founditem = true;
+									c++;
+									continue;
+								}
+							}
 						}
+
+						foreach (Item item in player.armor)
+						{
+							if (item.ModItem is ChargableItem chargable)
+							{
+								if (c < amount && chargable.Charge(1) == 1)
+								{
+									Main.NewText("Charged Armor");
+									founditem = true;
+									c++;
+									continue;
+								}
+							}
+						}
+						if (!founditem) break;
 					}
 				}
             }

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace techarria.Content.Items.Placeables
 {
-    internal class ItemPlacer : ModItem
+    public class ItemPlacer : ModItem
     {
         public override void SetStaticDefaults()
         {

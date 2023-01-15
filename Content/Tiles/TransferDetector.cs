@@ -14,7 +14,7 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// Outputs a wire pulse when items are transfered through it
     /// </summary>
-    internal class TransferDetector : TransferDuct
+    public class TransferDetector : TransferDuct
     {
         public override void SetStaticDefaults()
         {

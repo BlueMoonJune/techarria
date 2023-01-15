@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Tools
 {
-    internal class MechanicHammer : ModItem
+    public class MechanicHammer : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

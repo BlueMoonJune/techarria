@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables
     /// <summary>
     /// Item form of Junction
     /// </summary>
-    internal class StickyPiston : ModItem
+    public class StickyPiston : ModItem
     {
         public override void SetStaticDefaults()
         {

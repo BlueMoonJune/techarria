@@ -8,7 +8,7 @@ using Terraria.Audio;
 
 namespace Techarria.Content.Tiles
 {
-    internal class Hopper : TransferDuct
+    public class Hopper : TransferDuct
     {
         public override void SetStaticDefaults()
         {

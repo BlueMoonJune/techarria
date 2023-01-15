@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Techarria.Transfer
 {
-    internal class ItemPlacerInterface : ContainerInterface
+    public class ItemPlacerInterface : ContainerInterface
     {
         public ItemPlacerInterface(int i, int j)
         {

@@ -11,7 +11,7 @@ using Terraria.GameContent;
 namespace Techarria.Content.Tiles
 {
     /// <summary>Basic item transportation tile. Other item transfer tiles should extend this</summary>
-    internal class TransferDuct : ModTile
+    public class TransferDuct : ModTile
     {
 
         /// <summary>That last direction that an item was sent in. Used for round-robin</summary>

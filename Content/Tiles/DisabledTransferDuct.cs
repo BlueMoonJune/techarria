@@ -8,7 +8,7 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// The disabled variant of TransferDuct
     /// </summary>
-    internal class DisabledTransferDuct : TransferDuct
+    public class DisabledTransferDuct : TransferDuct
     {
         public override void SetStaticDefaults()
         {

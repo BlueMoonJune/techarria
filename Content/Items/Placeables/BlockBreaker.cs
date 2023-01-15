@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables
     /// <summary>
     /// Item form of BlockBreaker
     /// </summary>
-    internal class BlockBreaker : ModItem
+    public class BlockBreaker : ModItem
     {
         public override void SetStaticDefaults()
         {

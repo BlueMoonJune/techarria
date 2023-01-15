@@ -12,7 +12,7 @@ namespace Techarria.Content.Items.FilterItems
     /// <summary>
     /// A class for items that do something special in a Filter
     /// </summary>
-    internal abstract class FilterItem : ModItem
+    public abstract class FilterItem : ModItem
     {
         public override void SetStaticDefaults()
         {

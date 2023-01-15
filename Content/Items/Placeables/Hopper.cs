@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables
     /// <summary>
     /// Item form of Filter
     /// </summary>
-    internal class Hopper : ModItem
+    public class Hopper : ModItem
     {
         public override void SetStaticDefaults()
         {

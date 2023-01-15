@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Techarria.Content.Items.Armor.Apparatus
 {
     [AutoloadEquip(EquipType.Head)]
-    internal class RadiatorApparatus : PowerArmor
+    public class RadiatorApparatus : PowerArmor
     {
 
         public override void SetStaticDefaults()

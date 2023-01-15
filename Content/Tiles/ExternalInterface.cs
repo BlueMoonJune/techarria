@@ -7,7 +7,7 @@ namespace Techarria.Content.Tiles
 {
     [JITWhenModsEnabled("MagicStorage")]
     [ExtendsFromMod("MagicStorage")]
-    internal class ExternalInterface : StorageAccess
+    public class ExternalInterface : StorageAccess
     {
         public override int ItemType(int frameX, int frameY) => ModContent.ItemType<Items.Placeables.ExternalInterface>();
     }

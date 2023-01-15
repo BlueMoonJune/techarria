@@ -7,7 +7,7 @@ using Terraria.UI;
 
 namespace Techarria.Content.Items.Armor
 {
-    internal abstract class PowerArmor : ChargableItem
+    public abstract class PowerArmor : ChargableItem
     {
         public int damageClass = 0;
         public static int ApparatusMaxCharge = 200;
