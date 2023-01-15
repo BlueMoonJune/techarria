@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
 
 namespace Techarria.Content.NPCs
 {
@@ -13,6 +14,14 @@ namespace Techarria.Content.NPCs
         {
             DisplayName.SetDefault("Spiked Dungeon Slime");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[2];
+
+            // debuff immunity
+            NPCID.Sets.DebuffImmunitySets.Add(Type, new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] {
+                    BuffID.Poisoned // This NPC will be immune to the Poisoned debuff.
+				}
+            });
         }
 
         public override void SetDefaults()
@@ -50,19 +59,9 @@ namespace Techarria.Content.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return SpawnCondition.DungeonNormal.Chance * 0.1f;
+            return SpawnCondition.DungeonNormal.Chance * 0.05f;
         }
-        /* // probably not useful
-        public override void FindFrame(int frameHeight)
-        {
-            NPC.frameCounter++;
-            if (NPC.frameCounter >= 20)
-            {
-                NPC.frameCounter = 0;
-            }
-            NPC.frame.Y = (int)NPC.frameCounter / 10 * frameHeight;
-        }
-        */
+
         // loot table
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
