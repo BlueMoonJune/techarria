@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
+using System.Collections.Generic;
 
 namespace Techarria.Content.Tiles
 {
@@ -11,6 +12,8 @@ namespace Techarria.Content.Tiles
     /// </summary>
     public class Piston : ModTile
     {
+        public static List<Point> scanned = new List<Point>();
+
         public int myType;
         public static int blockCount = 0;
         public static int dirToX(int dir)
@@ -170,17 +173,25 @@ namespace Techarria.Content.Tiles
                 int x = i + dirToX(k);
                 int y = j + dirToY(k);
                 Techarria.print("Moving direction " + k);
-                if (k != dir && k != origin && !isImmovable(Main.tile[x, y].TileType) && Main.tile[x, y].HasTile)
+                if (!isImmovable(Main.tile[x, y].TileType) && Main.tile[x, y].HasTile)
                 {
-                    success = success && PushTile(x, y, dir, k);
+                    int result = PushTile(x, y, dir, k);
+                    if (result != 1) success = success && result != 0;
                 }
             }
             return success;
         }
 
-        public static bool PushTile(int i, int j, int dir, int origin = -1)
+        public static int PushTile(int i, int j, int dir, int origin = -1)
         {
             
+
+            if (scanned.Contains(new Point(i, j)))
+            {
+                return 1;
+            }
+            scanned.Add(new Point(i, j));
+
             if (origin == -1)
             {
                 origin = (dir + 2) % 4;
@@ -191,33 +202,33 @@ namespace Techarria.Content.Tiles
             {
                 if (!PushSticky(i, j, dir, origin))
                 {
-                    return false;
+                    return 0;
                 }
             }
 
             if (isImmovable(myTile.TileType))
             {
-                return false;
+                return 0;
             }
             if (!Main.tile[i, j].HasTile)
             {
-                return true;
+                return 1;
             }
             if (blockCount >= 32)
             {
-                return false;
+                return 0;
             }
 
             int x = i + dirToX(dir);
             int y = j + dirToY(dir);
             Tile destTile = Main.tile[x, y];
-            if (!destTile.HasTile || PushTile(x, y, dir))
+            if (!destTile.HasTile || PushTile(x, y, dir) != 0)
             {
                 CloneTile(i, j, x, y);
                 blockCount++;
-                return true;
+                return 2;
             }
-            return false;
+            return 0;
         }
 
         public virtual void Retract(int i, int j, int dir)
@@ -235,6 +246,8 @@ namespace Techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
+            scanned.Clear();
+            scanned.Add(new Point(i, j));
             Tile tile = Framing.GetTileSafely(i, j);
             if (tile.TileFrameY == 32)
             {
@@ -252,7 +265,7 @@ namespace Techarria.Content.Tiles
                 return;
             }
             blockCount = 0;
-            if (PushTile(x, y, dir))
+            if (PushTile(x, y, dir) != 0)
             {
                 WorldGen.PlaceTile(x, y, myType, false, true);
                 Main.tile[x, y].TileFrameX = tile.TileFrameX;

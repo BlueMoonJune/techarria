@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
 using System;
 using Techarria.Content.Items.Armor.Apparatus;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Armor
@@ -23,6 +25,8 @@ namespace Techarria.Content.Items.Armor
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
+
+
             if (texture == null || itemType == 0)
             {
             }
