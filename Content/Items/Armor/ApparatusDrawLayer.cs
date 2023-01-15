@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Armor
 {
-    internal abstract class ApparatusDrawLayer : PlayerDrawLayer
+    public abstract class ApparatusDrawLayer : PlayerDrawLayer
     {
 
         public Texture2D texture = null;

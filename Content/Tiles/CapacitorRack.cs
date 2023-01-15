@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Techarria.Content.Tiles
 {
-    internal class CapacitorRackTE : ModTileEntity
+    public class CapacitorRackTE : ModTileEntity
     {
 		public Item[] items = new Item[3] { new Item(), new Item(), new Item() };
 		public int lastCharged = 0;
@@ -39,11 +39,9 @@ namespace Techarria.Content.Tiles
 						Main.NewText("Item is null");
 						continue;
 					}
-					for (int c = 0; c < capacitor.charge; c++)
-					{
-						Console.WriteLine(Position.X + x + " " + Position.Y + " " + c);
-						Wiring.TripWire(Position.X + x, Position.Y, 1, 1);
-					}
+					Power.TransferCharge(capacitor.charge, Position.X + x, Position.Y);
+					Wiring.TripWire(Position.X + x, Position.Y, 1, 1);
+					
 					capacitor.charge = 0;
 					discharged = false;
 				}
@@ -63,7 +61,7 @@ namespace Techarria.Content.Tiles
         }
     }
 
-    internal class CapacitorRack : ModTile
+    public class CapacitorRack : PowerConsumer
 	{
 		public static Dictionary<int, string> capacitorTextures = new Dictionary<int, string>();
 
@@ -201,27 +199,48 @@ namespace Techarria.Content.Tiles
 		{
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
-			if (subTile.X != 1 && subTile.Y == 1)
-			{
-				bool charged = false;
-				for (int x = 0; x < 3 && !charged; x++)
-				{
-					tileEntity.lastCharged++;
-					tileEntity.lastCharged %= 3;
-					Capacitor capacitor = tileEntity.items[tileEntity.lastCharged].ModItem as Capacitor;
-					if (capacitor == null)
-                    {
-						Main.NewText("Item is null");
-						continue;
-                    }
-					if (capacitor.Charge(1) == 1)
-						charged = true;
-				}
-				return;
-			}
 			if (subTile.X == 1 && subTile.Y == 1 && !tileEntity.discharged)
             {
 				tileEntity.discharged = true;
+			}
+		}
+
+		public override bool IsConsumer(int i, int j)
+		{
+			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			Point16 subTile = new Point16(i, j) - tileEntity.Position;
+			if (subTile.X != 1 && subTile.Y == 1)
+			{
+				Main.NewText("Is Consumer");
+				return true;
+			}
+			return false;
+		}
+
+        public override void InsertPower(int i, int j, int amount)
+		{
+			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			Point16 subTile = new Point16(i, j) - tileEntity.Position;
+			if (subTile.X != 1 && subTile.Y == 1)
+			{
+				for (int c = 0; c < amount; c++)
+				{
+					bool charged = false;
+					for (int x = 0; x < 3 && !charged; x++)
+					{
+						tileEntity.lastCharged++;
+						tileEntity.lastCharged %= 3;
+						Capacitor capacitor = tileEntity.items[tileEntity.lastCharged].ModItem as Capacitor;
+						if (capacitor == null)
+						{
+							Main.NewText("Item is null");
+							continue;
+						}
+						if (capacitor.Charge(1) == 1)
+							charged = true;
+					}
+				}
+				return;
 			}
 		}
 

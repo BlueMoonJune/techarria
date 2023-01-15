@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Tools
 {
-    internal class CoordinateProbe : ModItem
+    public class CoordinateProbe : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

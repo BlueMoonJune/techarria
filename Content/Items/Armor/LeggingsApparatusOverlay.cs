@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Armor
 {
-    internal class LeggingsApparatusOverlay : ApparatusDrawLayer
+    public class LeggingsApparatusOverlay : ApparatusDrawLayer
     {
         public override void SetData()
         {

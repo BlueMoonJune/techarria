@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables
     /// <summary>
     /// Item form of TransferWormhole
     /// </summary>
-    internal class TransferWormhole : ModItem
+    public class TransferWormhole : ModItem
     {
         public override void SetStaticDefaults()
         {

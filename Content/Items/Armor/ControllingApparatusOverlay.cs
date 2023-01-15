@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Armor
 {
-    internal class ControllingApparatusOverlay : ApparatusDrawLayer
+    public class ControllingApparatusOverlay : ApparatusDrawLayer
     {
         public override void SetData()
         {

@@ -12,7 +12,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// White hole effect for receiving transfer wormholes
 	/// </summary>
-    internal class WhiteHole : ModDust
+    public class WhiteHole : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

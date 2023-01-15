@@ -11,7 +11,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Particles for extracting (or attempting to extract) an item from a container
 	/// </summary>
-    internal class Suction : ModDust
+    public class Suction : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

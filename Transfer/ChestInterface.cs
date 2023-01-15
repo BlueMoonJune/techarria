@@ -10,7 +10,7 @@ using Terraria.ObjectData;
 
 namespace Techarria.Transfer
 {
-    internal class ChestInterface : ContainerInterface
+    public class ChestInterface : ContainerInterface
     {
         public ChestInterface(int i, int j)
         {

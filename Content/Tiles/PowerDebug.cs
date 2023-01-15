@@ -12,10 +12,9 @@ namespace Techarria.Content.Tiles
 {
     internal class PowerDebug : PowerConsumer
     {
-        public override int InsertPower(int i, int j, int amount)
+        public override void InsertPower(int i, int j, int amount)
         {
             Console.WriteLine(i + " " + j + " " + amount);
-            return amount;
         }
 
         public override void SetStaticDefaults()

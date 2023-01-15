@@ -8,7 +8,7 @@ using Terraria.ModLoader.IO;
 
 namespace Techarria.Content.Items
 {
-    internal abstract class ChargableItem : ModItem
+    public abstract class ChargableItem : ModItem
     {
         public int charge = 0;
         public int maxcharge = 0;

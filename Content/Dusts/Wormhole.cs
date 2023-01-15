@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Dusts
 {
-    internal class Wormhole : ModDust
+    public class Wormhole : ModDust
 	{
 		public static int timer = 0;
 

@@ -7,7 +7,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Particles for transmitting wormholes
 	/// </summary>
-    internal class AntiWormhole : ModDust
+    public class AntiWormhole : ModDust
 	{
 		public static int timer = 0;
 

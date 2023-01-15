@@ -10,7 +10,7 @@ using Terraria;
 
 namespace Techarria
 {
-    internal class ContainerInterface
+    public class ContainerInterface
     {
         public int x = 0;
         public int y = 0;

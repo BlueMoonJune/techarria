@@ -11,7 +11,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Particle for when a transfer detector activates
 	/// </summary>
-    internal class Indicator : ModDust
+    public class Indicator : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

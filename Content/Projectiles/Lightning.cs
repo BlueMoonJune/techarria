@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Projectiles
 {
-    internal class Lightning : ModProjectile
+    public class Lightning : ModProjectile
     {
         public override void SetDefaults()
         {

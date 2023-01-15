@@ -9,7 +9,7 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// A tile that damages blocks when powered. Default pickaxe power is 40
     /// </summary>
-    internal class BlockBreaker : ModTile
+    public class BlockBreaker : ModTile
     {
         public static int power = 40;
         public override void SetStaticDefaults()

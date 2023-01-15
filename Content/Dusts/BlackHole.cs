@@ -12,7 +12,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Primary particle for transmitting wormholes
 	/// </summary>
-    internal class BlackHole : ModDust
+    public class BlackHole : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

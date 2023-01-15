@@ -10,7 +10,7 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// Ductless item transfer tile
     /// </summary>
-    internal class TransferWormhole : TransferDuct
+    public class TransferWormhole : TransferDuct
     {
         /// <summary>Stores the primary dust object for the ID. Used for cooldowns</summary>
         public Dust[] dusts = new Dust[2048];

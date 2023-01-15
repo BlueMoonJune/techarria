@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
 {
-    internal class StickyPiston : Piston
+    public class StickyPiston : Piston
     {
 
 

@@ -82,18 +82,18 @@ namespace Techarria
             return ret;
         }
 
-        public static void TransferCharge(int amount, int i, int j)
+        public static bool TransferCharge(int amount, int i, int j, int width = 1, int height = 1)
         {
             scanned.Clear();
             List<Point> consumers = new List<Point>();
-            for (int c = 0; c < 4; c++)
+            for (int x = 0; x < width; x++) for (int y = 0; y < height; y++) for (int c = 0; c < 4; c++)
             {
-                if (GetWire(Main.tile[i,j], c))
+                if (GetWire(Main.tile[i + x, j + y], c))
                 consumers = Concat(consumers, Search(i, j, c));
             }
             if (consumers.Count() == 0)
             {
-                return;
+                return false;
             }
             int splitCharge = amount / consumers.Count();
             foreach (Point p in consumers)
@@ -102,6 +102,7 @@ namespace Techarria
                 if (ModContent.GetModTile(tile.TileType) is PowerConsumer consumer)
                     consumer.InsertPower(p.X, p.Y, splitCharge);
             }
+            return true;
         }
 
         public static List<Point> Search(int i, int j, int channel)
@@ -117,7 +118,7 @@ namespace Techarria
             Point p = new Point(wire.X, wire.Y);
 
             Tile tile = Main.tile[p];
-            if (ModContent.GetModTile(tile.TileType) is PowerConsumer)
+            if (ModContent.GetModTile(tile.TileType) is PowerConsumer consumer && consumer.IsConsumer(p.X, p.Y))
             {
                 list.Add(p);
                 Dust.NewDustDirect(new Vector2(wire.X, wire.Y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());

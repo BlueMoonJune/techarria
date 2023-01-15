@@ -8,7 +8,7 @@ using Terraria.DataStructures;
 
 namespace techarria.Content.Tiles
 {
-    internal class ItemPlacer : ModTile
+    public class ItemPlacer : ModTile
     {
         public override void SetStaticDefaults()
         {

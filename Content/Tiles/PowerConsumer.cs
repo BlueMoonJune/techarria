@@ -7,8 +7,13 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
 {
-    internal abstract class PowerConsumer : ModTile
+    public abstract class PowerConsumer : ModTile
     {
-        public abstract int InsertPower(int i, int j, int amount);
+        public virtual bool IsConsumer(int i, int j)
+        {
+            return true;
+        }
+
+        public abstract void InsertPower(int i, int j, int amount);
     }
 }

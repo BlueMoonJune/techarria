@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Common.Global
 {
-    internal class GlobalRangedProjectile : GlobalProjectile
+    public class GlobalRangedProjectile : GlobalProjectile
     {
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
         {

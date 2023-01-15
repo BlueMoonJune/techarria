@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables
     /// <summary>
     /// Item form of TransferDuct
     /// </summary>
-    internal class TransferDuct : ModItem
+    public class TransferDuct : ModItem
     {
         public override void SetStaticDefaults()
         {

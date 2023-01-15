@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Techarria.Content.Items.Armor.Apparatus
 {
     [AutoloadEquip(EquipType.Body)]
-    internal class BreastplateApparatus : PowerArmor
+    public class BreastplateApparatus : PowerArmor
     {
 
         public override void SetStaticDefaults()

@@ -14,7 +14,7 @@ namespace Techarria.Content.Tiles
     /// <summary>
     /// Restricts item transfer based on the item
     /// </summary>
-    internal class Filter : TransferDuct
+    public class Filter : TransferDuct
     {
         public override void SetStaticDefaults()
         {
