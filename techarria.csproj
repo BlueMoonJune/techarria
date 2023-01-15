@@ -16,6 +16,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Gores\" />
     <Folder Include="Content\Tiles\Capacitors\" />
   </ItemGroup>
 </Project>
