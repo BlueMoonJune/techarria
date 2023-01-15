@@ -1,7 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
+using System;
 using Techarria.Content.Items.Armor.Apparatus;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 

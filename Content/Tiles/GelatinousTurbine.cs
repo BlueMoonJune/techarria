@@ -74,6 +74,7 @@ namespace Techarria.Content.Tiles
                     }
                 }
             }
+
 			if (burnTime == 0)
 			{
 				for (int i = 0; i < 3; i++)
@@ -162,16 +163,13 @@ namespace Techarria.Content.Tiles
 			ModContent.GetInstance<GelatinousTurbineTE>().Place(i, j);
         }
 
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
-			Main.NewText(i + " " + j);
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.ExampleTable>());
 			ModContent.GetInstance<GelatinousTurbineTE>().Kill(i, j);
 		}
 
-		public static bool AcceptsItem(Item item)
+        public static bool AcceptsItem(Item item)
         {
 			return item.type == Terraria.ID.ItemID.Gel || item.type == Terraria.ID.ItemID.PinkGel;
         }

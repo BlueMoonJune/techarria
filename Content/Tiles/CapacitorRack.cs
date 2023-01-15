@@ -107,24 +107,10 @@ namespace Techarria.Content.Tiles
 			ModContent.GetInstance<CapacitorRackTE>().Place(i, j);
         }
 
-		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			CapacitorRackTE tileEntity = GetTileEntity(i, j);
-			if (tileEntity == null) return;
-			Tile tile = Framing.GetTileSafely(i, j);
-			int c = tile.TileFrameX / 18;
-			if (tile.TileFrameY / 36 == 0 && !tileEntity.items[c].IsAir) { 
-				Item newItem = Main.item[Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, tileEntity.items[c].type)];
-				Capacitor newCapacitor = newItem.ModItem as Capacitor;
-				Capacitor capacitor = tileEntity.items[c].ModItem as Capacitor;
-				newCapacitor.charge = capacitor.charge;
-			}
-			if (tile.TileFrameX % 54 == 0 && tile.TileFrameY % 36 == 0)
-            {
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<Items.Placeables.CapacitorRack>());
-
-				ModContent.GetInstance<CapacitorRackTE>().Kill(i, j);
-			}
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.ExampleTable>());
+			ModContent.GetInstance<CapacitorRackTE>().Kill(i, j);
 		}
 
 		public static bool AcceptsItem(Item item)

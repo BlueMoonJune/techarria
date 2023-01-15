@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Placeables
 {
-	public class GelatinousTurbine : ModItem
+	public class BlastFurnace : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -13,7 +13,7 @@ namespace Techarria.Content.Items.Placeables
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.GelatinousTurbine>());
+			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.BlastFurnace>());
 			Item.value = 150;
 			Item.maxStack = 99;
 			Item.width = 28;

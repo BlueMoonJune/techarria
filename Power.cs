@@ -122,7 +122,17 @@ namespace Techarria
             {
                 list.Add(p);
                 Dust.NewDustDirect(new Vector2(wire.X, wire.Y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());
+            } 
+            /*
+            else if (ModContent.GetModTile(tile.TileType) is Transistor)
+            {
+                Point lampScan = new Point(p.X, p.Y - 1);
+                while (Main.tile[lampScan].TileType == TileID.LogicGateLamp)
+                {
+                    //if (Main.tile[lampScan])
+                }
             }
+            */
 
             foreach (Direction dir in Direction.directions())
             {
