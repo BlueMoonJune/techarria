@@ -13,12 +13,23 @@ namespace Techarria.Content.Tiles
 {
     public class StorageCrateTE : ModTileEntity
     {
-		public Item item;
+		public Item item = new Item();
 		public override bool IsTileValidForEntity(int x, int y)
         {
             return Main.tile[x, y].TileType == ModContent.TileType<StorageCrate>();
         }
-    }
+		public override void SaveData(TagCompound tag)
+		{
+			tag.Add("item", item);
+			base.SaveData(tag);
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			item = tag.Get<Item>("item");
+			base.LoadData(tag);
+		}
+	}
 
     // Where the TE ends and the Tile starts
     public class StorageCrate : ModTile
@@ -28,8 +39,6 @@ namespace Techarria.Content.Tiles
             // Spelunker
             Main.tileSpelunker[Type] = true;
             Main.tileContainer[Type] = true;
-            Main.tileShine2[Type] = true;
-            Main.tileShine[Type] = 1200;
             Main.tileOreFinderPriority[Type] = 500;
 
             // Properties
@@ -57,6 +66,20 @@ namespace Techarria.Content.Tiles
 			i -= tile.TileFrameX / 18 % 2;
 			j -= tile.TileFrameY / 18 % 2;
 			return TileEntity.ByPosition[new Point16(i, j)] as StorageCrateTE;
+		}
+		public override void PlaceInWorld(int i, int j, Item item)
+		{
+			Tile tile = Framing.GetTileSafely(i, j);
+			i -= tile.TileFrameX / 18 % 2;
+			j -= tile.TileFrameY / 18 % 2;
+			Main.NewText(i + " " + j);
+			ModContent.GetInstance<StorageCrateTE>().Place(i, j);
+		}
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.StorageCrate>());
+			ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
 		}
 
 		public override bool RightClick(int i, int j)
