@@ -17,7 +17,7 @@ namespace Techarria.Content.Tiles
 		public int burnTime = 0;
 		public float pulseFraction = 0;
 		public int frame = 0;
-		public static Rectangle particleRect = new Rectangle(6, 6, 24, 16);
+		public static Rectangle particleRect = new Rectangle(4, 22, 16, 6);
 
         public override bool IsTileValidForEntity(int x, int y)
         {
@@ -26,44 +26,11 @@ namespace Techarria.Content.Tiles
 
         public override void Update()
         {
-			Dust.NewDust(new Vector2(Position.X, Position.Y) * 16, 0, 0, ModContent.DustType<TransferDust>());
-			if (item == null)
-			{
-				item = new Item();
-			}
 
-			if (burnTime <= 0)
-			{
-				if (item.type == ItemID.Gel)
-					burnTime = 600;
-				if (item.type == ItemID.PinkGel)
-					burnTime = 3600;
-				item.stack--;
-				if (item.stack <= 0)
-                {
-					item.TurnToAir();
-                }
-			}
 
 			if (burnTime > 0)
-            {
-				for (int i = 0; i < (int)Techarria.GenerationMultiplier; i++)
-                {
-					Wiring.TripWire(Position.X, Position.Y, 3, 2);
-					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
-                }
-				pulseFraction += Techarria.GenerationMultiplier % 1f;
-				if (pulseFraction >= 1)
-                {
-					pulseFraction -= 1;
-					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
-				}
-				burnTime--;
-            }
-
-			if (burnTime % 15 == 1)
 			{
-				frame = (frame + 1) % 4;
+				frame = burnTime / 15 % 4;
 				for (int i = 0; i < 3; i++)
 				{
 					for (int j = 0; j < 2; j++)
@@ -71,9 +38,9 @@ namespace Techarria.Content.Tiles
 						Tile tile = Main.tile[Position.X + i, Position.Y + j];
 						tile.TileFrameX = (short)(54 + 18 * i);
 						tile.TileFrameY = (short)(frame * 36 + j * 18);
-                    }
-                }
-            }
+					}
+				}
+			}
 
 			if (burnTime == 0)
 			{
@@ -103,7 +70,41 @@ namespace Techarria.Content.Tiles
 					dust.alpha = 127;
 				}
 			}
-        }
+
+			Dust.NewDust(new Vector2(Position.X, Position.Y) * 16, 0, 0, ModContent.DustType<TransferDust>());
+			if (item == null)
+			{
+				item = new Item();
+			}
+
+			if (burnTime > 0)
+            {
+				for (int i = 0; i < (int)Techarria.GenerationMultiplier; i++)
+                {
+					Wiring.TripWire(Position.X, Position.Y, 3, 2);
+					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
+                }
+				pulseFraction += Techarria.GenerationMultiplier % 1f;
+				if (pulseFraction >= 1)
+                {
+					pulseFraction -= 1;
+					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
+				}
+				burnTime--;
+			}
+			else
+			{
+				if (item.type == ItemID.Gel)
+					burnTime = 600;
+				if (item.type == ItemID.PinkGel)
+					burnTime = 3600;
+				item.stack--;
+				if (item.stack <= 0)
+				{
+					item.TurnToAir();
+				}
+			}
+		}
 
         public override void SaveData(TagCompound tag)
         {
@@ -142,8 +143,6 @@ namespace Techarria.Content.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Player Interface");
 			AddMapEntry(new Color(200, 200, 200), name);
-
-			ItemDrop = ModContent.ItemType<Items.Placeables.GelatinousTurbine>();
 		}
 
 		public GelatinousTurbineTE GetTileEntity(int i, int j)
@@ -165,7 +164,9 @@ namespace Techarria.Content.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.ExampleTable>());
+			GelatinousTurbineTE tileEntity = GetTileEntity(i, j);
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.GelatinousTurbine>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, tileEntity.item.type, tileEntity.item.stack);
 			ModContent.GetInstance<GelatinousTurbineTE>().Kill(i, j);
 		}
 

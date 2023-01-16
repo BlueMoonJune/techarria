@@ -13,23 +13,6 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles
 {
-	public class BlastFurnaceRecipe
-    {
-		public static List<BlastFurnaceRecipe> recipes = new List<BlastFurnaceRecipe>();
-
-		public List<int> ingredients;
-		public int result;
-		public float temp;
-		public bool molten;
-
-		public BlastFurnaceRecipe(List<int> ing, int res, float t, bool m)
-        {
-			ingredients = ing;
-			result = res;
-			temp = t;
-			molten = m;
-        }
-    }
 
     public class BlastFurnaceTE : ModTileEntity
     {
@@ -87,8 +70,6 @@ namespace Techarria.Content.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Blast Furnace");
 			AddMapEntry(new Color(200, 200, 200), name);
-
-			ItemDrop = ModContent.ItemType<Items.Placeables.BlastFurnace>();
 		}
 
 		public static BlastFurnaceTE GetTileEntity(int i, int j)
@@ -110,7 +91,7 @@ namespace Techarria.Content.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.ExampleTable>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.BlastFurnace>());
 			ModContent.GetInstance<BlastFurnaceTE>().Kill(i, j);
 		}
 
@@ -141,6 +122,26 @@ namespace Techarria.Content.Tiles
 		{
 			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
 			tileEntity.temp += amount;
+		}
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
+			Point16 subTile = new Point16(i, j) - tileEntity.Position;
+			if (subTile.X == 1 && subTile.Y == 3)
+			{
+				float temp = tileEntity.temp;
+				Main.NewText("Drawing temp: " + (int)temp / 500);
+
+				Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
+				Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
+
+				Rectangle sourceRect = new Rectangle(0, 30 - (int)temp / 500 * 2, 16, (int)temp / 500 * 2);
+				Rectangle destRect = new Rectangle((int)pos.X, (int)pos.Y - 16 + 30 - (int)temp / 500 * 2, 16, (int)temp / 500 * 2);
+				spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/BlastFurnace_Overlay").Value, destRect, sourceRect, Lighting.GetColor(i, j));
+
+			}
+
 		}
     }
 }

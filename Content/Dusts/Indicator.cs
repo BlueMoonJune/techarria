@@ -27,7 +27,7 @@ namespace Techarria.Content.Dusts
 
 			float light = (255 - dust.alpha) / 256f;
 
-			Lighting.AddLight(dust.position, 0f, light, 0f);
+			//Lighting.AddLight(dust.position, 0f, light, 0f);
 
 			if (dust.alpha >= 255)
 			{

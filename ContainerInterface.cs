@@ -10,7 +10,7 @@ using Terraria;
 
 namespace Techarria
 {
-    public class ContainerInterface
+    public abstract class ContainerInterface
     {
         public int x = 0;
         public int y = 0;
@@ -26,8 +26,13 @@ namespace Techarria
             if (point != Point.Zero)
                 return new ExternalInterfaceInterface(point.X, point.Y);
 
+            point = GelatinousTurbineInterface.Find(x, y);
+            if (point != Point.Zero)
+                return new GelatinousTurbineInterface(point.X, point.Y);
+
             if (ItemPlacerInterface.Check(x, y))
                 return new ItemPlacerInterface(x, y);
+
 
             return null;
         }
@@ -50,14 +55,14 @@ namespace Techarria
         /// Returns an array of all items in this container
         /// </summary>
         /// <returns></returns>
-        public virtual List<Item> GetItems() { return new List<Item>(); }
+        public abstract List<Item> GetItems();
 
         /// <summary>
         /// Inserts an item into this container
         /// </summary>
         /// <param name="item">The item to insert</param>
         /// <returns>Whether this was sucessful or not</returns>
-        public virtual bool InsertItem(Item item) { return false; }
+        public abstract bool InsertItem(Item item);
 
         /// <summary>
         /// Checks if the container is empty

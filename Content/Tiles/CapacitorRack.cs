@@ -39,8 +39,11 @@ namespace Techarria.Content.Tiles
 						Main.NewText("Item is null");
 						continue;
 					}
-					Power.TransferCharge(capacitor.charge, Position.X + x, Position.Y);
-					Wiring.TripWire(Position.X + x, Position.Y, 1, 1);
+					if (capacitor.charge > 0)
+					{
+						Power.TransferCharge(capacitor.charge, Position.X + x, Position.Y);
+						Wiring.TripWire(Position.X + x, Position.Y, 1, 1);
+					}
 					
 					capacitor.charge = 0;
 					discharged = false;
@@ -109,7 +112,16 @@ namespace Techarria.Content.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.ExampleTable>());
+			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			foreach (Item item in tileEntity.items)
+			{
+				Item newItem = Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, item.type, item.stack)];
+				if (item.ModItem is Capacitor capacitor && newItem.ModItem is Capacitor newCapacitor) 
+				{
+					newCapacitor.charge = capacitor.charge;
+				}
+			}
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.CapacitorRack>());
 			ModContent.GetInstance<CapacitorRackTE>().Kill(i, j);
 		}
 
@@ -243,10 +255,18 @@ namespace Techarria.Content.Tiles
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
 			if (tileEntity == null) return;
 			int c = tile.TileFrameX / 18;
-				Item item = tileEntity.items[c];
-				if (item == null || item.IsAir)
-					return;
-				spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Capacitors/" + capacitorTextures[item.type]).Value, new Rectangle((int)pos.X, (int)pos.Y, 16, 16), Color.White);
+
+			Item item = tileEntity.items[c];
+			if (item == null || item.IsAir)
+				return;
+			spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Capacitors/" + capacitorTextures[item.type]).Value, new Rectangle((int)pos.X, (int)pos.Y, 16, 16), Lighting.GetColor(i, j));
+			if (item.ModItem is Capacitor capacitor)
+			{
+				float v = (float)capacitor.charge / (float)capacitor.maxcharge;
+				Lighting.AddLight(new Vector2(i * 16 + 8, j * 16 + 8), 1f * v, 0.3f * v, 0.3f * v);
+				if (v > 0)
+					spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Capacitors/" + capacitorTextures[item.type] + "_Glow").Value, new Rectangle((int)pos.X, (int)pos.Y, 16, 16), Color.White);
+			}
 		}
     }
 }
