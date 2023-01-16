@@ -79,6 +79,7 @@ namespace Techarria.Content.Tiles
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.StorageCrate>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
 			ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
 		}
 
