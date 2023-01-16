@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Techarria.Content.Dusts;
 using Terraria;
@@ -120,6 +119,7 @@ namespace Techarria.Content.Tiles
         }
     }
 
+	// Where the TE ends and the Tile starts
     public class GelatinousTurbine : ModTile
     {
 		public override void SetStaticDefaults()
