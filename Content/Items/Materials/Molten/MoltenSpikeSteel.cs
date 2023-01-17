@@ -7,13 +7,30 @@ using Techarria.Content.Items.RecipeItems;
 
 namespace Techarria.Content.Items.Materials.Molten
 {
-    internal class MoltenSpikeSteel : ModItem
+    public class MoltenSpikeSteel : ModItem
     {
+        public override void UpdateInventory(Player player)
+        {
+            if (player.HasItem(ModContent.ItemType<MoltenSpikeSteel>()))
+            {
+                player.AddBuff(BuffID.Burning, 60);
+                player.AddBuff(BuffID.OnFire, 60);
+
+            }
+        }
+
         public override void SetDefaults()
         {
             Item.width = 24;
             Item.height = 22;
             Item.maxStack = 999;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("'I would recommend putting this down'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
         }
 
         public override void AddRecipes()
