@@ -12,6 +12,37 @@ using Terraria.ModLoader;
 
 namespace Techarria
 {
+    public class PowerDisplayInfo
+    {
+        public bool Right;
+        public bool Left;
+        public bool Up;
+        public bool Down;
+        public int channel;
+        public int age = 0;
+        
+        public PowerDisplayInfo(int c, bool r = false, bool l = false, bool u = false, bool d = false)
+        {
+            channel = c;
+            Right = r;
+            Left = l;
+            Up = u;
+            Down = d;
+        }
+
+        public void AddDirection(Direction dir)
+        {
+            if (dir == Direction.Right)
+                Right = true;
+            if (dir == Direction.Left)
+                Left = true;
+            if (dir == Direction.Up)
+                Up = true;
+            if (dir == Direction.Down)
+                Down = true;
+        }
+    }
+
     public class Wire
     {
         public int X;
@@ -45,6 +76,8 @@ namespace Techarria
     public class Power
     {
         public static List<Wire> scanned = new List<Wire>();
+
+        public static Dictionary<Wire, PowerDisplayInfo> DisplayInfos = new Dictionary<Wire, PowerDisplayInfo>() { };
 
         public static byte GetWire(Tile tile)
         {
@@ -122,26 +155,22 @@ namespace Techarria
             {
                 list.Add(p);
                 Dust.NewDustDirect(new Vector2(wire.X, wire.Y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());
-            } 
-            /*
-            else if (ModContent.GetModTile(tile.TileType) is Transistor)
-            {
-                Point lampScan = new Point(p.X, p.Y - 1);
-                while (Main.tile[lampScan].TileType == TileID.LogicGateLamp)
-                {
-                    //if (Main.tile[lampScan])
-                }
             }
-            */
 
+            PowerDisplayInfo displayInfo = new PowerDisplayInfo(wire.C);
             foreach (Direction dir in Direction.directions())
             {
                 Point target = p + dir.point;
                 Wire w = new Wire(target.X, target.Y, wire.C);
                 tile = Main.tile[target];
                 if (!scanned.Contains(w) && GetWire(tile, wire.C))
+                {
+                    displayInfo.AddDirection(dir);
                     list = Concat<Point>(list, Search(w));
+                }
             }
+            if (DisplayInfos.TryAdd(wire, displayInfo))
+                DisplayInfos[wire].age = 0;
 
             return list;
         }

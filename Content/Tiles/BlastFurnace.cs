@@ -19,7 +19,7 @@ namespace Techarria.Content.Tiles
 		public Item output = new Item();
 		public List<Item> inputs = new List<Item>();
 		public float progress = 0;
-		public float temp;
+		public float temp = 25f;
 		public int frame = 0;
 		public static Rectangle particleRect = new Rectangle(6, 6, 24, 16);
 
@@ -32,7 +32,7 @@ namespace Techarria.Content.Tiles
 
         public override void Update()
         {
-			temp = temp * (1500f / 1501f);
+			temp = (temp - 25) * (1475f / 1476f) + 25f;
         }
 
         public override void SaveData(TagCompound tag)
