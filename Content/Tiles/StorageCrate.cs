@@ -10,7 +10,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using Terraria.UI;
 
 namespace Techarria.Content.Tiles
 {
@@ -47,12 +46,15 @@ namespace Techarria.Content.Tiles
 
 			// Properties
 			Main.tileSolidTop[Type] = true;
+			Main.tileSolid[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
+			Main.tileTable[Type] = true;
 
+			// placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
@@ -161,20 +163,17 @@ namespace Techarria.Content.Tiles
 		{
 			StorageCrateTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;	
-			if (subTile.X == 1 && subTile.Y == 3)
+			if (subTile.X == 1 && subTile.Y == 1)
 			{
 				Item item = tileEntity.item;
 
-				// this is all recycled from a different TE, does not work for this one
 				Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
 				Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
 
-				Rectangle destRect = new Rectangle((int)pos.X, (int)pos.Y, 32, 32);
-				DrawItemInWorld(spriteBatch, item, pos, 32);
+				HelperMethods.DrawItemInWorld(spriteBatch, item, pos, 16);
 
 			}
 
 		}
-
 	}
 }
