@@ -218,11 +218,11 @@ namespace Techarria.Content.Tiles
 			{
 				Main.NewText("Item Does not Match: Extract");
 				item.stack--;
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
 				if (item.stack <= 0)
 				{
 					item.TurnToAir();
 				}
-				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
 				return true;
 			}
 			return false;

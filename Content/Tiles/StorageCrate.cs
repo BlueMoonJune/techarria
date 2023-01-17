@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using Terraria.UI;
 
 namespace Techarria.Content.Tiles
 {
@@ -18,6 +21,7 @@ namespace Techarria.Content.Tiles
         {
             return Main.tile[x, y].TileType == ModContent.TileType<StorageCrate>();
         }
+
 		public override void SaveData(TagCompound tag)
 		{
 			tag.Add("item", item);
@@ -31,23 +35,23 @@ namespace Techarria.Content.Tiles
 		}
 	}
 
-    // Where the TE ends and the Tile starts
-    public class StorageCrate : ModTile
-    {
-        public override void SetStaticDefaults()
-        {
-            // Spelunker
-            Main.tileSpelunker[Type] = true;
-            Main.tileContainer[Type] = true;
-            Main.tileOreFinderPriority[Type] = 500;
+	// Where the TE ends and the Tile starts
+	public class StorageCrate : ModTile
+	{
+		public override void SetStaticDefaults()
+		{
+			// Spelunker
+			Main.tileSpelunker[Type] = true;
+			Main.tileContainer[Type] = true;
+			Main.tileOreFinderPriority[Type] = 500;
 
-            // Properties
-            Main.tileSolidTop[Type] = true;
-            Main.tileNoAttach[Type] = true;
-            Main.tileLavaDeath[Type] = false;
-            Main.tileFrameImportant[Type] = true;
-            TileID.Sets.DisableSmartCursor[Type] = true;
-            TileID.Sets.IgnoredByNpcStepUp[Type] = true;
+			// Properties
+			Main.tileSolidTop[Type] = true;
+			Main.tileNoAttach[Type] = true;
+			Main.tileLavaDeath[Type] = false;
+			Main.tileFrameImportant[Type] = true;
+			TileID.Sets.DisableSmartCursor[Type] = true;
+			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
 
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);
@@ -78,6 +82,7 @@ namespace Techarria.Content.Tiles
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
+			StorageCrateTE tileEntity = GetTileEntity(i, j);
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.StorageCrate>());
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
 			ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
@@ -127,15 +132,17 @@ namespace Techarria.Content.Tiles
 			{
 				Main.NewText("Item Does not Match: Extract");
 				item.stack--;
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
 				if (item.stack <= 0)
 				{
 					item.TurnToAir();
 				}
-				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
 				return true;
 			}
 			return false;
 		}
+
+
 		public override void MouseOver(int i, int j)
 		{
 			StorageCrateTE tileEntity = GetTileEntity(i, j);
@@ -148,6 +155,25 @@ namespace Techarria.Content.Tiles
 				player.cursorItemIconText = "" + item.stack;
 				player.cursorItemIconID = item.type;
 			}
+		}
+
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			StorageCrateTE tileEntity = GetTileEntity(i, j);
+			Point16 subTile = new Point16(i, j) - tileEntity.Position;	
+			if (subTile.X == 1 && subTile.Y == 3)
+			{
+				Item item = tileEntity.item;
+
+				// this is all recycled from a different TE, does not work for this one
+				Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
+				Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
+
+				Rectangle destRect = new Rectangle((int)pos.X, (int)pos.Y, 32, 32);
+				DrawItemInWorld(spriteBatch, item, pos, 32);
+
+			}
+
 		}
 
 	}
