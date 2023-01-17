@@ -161,7 +161,7 @@ namespace Techarria.Content.Tiles
 		{
 			StorageCrateTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;	
-			if (subTile.X == 1 && subTile.Y == 3)
+			if (subTile.X == 1 && subTile.Y == 1)
 			{
 				Item item = tileEntity.item;
 
@@ -170,7 +170,7 @@ namespace Techarria.Content.Tiles
 				Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
 
 				Rectangle destRect = new Rectangle((int)pos.X, (int)pos.Y, 32, 32);
-				DrawItemInWorld(spriteBatch, item, pos, 32);
+				HelperMethods.DrawItemInWorld(spriteBatch, item, pos, 32);
 
 			}
 

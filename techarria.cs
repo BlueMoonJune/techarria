@@ -146,16 +146,16 @@ namespace Techarria
                 switch (wire.C)
                 {
                     case 0:
-                        color = Color.Red;
+                        color = new Color(218 / 255f, 2 / 255f, 5 / 255f);
                         break;
                     case 1:
-                        color = Color.Blue;
+                        color = new Color(2 / 255f, 124 / 255f, 218 / 255f);
                         break;
                     case 2:
-                        color = Color.Green;
+                        color = new Color(2 / 255f, 218 / 255f, 91 / 255f);
                         break;
                     default:
-                        color = Color.Yellow;
+                        color = new Color(218 / 255f, 194 / 255f, 2 / 255f);
                         break;
                 }
                 int j = wire.X;
@@ -167,6 +167,12 @@ namespace Techarria
                     new Rectangle(j * 16 - (int)Main.screenPosition.X, i * 16 - (int)Main.screenPosition.Y, 16, 16),
                     new Rectangle(0, 0, 16, 16),
                     color * (1 - displayInfo.age / 30f)
+                );
+                Main.spriteBatch.Draw(
+                    ModContent.Request<Texture2D>("Techarria/Content/PowerTransferDisplay_TheSecond").Value,
+                    new Rectangle(j * 16 - (int)Main.screenPosition.X, i * 16 - (int)Main.screenPosition.Y, 16, 16),
+                    new Rectangle(0, 0, 16, 16),
+                    Color.White * (1 - displayInfo.age / 30f)
                 );
                 if (++displayInfo.age >= 30)
                     Power.DisplayInfos.Remove(wire);

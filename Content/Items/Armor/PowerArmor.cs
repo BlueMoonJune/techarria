@@ -3,9 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
 using Techarria.Content.Items.Armor.Apparatus;
+using Techarria.Content.Items.Materials.Molten;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -136,6 +139,19 @@ namespace Techarria.Content.Items.Armor
 
         }
 
-
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            foreach (Item item in Player.inventory)
+            {
+                if (item.type == ModContent.ItemType<MoltenSpikeSteel>())
+                {
+                    if (Player.dead)
+                    {
+                        WorldGen.PlaceLiquid((int)Player.Center.X / 16, (int)Player.Center.Y / 16, LiquidID.Lava, 255);
+                    }
+                    item.TurnToAir();
+                }
+            }
+        }
     }
 }

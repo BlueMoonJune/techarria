@@ -19,6 +19,15 @@ namespace Techarria.Content.Items.Materials.Molten
             }
         }
 
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+        {
+            if (Item.velocity.Y == 0)
+            {
+                WorldGen.PlaceLiquid((int)Item.Center.X / 16, (int)Item.Center.Y / 16, LiquidID.Lava, 255);
+                Item.TurnToAir();
+            }
+        }
+
         public override void SetDefaults()
         {
             Item.width = 24;
