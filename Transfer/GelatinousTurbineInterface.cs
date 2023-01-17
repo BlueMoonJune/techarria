@@ -29,7 +29,7 @@ namespace Techarria.Transfer
             if (tile.TileType == ModContent.TileType<GelatinousTurbine>())
             {
                 i -= tile.TileFrameX / 18 % 3;
-                j -= tile.TileFrameX / 18 % 2;
+                j -= tile.TileFrameY / 18 % 2;
 
                 return new Point(i, j);
             }

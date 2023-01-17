@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using Techarria.Content.Tiles;
 using Terraria.ID;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 namespace Techarria
 {
@@ -100,9 +102,75 @@ namespace Techarria
         {
             On.Terraria.WorldGen.paintTile += WorldGen_paintTile;
             On.Terraria.Dust.NewDust += DustDetour;
+            On.Terraria.Main.DrawWires += DrawPowerTransfer;
 
             //BlastFurnaceRecipe.recipes.Clear();
             //BlastFurnaceRecipe.recipes.Add(new BlastFurnaceRecipe(new List<int>( ItemID.IronBar, ItemID.Spike), ))
+        }
+
+        private void DrawPowerTransfer(On.Terraria.Main.orig_DrawWires orig, Main self)
+        {
+            orig(self);
+
+            Rectangle value = new Rectangle(0, 0, 16, 16);
+            Vector2 zero2 = Vector2.Zero;
+            if (Main.drawToScreen)
+            {
+                zero2 = Vector2.Zero;
+            }
+            int num12 = (int)((Main.screenPosition.X - zero2.X) / 16f - 1f);
+            int num13 = (int)((Main.screenPosition.X + (float)Main.screenWidth + zero2.X) / 16f) + 2;
+            int num14 = (int)((Main.screenPosition.Y - zero2.Y) / 16f - 1f);
+            int num15 = (int)((Main.screenPosition.Y + (float)Main.screenHeight + zero2.Y) / 16f) + 5;
+            if (num12 < 0)
+            {
+                num12 = 0;
+            }
+            if (num13 > Main.maxTilesX)
+            {
+                num13 = Main.maxTilesX;
+            }
+            if (num14 < 0)
+            {
+                num14 = 0;
+            }
+            if (num15 > Main.maxTilesY)
+            {
+                num15 = Main.maxTilesY;
+            }
+            Point screenOverdrawOffset = Main.GetScreenOverdrawOffset();
+            Main.NewText(Power.DisplayInfos.Count);
+            foreach (Wire wire in Power.DisplayInfos.Keys)
+            {
+                Color color;
+                switch (wire.C)
+                {
+                    case 0:
+                        color = Color.Red;
+                        break;
+                    case 1:
+                        color = Color.Blue;
+                        break;
+                    case 2:
+                        color = Color.Green;
+                        break;
+                    default:
+                        color = Color.Yellow;
+                        break;
+                }
+                int j = wire.X;
+                int i = wire.Y;
+                PowerDisplayInfo displayInfo = Power.DisplayInfos[wire];
+                Main.NewText(i + " " + j);
+                Main.spriteBatch.Draw(
+                    ModContent.Request<Texture2D>("Techarria/Content/PowerTransferDisplay").Value,
+                    new Rectangle(j * 16 - (int)Main.screenPosition.X, i * 16 - (int)Main.screenPosition.Y, 16, 16),
+                    new Rectangle(0, 0, 16, 16),
+                    color * (1 - displayInfo.age / 30f)
+                );
+                if (++displayInfo.age >= 30)
+                    Power.DisplayInfos.Remove(wire);
+            }
         }
 
         private int DustDetour(On.Terraria.Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)

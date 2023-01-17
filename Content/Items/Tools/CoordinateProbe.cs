@@ -17,8 +17,8 @@ namespace Techarria.Content.Items.Tools
 
 		public override void SetDefaults()
 		{
-			Item.width = 52;
-			Item.height = 52;
+			Item.width = 32;
+			Item.height = 32;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
