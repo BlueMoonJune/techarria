@@ -9,6 +9,10 @@ namespace Techarria.Content.Items.Placeables
     {
 		public override void SetStaticDefaults()
 		{
+			Tooltip.SetDefault("'Stores items with 99% accuracy'\n"
+				+ "Stores up to 999999 matching items\n"
+				+ "Any inserted items will be cleared of any reforges or similar");
+
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

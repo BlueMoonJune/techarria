@@ -58,7 +58,7 @@ namespace Techarria.Transfer
                 tileEntity.item = myItem;
                 return true;
             }
-            if (item.type == myItem.type && myItem.stack < myItem.maxStack)
+            if (item.type == myItem.type && myItem.stack < 999999 /* <- max storage within a single storage crate */)
             {
                 myItem.stack++;
                 return true;
