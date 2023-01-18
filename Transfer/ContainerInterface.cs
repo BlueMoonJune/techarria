@@ -18,7 +18,6 @@ namespace Techarria
 
         public static ContainerInterface Find(int x, int y)
         {
-
             Point point = StorageCrateInterface.FindTopLeft(x, y);
             if (point != Point.Zero)
                 return new StorageCrateInterface(point.X, point.Y);
@@ -41,7 +40,6 @@ namespace Techarria
 
             if (ItemPlacerInterface.Check(x, y))
                 return new ItemPlacerInterface(x, y);
-
 
             return null;
         }

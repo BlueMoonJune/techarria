@@ -5,9 +5,33 @@ using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using Techarria;
 using Terraria.DataStructures;
+using Terraria.ModLoader.IO;
 
 namespace techarria.Content.Tiles
 {
+    public class ItemPlacerTE : ModTileEntity
+    {
+        public Item item = new Item();
+        public override bool IsTileValidForEntity(int x, int y)
+        {
+            return Main.tile[x, y].TileType == ModContent.TileType<ItemPlacer>();
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("item", item);
+            base.SaveData(tag);
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            item = tag.Get<Item>("item");
+            base.LoadData(tag);
+        }
+    }
+
+
+    // where the TE ends and the tile starts
     public class ItemPlacer : ModTile
     {
         public override void SetStaticDefaults()
@@ -36,143 +60,119 @@ namespace techarria.Content.Tiles
             return false;
         }
 
-        public override void HitWire(int i, int j)
+        public ItemPlacerTE GetTileEntity(int i, int j)
         {
-            
-            Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-            if (item == null) { return; }
-
-            Tile tile = Framing.GetTileSafely(i, j);
-            Direction dir = new Direction(tile.TileFrameX / 16);
-            int xOff = i + dir.point.X;
-            int yOff = j + dir.point.Y;
-
-            if (item == null)
-            {
-                item = new Item();
-                item.TurnToAir();
-                Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
-            }
-            if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
-                item.stack--;
-            } else if (item.createTile <= -1)
-            {
-                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 1);
-                
-                item.stack--;
-            }
-
-            if (item.stack <= 0)
-            {
-                item.TurnToAir();
-                item.createTile = -1;
-            }
-            if (item.stack <= 0)
-            {
-                item.TurnToAir();
-                item.createTile = -1;
-            }
+            return TileEntity.ByPosition[new Point16(i, j)] as ItemPlacerTE;
         }
+
         public override void PlaceInWorld(int i, int j, Item item)
         {
-
-            base.PlaceInWorld(i, j, item);
-            for (int x = 0; x < 2048; x++)
-            {
-                if (Techarria.Techarria.itemPlacerPositions[x] == Point.Zero)
-                {
-                    Techarria.Techarria.itemPlacerPositions[x] = new Point(i, j);
-                    Techarria.Techarria.itemPlacerIDs[i, j] = x;
-
-                    Item myItem = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-                    if (myItem == null)
-                    {
-                        myItem = new Item();
-                        myItem.TurnToAir();
-                        Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = myItem;
-                    }
-                    return;
-                }
-            }
+            ModContent.GetInstance<ItemPlacerTE>().Place(i, j);
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
             if (effectOnly || noItem || fail) { return; }
-            Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
-            if (item != null) {
-                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, item.stack);
-            }
-            if (Techarria.Techarria.itemPlacerIDs[i, j] >= 0)
+            ItemPlacerTE tileEntity = GetTileEntity(i, j);
+            if (tileEntity.item != null)
             {
-                Techarria.Techarria.itemPlacerPositions[Techarria.Techarria.itemPlacerIDs[i, j]] = Point.Zero;
-                Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = null;
-                Techarria.Techarria.itemPlacerIDs[i, j] = -1;
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
+                ModContent.GetInstance<ItemPlacerTE>().Kill(i, j);
             }
         }
 
         public override bool RightClick(int i, int j)
         {
-            Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
+            ItemPlacerTE tileEntity = GetTileEntity(i, j);
+            Item item = tileEntity.item;
             Item playerItem;
-            if (Main.mouseItem != null && !Main.mouseItem.IsAir)
+            if (!Main.mouseItem.IsAir)
             {
                 playerItem = Main.mouseItem;
-            } 
+            }
             else
             {
                 playerItem = Main.player[Main.myPlayer].HeldItem;
             }
-            if (!Main.mouseItem.IsAir)
-            {
 
-            }
-            if (item == null)
+            if (item.IsAir)
             {
-                item = new Item();
-                item.TurnToAir();
-                Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
+                item = playerItem.Clone();
+                item.stack = 1;
+                tileEntity.item = item;
+                playerItem.stack--;
+                if (playerItem.stack <= 0)
+                {
+                    playerItem.TurnToAir();
+                }
+                return true;
             }
-            if (playerItem.type != item.type && !item.IsAir)
+            if (!item.IsAir && playerItem.type == item.type && item.stack < item.maxStack)
             {
-                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type);
+                item.stack++;
+                playerItem.stack--;
+                if (playerItem.stack <= 0)
+                {
+                    playerItem.TurnToAir();
+                }
+                return true;
+            }
+            if (!item.IsAir)
+            {
                 item.stack--;
+                Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
                 if (item.stack <= 0)
                 {
                     item.TurnToAir();
                 }
-            } else
-            {
-                if (item.IsAir)
-                {
-                    item = playerItem.Clone();
-                    Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]] = item;
-                    item.stack = 1;
-                    playerItem.stack--;
-                } else if (item.type == playerItem.type && item.stack < item.maxStack)
-                {
-                    item.stack++;
-                    playerItem.stack--;
-                    if (playerItem.stack <= 0)
-                    {
-                        playerItem.TurnToAir();
-                    }
-                }
+                return true;
             }
-            return true;
+            return false;
         }
         public override void MouseOver(int i, int j)
         {
-            int id = Techarria.Techarria.itemPlacerIDs[i, j];
-            Item item = Techarria.Techarria.itemPlacerItems[id];
+            ItemPlacerTE tileEntity = GetTileEntity(i, j);
+            Item item = tileEntity.item;
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             if ((item != null) && (!item.IsAir))
             {
                 player.cursorItemIconEnabled = true;
-                player.cursorItemIconText = ""+item.stack;
+                player.cursorItemIconText = "" + item.stack;
                 player.cursorItemIconID = item.type;
+            }
+        }
+
+        public override void HitWire(int i, int j)
+        {
+            ItemPlacerTE tileEntity = GetTileEntity(i, j);
+            Item item = tileEntity.item;
+            Tile tile = Framing.GetTileSafely(i, j);
+            Direction dir = new Direction(tile.TileFrameX / 16);
+            int x = i + dir.point.X;
+            int y = i + dir.point.Y;
+
+            int xOff = dir.point.X;
+            int yOff = dir.point.Y;
+            if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile))
+            {
+                item.stack--;
+                if (item.stack <= 0)
+                {
+                    item.TurnToAir();
+                    item.createTile = -1;
+                }
+            }
+            else if (item.createTile <= -1)
+            {
+                Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 1);
+
+                item.stack--;
+                if (item.stack <= 0)
+                {
+                    item.TurnToAir();
+                    item.createTile = -1;
+                }
             }
         }
     }
