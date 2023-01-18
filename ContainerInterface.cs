@@ -38,6 +38,8 @@ namespace Techarria
             if (ItemPlacerInterface.Check(x, y))
                 return new ItemPlacerInterface(x, y);
 
+            if (StorageCrateInterface.Check(x, y))
+                return new ItemPlacerInterface(x, y);
 
             return null;
         }
