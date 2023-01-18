@@ -320,7 +320,6 @@ namespace Techarria.Content.Tiles
                     if (target != null && target.InsertItem(item))
                     {
                         SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer"), new Vector2(i, j) * 16);
-                        Wiring.SkipWire(i, j);
                         container.ExtractItem(item);
                         return;
                     }

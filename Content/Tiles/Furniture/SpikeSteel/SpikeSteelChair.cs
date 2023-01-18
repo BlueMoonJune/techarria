@@ -17,9 +17,9 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
 		public override void SetStaticDefaults()
 		{
 			// Properties
+			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			Main.tileLavaDeath[Type] = false;
 			TileID.Sets.HasOutlines[Type] = true;
 			TileID.Sets.CanBeSatOnForNPCs[Type] = true; // Facilitates calling ModifySittingTargetInfo for NPCs
 			TileID.Sets.CanBeSatOnForPlayers[Type] = true; // Facilitates calling ModifySittingTargetInfo for Players

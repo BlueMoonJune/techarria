@@ -35,6 +35,10 @@ namespace Techarria
             if (point != Point.Zero)
                 return new GelatinousTurbineInterface(point.X, point.Y);
 
+            point = BlastFurnaceInterface.FindTopLeft(x, y);
+            if (point != Point.Zero)
+                return new BlastFurnaceInterface(point.X, point.Y);
+
             if (ItemPlacerInterface.Check(x, y))
                 return new ItemPlacerInterface(x, y);
 

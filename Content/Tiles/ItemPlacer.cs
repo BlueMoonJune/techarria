@@ -41,18 +41,12 @@ namespace techarria.Content.Tiles
             
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
             if (item == null) { return; }
-            int xOff = 0;
-            int yOff = 0;
+
             Tile tile = Framing.GetTileSafely(i, j);
-            if (tile.TileFrameX == 0) {
-                xOff = 1;
-            } else if (tile.TileFrameX == 16) {
-                yOff = -1;
-            } else if (tile.TileFrameX == 32) {
-                xOff = -1;
-            } else {
-                yOff = 1;
-            }
+            Direction dir = new Direction(tile.TileFrameX / 16);
+            int xOff = i + dir.point.X;
+            int yOff = j + dir.point.Y;
+
             if (item == null)
             {
                 item = new Item();
@@ -81,6 +75,7 @@ namespace techarria.Content.Tiles
         }
         public override void PlaceInWorld(int i, int j, Item item)
         {
+
             base.PlaceInWorld(i, j, item);
             for (int x = 0; x < 2048; x++)
             {

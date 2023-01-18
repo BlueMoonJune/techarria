@@ -16,6 +16,8 @@ namespace Techarria.Content.Tiles
 
     public class BlastFurnaceTE : ModTileEntity
     {
+		public static float baseTemp = 25;
+
 		public Item output = new Item();
 		public List<Item> inputs = new List<Item>();
 		public float progress = 0;
@@ -32,7 +34,179 @@ namespace Techarria.Content.Tiles
 
         public override void Update()
         {
-			temp = (temp - 25) * (1475f / 1476f) + 25f;
+			temp = (temp - baseTemp) * ((15000f - baseTemp) / (15001f - baseTemp)) + baseTemp;
+        }
+
+		public void Craft()
+        {
+			Recipe recipe = GetRecipe();
+			foreach (Item ingredient in recipe.requiredItem)
+            {
+				bool useRecipeGroup = false;
+				foreach (Item item in inputs)
+				{
+					if (RecipeGroupMatch(recipe, item.type, ingredient.type))
+					{
+						Main.NewText($"Crafting: {item.Name} is in recipe group with {ingredient.Name}");
+						item.stack -= ingredient.stack;
+						useRecipeGroup = true;
+					}
+				}
+
+				if (!useRecipeGroup)
+				{
+					foreach (Item item in inputs)
+					{
+						if (item.type == ingredient.type)
+						{
+							item.stack -= ingredient.stack;
+						}
+					}
+				}
+			}
+
+			List<Item> filteredInputs = new List<Item>();
+			foreach (Item item in inputs)
+            {
+				if (item.stack > 0)
+                {
+					filteredInputs.Add(item);
+                }
+            }
+			inputs = filteredInputs;
+        }
+
+		public Recipe GetRecipe()
+        {
+			foreach (Recipe recipe in Main.recipe)
+			{
+
+				if (!recipe.HasIngredient<Temperature>()) { continue; }
+				if (!recipe.HasTile<BlastFurnace>()) { continue; }
+				Main.NewText($"Recipe for {recipe.createItem.Name} passed checks");
+
+
+				List<Item> list = new List<Item>();
+				list = Power.Concat(list, inputs);
+				list.Add(new Item(ModContent.ItemType<Temperature>(), (int)temp));
+				Main.NewText(list.Count);
+
+				bool availableRecipe = true;
+
+				foreach (Item ingredient in recipe.requiredItem)
+                {
+					Main.NewText($"{ingredient.Name} ({ingredient.stack})");
+
+					int stack = ingredient.stack;
+					bool useRecipeGroup = false;
+					foreach (Item item in list)
+                    {
+						if (RecipeGroupMatch(recipe, item.type, ingredient.type))
+                        {
+                            Main.NewText($"{item.Name} is in recipe group with {ingredient.Name}");
+							stack -= item.stack;
+							useRecipeGroup = true;
+                        }
+                    }
+
+					if (!useRecipeGroup)
+					{
+						foreach (Item item in list)
+                        {
+							if (item.type == ingredient.type)
+                            {
+								Main.NewText($"{item.Name}: {stack - item.stack}");
+								stack -= item.stack;
+                            }
+                        }
+                    }
+
+					if (stack > 0)
+                    {
+						availableRecipe = false;
+                    }
+                }
+				if (availableRecipe)
+                {
+					return recipe;
+                }
+
+            }
+			return null;
+		}
+
+		public bool RecipeGroupMatch(Recipe recipe, int inventoryType, int requiredType)
+        {
+			foreach (int num in recipe.acceptedGroups)
+            {
+				RecipeGroup recipeGroup = RecipeGroup.recipeGroups[num];
+				if (recipeGroup.ContainsItem(inventoryType) && recipeGroup.ContainsItem(requiredType))
+					return true;
+            }
+			return false;
+        }
+		
+		public bool InsertItem(Item item)
+        {
+			int itemCount = 10;
+			foreach (Item input in inputs)
+            {
+				itemCount += input.stack;
+            }
+
+			temp = (temp * itemCount + baseTemp) / (itemCount + 1f);
+
+			foreach (Item input in inputs)
+			{
+				if (item.type == input.type && input.stack < input.maxStack)
+				{
+					input.stack++;
+					return true;
+				}
+			}
+
+			if (item != null && !item.IsAir)
+			{
+				foreach (Recipe recipe in Main.recipe)
+				{
+					if (!recipe.HasIngredient<Temperature>())
+						continue;
+
+					foreach (Item ingredient in inputs)
+					{
+						if (!recipe.HasIngredient(ingredient.type))
+							goto failed;
+					}
+
+					if (recipe.HasIngredient(item.type))
+					{
+						Item input = item.Clone();
+						input.stack = 1;
+						inputs.Add(input);
+						return true;
+					}
+
+				failed: continue;
+				}
+			}
+			return false;
+        }
+
+		public Item ExtractItem()
+        {
+			if (inputs.Count > 0)
+			{
+				Item extracted = inputs[0].Clone();
+                inputs[0].stack--;
+				if (inputs[0].stack <= 0)
+				{
+					inputs.RemoveAt(0);
+				}
+				extracted.stack = 1;
+				return extracted;
+			}
+
+			return null;
         }
 
         public override void SaveData(TagCompound tag)
@@ -53,8 +227,8 @@ namespace Techarria.Content.Tiles
 		public override void SetStaticDefaults()
 		{
 			Main.tileNoAttach[Type] = true;
-			Main.tileLavaDeath[Type] = true;
 			Main.tileFrameImportant[Type] = true;
+			Main.tileLavaDeath[Type] = false;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
 
@@ -64,6 +238,7 @@ namespace Techarria.Content.Tiles
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
 			TileObjectData.newTile.StyleHorizontal = false;
+			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 
 			// Etc
@@ -95,16 +270,11 @@ namespace Techarria.Content.Tiles
 			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
 			foreach (Item input in tileEntity.inputs)
             {
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, input);
+				Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), input);
 			}
 
 			ModContent.GetInstance<BlastFurnaceTE>().Kill(i, j);
 		}
-
-		public static bool AcceptsItem(Item item)
-        {
-			return item.type == Terraria.ID.ItemID.Gel || item.type == Terraria.ID.ItemID.PinkGel;
-        }
 
         public override bool RightClick(int i, int j)
         {
@@ -118,57 +288,31 @@ namespace Techarria.Content.Tiles
 				else
 					playerItem = Main.player[Main.myPlayer].HeldItem;
 
-				foreach (Item input in tileEntity.inputs)
+				if (tileEntity.InsertItem(playerItem))
                 {
-					if (playerItem.type == input.type && input.stack < input.maxStack)
+					if (--playerItem.stack <= 0)
                     {
-						input.stack++;
-						playerItem.stack--;
-						if (playerItem.stack <= 0)
-							playerItem.TurnToAir();
-						return true;
+						playerItem.TurnToAir();
                     }
+					return true;
                 }
 
-				if (playerItem != null && !playerItem.IsAir)
-                {
-					foreach (Recipe recipe in Main.recipe)
-					{
-						if (!recipe.HasIngredient<Temperature>())
-							continue;
-
-						foreach (Item ingredient in tileEntity.inputs)
-						{
-							if (!recipe.HasIngredient(ingredient.type))
-							goto failed;
-						}
-
-						if (recipe.HasIngredient(playerItem.type))
-                        {
-							Item input = playerItem.Clone();
-							input.stack = 1;
-							tileEntity.inputs.Add(input);
-							playerItem.stack--;
-							if (playerItem.stack <= 0)
-								playerItem.TurnToAir();
-							return true;
-                        }
-
-						failed: continue;
-					}
-				}
+				Item item = tileEntity.ExtractItem();
+				if (item != null) {
+					Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), item);
+                }
             }
-			if (tileEntity.inputs.Count > 0)
+			if (subTile.X != 1 && subTile.Y == 3)
             {
-				Item extracted = tileEntity.inputs[0];
-				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), extracted.type);
-				extracted.stack--;
-				if (extracted.stack <= 0)
+				Recipe recipe = tileEntity.GetRecipe();
+				if (recipe == null)
                 {
-					tileEntity.inputs.RemoveAt(0);
-                }
-				return true;
-            }
+					return false;
+				}
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), recipe.createItem.type);
+				tileEntity.Craft();
+			}
+
 
 			return false;
 
@@ -178,6 +322,13 @@ namespace Techarria.Content.Tiles
 			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
 			Player player = Main.LocalPlayer;
+
+			Item playerItem;
+			if (!Main.mouseItem.IsAir)
+				playerItem = Main.mouseItem;
+			else
+				playerItem = Main.player[Main.myPlayer].HeldItem;
+
 			player.noThrow = 2;
 			if (subTile.X == 1 && subTile.Y >= 2)
             {
@@ -188,22 +339,55 @@ namespace Techarria.Content.Tiles
 			if (subTile.X == 1 && subTile.Y <= 1)
 			{
 				List<Item> inputs = tileEntity.inputs;
-				if (inputs.Count <= 0)
+
+				Item item = null;
+
+				foreach (Item input in inputs)
                 {
-					return;
+					if (playerItem.type == input.type)
+						item = input;
                 }
-				tileEntity.displayCycle++;
-				Item item = inputs[tileEntity.displayCycle / 60 % inputs.Count];
+
+				if (item == null)
+				{
+					if (inputs.Count <= 0)
+					{
+						return;
+					}
+					tileEntity.displayCycle++;
+					item = inputs[tileEntity.displayCycle / 60 % inputs.Count];
+				}
+
+
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconText = item.stack.ToString();
 				player.cursorItemIconID = item.type;
+			}
+			if (subTile.X != 1 && subTile.Y == 3)
+            {
+				Recipe recipe = tileEntity.GetRecipe();
+				if (recipe == null)
+					return;
+
+				Item result = recipe.createItem;
+				player.cursorItemIconEnabled = true;
+				player.cursorItemIconID = result.type;
+				player.cursorItemIconText = result.Name;
+
 			}
 		}
 
         public override void InsertPower(int i, int j, int amount)
 		{
 			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
-			tileEntity.temp += amount;
+
+			int itemCount = 10;
+			foreach (Item input in tileEntity.inputs)
+			{
+				itemCount += input.stack;
+			}
+
+			tileEntity.temp += amount * 10 / (float)itemCount;
 		}
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

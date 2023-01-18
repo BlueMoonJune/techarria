@@ -125,7 +125,6 @@ namespace Techarria
                 {
                     for (int c = 0; c < 4; c++)
                     {
-                        Main.NewText(i + x + " " + j + y + " " + c);
                         if (GetWire(Main.tile[i + x, j + y], c))
                             consumers = Concat(consumers, Search(i + x, j + y, c));
                     }
@@ -152,7 +151,6 @@ namespace Techarria
 
         public static List<Point> Search(Wire wire)
         {
-            Main.NewText($"Searching X:{wire.X}, Y:{wire.Y}, C:{wire.C}");
             List<Point> list = new List<Point>();
             scanned.Add(wire);
             Point p = new Point(wire.X, wire.Y);
@@ -175,8 +173,10 @@ namespace Techarria
                     list = Concat<Point>(list, Search(w));
                 }
             }
-            if (DisplayInfos.TryAdd(wire, displayInfo))
+            if (DisplayInfos.Keys.Contains(wire))
                 DisplayInfos[wire].age = 0;
+            else
+                DisplayInfos.Add(wire, displayInfo);
 
             return list;
         }

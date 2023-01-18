@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,6 +6,26 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
 {
+    public class TransferDetectorTE : ModTileEntity
+    {
+        public bool detected = false;
+
+        public override bool IsTileValidForEntity(int x, int y)
+        {
+            return Main.tile[x, y].TileType == ModContent.TileType<TransferDetector>();
+        }
+
+        public override void Update()
+        {
+            if (detected)
+            {
+                Dust.NewDustDirect(new Vector2(Position.X, Position.Y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());
+                Wiring.TripWire(Position.X, Position.Y, 1, 1);
+                detected = false;
+            }
+        }
+    }
+
     /// <summary>
     /// Outputs a wire pulse when items are transfered through it
     /// </summary>
@@ -25,6 +40,16 @@ namespace Techarria.Content.Tiles
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             return true;
+        }
+
+        public override void PlaceInWorld(int i, int j, Item item)
+        {
+            ModContent.GetInstance<TransferDetectorTE>().Place(i, j);
+        }
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            ModContent.GetInstance<TransferDetectorTE>().Kill(i, j);
         }
 
         public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth)
@@ -47,12 +72,9 @@ namespace Techarria.Content.Tiles
                 ContainerInterface target = ((TransferDuct)TileLoader.GetTile(Main.tile[i, j].TileType)).EvaluatePath(x + dirToX(origin), y + dirToY(origin), item, origin, depth + 1);
                 if (target != null)
                 {
-                    Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());
                     CreateParticles(x, y, origin);
-                    if (!Wiring._toProcess.Keys.Contains(new Point16(x, y)))
-                    {
-                        Wiring._toProcess.Add(new Point16(x, y), 3);
-                    }
+                    TransferDetectorTE tileEntity = TileEntity.ByPosition[new Point16(x, y)] as TransferDetectorTE;
+                    tileEntity.detected = true;
                 }
                 return target;
             }

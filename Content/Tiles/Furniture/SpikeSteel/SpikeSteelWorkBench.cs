@@ -13,10 +13,10 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
     {
         public override void SetStaticDefaults()
         {
+            Main.tileLavaDeath[Type] = false;
             Main.tileTable[Type] = true;
             Main.tileSolidTop[Type] = true;
             Main.tileNoAttach[Type] = true;
-            Main.tileLavaDeath[Type] = false;
             Main.tileFrameImportant[Type] = true;
             TileID.Sets.DisableSmartCursor[Type] = true;
             TileID.Sets.IgnoredByNpcStepUp[Type] = true;

@@ -36,7 +36,6 @@ namespace Techarria.Content.Tiles
                     if (target != null && target.InsertItem(item))
                     {
                         SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer"), new Vector2(x, y) * 16);
-                        Wiring.SkipWire(x, y);
                         item.stack--;
                         if (item.stack <= 0)
                         {

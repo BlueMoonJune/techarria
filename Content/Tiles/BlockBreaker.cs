@@ -40,18 +40,14 @@ namespace Techarria.Content.Tiles
 
         public override void HitWire(int i, int j)
         {
-            int xOff = 0;
-            int yOff = 0;
             Tile tile = Framing.GetTileSafely(i, j);
-            if (tile.TileFrameX == 0) {
-                xOff = 1;
-            } else if (tile.TileFrameX == 16) {
-                yOff = -1;
-            } else if (tile.TileFrameX == 32) {
-                xOff = -1;
-            } else {
-                yOff = 1;
-            }
+            Direction dir = new Direction(tile.TileFrameX / 16);
+            int xOff = dir.point.X;
+            int yOff = dir.point.Y;
+
+            tile.TileFrameY += 16;
+            tile.TileFrameY %= 32;
+
             Main.LocalPlayer.PickTile(i + xOff, j + yOff, power);
         }
     }

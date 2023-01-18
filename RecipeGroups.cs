@@ -20,6 +20,11 @@ namespace Techarria
                 ItemID.EbonwoodChest, ItemID.GreenDungeonChest, ItemID.MartianChest, ItemID.MeteoriteChest, ItemID.ObsidianChest, ItemID.PalmWoodChest,
                 ItemID.PearlwoodChest, ItemID.PinkDungeonChest, ItemID.PumpkinChest, ItemID.ShadewoodChest, ItemID.SpiderChest, ItemID.SpookyChest);
             RecipeGroup.RegisterGroup(nameof(ItemID.Chest), ChestRecipeGroup);
+
+            // Iron and lead ore
+            RecipeGroup IronOreRecipeGroup = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.IronOre)}",
+                ItemID.IronOre, ItemID.LeadOre);
+            RecipeGroup.RegisterGroup(nameof(ItemID.IronOre), IronOreRecipeGroup);
         }
     }
 }

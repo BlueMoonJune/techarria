@@ -80,7 +80,7 @@ namespace Techarria.Content.Tiles
             {
 				for (int i = 0; i < (int)Techarria.GenerationMultiplier; i++)
                 {
-					Wiring.TripWire(Position.X, Position.Y, 3, 2);
+					//Wiring.TripWire(Position.X, Position.Y, 3, 2);
 					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
                 }
 				pulseFraction += Techarria.GenerationMultiplier % 1f;
@@ -125,8 +125,8 @@ namespace Techarria.Content.Tiles
     {
 		public override void SetStaticDefaults()
 		{
+			Main.tileLavaDeath[Type] = false;
 			Main.tileNoAttach[Type] = true;
-			Main.tileLavaDeath[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
@@ -137,6 +137,7 @@ namespace Techarria.Content.Tiles
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
 			TileObjectData.newTile.StyleHorizontal = true;
+			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 
 			// Etc

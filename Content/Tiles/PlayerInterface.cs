@@ -12,8 +12,9 @@ namespace Techarria.Content.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+
+			Main.tileLavaDeath[Type] = false;
 			Main.tileNoAttach[Type] = true;
-			Main.tileLavaDeath[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
@@ -23,6 +24,7 @@ namespace Techarria.Content.Tiles
 
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
+			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 
 			// Etc

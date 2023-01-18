@@ -20,6 +20,7 @@ namespace Techarria
 			if (!item.IsAir)
 			{
 				Texture2D itemTexture = TextureAssets.Item[item.type].Value;
+				
 				Rectangle rect = Main.itemAnimations[item.type] != null ? Main.itemAnimations[item.type].GetFrame(itemTexture) : itemTexture.Frame();
 				Color newColor = Color.White;
 				float pulseScale = 1f;

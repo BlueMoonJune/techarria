@@ -44,10 +44,10 @@ namespace Techarria.Content.Tiles
 			Main.tileOreFinderPriority[Type] = 500;
 
 			// Properties
+			Main.tileLavaDeath[Type] = false;
 			Main.tileSolidTop[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
@@ -61,8 +61,8 @@ namespace Techarria.Content.Tiles
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
 			TileObjectData.newTile.AnchorInvalidTiles = new int[] { TileID.MagicalIceBlock };
 			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
+			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 		}
 		public StorageCrateTE GetTileEntity(int i, int j)
@@ -127,7 +127,9 @@ namespace Techarria.Content.Tiles
 			if (!item.IsAir)
 			{
 				item.stack--;
-				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
+				Item dropItem = item.Clone();
+				dropItem.stack = 1;
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 32, 32), dropItem);
 				if (item.stack <= 0)
 				{
 					item.TurnToAir();

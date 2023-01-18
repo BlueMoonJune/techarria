@@ -99,7 +99,7 @@ namespace Techarria.Content.Projectiles
                     damage += 70;
                 }
                 if (Main.player[Projectile.owner] == player)
-                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " didn't realise EMPs and electronics dont mix"), damage, 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " didn't realise EMPs break electronics"), damage, 0);
                 else
                     player.Hurt(PlayerDeathReason.ByProjectile(Projectile.owner, Projectile.identity), damage, 0);
             }

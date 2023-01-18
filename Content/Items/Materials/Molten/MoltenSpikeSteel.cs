@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Techarria.Content.Items.RecipeItems;
+using Techarria.Content.Tiles;
 
 namespace Techarria.Content.Items.Materials.Molten
 {
@@ -51,15 +52,10 @@ namespace Techarria.Content.Items.Materials.Molten
                 .Register();
 
             CreateRecipe()
-                .AddIngredient(ItemID.IronOre, 6)
+                .AddRecipeGroup(nameof(ItemID.IronOre), 6)
                 .AddIngredient(ItemID.Spike, 10)
                 .AddIngredient(ModContent.ItemType<Temperature>(), 1500)
-                .Register();
-
-            CreateRecipe()
-                .AddIngredient(ItemID.LeadOre, 6)
-                .AddIngredient(ItemID.Spike, 10)
-                .AddIngredient(ModContent.ItemType<Temperature>(), 1500)
+                .AddTile<BlastFurnace>()
                 .Register();
         }
     }
