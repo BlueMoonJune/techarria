@@ -158,7 +158,6 @@ namespace Techarria.Content.Tiles
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 2;
-			Main.NewText(i + " " + j);
 			ModContent.GetInstance<GelatinousTurbineTE>().Place(i, j);
         }
 
@@ -177,7 +176,6 @@ namespace Techarria.Content.Tiles
 
         public override bool RightClick(int i, int j)
         {
-			Main.NewText("RightClick");
 			GelatinousTurbineTE tileEntity = GetTileEntity(i, j);
 			Item item = tileEntity.item;
 			Item playerItem;
@@ -189,10 +187,8 @@ namespace Techarria.Content.Tiles
 				playerItem = Main.player[Main.myPlayer].HeldItem;
             }
 
-			Main.NewText("Item Interaction: " + playerItem);
 			if (item.IsAir && AcceptsItem(playerItem))
 			{
-				Main.NewText("Item Empty: Insert");
 				item = playerItem.Clone();
 				item.stack = 1;
 				tileEntity.item = item;
@@ -205,7 +201,6 @@ namespace Techarria.Content.Tiles
             }
 			if (!item.IsAir && playerItem.type == item.type && item.stack < item.maxStack)
 			{
-				Main.NewText("Item Matches: Insert");
 				item.stack++;
 				playerItem.stack--;
 				if (playerItem.stack <= 0)
@@ -216,7 +211,6 @@ namespace Techarria.Content.Tiles
             }
 			if (!item.IsAir)
 			{
-				Main.NewText("Item Does not Match: Extract");
 				item.stack--;
 				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
 				if (item.stack <= 0)

@@ -49,7 +49,6 @@ namespace Techarria.Transfer
             tempItem.stack = 1;
             if (ModContent.GetModTile(Main.tile[x, y].TileType) is ExternalInterface modTile)
             {
-                Main.NewText("Is External Interface");
                 TEStorageHeart heart = modTile.GetHeart(x, y);
                 return !heart.Withdraw(tempItem, true).IsAir;
             }
@@ -62,20 +61,15 @@ namespace Techarria.Transfer
             deposit.stack = 1;
             if (ModContent.GetModTile(Main.tile[x, y].TileType) is ExternalInterface modTile)
             {
-                Main.NewText("Is External Interface");
                 TEStorageHeart heart = modTile.GetHeart(x, y);
                 foreach (TEAbstractStorageUnit storageUnit in heart.GetStorageUnits())
                 {
-                    Main.NewText("Checking Storage Unit");
                     if (storageUnit is TEStorageUnit unit && !unit.Inactive && unit.HasSpaceFor(item))
                     {
-                        Main.NewText("Depositing item");
                         heart.TryDeposit(deposit);
                         return true;
                     }
-                    Main.NewText("Deposit Failed");
                 }
-                Main.NewText("Could not find suitable storage unit");
             }
             return false;
         }

@@ -139,7 +139,6 @@ namespace Techarria
                 num15 = Main.maxTilesY;
             }
             Point screenOverdrawOffset = Main.GetScreenOverdrawOffset();
-            Main.NewText(Power.DisplayInfos.Count);
             foreach (Wire wire in Power.DisplayInfos.Keys)
             {
                 Color color;
@@ -161,7 +160,6 @@ namespace Techarria
                 int j = wire.X;
                 int i = wire.Y;
                 PowerDisplayInfo displayInfo = Power.DisplayInfos[wire];
-                Main.NewText(i + " " + j);
                 Main.spriteBatch.Draw(
                     ModContent.Request<Texture2D>("Techarria/Content/PowerTransferDisplay").Value,
                     new Rectangle(j * 16 - (int)Main.screenPosition.X, i * 16 - (int)Main.screenPosition.Y, 16, 16),

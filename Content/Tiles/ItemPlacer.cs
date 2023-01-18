@@ -39,10 +39,8 @@ namespace techarria.Content.Tiles
         public override void HitWire(int i, int j)
         {
             
-            Main.NewText("Techarria.Techarria.itemPlacerIDs[i, j]");
             Item item = Techarria.Techarria.itemPlacerItems[Techarria.Techarria.itemPlacerIDs[i, j]];
             if (item == null) { return; }
-            Main.NewText(item.type);
             int xOff = 0;
             int yOff = 0;
             Tile tile = Framing.GetTileSafely(i, j);

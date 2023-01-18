@@ -61,7 +61,6 @@ namespace Techarria.Content.Tiles
 							{
 								if (c < amount && chargable.Charge(1) == 1)
 								{
-									Main.NewText("Charged Inventory");
 									founditem = true;
 									c++;
 									continue;
@@ -75,7 +74,6 @@ namespace Techarria.Content.Tiles
 							{
 								if (c < amount && chargable.Charge(1) == 1)
 								{
-									Main.NewText("Charged Armor");
 									founditem = true;
 									c++;
 									continue;

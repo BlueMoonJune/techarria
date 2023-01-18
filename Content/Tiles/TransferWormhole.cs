@@ -161,7 +161,6 @@ namespace Techarria.Content.Tiles
                     return container;
                 }
 
-                Main.NewText(receiver.X + ", " + receiver.Y);
                 int i = dirToX(origin) + receiver.X;
                 int j = dirToY(origin) + receiver.Y;
                 if (Techarria.tileIsTransferDuct[Main.tile[i, j].TileType])

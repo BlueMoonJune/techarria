@@ -119,10 +119,17 @@ namespace Techarria
         {
             scanned.Clear();
             List<Point> consumers = new List<Point>();
-            for (int x = 0; x < width; x++) for (int y = 0; y < height; y++) for (int c = 0; c < 4; c++)
+            for (int x = 0; x < width; x++)
             {
-                if (GetWire(Main.tile[i + x, j + y], c))
-                consumers = Concat(consumers, Search(i, j, c));
+                for (int y = 0; y < height; y++)
+                {
+                    for (int c = 0; c < 4; c++)
+                    {
+                        Main.NewText(i + x + " " + j + y + " " + c);
+                        if (GetWire(Main.tile[i + x, j + y], c))
+                            consumers = Concat(consumers, Search(i + x, j + y, c));
+                    }
+                }
             }
             if (consumers.Count() == 0)
             {
@@ -145,7 +152,7 @@ namespace Techarria
 
         public static List<Point> Search(Wire wire)
         {
-            Dust.NewDustDirect(new Vector2(wire.X, wire.Y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
+            Main.NewText($"Searching X:{wire.X}, Y:{wire.Y}, C:{wire.C}");
             List<Point> list = new List<Point>();
             scanned.Add(wire);
             Point p = new Point(wire.X, wire.Y);
@@ -154,7 +161,6 @@ namespace Techarria
             if (ModContent.GetModTile(tile.TileType) is PowerConsumer consumer && consumer.IsConsumer(p.X, p.Y))
             {
                 list.Add(p);
-                Dust.NewDustDirect(new Vector2(wire.X, wire.Y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Indicator>());
             }
 
             PowerDisplayInfo displayInfo = new PowerDisplayInfo(wire.C);

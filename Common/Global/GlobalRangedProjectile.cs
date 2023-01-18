@@ -23,14 +23,11 @@ namespace Techarria.Common.Global
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            Main.NewText("Ranged Projectile Spawn " + source.GetType());
             if (source is EntitySource_ItemUse_WithAmmo s && s.Entity is Player p)
             {
-                Main.NewText("Came From Player");
                 PowerArmorPlayer player = p.GetModPlayer<PowerArmorPlayer>();
                 if (player.visorCooldown <= 0 && p.armor[0].ModItem is VisorApparatus visor && visor.IsArmorSet(p.armor[0], p.armor[1], p.armor[2]))
                 {
-                    Main.NewText("Special");
                     player.visorCooldown = 75;
                     for (int i = 0; i < 30; i++)
                         Dust.NewDust(p.TopLeft, p.width, p.height, DustID.Vortex);
@@ -49,7 +46,6 @@ namespace Techarria.Common.Global
                     {
                         if (!npc.friendly && Techarria.Intersects(npc.getRect(), line))
                         {
-                            Main.NewText(p.GetDamage(DamageClass.Ranged).Flat);
                             npc.StrikeNPC((int)(p.GetDamage(DamageClass.Ranged).ApplyTo(7)), 0, 0);
                             npc.AddBuff(BuffID.Electrified, 600);
                             if (new Random().Next(0) == 0)

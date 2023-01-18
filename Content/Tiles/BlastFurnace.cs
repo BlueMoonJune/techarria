@@ -23,7 +23,7 @@ namespace Techarria.Content.Tiles
 		public int frame = 0;
 		public static Rectangle particleRect = new Rectangle(6, 6, 24, 16);
 
-		public int cooldown;
+		public int displayCycle;
 
         public override bool IsTileValidForEntity(int x, int y)
         {
@@ -85,13 +85,19 @@ namespace Techarria.Content.Tiles
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 4;
-			Main.NewText(i + " " + j);
 			ModContent.GetInstance<BlastFurnaceTE>().Place(i, j);
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.BlastFurnace>());
+
+			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
+			foreach (Item input in tileEntity.inputs)
+            {
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, input);
+			}
+
 			ModContent.GetInstance<BlastFurnaceTE>().Kill(i, j);
 		}
 
@@ -102,7 +108,70 @@ namespace Techarria.Content.Tiles
 
         public override bool RightClick(int i, int j)
         {
+			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
+			Point16 subTile = new Point16(i, j) - tileEntity.Position;
+			if (subTile.X == 1 && subTile.Y <= 1)
+            {
+				Item playerItem;
+				if (!Main.mouseItem.IsAir)
+					playerItem = Main.mouseItem;
+				else
+					playerItem = Main.player[Main.myPlayer].HeldItem;
+
+				foreach (Item input in tileEntity.inputs)
+                {
+					if (playerItem.type == input.type && input.stack < input.maxStack)
+                    {
+						input.stack++;
+						playerItem.stack--;
+						if (playerItem.stack <= 0)
+							playerItem.TurnToAir();
+						return true;
+                    }
+                }
+
+				if (playerItem != null && !playerItem.IsAir)
+                {
+					foreach (Recipe recipe in Main.recipe)
+					{
+						if (!recipe.HasIngredient<Temperature>())
+							continue;
+
+						foreach (Item ingredient in tileEntity.inputs)
+						{
+							if (!recipe.HasIngredient(ingredient.type))
+							goto failed;
+						}
+
+						if (recipe.HasIngredient(playerItem.type))
+                        {
+							Item input = playerItem.Clone();
+							input.stack = 1;
+							tileEntity.inputs.Add(input);
+							playerItem.stack--;
+							if (playerItem.stack <= 0)
+								playerItem.TurnToAir();
+							return true;
+                        }
+
+						failed: continue;
+					}
+				}
+            }
+			if (tileEntity.inputs.Count > 0)
+            {
+				Item extracted = tileEntity.inputs[0];
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), extracted.type);
+				extracted.stack--;
+				if (extracted.stack <= 0)
+                {
+					tileEntity.inputs.RemoveAt(0);
+                }
+				return true;
+            }
+
 			return false;
+
 		}
 		public override void MouseOver(int i, int j)
 		{
@@ -115,6 +184,19 @@ namespace Techarria.Content.Tiles
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconText = tileEntity.temp + "ºC";
 				player.cursorItemIconID = ModContent.ItemType<Temperature>();
+			}
+			if (subTile.X == 1 && subTile.Y <= 1)
+			{
+				List<Item> inputs = tileEntity.inputs;
+				if (inputs.Count <= 0)
+                {
+					return;
+                }
+				tileEntity.displayCycle++;
+				Item item = inputs[tileEntity.displayCycle / 60 % inputs.Count];
+				player.cursorItemIconEnabled = true;
+				player.cursorItemIconText = item.stack.ToString();
+				player.cursorItemIconID = item.type;
 			}
 		}
 
@@ -131,7 +213,6 @@ namespace Techarria.Content.Tiles
 			if (subTile.X == 1 && subTile.Y == 3)
 			{
 				float temp = tileEntity.temp;
-				Main.NewText("Drawing temp: " + (int)temp / 500);
 
 				Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
 				Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;

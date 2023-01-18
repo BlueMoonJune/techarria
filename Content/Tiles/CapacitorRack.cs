@@ -36,7 +36,6 @@ namespace Techarria.Content.Tiles
 					Capacitor capacitor = items[x].ModItem as Capacitor;
 					if (capacitor == null)
 					{
-						Main.NewText("Item is null");
 						continue;
 					}
 					if (capacitor.charge > 0)
@@ -106,7 +105,6 @@ namespace Techarria.Content.Tiles
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 2;
-			Main.NewText(i + " " + j);
 			ModContent.GetInstance<CapacitorRackTE>().Place(i, j);
         }
 
@@ -132,7 +130,6 @@ namespace Techarria.Content.Tiles
 
         public override bool RightClick(int i, int j)
         {
-			Main.NewText("RightClick");
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
 			if (tileEntity == null) return false;
 
@@ -146,10 +143,8 @@ namespace Techarria.Content.Tiles
 				playerItem = Main.player[Main.myPlayer].HeldItem;
             }
 
-			Main.NewText("Item Interaction: " + playerItem);
 			if (item.IsAir && AcceptsItem(playerItem))
 			{
-				Main.NewText("Item Empty: Insert");
 				item = playerItem.Clone();
 				item.stack = 1;
                 tileEntity.items[i - tileEntity.Position.X] = item;
@@ -162,7 +157,6 @@ namespace Techarria.Content.Tiles
             }
 			if (!item.IsAir)
 			{
-				Main.NewText("Item Does not Match: Extract");
 				Item newItem = Main.item[Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type)];
 				Capacitor newCapacitor = newItem.ModItem as Capacitor;
 				Capacitor capacitor = item.ModItem as Capacitor;
@@ -209,7 +203,6 @@ namespace Techarria.Content.Tiles
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
 			if (subTile.X != 1 && subTile.Y == 1)
 			{
-				Main.NewText("Is Consumer");
 				return true;
 			}
 			return false;
@@ -231,7 +224,6 @@ namespace Techarria.Content.Tiles
 						Capacitor capacitor = tileEntity.items[tileEntity.lastCharged].ModItem as Capacitor;
 						if (capacitor == null)
 						{
-							Main.NewText("Item is null");
 							continue;
 						}
 						if (capacitor.Charge(1) == 1)

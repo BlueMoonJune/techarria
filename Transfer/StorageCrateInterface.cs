@@ -11,9 +11,9 @@ using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-    internal class GelatinousTurbineInterface : ContainerInterface
+    internal class StorageCrateInterface : ContainerInterface
     {
-        public GelatinousTurbineInterface(int i, int j)
+        public StorageCrateInterface(int i, int j)
         {
             x = i;
             y = j;
@@ -26,9 +26,9 @@ namespace Techarria.Transfer
                 return new Point();
             }
             Tile tile = Main.tile[i, j];
-            if (tile.TileType == ModContent.TileType<GelatinousTurbine>())
+            if (tile.TileType == ModContent.TileType<StorageCrate>())
             {
-                i -= tile.TileFrameX / 18 % 3;
+                i -= tile.TileFrameX / 18 % 2;
                 j -= tile.TileFrameY / 18 % 2;
 
                 return new Point(i, j);
@@ -39,7 +39,7 @@ namespace Techarria.Transfer
         public override List<Item> GetItems()
         {
             TileEntity.ByPosition.TryGetValue(new Point16(x, y), out TileEntity TE);
-            GelatinousTurbineTE tileEntity = TE as GelatinousTurbineTE;
+            StorageCrateTE tileEntity = TE as StorageCrateTE;
             if (tileEntity == null) return new List<Item>();
             return new List<Item>() { tileEntity.item };
         }
@@ -47,7 +47,7 @@ namespace Techarria.Transfer
         public override bool InsertItem(Item item)
         {
             TileEntity.ByPosition.TryGetValue(new Point16(x, y), out TileEntity TE);
-            GelatinousTurbineTE tileEntity = TE as GelatinousTurbineTE;
+            StorageCrateTE tileEntity = TE as StorageCrateTE;
             if (tileEntity == null) return false;
 
             Item myItem = tileEntity.item;
