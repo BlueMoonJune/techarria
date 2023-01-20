@@ -8,9 +8,33 @@ using Terraria;
 using Terraria.ModLoader;
 using Techarria;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
+using Terraria.ModLoader.IO;
 
 namespace Techarria.Content.Tiles
 {
+    public class FilterTE : ModTileEntity
+    {
+        public int item;
+
+        public override bool IsTileValidForEntity(int x, int y)
+        {
+            return Main.tile[x, y].TileType == ModContent.TileType<Filter>();
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("item", item);
+            base.SaveData(tag);
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            item = tag.GetAsInt("item");
+            base.LoadData(tag);
+        }
+    }
+
     /// <summary>
     /// Restricts item transfer based on the item
     /// </summary>
@@ -30,7 +54,8 @@ namespace Techarria.Content.Tiles
         public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth)
         {
             bool mode = Main.tile[x, y].TileFrameX != 0;
-            int filterItemType = Techarria.filterItems[Techarria.filterIDs[x, y]];
+            FilterTE tileEntity = GetTileEntity(x, y);
+            int filterItemType = tileEntity.item;
             if (filterItemType != 0 && ModContent.GetModItem(filterItemType) is FilterItem filterItem) 
             {   
                 
@@ -68,29 +93,22 @@ namespace Techarria.Content.Tiles
             return null;
         }
 
+
+
         public override void PlaceInWorld(int i, int j, Item item)
         {
-            base.PlaceInWorld(i, j, item);
-            for (int x = 0; x < 2048; x++)
-            {
-                if (Techarria.filterPositions[x] == Point.Zero)
-                {
-                    Techarria.filterPositions[x] = new Point(i, j);
-                    Techarria.filterIDs[i, j] = x;
-                    return;
-                }
-            }
+            ModContent.GetInstance<FilterTE>().Place(i, j);
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
-            if (Techarria.filterIDs[i, j] >= 0)
-            {
-                Techarria.filterPositions[Techarria.filterIDs[i, j]] = Point.Zero;
-                Techarria.filterItems[Techarria.filterIDs[i, j]] = 0;
-                Techarria.filterIDs[i, j] = -1;
-            }
+            ModContent.GetInstance<FilterTE>().Kill(i, j);
+        }
+
+        public static FilterTE GetTileEntity(int i, int j)
+        {
+            FilterTE tileEntity = TileEntity.ByPosition[new Point16(i, j)] as FilterTE;
+            return tileEntity;
         }
 
         public override void HitWire(int i, int j)
@@ -102,17 +120,19 @@ namespace Techarria.Content.Tiles
 
         public override bool RightClick(int i, int j)
         {
-            Techarria.filterItems[Techarria.filterIDs[i, j]] = Main.player[Main.myPlayer].HeldItem.type;
+            FilterTE tileEntity = GetTileEntity(i, j);
+            tileEntity.item = Main.player[Main.myPlayer].HeldItem.type;
             return true;
         }
         public override void MouseOver(int i, int j)
         {
+            FilterTE tileEntity = GetTileEntity(i, j);
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            if (Techarria.filterItems[Techarria.filterIDs[i, j]] != 0)
+            if (tileEntity.item != 0)
             {
                 player.cursorItemIconEnabled = true;
-                player.cursorItemIconID = Techarria.filterItems[Techarria.filterIDs[i, j]];
+                player.cursorItemIconID = tileEntity.item;
             }
         }
     }

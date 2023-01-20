@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -15,18 +17,21 @@ namespace Techarria.Content.Tiles
             ItemDrop = ModContent.ItemType<Items.Placeables.StickyPiston>();
         }
 
-        public override void Retract(int i, int j, int dir)
+        public override void Extend(Point p, Direction dir)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
+            int x = p.X + dir.point.X;
+            int y = p.Y + dir.point.Y;
 
-            int x = i + dirToX(dir);
-            int y = j + dirToY(dir);
-
-            Techarria.BlockDusts = true;
-            WorldGen.KillTile(x, y, false, false, true);
-            Techarria.BlockDusts = false;
-            tile.TileFrameY = 0;
-            PushTile(x - i + x, y - j + y, (dir + 2) % 4, dir);
+            if (Main.tile[x, y].HasTile)
+            {
+                List<Point> scanResult = Scan(new Point(x, y), dir);
+                PushTiles(scanResult, dir);
+            }
+            else
+            {
+                List<Point> scanResult = Scan(new Point(x + dir.point.X, y + dir.point.Y), dir.Rotated(2));
+                PushTiles(scanResult, dir.Rotated(2));
+            }
         }
     }
 }

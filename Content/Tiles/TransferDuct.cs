@@ -301,8 +301,6 @@ namespace Techarria.Content.Tiles
                 }
             }
 
-            CreateParticles(x, y , -1);
-
 
             return null;
         }
@@ -383,7 +381,7 @@ namespace Techarria.Content.Tiles
             Rectangle[] destinationRects = GetExtensionDestination(i, j);
             for (int x = 0; x < 4; x++) {
                 if (sourceRects[x] != new Rectangle())
-                spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/TransferDuctExtensions").Value, destinationRects[x], sourceRects[x], Color.White);
+                spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/TransferDuctExtensions").Value, destinationRects[x], sourceRects[x], Lighting.GetColor(i, j));
             }
         }
     }

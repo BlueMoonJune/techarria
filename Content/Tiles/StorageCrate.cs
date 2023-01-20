@@ -70,7 +70,8 @@ namespace Techarria.Content.Tiles
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 2;
 			j -= tile.TileFrameY / 18 % 2;
-			return TileEntity.ByPosition[new Point16(i, j)] as StorageCrateTE;
+			TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity te);
+			return te as StorageCrateTE;
 		}
 		public override void PlaceInWorld(int i, int j, Item item)
 		{
@@ -80,11 +81,27 @@ namespace Techarria.Content.Tiles
 			ModContent.GetInstance<StorageCrateTE>().Place(i, j);
 		}
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			StorageCrateTE tileEntity = GetTileEntity(i, j);
+			Item item = tileEntity.item;
+			if (!item.IsAir)
+            {
+				fail = true;
+				int amount = Math.Min(item.maxStack, item.stack);
+				item.stack -= amount;
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, amount);
+			}
+
+			base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			StorageCrateTE tileEntity = GetTileEntity(i, j);
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.StorageCrate>());
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
+			if (tileEntity.item.IsAir)
 			ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
 		}
 

@@ -23,18 +23,19 @@ namespace Techarria.Transfer
         public override List<Item> GetItems()
         {
             List<Item> array = new List<Item>();
-            array.Add(Techarria.itemPlacerItems[Techarria.itemPlacerIDs[x, y]]);
+            array.Add(ItemPlacer.GetTileEntity(x, y).item);
             return array;
         }
 
         public override bool InsertItem(Item item)
         {
-            Item myItem = Techarria.itemPlacerItems[Techarria.itemPlacerIDs[x, y]];
+            ItemPlacerTE tileEntity = ItemPlacer.GetTileEntity(x, y);
+            Item myItem = tileEntity.item;
             if (myItem == null || myItem.IsAir)
             {
                 myItem = item.Clone();
                 myItem.stack = 1;
-                Techarria.itemPlacerItems[Techarria.itemPlacerIDs[x, y]] = myItem;
+                tileEntity.item = myItem;
                 decrementItem(item);
                 return true;
             }

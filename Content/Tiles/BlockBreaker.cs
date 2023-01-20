@@ -11,7 +11,7 @@ namespace Techarria.Content.Tiles
     /// </summary>
     public class BlockBreaker : ModTile
     {
-        public static int power = 40;
+        public static int power = 4000;
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
@@ -48,7 +48,7 @@ namespace Techarria.Content.Tiles
             tile.TileFrameY += 16;
             tile.TileFrameY %= 32;
 
-            Main.LocalPlayer.PickTile(i + xOff, j + yOff, power);
+            Main.LocalPlayer.PickTile(i + xOff, j + yOff, 400);
         }
     }
 }

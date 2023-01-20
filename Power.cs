@@ -173,12 +173,17 @@ namespace Techarria
                     list = Concat<Point>(list, Search(w));
                 }
             }
-            if (DisplayInfos.Keys.Contains(wire))
-                DisplayInfos[wire].age = 0;
-            else
-                DisplayInfos.Add(wire, displayInfo);
-
+            foreach (Wire point in DisplayInfos.Keys)
+            {
+                if (point.X == p.X && point.Y == p.Y)
+                {
+                    DisplayInfos[point].age = 0;
+                    return list;
+                }
+            }
+            DisplayInfos.Add(wire, displayInfo);
             return list;
+
         }
     }
 }

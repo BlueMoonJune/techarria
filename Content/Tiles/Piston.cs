@@ -4,6 +4,9 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using System.Collections.Generic;
+using Techarria.Content.Dusts;
+using System.Linq;
+using Terraria.DataStructures;
 
 namespace Techarria.Content.Tiles
 {
@@ -16,84 +19,6 @@ namespace Techarria.Content.Tiles
 
         public int myType;
         public static int blockCount = 0;
-        public static int dirToX(int dir)
-        {
-            switch (dir % 4)
-            {
-                case 0:
-                    return 1;
-                case 2:
-                    return -1;
-                default:
-                    return 0;
-            }
-        }
-
-        /// <summary>takes a direction and returns the Y component of the coresponding vector</summary>
-        /// <param name="dir">The input direction. 0 = right, 1 = down, 2 = left, 3 = up</param>
-        /// <returns>The Y component of the vector coresponding to 'dir'</returns>
-        public static int dirToY(int dir)
-        {
-            switch (dir % 4)
-            {
-                case 1:
-                    return 1;
-                case 3:
-                    return -1;
-                default:
-                    return 0;
-            }
-        }
-
-        /// <summary>takes a direction and returns the coresponding vector</summary>
-        /// <param name="dir">The input direction. 0 = right, 1 = down, 2 = left, 3 = up</param>
-        /// <returns>The vector coresponding to 'dir'</returns>
-        public static Point dirToVec(int dir)
-        {
-            return new Point(dirToX(dir), dirToY(dir));
-        }
-
-        /// <summary>Takes a point and returns the coresponding direction</summary>
-        /// <param name="dir">The input point</param>
-        /// <returns>The coresponding direction. 0 = right, 1 = down, 2 = left, 3 = up</returns>
-        public static int posToDir(Point vec)
-        {
-            int x = (int)vec.X;
-            int y = (int)vec.Y;
-            if (x == 1 && y == 0)
-            {
-                return 0;
-            }
-            if (x == 0 && y == 1)
-            {
-                return 1;
-            }
-            if (x == -1 && y == 0)
-            {
-                return 2;
-            }
-            return 3;
-        }
-
-        /// <summary>Takes a point and returns the coresponding direction</summary>
-        /// <param name="dir">The input point</param>
-        /// <returns>The coresponding direction. 0 = right, 1 = down, 2 = left, 3 = up</returns>
-        public int posToDir(int x, int y)
-        {
-            if (x == 1 && y == 0)
-            {
-                return 0;
-            }
-            if (x == 0 && y == 1)
-            {
-                return 1;
-            }
-            if (x == -1 && y == 0)
-            {
-                return 2;
-            }
-            return 3;
-        }
 
         public override void SetStaticDefaults()
         {
@@ -144,104 +69,215 @@ namespace Techarria.Content.Tiles
             destTile.WallFrameY = destTileReset.WallFrameY;
             destTile.WallType = destTileReset.WallType;
 
+            if (TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity te))
+            {
+                te.Position = new Point16(x, y);
+                TileEntity.ByPosition.Remove(new Point16(i, j));
+                TileEntity.ByPosition.Add(new Point16(x, y), te);
+            }
+
+            Main.NewText(Chest.FindChest(i, j));
+            if (Chest.FindChest(i, j) >= 0)
+            {
+                Chest chest = Main.chest[Chest.FindChest(i, j)];
+                chest.x = x;
+                chest.y = y;
+            }
+
             Techarria.BlockDusts = true;
-            WorldGen.KillTile(i, j, false, false, true);
+            sourceTile.ClearTile();
             Techarria.BlockDusts = false;
+
+
         }
 
-        public static bool isImmovable(int type)
+        public static bool isImmovable(int i, int j)
         {
-            return (type == TileID.Obsidian || type == TileID.LihzahrdBrick);
+            Tile tile = Main.tile[i, j];
+            if ((tile.TileType == ModContent.TileType<Piston>() || tile.TileType == ModContent.TileType<Piston>()) && tile.TileFrameY > 0)
+            {
+                return true;
+            }
+
+            Main.NewText(tile.WallType);
+            if (tile.WallType == WallID.LihzahrdBrick || tile.WallType == WallID.LihzahrdBrickUnsafe)
+            {
+                Main.NewText("Lihzahrd Wall");
+                return true;
+            }
+
+            return tile.TileType == TileID.Obsidian || tile.TileType == TileID.LihzahrdBrick;
         }
 
-        public static bool isSticky(int type)
+        public static bool isSticky(int i, int j)
         {
+            int type = Main.tile[i, j].TileType;
             return (type == TileID.SlimeBlock || type == TileID.FrozenSlimeBlock || type == TileID.PinkSlimeBlock || type == TileID.HoneyBlock);
         }
 
-        public static bool PushSticky(int i, int j, int dir, int origin = -1)
+        public static List<Point> SortFrontToBack(List<Point> points, Direction dir)
         {
-            Techarria.print("Pushing Sticky");
-            bool success = true;
-            Tile myTile = Main.tile[i, j];
-            if (!isSticky(myTile.TileType))
+            List<Point> sorted = new List<Point>();
+
+            int maxX = 0;
+            int minX = Main.maxTilesX;
+            int maxY = 0;
+            int minY = Main.maxTilesY;
+            foreach (Point point in points)
+            {
+                if (point.X > maxX) maxX = point.X;
+                if (point.X < minX) minX = point.X;
+                if (point.Y > maxY) maxY = point.Y;
+                if (point.Y < minY) minY = point.Y;
+            }
+
+            if (dir <= 1)
+            {
+                for (int x = maxX; x >= minX; x--)
+                {
+                    for (int y = maxY; y >= minY; y--)
+                    {
+                        if (points.Contains(new Point(x, y)))
+                        {
+                            sorted.Add(new Point(x, y));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int x = minX; x <= maxX; x++)
+                {
+                    for (int y = minY; y <= maxY; y++)
+                    {
+                        if (points.Contains(new Point(x, y)))
+                        {
+                            sorted.Add(new Point(x, y));
+                        }
+                    }
+                }
+            }
+
+            return sorted;
+        }
+
+        public static List<Point> Scan(Point p, Direction dir)
+        {
+            List<Point> result = new List<Point>();
+
+            if (scanned.Contains(p)) return result;
+
+            scanned.Add(p);
+
+            if (!Main.tile[p].HasTile || isImmovable(p.X, p.Y))
+            {
+                return result;
+            }
+
+            Point TL = HelperMethods.GetTopLeftTileInMultitile(p.X, p.Y, out int width, out int height);
+
+            if (width != 1 || height != 1 )
+                for (int x = 0; x < width; x++)
+                {
+                    for (int y = 0; y < height; y++)
+                    {
+                        if (!scanned.Contains(new Point(TL.X + x, TL.Y + y)))
+                        {
+                            List<Point> ScanResult = Scan(new Point(TL.X + x, TL.Y + y), dir);
+                            foreach (var point in ScanResult)
+                            {
+                                result.Add(point);
+                            }
+                        }
+                    }
+                }
+            result.Add(p);
+
+            if (isSticky(p.X, p.Y))
+                foreach (Direction d in Direction.directions())
+                {
+                    Point t = p + d;
+                    List<Point> stickyScanResult = Scan(t, dir);
+                    foreach (var point in stickyScanResult)
+                    {
+                        result.Add(point);
+                    }
+                }
+
+            List<Point> pushScanResult = Scan(p + dir, dir);
+            foreach (var point in pushScanResult)
+            {
+                result.Add(point);
+            }
+
+            return result;
+        }
+
+        public bool CanPushTiles(List<Point> pairs, Direction dir)
+        {
+            if (pairs.Count > 64) return false;
+
+            foreach (var point in pairs)
+            {
+                Point t = point + dir;
+                if (Main.tile[t].HasTile)
+                {
+                    bool inList = false;
+                    foreach (Point p in pairs)
+                    {
+                        if (p.X == t.X && p.Y == t.Y)
+                        {
+                            inList = true;
+                        }
+                    }
+                    if (!inList)
+                    {
+                        Dust.NewDust(new Vector2(t.X * 16, t.Y * 16), 0, 0, ModContent.DustType<Indicator>());
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public bool PushTiles(List<Point> pairs, Direction dir)
+        {
+
+            if (!CanPushTiles(pairs, dir))
             {
                 return false;
             }
-            for (int k = 0; k < 4; k++)
+
+            List<Point> sorted = SortFrontToBack(pairs, dir);
+            foreach (Point point in sorted)
             {
-                int x = i + dirToX(k);
-                int y = j + dirToY(k);
-                Techarria.print("Moving direction " + k);
-                if (!isImmovable(Main.tile[x, y].TileType) && Main.tile[x, y].HasTile)
-                {
-                    int result = PushTile(x, y, dir, k);
-                    if (result != 1) success = success && result != 0;
-                }
+                Main.NewText(point);
+                Point t = point + dir;
+                CloneTile(point.X, point.Y, t.X, t.Y);
             }
-            return success;
+
+            foreach (Point point in sorted)
+            {
+                WorldGen.TileFrame(point.X, point.Y);
+            }
+
+            return true;
         }
 
-        public static int PushTile(int i, int j, int dir, int origin = -1)
+        public virtual void Extend(Point p, Direction dir)
         {
-            
 
-            if (scanned.Contains(new Point(i, j)))
-            {
-                return 1;
-            }
-            scanned.Add(new Point(i, j));
+            int x = p.X + dir.point.X;
+            int y = p.Y + dir.point.Y;
 
-            if (origin == -1)
-            {
-                origin = (dir + 2) % 4;
-            }
-            Tile myTile = Main.tile[i, j];
-
-            if (isSticky(myTile.TileType))
-            {
-                if (!PushSticky(i, j, dir, origin))
+            List<Point> scanResult = Scan(new Point(x, y), dir);
+            if (CanPushTiles(scanResult, dir))
+                foreach (var point in scanResult)
                 {
-                    return 0;
+                    Dust.NewDust(new Vector2(point.X, point.Y) * 16, 0, 0, ModContent.DustType<TransferDust>());
                 }
-            }
-
-            if (isImmovable(myTile.TileType))
-            {
-                return 0;
-            }
-            if (!Main.tile[i, j].HasTile)
-            {
-                return 1;
-            }
-            if (blockCount >= 32)
-            {
-                return 0;
-            }
-
-            int x = i + dirToX(dir);
-            int y = j + dirToY(dir);
-            Tile destTile = Main.tile[x, y];
-            if (!destTile.HasTile || PushTile(x, y, dir) != 0)
-            {
-                CloneTile(i, j, x, y);
-                blockCount++;
-                return 2;
-            }
-            return 0;
-        }
-
-        public virtual void Retract(int i, int j, int dir)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-
-            int x = i + dirToX(dir);
-            int y = j + dirToY(dir);
-
-            Techarria.BlockDusts = true;
-            WorldGen.KillTile(x, y, false, false, true);
-            Techarria.BlockDusts = false;
-            tile.TileFrameY = 0;
+            SortFrontToBack(scanResult, dir);
+            PushTiles(scanResult, dir);
         }
 
         public override void HitWire(int i, int j)
@@ -249,48 +285,14 @@ namespace Techarria.Content.Tiles
             scanned.Clear();
             scanned.Add(new Point(i, j));
             Tile tile = Framing.GetTileSafely(i, j);
-            if (tile.TileFrameY == 32)
+            if (tile.TileFrameY != 0)
             {
                 return;
             }
 
-            int dir = tile.TileFrameX / 16;
+            Direction dir = tile.TileFrameX / 16;
 
-            int x = i + dirToX(dir);
-            int y = j + dirToY(dir);
-            
-            if (tile.TileFrameY == 16 && Main.tile[x, y].TileFrameY == 32 && Main.tile[x, y].TileType == myType)
-            {
-                Retract(i, j, dir);
-                return;
-            }
-            blockCount = 0;
-            if (PushTile(x, y, dir) != 0)
-            {
-                WorldGen.PlaceTile(x, y, myType, false, true);
-                Main.tile[x, y].TileFrameX = tile.TileFrameX;
-                Main.tile[x, y].TileFrameY = 32;
-                tile.TileFrameY = 16;
-            }
-        }
-
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
-            if (!effectOnly)
-            {
-                Tile tile = Framing.GetTileSafely(i, j);
-                int dir = tile.TileFrameX / 16;
-                int x = i + dirToX(dir);
-                int y = j + dirToY(dir);
-
-                if (tile.TileFrameY == 16 && Main.tile[x, y].TileFrameY == 32 && Main.tile[x, y].TileType == myType)
-                {
-                    Retract(i, j, dir);
-                    return;
-                }
-            }
-    
-            base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+            Extend(new Point(i, j), dir);
         }
     }
 }

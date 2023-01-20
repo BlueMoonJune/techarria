@@ -56,27 +56,6 @@ namespace Techarria
             Main.NewText(obj);
         }
 
-        /// <summary>contains the filter item types. 'filterItems[filterIDs[x,y]]' gives you the for the filter at those coords</summary>
-        public static int[] filterItems = new int[8192];
-        /// <summary>contains the positions filters of each ID are located at</summary>
-        public static Point[] filterPositions = new Point[8192];
-        /// <summary>contains the filter ID for that position</summary>
-        public static int[,] filterIDs = new int[Main.maxTilesX, Main.maxTilesY];
-
-        /// <summary>contains the wormhole link item types. 'filterItems[filterIDs[x,y]]' gives you the for the filter at those coords</summary>
-        public static int[] wormholeLinkItems = new int[2048];
-        /// <summary>contains the positions wormholes of each ID are located at</summary>
-        public static Point[] wormholePositions = new Point[2048];
-        /// <summary>contains the wormhole ID for that position</summary>
-        public static int[,] wormholeIDs = new int[Main.maxTilesX, Main.maxTilesY];
-
-        ///
-        public static Item[] itemPlacerItems = new Item[8192];
-        ///
-        public static Point[] itemPlacerPositions = new Point[8192];
-        ///
-        public static int[,] itemPlacerIDs = new int[Main.maxTilesX, Main.maxTilesY];
-
         /// <summary>Whether or not this type is an item transfer tile</summary>
         public static bool[] tileIsTransferDuct = new bool[TileLoader.TileCount];
         /// <summary>Whether or not transfer ducts should connect to this type of tile</summary>

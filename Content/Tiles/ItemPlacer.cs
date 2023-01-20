@@ -60,7 +60,7 @@ namespace techarria.Content.Tiles
             return false;
         }
 
-        public ItemPlacerTE GetTileEntity(int i, int j)
+        public static ItemPlacerTE GetTileEntity(int i, int j)
         {
             return TileEntity.ByPosition[new Point16(i, j)] as ItemPlacerTE;
         }
