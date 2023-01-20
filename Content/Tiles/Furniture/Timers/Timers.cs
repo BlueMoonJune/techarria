@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -92,7 +91,6 @@ namespace Techarria.Content.Tiles.Furniture.Timers
             AddMapEntry(new Color(60/255f, 50/255f, 44/255f), CreateMapEntryName());
 
             DustType = DustID.Stone;
-            ItemDrop = ModContent.ItemType<Items.Placeables.TransferDuct>();
 
             HitSound = SoundID.Tink;
         }
@@ -141,6 +139,7 @@ namespace Techarria.Content.Tiles.Furniture.Timers
         public override void SetStaticDefaults()
         {
             duration = 300;
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.FiveSecondTimer>();
             base.SetStaticDefaults();
         }
     }
@@ -149,6 +148,7 @@ namespace Techarria.Content.Tiles.Furniture.Timers
         public override void SetStaticDefaults()
         {
             duration = 180;
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.ThreeSecondTimer>();
             base.SetStaticDefaults();
         }
     }
@@ -157,6 +157,7 @@ namespace Techarria.Content.Tiles.Furniture.Timers
         public override void SetStaticDefaults()
         {
             duration = 60;
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.OneSecondTimer>();
             base.SetStaticDefaults();
         }
     }
@@ -165,6 +166,7 @@ namespace Techarria.Content.Tiles.Furniture.Timers
         public override void SetStaticDefaults()
         {
             duration = 30;
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.HalfSecondTimer>();
             base.SetStaticDefaults();
         }
     }
@@ -174,6 +176,7 @@ namespace Techarria.Content.Tiles.Furniture.Timers
         public override void SetStaticDefaults()
         {
             duration = 15;
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.QuarterSecondTimer>();
             base.SetStaticDefaults();
         }
     }

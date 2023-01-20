@@ -4,9 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Net;
 using Terraria.GameContent.NetModules;
 using Terraria.GameContent.Creative;
-using Techarria.Content.Items.Materials;
 using Microsoft.Xna.Framework;
-using Techarria.Content.Items.Armor;
 
 namespace Techarria.Content.Items
 {
@@ -42,12 +40,6 @@ namespace Techarria.Content.Items
 		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
 		public override void AddRecipes()
 		{
-			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<SpikeSteelSheet>(), 5)
-				.AddIngredient(ModContent.ItemType<Capacitor>(), 1)
-				.AddIngredient(ItemID.Wire, 10)
-				.AddTile(TileID.Anvils)
-				.Register();
 		}
 
         public override void HoldItem(Player player)
@@ -59,7 +51,6 @@ namespace Techarria.Content.Items
 			dif *= 334.76f;
 			Vector2 center = origin + dif;
 			Vector2 offset = new Vector2(Projectiles.EMPGrenade.range, 0);
-			offset = offset.RotatedBy(player.GetModPlayer<PowerArmorPlayer>().frames * 0.05);
 			for (int i = 0; i < 4; i++)
 			{
 				Dust dust = Dust.NewDustDirect(center + offset, 0, 0, DustID.BlueFairy);

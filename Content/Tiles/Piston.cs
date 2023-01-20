@@ -4,7 +4,6 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using System.Collections.Generic;
-using Techarria.Content.Dusts;
 using System.Linq;
 using Terraria.DataStructures;
 
@@ -232,7 +231,6 @@ namespace Techarria.Content.Tiles
                     }
                     if (!inList)
                     {
-                        Dust.NewDust(new Vector2(t.X * 16, t.Y * 16), 0, 0, ModContent.DustType<Indicator>());
                         return false;
                     }
                 }
@@ -272,10 +270,6 @@ namespace Techarria.Content.Tiles
 
             List<Point> scanResult = Scan(new Point(x, y), dir);
             if (CanPushTiles(scanResult, dir))
-                foreach (var point in scanResult)
-                {
-                    Dust.NewDust(new Vector2(point.X, point.Y) * 16, 0, 0, ModContent.DustType<TransferDust>());
-                }
             SortFrontToBack(scanResult, dir);
             PushTiles(scanResult, dir);
         }
