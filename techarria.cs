@@ -50,12 +50,6 @@ namespace Techarria
             return b <= topBound && b >= bottomBound;
         }
 
-        public static void print(object obj)
-        {
-            System.Console.WriteLine(obj);
-            Main.NewText(obj);
-        }
-
         /// <summary>Whether or not this type is an item transfer tile</summary>
         public static bool[] tileIsTransferDuct = new bool[TileLoader.TileCount];
         /// <summary>Whether or not transfer ducts should connect to this type of tile</summary>

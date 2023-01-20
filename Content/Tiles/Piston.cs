@@ -75,7 +75,6 @@ namespace Techarria.Content.Tiles
                 TileEntity.ByPosition.Add(new Point16(x, y), te);
             }
 
-            Main.NewText(Chest.FindChest(i, j));
             if (Chest.FindChest(i, j) >= 0)
             {
                 Chest chest = Main.chest[Chest.FindChest(i, j)];
@@ -98,10 +97,8 @@ namespace Techarria.Content.Tiles
                 return true;
             }
 
-            Main.NewText(tile.WallType);
             if (tile.WallType == WallID.LihzahrdBrick || tile.WallType == WallID.LihzahrdBrickUnsafe)
             {
-                Main.NewText("Lihzahrd Wall");
                 return true;
             }
 
@@ -249,7 +246,6 @@ namespace Techarria.Content.Tiles
             List<Point> sorted = SortFrontToBack(pairs, dir);
             foreach (Point point in sorted)
             {
-                Main.NewText(point);
                 Point t = point + dir;
                 CloneTile(point.X, point.Y, t.X, t.Y);
             }

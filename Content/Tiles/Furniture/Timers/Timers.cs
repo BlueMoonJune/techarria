@@ -27,7 +27,6 @@ namespace Techarria.Content.Tiles.Furniture.Timers
 
         public void Toggle(int dur)
         {
-            Main.NewText($"Toggle {justToggled} {active}");
             if (justToggled)
             {
                 return;
