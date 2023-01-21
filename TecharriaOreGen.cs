@@ -41,7 +41,9 @@ namespace Techarria
 
 			// Ores are quite simple, we simply use a for loop and the WorldGen.TileRunner to place splotches of the specified Tile in the world.
 			// that big number is commonality of veins, lower = less, bigger = more. 0.00006 is basically copper spawn rate
-			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 0.000008); k++)
+
+			// coal ore gen
+			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 0.0000015); k++)
 			{
 				// The inside of this for loop corresponds to one single splotch of our Ore.
 				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
@@ -51,7 +53,7 @@ namespace Techarria
 				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
 
 				// first Rand is strength (how much per vein) and second is steps (makes it snakey)
-				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(14, 32), WorldGen.genRand.Next(115, 185), ModContent.TileType<CoalOre>());
+				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(26, 32), WorldGen.genRand.Next(215, 285), ModContent.TileType<CoalOre>());
 
 				// Alternately, we could check the tile already present in the coordinate we are interested.
 				// Wrapping WorldGen.TileRunner in the following condition would make the ore only generate in Snow.

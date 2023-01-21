@@ -8,7 +8,7 @@ using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Materials
 {
-    internal class SpikeSteelSheet : ModItem
+    public class SpikeSteelSheet : ModItem
     {
         public override void SetStaticDefaults()
         {
