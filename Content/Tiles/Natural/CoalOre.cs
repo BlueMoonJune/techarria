@@ -15,21 +15,23 @@ namespace Techarria.Content.Tiles.Natural
 			TileID.Sets.Ore[Type] = true;
 			Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
 			Main.tileOreFinderPriority[Type] = 410; // Metal Detector value, see https://terraria.gamepedia.com/Metal_Detector
-			Main.tileShine2[Type] = true; // Modifies the draw color slightly.
-			Main.tileShine[Type] = 975; // How often tiny dust appear off this tile. Larger is less frequently
-			Main.tileMergeDirt[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 
+			// tile merge blending
+			// blends to dirt
+			Main.tileMergeDirt[Type] = true;
+			// blends like stone
+			Main.tileBrick[Type] = true;
+
+			// map stuff
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Coal Ore");
 			AddMapEntry(new Color(255, 0, 255), name);
 
 			DustType = 84;
-			//ItemDrop = ModContent.ItemType<Items.Placeable.IndustrialCoal>();
+			ItemDrop = ModContent.ItemType<Items.Materials.IndustrialCoal>();
 			HitSound = SoundID.Tink;
-			// MineResist = 4f;
-			// MinPick = 200;
 		}
 	}
 }
