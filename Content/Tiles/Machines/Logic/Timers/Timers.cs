@@ -22,7 +22,6 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
 
         public void Toggle(int dur)
         {
-            Main.NewText($"Toggle {justToggled} {active}");
             if (justToggled)
             {
                 return;

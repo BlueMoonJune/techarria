@@ -61,7 +61,7 @@ namespace Techarria.Content.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 		}
-		public StorageCrateTE GetTileEntity(int i, int j)
+		public virtual StorageCrateTE GetTileEntity(int i, int j)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 2;
@@ -98,7 +98,7 @@ namespace Techarria.Content.Tiles
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.StorageCrate>());
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
 			if (tileEntity.item.IsAir)
-			ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
+				ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
 		}
 
 		public override bool RightClick(int i, int j)

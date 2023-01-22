@@ -40,7 +40,6 @@ namespace Techarria.Content.Tiles.Machines
 				bool useRecipeGroup = false;
 				foreach (Item item in inputs) {
 					if (RecipeGroupMatch(recipe, item.type, ingredient.type)) {
-						Main.NewText($"Crafting: {item.Name} is in recipe group with {ingredient.Name}");
 						item.stack -= ingredient.stack;
 						useRecipeGroup = true;
 					}
@@ -69,24 +68,20 @@ namespace Techarria.Content.Tiles.Machines
 
 				if (!recipe.HasIngredient<Temperature>()) { continue; }
 				if (!recipe.HasTile<BlastFurnace>()) { continue; }
-				Main.NewText($"Recipe for {recipe.createItem.Name} passed checks");
 
 
 				var list = new List<Item>();
 				list = Power.Concat(list, inputs);
 				list.Add(new Item(ModContent.ItemType<Temperature>(), (int)temp));
-				Main.NewText(list.Count);
 
 				bool availableRecipe = true;
 
 				foreach (Item ingredient in recipe.requiredItem) {
-					Main.NewText($"{ingredient.Name} ({ingredient.stack})");
 
 					int stack = ingredient.stack;
 					bool useRecipeGroup = false;
 					foreach (Item item in list) {
 						if (RecipeGroupMatch(recipe, item.type, ingredient.type)) {
-							Main.NewText($"{item.Name} is in recipe group with {ingredient.Name}");
 							stack -= item.stack;
 							useRecipeGroup = true;
 						}
@@ -95,7 +90,6 @@ namespace Techarria.Content.Tiles.Machines
 					if (!useRecipeGroup) {
 						foreach (Item item in list) {
 							if (item.type == ingredient.type) {
-								Main.NewText($"{item.Name}: {stack - item.stack}");
 								stack -= item.stack;
 							}
 						}
