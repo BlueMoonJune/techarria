@@ -42,7 +42,6 @@ namespace Techarria.Content.Tiles
 			// Properties
 			Main.tileLavaDeath[Type] = false;
 			Main.tileSolidTop[Type] = true;
-			Main.tileSolid[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
@@ -87,6 +86,7 @@ namespace Techarria.Content.Tiles
 				int amount = Math.Min(item.maxStack, item.stack);
 				item.stack -= amount;
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, amount);
+				tileEntity.item.TurnToAir();
 			}
 
 			base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
