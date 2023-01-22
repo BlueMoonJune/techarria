@@ -71,7 +71,12 @@ namespace Techarria
                         transform
                     );
 
-                    Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), Color.White);
+					Color color = storage.item.color;
+					if (storage.item.color == new Color()) {
+						color = Color.White;
+					}
+
+                    Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
 
                     Main.spriteBatch.End();
                 }

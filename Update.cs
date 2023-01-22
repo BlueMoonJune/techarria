@@ -31,7 +31,6 @@ namespace Techarria
                             Item item = chest.item[i];
                             if (!logged)
                             {
-                                Main.NewText($"{chest.x} {chest.y} {item.Name}");
                                 logged = true;
                             }
                             //if (!item.IsAir)
