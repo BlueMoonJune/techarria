@@ -328,7 +328,7 @@ namespace Techarria.Content.Tiles.Transfer
 			Rectangle[] destinationRects = GetExtensionDestination(i, j);
 			for (int x = 0; x < 4; x++) {
 				if (sourceRects[x] != new Rectangle())
-					spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/TransferDuctExtensions").Value, destinationRects[x], sourceRects[x], Lighting.GetColor(i, j));
+					spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Transfer/TransferDuctExtensions").Value, destinationRects[x], sourceRects[x], Lighting.GetColor(i, j));
 			}
 		}
 	}

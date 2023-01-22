@@ -124,7 +124,7 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
 
             float progress = 1 - timerTE.timer / (float)timerTE.duration;
             spriteBatch.Draw(
-                ModContent.Request<Texture2D>("Techarria/Content/Tiles/Furniture/Timers/TimerIndicator").Value,
+                ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/Logic/Timers/TimerIndicator").Value,
                 pos,
                 new Color(progress, progress, progress)
             );

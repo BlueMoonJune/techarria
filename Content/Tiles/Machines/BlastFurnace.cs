@@ -345,7 +345,7 @@ namespace Techarria.Content.Tiles.Machines
 
 				var sourceRect = new Rectangle(0, 30 - (int)temp / 500 * 2, 16, (int)temp / 500 * 2);
 				var destRect = new Rectangle((int)pos.X, (int)pos.Y - 16 + 30 - (int)temp / 500 * 2, 16, (int)temp / 500 * 2);
-				spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/BlastFurnace_Overlay").Value, destRect, sourceRect, Lighting.GetColor(i, j));
+				spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/BlastFurnace_Overlay").Value, destRect, sourceRect, Lighting.GetColor(i, j));
 
 			}
 

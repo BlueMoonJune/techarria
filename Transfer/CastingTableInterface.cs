@@ -39,11 +39,9 @@ namespace Techarria.Transfer
         public override bool InsertItem(Item item)
         {
             CastingTableTE te = CastingTable.GetTileEntity(x, y);
-            if (te.item.IsAir && item.ModItem is MoltenBlob blob)
+            if (item.ModItem is MoltenBlob blob)
             {
-                te.item = item;
-                te.temp = blob.temp;
-                return true;
+				return te.InsertMolten(item);
             }
             return false;
         }
