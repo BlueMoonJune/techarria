@@ -62,6 +62,33 @@ namespace Techarria
 				// 	WorldGen.TileRunner(.....);
 				// }
 			}
+			// coal ore gen but smaller
+			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 0.000007); k++)
+			{
+				// The inside of this for loop corresponds to one single splotch of our Ore.
+				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
+				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
+
+				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
+				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+
+				// first Rand is strength (how much per vein) and second is steps (makes it snakey)
+				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(4, 8), ModContent.TileType<CoalOre>());
+			}
+
+			// limestone spawn
+			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 0.00004); k++)
+			{
+				// The inside of this for loop corresponds to one single splotch of our Ore.
+				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
+				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
+
+				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
+				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+
+				// first Rand is strength (how much per vein) and second is steps (makes it snakey)
+				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(78, 112), ModContent.TileType<Limestone>());
+			}
 		}
 	}
 }
