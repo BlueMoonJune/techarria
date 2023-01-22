@@ -1,13 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Net;
-using Terraria.GameContent.NetModules;
 using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Placeables.Natural
 {
-    class CoalOre : ModItem
+	class CoalOre : ModItem
     {
 		public override void SetStaticDefaults()
 		{

@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Techarria.Content.Dusts;
 using Techarria.Content.Items.Armor;
 using Techarria.Content.Items.Armor.Apparatus;
@@ -14,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Common.Global
 {
-    public class GlobalRangedProjectile : GlobalProjectile
+	public class GlobalRangedProjectile : GlobalProjectile
     {
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
         {

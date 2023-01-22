@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,7 +7,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Particles for item transfer
 	/// </summary>
-    public class TransferDust : ModDust
+	public class TransferDust : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

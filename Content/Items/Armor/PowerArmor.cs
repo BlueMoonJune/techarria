@@ -1,20 +1,15 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using System;
-using Techarria.Content.Items.Armor.Apparatus;
+﻿using Techarria.Content.Items.Armor.Apparatus;
 using Techarria.Content.Items.Materials.Molten;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace Techarria.Content.Items.Armor
 {
-    public abstract class PowerArmor : ChargableItem
+	public abstract class PowerArmor : ChargableItem
     {
         public int damageClass = 0;
         public static int ApparatusMaxCharge = 200;

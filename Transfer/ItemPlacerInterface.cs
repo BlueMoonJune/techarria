@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using Terraria;
-using Terraria.ObjectData;
+﻿using Terraria;
 using Terraria.ModLoader;
-using techarria.Content.Tiles;
 using System.Collections.Generic;
+using Techarria.Content.Tiles.Machines.Logic;
 
 namespace Techarria.Transfer
 {
-    public class ItemPlacerInterface : ContainerInterface
+	public class ItemPlacerInterface : ContainerInterface
     {
         public ItemPlacerInterface(int i, int j)
         {

@@ -1,16 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Buffs
 {
-    internal class DisplayOffline : ModBuff
+	internal class DisplayOffline : ModBuff
     {
         public override void SetStaticDefaults()
         {

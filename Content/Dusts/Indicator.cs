@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Dusts
@@ -11,7 +6,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Particle for when a transfer detector activates
 	/// </summary>
-    public class Indicator : ModDust
+	public class Indicator : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

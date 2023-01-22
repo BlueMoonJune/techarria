@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
-using Techarria.Content.Tiles.Furniture.Timers;
 
 namespace Techarria.Content.Items.Placeables.Timers
 {
-    internal class FiveSecondTimer : ModItem
+	internal class FiveSecondTimer : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -32,7 +26,7 @@ namespace Techarria.Content.Items.Placeables.Timers
             Item.useTime = 10;
             Item.autoReuse = true;
 
-            Item.createTile = ModContent.TileType<Tiles.Furniture.Timers.FiveSecondTimer>();
+            Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.FiveSecondTimer>();
         }
     }
 
@@ -58,7 +52,7 @@ namespace Techarria.Content.Items.Placeables.Timers
             Item.useTime = 10;
             Item.autoReuse = true;
 
-            Item.createTile = ModContent.TileType<Tiles.Furniture.Timers.ThreeSecondTimer>();
+            Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.ThreeSecondTimer>();
         }
     }
 
@@ -84,7 +78,7 @@ namespace Techarria.Content.Items.Placeables.Timers
             Item.useTime = 10;
             Item.autoReuse = true;
 
-            Item.createTile = ModContent.TileType<Tiles.Furniture.Timers.OneSecondTimer>();
+            Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.OneSecondTimer>();
         }
     }
 
@@ -110,7 +104,7 @@ namespace Techarria.Content.Items.Placeables.Timers
             Item.useTime = 10;
             Item.autoReuse = true;
 
-            Item.createTile = ModContent.TileType<Tiles.Furniture.Timers.HalfSecondTimer>();
+            Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.HalfSecondTimer>();
         }
     }
 
@@ -136,7 +130,7 @@ namespace Techarria.Content.Items.Placeables.Timers
             Item.useTime = 10;
             Item.autoReuse = true;
 
-            Item.createTile = ModContent.TileType<Tiles.Furniture.Timers.QuarterSecondTimer>();
+            Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.QuarterSecondTimer>();
         }
     }
 }

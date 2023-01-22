@@ -1,18 +1,14 @@
 ﻿using MagicStorage.Components;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Transfer;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-    public class ExternalInterfaceInterface : ContainerInterface
+	public class ExternalInterfaceInterface : ContainerInterface
     {
         public ExternalInterfaceInterface(int i, int j)
         {
@@ -26,7 +22,7 @@ namespace Techarria.Transfer
             if (i < 0 || j < 0)
                 return new Point();
 
-            if (!tile.HasTile || tile.TileType != ModContent.TileType<Content.Tiles.ExternalInterface>())
+            if (!tile.HasTile || tile.TileType != ModContent.TileType<ExternalInterface>())
                 return new Point();
 
             if (tile.TileFrameX > 0) i--;

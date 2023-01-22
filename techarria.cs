@@ -1,14 +1,9 @@
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
-using Techarria.Content.Items;
 using Terraria.DataStructures;
 using System;
-using System.Collections.Generic;
-using Techarria.Content.Tiles;
-using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
 
 namespace Techarria
 {

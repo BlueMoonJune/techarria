@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Dusts
@@ -11,7 +6,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Particles for extracting (or attempting to extract) an item from a container
 	/// </summary>
-    public class Suction : ModDust
+	public class Suction : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

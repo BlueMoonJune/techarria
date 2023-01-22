@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.FilterItems
 {
-    /// <summary>
-    /// A class for items that do something special in a Filter
-    /// </summary>
-    public abstract class FilterItem : ModItem
+	/// <summary>
+	/// A class for items that do something special in a Filter
+	/// </summary>
+	public abstract class FilterItem : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -1,17 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Machines;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-    internal class GelatinousTurbineInterface : ContainerInterface
+	internal class GelatinousTurbineInterface : ContainerInterface
     {
         public GelatinousTurbineInterface(int i, int j)
         {

@@ -11,7 +11,7 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles.Furniture.SpikeSteel
 {
-	public class SpikeSteelChair : ModTile
+    public class SpikeSteelChair : ModTile
 	{
 		public const int NextStyleHeight = 40;
 		public override void SetStaticDefaults()
@@ -50,7 +50,7 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 32, ModContent.ItemType<Items.Placeables.SpikeSteelChair>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 32, ModContent.ItemType<Content.Items.Placeables.Furniture.SpikeSteelChair>());
 
 		}
 		// chair stuff (sitting down)
@@ -106,7 +106,7 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
 
 			player.noThrow = 2;
 			player.cursorItemIconEnabled = true;
-			player.cursorItemIconID = ModContent.ItemType<Items.Placeables.SpikeSteelChair>();
+			player.cursorItemIconID = ModContent.ItemType<Content.Items.Placeables.Furniture.SpikeSteelChair>();
 
 			if (Main.tile[i, j].TileFrameX / 18 < 1)
 			{

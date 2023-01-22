@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Techarria.Content.Tiles;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-    internal class StorageCrateInterface : ContainerInterface
+	internal class StorageCrateInterface : ContainerInterface
     {
         public StorageCrateInterface(int i, int j)
         {

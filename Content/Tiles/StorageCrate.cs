@@ -1,11 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -13,7 +10,7 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles
 {
-    public class StorageCrateTE : ModTileEntity
+	public class StorageCrateTE : ModTileEntity
     {
 		public Item item = new Item();
 		public override bool IsTileValidForEntity(int x, int y)

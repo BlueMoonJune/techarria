@@ -36,7 +36,7 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
         }
         public override void KillMultiTile(int x, int y, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, ModContent.ItemType<Items.Placeables.SpikeSteelWorkBench>());
+            Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, ModContent.ItemType<Items.Placeables.Furniture.SpikeSteelWorkBench>());
         }
     }
 }

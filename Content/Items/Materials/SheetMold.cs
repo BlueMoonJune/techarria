@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Techarria.Content.Items.Materials
+﻿namespace Techarria.Content.Items.Materials
 {
-    public class SheetMold : Mold
+	public class SheetMold : Mold
     {
         public override void SetStaticDefaults()
         {

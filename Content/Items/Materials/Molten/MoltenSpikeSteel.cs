@@ -2,13 +2,12 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework;
 using Techarria.Content.Items.RecipeItems;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Machines;
 
 namespace Techarria.Content.Items.Materials.Molten
 {
-    public class MoltenSpikeSteel : MoltenBlob
+	public class MoltenSpikeSteel : MoltenBlob
     {
 
         public override void SetDefaults()

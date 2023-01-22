@@ -1,20 +1,15 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Terraria.ObjectData;
-using Techarria.Content.Dusts;
-using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using System;
 using Terraria.DataStructures;
 using Techarria.Content.Tiles;
-using System.Collections.Generic;
 
 namespace Techarria
 {
-    internal class Rendering : ModSystem
+	internal class Rendering : ModSystem
     {
         /*
         public override void PostDrawTiles()

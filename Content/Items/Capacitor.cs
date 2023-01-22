@@ -1,8 +1,6 @@
-﻿using Terraria.ModLoader;
-
-namespace Techarria.Content.Items
+﻿namespace Techarria.Content.Items
 {
-    public class Capacitor : ChargableItem
+	public class Capacitor : ChargableItem
     {
         public override void SetStaticDefaults()
         {

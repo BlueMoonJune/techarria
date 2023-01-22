@@ -1,15 +1,12 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Net;
-using Terraria.GameContent.NetModules;
 using Terraria.GameContent.Creative;
-using Techarria.Content.Tiles;
 using Techarria.Content.Items.Materials.Molten;
+using Techarria.Content.Tiles.Machines;
 
 namespace Techarria.Content.Items.Materials
 {
-    public class SpikeSteelSheet : ModItem
+	public class SpikeSteelSheet : ModItem
     {
         public override void SetStaticDefaults()
         {

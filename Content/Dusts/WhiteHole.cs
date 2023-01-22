@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,7 +7,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// White hole effect for receiving transfer wormholes
 	/// </summary>
-    public class WhiteHole : ModDust
+	public class WhiteHole : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

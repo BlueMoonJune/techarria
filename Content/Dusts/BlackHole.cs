@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,7 +7,7 @@ namespace Techarria.Content.Dusts
 	/// <summary>
 	/// Primary particle for transmitting wormholes
 	/// </summary>
-    public class BlackHole : ModDust
+	public class BlackHole : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

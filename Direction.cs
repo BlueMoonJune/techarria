@@ -1,16 +1,8 @@
-﻿using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using Techarria.Content.Items;
-using Terraria.DataStructures;
-using System;
-using System.Collections.Generic;
-using Techarria.Content.Tiles;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 
 namespace Techarria
 {
-    public class Direction
+	public class Direction
     {
         public static readonly Direction Left = new Direction(-1, 0);
         public static readonly Direction Right = new Direction(1, 0);

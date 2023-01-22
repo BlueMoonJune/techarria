@@ -1,16 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
 using System;
-using Techarria.Content.Items.Armor.Apparatus;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Armor
 {
-    public abstract class ApparatusDrawLayer : PlayerDrawLayer
+	public abstract class ApparatusDrawLayer : PlayerDrawLayer
     {
 
         public Texture2D texture = null;

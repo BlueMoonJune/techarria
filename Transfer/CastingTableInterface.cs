@@ -1,18 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Techarria.Content.Items.Materials.Molten;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Machines;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-    internal class CastingTableInterface : ContainerInterface
+	internal class CastingTableInterface : ContainerInterface
     {
         public CastingTableInterface(int i, int j)
         {

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items
 {
-    internal class Multimeter : ModItem
+	internal class Multimeter : ModItem
     {
         public override void SetStaticDefaults()
         {

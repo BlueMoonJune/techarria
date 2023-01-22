@@ -1,14 +1,10 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework;
+﻿using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.ModLoader.IO;
 
 namespace Techarria.Content.Items
 {
-    public abstract class ChargableItem : ModItem
+	public abstract class ChargableItem : ModItem
     {
         public int charge = 0;
         public int maxcharge = 0;

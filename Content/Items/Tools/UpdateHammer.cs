@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Tools
 {
-    public class UpdateHammer : ModItem
+	public class UpdateHammer : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -30,7 +30,7 @@ namespace Techarria.Content.Items.Tools
 
         public override bool? UseItem(Player player)
         {
-			ModContent.GetInstance<Tiles.PlayerInterface>().SetStaticDefaults();
+			ModContent.GetInstance<Tiles.Machines.PlayerInterface>().SetStaticDefaults();
 			if (player.whoAmI == Main.myPlayer)
 			{
 				bool idc = false;

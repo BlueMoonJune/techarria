@@ -1,18 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Techarria.Content.Dusts;
 using Techarria.Content.Tiles;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria
 {
-    public class PowerDisplayInfo
+	public class PowerDisplayInfo
     {
         public bool Right;
         public bool Left;

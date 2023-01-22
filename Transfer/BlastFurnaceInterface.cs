@@ -1,19 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Machines;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
 namespace Techarria.Transfer
 {
-    public class BlastFurnaceInterface : ContainerInterface
+	public class BlastFurnaceInterface : ContainerInterface
     {
         public BlastFurnaceInterface(int i, int j)
         {

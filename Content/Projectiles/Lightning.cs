@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Projectiles
 {
-    public class Lightning : ModProjectile
+	public class Lightning : ModProjectile
     {
         public override void SetDefaults()
         {

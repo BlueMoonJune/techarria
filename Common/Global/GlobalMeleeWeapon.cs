@@ -1,20 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Techarria.Content.Dusts;
-using Techarria.Content.Items.Armor;
 using Techarria.Content.Items.Armor.Apparatus;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Common.Global
 {
-    public class GlobalMeleeWeapon : GlobalItem
+	public class GlobalMeleeWeapon : GlobalItem
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {

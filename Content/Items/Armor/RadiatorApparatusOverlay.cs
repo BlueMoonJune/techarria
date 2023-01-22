@@ -1,13 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Techarria.Content.Items.Armor.Apparatus;
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Armor
 {
-    public class RadiatorApparatusOverlay : ApparatusDrawLayer
+	public class RadiatorApparatusOverlay : ApparatusDrawLayer
     {
         public override void SetData()
         {

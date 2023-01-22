@@ -1,16 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ObjectData;
 
 namespace Techarria.Transfer
 {
-    public class ChestInterface : ContainerInterface
+	public class ChestInterface : ContainerInterface
     {
         public ChestInterface(int i, int j)
         {

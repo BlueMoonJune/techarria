@@ -1,15 +1,12 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.FilterItems
 {
-    /// <summary>
-    /// Prevents extraction of singular items
-    /// </summary>
-    public class StackPreserver : FilterItem
+	/// <summary>
+	/// Prevents extraction of singular items
+	/// </summary>
+	public class StackPreserver : FilterItem
     {
         public override void SetStaticDefaults()
         {

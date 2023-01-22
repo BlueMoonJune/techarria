@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Techarria.Content.Items;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Projectiles
 {
-    public class EMPGrenade : ModProjectile
+	public class EMPGrenade : ModProjectile
     {
         public static int range = 16 * 12;
 
