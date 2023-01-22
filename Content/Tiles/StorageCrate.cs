@@ -38,7 +38,6 @@ namespace Techarria.Content.Tiles
 		{
 			// Spelunker
 			Main.tileSpelunker[Type] = true;
-			Main.tileOreFinderPriority[Type] = 500;
 
 			// Properties
 			Main.tileLavaDeath[Type] = false;
