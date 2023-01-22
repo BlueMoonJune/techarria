@@ -165,7 +165,7 @@ namespace Techarria.Content.Tiles
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 
-		public CastingTableTE GetTileEntity(int i, int j)
+		public static CastingTableTE GetTileEntity(int i, int j)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 2;

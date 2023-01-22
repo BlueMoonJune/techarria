@@ -38,6 +38,10 @@ namespace Techarria
             if (point != Point.Zero)
                 return new BlastFurnaceInterface(point.X, point.Y);
 
+            point = CastingTableInterface.FindTopLeft(x, y);
+            if (point != Point.Zero)
+                return new CastingTableInterface(point.X, point.Y);
+
             if (ItemPlacerInterface.Check(x, y))
                 return new ItemPlacerInterface(x, y);
 
