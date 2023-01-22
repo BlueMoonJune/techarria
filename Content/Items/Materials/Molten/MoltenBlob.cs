@@ -13,13 +13,16 @@ namespace Techarria.Content.Items.Materials.Molten
     {
         public float temp;
 
+        public override void HoldItem(Player player)
+        {
+            player.AddBuff(BuffID.Burning, 60);
+            player.AddBuff(BuffID.OnFire, 60);
+        }
+
         public override void UpdateInventory(Player player)
         {
-            if (player.HasItem(ModContent.ItemType<MoltenSpikeSteel>()))
-            {
-                player.AddBuff(BuffID.Burning, 60);
-                player.AddBuff(BuffID.OnFire, 60);
-            }
+            player.AddBuff(BuffID.Burning, 60);
+            player.AddBuff(BuffID.OnFire, 60);
         }
 
         public override void Update(ref float gravity, ref float maxFallSpeed)

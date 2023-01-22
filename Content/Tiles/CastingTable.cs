@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Techarria.Content.Dusts;
 using Techarria.Content.Items.Materials;
 using Techarria.Content.Items.Materials.Molten;
+using Techarria.Content.Items.RecipeItems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,54 +14,110 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles
 {
+	public class CastingTableRecipe
+    {
+		public static List<CastingTableRecipe> recipes = new List<CastingTableRecipe>();
+
+		public int input;
+		public int output;
+		public int mold;
+		public int temperature;
+
+		public CastingTableRecipe(int _input, int _output, int _mold, int _temperature)
+        {
+			input = _input;
+			output = _output;
+			mold = _mold;
+			temperature = _temperature;
+
+			Recipe.Create(output)
+				.AddIngredient(input)
+				.AddIngredient<Temperature>(temperature)
+				.AddTile<CastingTable>()
+				.Register();
+
+			recipes.Add(this);
+        }
+    }
+
     public class CastingTableTE : ModTileEntity
     {
 		public Item item = new Item();
 		public Item mold = new Item();
-		public float temp;
+        public static float baseTemp = 25f;
+		public float temp = baseTemp;
 
-        public override bool IsTileValidForEntity(int x, int y)
+		public override bool IsTileValidForEntity(int x, int y)
         {
             return Main.tile[x, y].TileType == ModContent.TileType<CastingTable>();
         }
 
-		public bool IsCovered()
+		public bool LeftCovered()
         {
 			Tile LeftTile = Main.tile[Position.X, Position.Y - 1];
+			return (
+				LeftTile.HasTile &&
+				Main.tileSolid[LeftTile.TileType] &&
+				!Main.tileSolidTop[LeftTile.TileType] &&
+				!LeftTile.IsActuated
+			);
+		}
+
+		public bool RightCovered()
+        {
 			Tile RightTile = Main.tile[Position.X + 1, Position.Y - 1];
 			return (
-				LeftTile.HasTile && 
-				Main.tileSolid[LeftTile.TileType] && 
-				!Main.tileSolidTop[LeftTile.TileType] && 
-				RightTile.HasTile && 
-				Main.tileSolid[RightTile.TileType] && 
-				!Main.tileSolidTop[RightTile.TileType]
+				RightTile.HasTile &&
+				Main.tileSolid[RightTile.TileType] &&
+				!Main.tileSolidTop[RightTile.TileType] &&
+				!RightTile.IsActuated
 			);
+		}
+
+		public bool IsCovered()
+        {
+			return (RightCovered() || LeftCovered());
         }
 
-		public bool InsertMolten(Item _item)
+		public bool IsFullyCovered()
         {
-			MoltenBlob blob = item.ModItem as MoltenBlob;
-			if (!IsCovered())
-            {
-				WorldGen.PlaceLiquid(Position.X, Position.Y - 1, LiquidID.Lava, 32);
-				WorldGen.PlaceLiquid(Position.X + 1, Position.Y - 1, LiquidID.Lava, 32);
-				temp = (temp + blob.temp) / 2;
-				item = _item;
-				return true;
-			}
+			return (LeftCovered() && RightCovered());
+        }
 
-			if (item.IsAir)
+		public bool InsertMolten(Item i)
+        {
+			if (i.ModItem is MoltenBlob blob)
 			{
-				item = _item;
-				return true;
-			}
+				if (!IsFullyCovered())
+				{
+					WorldGen.PlaceLiquid(Position.X, Position.Y - 1, LiquidID.Lava, 32);
+					WorldGen.PlaceLiquid(Position.X + 1, Position.Y - 1, LiquidID.Lava, 32);
+					temp = Math.Max(blob.temp, temp);
+					return true;
 
+				}
+
+				if (item.IsAir && !mold.IsAir)
+				{
+					temp = blob.temp;
+					item = i.Clone();
+					return true;
+				}
+			}
 			return false;
         }
 
         public override void Update()
         {
+			temp = (temp - baseTemp) * ((1500f - baseTemp) / (1501f - baseTemp)) + baseTemp;
+
+			foreach (CastingTableRecipe recipe in CastingTableRecipe.recipes)
+            {
+				if (item.type == recipe.input && temp <= recipe.temperature)
+                {
+					item = new Item(recipe.output);
+                }
+            }
 		}
 
         public override void SaveData(TagCompound tag)
@@ -75,6 +133,8 @@ namespace Techarria.Content.Tiles
 			mold = tag.Get<Item>("mold");
 			if (item.ModItem is MoltenBlob blob)
 				temp = blob.temp;
+			else
+				temp = baseTemp;
             base.LoadData(tag);
         }
     }
@@ -168,14 +228,14 @@ namespace Techarria.Content.Tiles
 					return true;
                 }
             }
-			if (!tileEntity.item.IsAir)
+			if (!tileEntity.item.IsAir && !tileEntity.IsCovered())
 			{
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, tileEntity.item);
 				tileEntity.item.TurnToAir();
 				return true;
 			}
 
-			if (!tileEntity.mold.IsAir)
+			if (!tileEntity.mold.IsAir && !tileEntity.IsCovered())
 			{
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, tileEntity.mold);
 				tileEntity.mold.TurnToAir();
@@ -190,16 +250,17 @@ namespace Techarria.Content.Tiles
 			Item item = tileEntity.item;
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
-			if (!item.IsAir && !(item.ModItem is MoltenBlob))
-			{
-				player.cursorItemIconEnabled = true;
-				player.cursorItemIconID = item.type;
-			}
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconID = -1;
 			if (!tileEntity.mold.IsAir)
 			{
-				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = tileEntity.mold.type;
 			}
+			if (!item.IsAir && item.ModItem is not MoltenBlob)
+			{
+				player.cursorItemIconID = item.type;
+			}
+			player.cursorItemIconText = tileEntity.temp + "ºC";
 		}
 	}
 }

@@ -1,9 +1,20 @@
-﻿using Terraria.ModLoader;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.RecipeItems
 {
     internal class Temperature : ModItem
     {
+        public override void UpdateInventory(Player player)
+        {
+            Item.TurnToAir();
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.TurnToAir();
+        }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Degrees");

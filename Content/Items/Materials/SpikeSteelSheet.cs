@@ -4,7 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Net;
 using Terraria.GameContent.NetModules;
 using Terraria.GameContent.Creative;
-
+using Techarria.Content.Tiles;
+using Techarria.Content.Items.Materials.Molten;
 
 namespace Techarria.Content.Items.Materials
 {
@@ -27,5 +28,10 @@ namespace Techarria.Content.Items.Materials
             // platinum/gold/silver/copper arguments provided to it.
             Item.value = Item.buyPrice(silver: 10);
 		}
+
+        public override void AddRecipes()
+        {
+            new CastingTableRecipe(ModContent.ItemType<MoltenSpikeSteel>(), Type, ModContent.ItemType<SheetMold>(), 60);
+        }
     }
 }
