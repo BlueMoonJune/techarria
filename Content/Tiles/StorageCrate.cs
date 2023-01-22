@@ -171,6 +171,7 @@ namespace Techarria.Content.Tiles
 			}
 		}
 
+		/*
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			StorageCrateTE tileEntity = GetTileEntity(i, j);
@@ -187,5 +188,6 @@ namespace Techarria.Content.Tiles
 			}
 
 		}
+		*/
 	}
 }

@@ -10,6 +10,8 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using System.Collections.Generic;
+using Terraria.Localization;
+using Techarria.Content.Items.Materials;
 
 namespace Techarria.Content.Tiles
 {
@@ -69,34 +71,33 @@ namespace Techarria.Content.Tiles
 
 		public override void SetStaticDefaults()
 		{
-			capacitorTextures.Add(ModContent.ItemType<Capacitor>(), "Capacitor");
-
 			Main.tileLavaDeath[Type] = false;
+			Main.tileTable[Type] = true;
+			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
-			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
+			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
 
-			DustType = ModContent.DustType<Dusts.Wormhole>();
-			AdjTiles = new int[] { TileID.Tables };
+			AdjTiles = new int[] { TileID.WorkBenches };
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.LavaDeath = false;
+			// placement
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
+			TileObjectData.newTile.CoordinateHeights = new[] { 18 };
 			TileObjectData.addTile(Type);
 
-			// Etc
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
+
+			// map info
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Player Interface");
-			AddMapEntry(new Color(200, 200, 200), name);
+			AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.WorkBench"));
 		}
 
 		public CapacitorRackTE GetTileEntity(int i, int j)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
+			i -= tile.TileFrameX / 18 % 2;
+			j -= tile.TileFrameY / 18 % 1;
 			TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity tileEntity);
 			return tileEntity as CapacitorRackTE;
 		}
@@ -104,8 +105,8 @@ namespace Techarria.Content.Tiles
         public override void PlaceInWorld(int i, int j, Item item)
         {
 			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
+			i -= tile.TileFrameX / 18 % 2;
+			j -= tile.TileFrameY / 18 % 1;
 			ModContent.GetInstance<CapacitorRackTE>().Place(i, j);
         }
 
@@ -144,27 +145,10 @@ namespace Techarria.Content.Tiles
 				playerItem = Main.player[Main.myPlayer].HeldItem;
             }
 
-			if (item.IsAir && AcceptsItem(playerItem))
-			{
-				item = playerItem.Clone();
-				item.stack = 1;
-                tileEntity.items[i - tileEntity.Position.X] = item;
-				playerItem.stack--;
-				if (playerItem.stack <= 0)
-                {
-					playerItem.TurnToAir();
-                }
-				return true;
+			if (playerItem.ModItem is Mold)
+            {
+
             }
-			if (!item.IsAir)
-			{
-				Item newItem = Main.item[Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type)];
-				Capacitor newCapacitor = newItem.ModItem as Capacitor;
-				Capacitor capacitor = item.ModItem as Capacitor;
-				newCapacitor.charge = capacitor.charge;
-				item.TurnToAir();
-				return true;
-			}
 			return false;
 		}
 

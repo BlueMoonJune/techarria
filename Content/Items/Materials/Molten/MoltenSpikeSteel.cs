@@ -8,29 +8,12 @@ using Techarria.Content.Tiles;
 
 namespace Techarria.Content.Items.Materials.Molten
 {
-    public class MoltenSpikeSteel : ModItem
+    public class MoltenSpikeSteel : MoltenBlob
     {
-        public override void UpdateInventory(Player player)
-        {
-            if (player.HasItem(ModContent.ItemType<MoltenSpikeSteel>()))
-            {
-                player.AddBuff(BuffID.Burning, 60);
-                player.AddBuff(BuffID.OnFire, 60);
-
-            }
-        }
-
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            if (Item.velocity.Y == 0)
-            {
-                WorldGen.PlaceLiquid((int)Item.Center.X / 16, (int)Item.Center.Y / 16, LiquidID.Lava, 255);
-                Item.TurnToAir();
-            }
-        }
 
         public override void SetDefaults()
         {
+            temp = 1500;
             Item.width = 24;
             Item.height = 22;
             Item.maxStack = 999;

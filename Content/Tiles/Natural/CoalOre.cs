@@ -12,6 +12,14 @@ namespace Techarria.Content.Tiles.Natural
     {
 		public override void SetStaticDefaults()
 		{
+			for (int i = 0; i < Main.tileMerge.Length; i++)
+			{
+				if (Main.tileMerge[i][1])
+				{
+					Main.tileMerge[i][Type] = true;
+				}
+			}
+
 			TileID.Sets.Ore[Type] = true;
 			Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
 			Main.tileOreFinderPriority[Type] = 150; // Metal Detector value, see https://terraria.gamepedia.com/Metal_Detector
