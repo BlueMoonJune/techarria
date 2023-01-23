@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -9,8 +10,27 @@ using Terraria.UI;
 
 namespace Techarria
 {
-	public static class HelperMethods
-    {
+	public static class HelperMethods {
+
+		public static int[] tempValues = new int[5] {5, 10, 25, 500, 550};
+
+		public static int GetBaseTemp(int y) 
+		{
+			int[] yValues = new int[5] { 0, (int)(Main.worldSurface * 0.35f), (int)Main.worldSurface, Main.UnderworldLayer, Main.maxTilesY };
+
+			float output = 0;
+			for (int n = 0; n < 5; n++) {
+				float aux = 1;
+				for (int m = 0; m < 5; m++) {
+					if (m != n) {
+						aux *= (y - yValues[m]) / (float)(yValues[n] - yValues[m]);
+					}
+				}
+				output += tempValues[n] * aux;
+			}
+			return (int)output;
+		}
+
 		// shoutout to absoluteAquarian#5189 on discord
 		public static void DrawItemInWorld(this SpriteBatch spriteBatch, Item item, Vector2 position, float size, float rotation = 0f)
 		{

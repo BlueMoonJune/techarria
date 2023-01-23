@@ -15,7 +15,7 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class BlastFurnaceTE : ModTileEntity
 	{
-		public static float baseTemp = 25;
+		public float baseTemp = 25;
 
 		public Item output = new Item();
 		public List<Item> inputs = new List<Item>();
@@ -24,13 +24,20 @@ namespace Techarria.Content.Tiles.Machines
 		public int frame = 0;
 		public static Rectangle particleRect = new Rectangle(6, 6, 24, 16);
 
+		public int oldY = 0;
+
 		public int displayCycle;
 
 		public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<BlastFurnace>();
 		}
 
-		public override void Update() {
+		public override void Update() 
+		{
+			if (oldY != Position.Y) {
+				oldY = Position.Y;
+				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
+			}
 			temp = (temp - baseTemp) * ((15000f - baseTemp) / (15001f - baseTemp)) + baseTemp;
 		}
 
@@ -278,7 +285,7 @@ namespace Techarria.Content.Tiles.Machines
 			player.noThrow = 2;
 			if (subTile.X == 1 && subTile.Y >= 2) {
 				player.cursorItemIconEnabled = true;
-				player.cursorItemIconText = tileEntity.temp + "ºC";
+				player.cursorItemIconText = $"{tileEntity.temp:0.00}ºC";
 				player.cursorItemIconID = ModContent.ItemType<Temperature>();
 			}
 			if (subTile.X == 1 && subTile.Y <= 1) {

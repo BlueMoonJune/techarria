@@ -41,10 +41,11 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class CastingTableTE : ModTileEntity
 	{
+		public int oldY = 0;
 		public Item item = new Item();
 		public Item mold = new Item();
-		public static float baseTemp = 25f;
-		public float temp = baseTemp;
+		public float baseTemp = 25f;
+		public float temp = 25f;
 
 		public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<CastingTable>();
@@ -98,6 +99,12 @@ namespace Techarria.Content.Tiles.Machines
 		}
 
 		public override void Update() {
+
+			if (oldY != Position.Y) {
+				oldY = Position.Y;
+				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
+			}
+
 			temp = (temp - baseTemp) * ((1500f - baseTemp) / (1501f - baseTemp)) + baseTemp;
 
 			foreach (CastingTableRecipe recipe in CastingTableRecipe.recipes) {
@@ -229,7 +236,7 @@ namespace Techarria.Content.Tiles.Machines
 			if (!item.IsAir && item.ModItem is not MoltenBlob) {
 				player.cursorItemIconID = item.type;
 			}
-			player.cursorItemIconText = tileEntity.temp + "ºC";
+			player.cursorItemIconText = $"{tileEntity.temp:0.00}ºC";
 		}
 	}
 }

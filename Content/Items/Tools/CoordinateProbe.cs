@@ -35,6 +35,7 @@ namespace Techarria.Content.Items.Tools
 				Vector2 pos = Main.MouseWorld;
 				Point tile = Main.MouseWorld.ToTileCoordinates();
 
+				Main.NewText($"Tile Coords: X:{tile.X}, Y:{tile.Y}\nEntity Coords: X:{(int)pos.X}, Y:{(int)pos.Y}");
 			}
 
         }
