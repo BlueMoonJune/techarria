@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-	internal class StorageCrateInterface : ContainerInterface
+	public class StorageCrateInterface : ContainerInterface
     {
         public StorageCrateInterface(int i, int j)
         {
@@ -22,7 +22,7 @@ namespace Techarria.Transfer
                 return new Point();
             }
             Tile tile = Main.tile[i, j];
-            if (tile.TileType == ModContent.TileType<StorageCrate>())
+            if (ModContent.GetModTile(tile.TileType) is StorageCrate)
             {
                 i -= tile.TileFrameX / 18 % 2;
                 j -= tile.TileFrameY / 18 % 2;

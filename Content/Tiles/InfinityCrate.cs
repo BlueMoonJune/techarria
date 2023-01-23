@@ -19,9 +19,10 @@ namespace Techarria.Content.Tiles
 
         public override void Update()
         {
-            item.stack = 2;
+            item.stack = 99999;
         }
     }
+
 	// Where the TE ends and the Tile starts
 	public class InfinityCrate : StorageCrate
 	{
@@ -42,19 +43,15 @@ namespace Techarria.Content.Tiles
 				fail = true;
 				int amount = Math.Min(item.maxStack, item.stack);
 				item.stack -= amount;
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, amount);
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, item.maxStack);
 				tileEntity.item.TurnToAir();
 			}
 
 			base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
 		}
-
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			StorageCrateTE tileEntity = GetTileEntity(i, j);
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.InfinityCrate>());
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
-			ModContent.GetInstance<InfinityCrateTE>().Kill(i, j);
 		}
 
 		public override void MouseOver(int i, int j)

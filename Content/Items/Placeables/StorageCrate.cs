@@ -9,6 +9,8 @@ namespace Techarria.Content.Items.Placeables
     {
 		public override void SetStaticDefaults()
 		{
+			DisplayName.SetDefault("Storage Crate");
+
 			Tooltip.SetDefault("'Stores items with 99% accuracy'\n"
 				+ "Stores up to 999999 matching items\n"
 				+ "Any inserted items will be cleared of any reforges or similar");
@@ -52,6 +54,16 @@ namespace Techarria.Content.Items.Placeables
 			recipeAlt.Register();
 
 
+		}
+
+		// journey mode stuff
+		public override void OnResearched(bool fullyResearched)
+		{
+			if (fullyResearched)
+			{
+				CreativeUI.ResearchItem(ModContent.ItemType<JourneyCrate>());
+				Main.NewText("Your research discovered a bonus item!:" + $"\n[i:{ ModContent.ItemType<JourneyCrate>()}]");
+			}
 		}
 	}
 }

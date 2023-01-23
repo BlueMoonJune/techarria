@@ -9,11 +9,11 @@ namespace Techarria.Content.Items.Placeables
     {
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("'Duplicates items with 99% accuracy'\n"
+			DisplayName.SetDefault("Infinity Crate");
+
+			Tooltip.SetDefault("'Check my recipe ;)'\n"
 				+ "Can be infinetely inserted into or extracted from\n"
 				+ "Any inserted items will be cleared of any reforges or similar");
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
@@ -34,8 +34,10 @@ namespace Techarria.Content.Items.Placeables
 		public override void AddRecipes()
 		{
 			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.InfinityCrate>());
-			recipe.AddTile(TileID.ShadowOrbs);
-			recipe.AddIngredient(ItemID.CorruptFishingCrate);
+			recipe.AddTile(TileID.Heart);
+			recipe.AddTile(TileID.DemonAltar);
+			recipe.AddCondition(Recipe.Condition.InSkyHeight);
+			recipe.AddIngredient(ItemID.GoldWaterStrider, 89911);
 			recipe.AddIngredient(ItemID.Fake_newchest1);
 			recipe.Register();
 		}
