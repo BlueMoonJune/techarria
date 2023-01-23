@@ -47,13 +47,46 @@ namespace Techarria
         {
             foreach (var (p, te) in TileEntity.ByPosition)
             {
-                if (te is StorageCrateTE storage)
+                if ( te is JourneyCrateTE JourneyStorage)
+                {
+                    Texture2D texture = TextureAssets.Item[JourneyStorage.item.type].Value;
+
+                    float scale = 10f / Math.Max(texture.Width, texture.Height);
+
+
+                    Matrix offset = Matrix.Identity;
+                    offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 11 - Main.screenPosition.Y, 0);
+                    Matrix transform = Main.Transform;
+                    transform = offset * transform;
+
+                    transform = Matrix.CreateScale(scale) * transform;
+
+                    Main.spriteBatch.Begin(
+                        SpriteSortMode.Deferred,
+                        BlendState.AlphaBlend,
+                        Main.DefaultSamplerState,
+                        DepthStencilState.None,
+                        Main.Rasterizer,
+                        null,
+                        transform
+                    );
+
+                    Color color = JourneyStorage.item.color;
+                    if (JourneyStorage.item.color == new Color())
+                    {
+                        color = Color.White;
+                    }
+
+                    Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
+
+                    Main.spriteBatch.End();
+                } else if (te is StorageCrateTE storage)
                 {
                     Texture2D texture = TextureAssets.Item[storage.item.type].Value;
 
                     float scale = 16f / Math.Max(texture.Width, texture.Height);
 
-  
+
                     Matrix offset = Matrix.Identity;
                     offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
                     Matrix transform = Main.Transform;
@@ -71,15 +104,17 @@ namespace Techarria
                         transform
                     );
 
-					Color color = storage.item.color;
-					if (storage.item.color == new Color()) {
-						color = Color.White;
-					}
+                    Color color = storage.item.color;
+                    if (storage.item.color == new Color())
+                    {
+                        color = Color.White;
+                    }
 
                     Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
 
                     Main.spriteBatch.End();
                 }
+
             }
         }
     }

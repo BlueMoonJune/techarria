@@ -81,12 +81,15 @@ namespace Techarria.Content.Tiles
 			StorageCrateTE tileEntity = GetTileEntity(i, j);
 			Item item = tileEntity.item;
 			if (!item.IsAir)
-            {
+			{
 				fail = true;
 				int amount = Math.Min(item.maxStack, item.stack);
 				item.stack -= amount;
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, amount);
-				tileEntity.item.TurnToAir();
+				if (item.stack <= 0)
+				{
+					item.TurnToAir();
+				}
 			}
 
 			base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
@@ -118,9 +121,9 @@ namespace Techarria.Content.Tiles
 			if (item.IsAir)
 			{
 				item = playerItem.Clone();
-				item.stack = 1;
+				item.stack = playerItem.stack;
 				tileEntity.item = item;
-				playerItem.stack--;
+				playerItem.stack -= playerItem.stack;
 				if (playerItem.stack <= 0)
 				{
 					playerItem.TurnToAir();
@@ -129,8 +132,8 @@ namespace Techarria.Content.Tiles
 			}
 			if (!item.IsAir && playerItem.type == item.type && item.stack < 999999 /* <- max storage within a single storage crate */) 
 			{
-				item.stack++;
-				playerItem.stack--;
+				item.stack += playerItem.stack;
+				playerItem.stack -= playerItem.stack;
 				if (playerItem.stack <= 0)
 				{
 					playerItem.TurnToAir();

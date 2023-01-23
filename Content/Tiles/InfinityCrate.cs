@@ -19,9 +19,10 @@ namespace Techarria.Content.Tiles
 
         public override void Update()
         {
-            item.stack = 2;
+            item.stack = 99999;
         }
     }
+
 	// Where the TE ends and the Tile starts
 	public class InfinityCrate : StorageCrate
 	{
