@@ -55,6 +55,9 @@ namespace Techarria.Content.Tiles.Transfer
 		}
 
 		public override void HitWire(int i, int j) {
+			Tile tile = Framing.GetTileSafely(i, j);
+			tile.TileFrameX += 32;
+			tile.TileFrameX %= 64;
 		}
 	}
 }

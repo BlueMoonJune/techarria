@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Techarria.Content.Tiles.Machines;
+using Terraria.ID;
+using Techarria.Content.Items.Materials;
 
 namespace Techarria
 {
@@ -176,5 +179,5 @@ namespace Techarria
 
             return result;
         }
-    }
+	}
 }

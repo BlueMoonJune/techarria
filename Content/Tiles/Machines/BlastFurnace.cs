@@ -38,7 +38,7 @@ namespace Techarria.Content.Tiles.Machines
 				oldY = Position.Y;
 				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
 			}
-			temp = (temp - baseTemp) * ((15000f - baseTemp) / (15001f - baseTemp)) + baseTemp;
+			temp = (temp - baseTemp) * ((449f - baseTemp) / (450f - baseTemp)) + baseTemp;
 		}
 
 		public void Craft() {
@@ -332,7 +332,7 @@ namespace Techarria.Content.Tiles.Machines
 				itemCount += input.stack;
 			}
 
-			tileEntity.temp += amount * 10 / (float)itemCount;
+			tileEntity.temp += amount * 100 / (float)itemCount;
 		}
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch) {

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -10,9 +9,34 @@ using Terraria.UI;
 
 namespace Techarria
 {
+	public class ItemOrRecipeGroup {
+		public Item item = new Item();
+		public RecipeGroup recipeGroup;
+
+		public ItemOrRecipeGroup(Item item) {
+			this.item = item;
+		}
+
+		public ItemOrRecipeGroup(RecipeGroup recipeGroup) {
+			this.recipeGroup = recipeGroup;
+		}
+
+		public bool AcceptsItem(Item item) {
+			return 
+				this.item != null &&
+				item.type == this.item.type || 
+				recipeGroup != null &&
+				recipeGroup.ContainsItem(item.type);
+		}
+
+		public override string ToString() {
+			return $"{{Item: {item}}}";
+		}
+	}
+
 	public static class HelperMethods {
 
-		public static int[] tempValues = new int[5] {5, 10, 25, 500, 550};
+		public static int[] tempValues = new int[5] {5, 10, 40, 500, 550};
 
 		public static int GetBaseTemp(int y) 
 		{

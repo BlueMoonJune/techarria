@@ -36,7 +36,7 @@ namespace Techarria.Content.Items.Placeables.Natural
 			recipe.AddTile(TileID.HeavyWorkBench);
 			recipe.AddCondition(Recipe.Condition.InGraveyardBiome);
 			recipe.AddIngredient(ItemID.StoneBlock);
-			recipe.AddIngredient<Materials.IndustrialCoal>();
+			recipe.AddIngredient<Materials.Sprocket>();
 			recipe.Register();
 		}
 	}

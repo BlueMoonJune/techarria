@@ -35,6 +35,10 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new CastingTableInterface(point.X, point.Y);
 
+			point = RotaryAssemblerInterface.FindTopLeft(x, y);
+			if (point != Point.Zero)
+				return new RotaryAssemblerInterface(point.X, point.Y);
+
 			if (ItemPlacerInterface.Check(x, y))
 				return new ItemPlacerInterface(x, y);
 

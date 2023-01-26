@@ -273,6 +273,8 @@ namespace Techarria.Content.Tiles.Transfer
 				var suction = Dust.NewDustDirect(new Vector2(i + dirToX(container.dir), j + dirToY(container.dir)) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Suction>());
 				suction.velocity = new Vector2(-dirToX(container.dir), -dirToY(container.dir));
 				foreach (Item item in container.GetItems()) {
+					if (item == null)
+						continue;
 					ContainerInterface target = EvaluatePath(i, j, item, (container.dir + 2) % 4, 0);
 					if (target != null && target.InsertItem(item)) {
 						SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer"), new Vector2(i, j) * 16);

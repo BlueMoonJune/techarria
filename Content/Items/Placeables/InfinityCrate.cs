@@ -1,11 +1,10 @@
 ﻿using Terraria.ID;
-using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria;
 
 namespace Techarria.Content.Items.Placeables
 {
-    public class InfinityCrate : ModItem
+	public class InfinityCrate : ModItem
     {
 		public override void SetStaticDefaults()
 		{
