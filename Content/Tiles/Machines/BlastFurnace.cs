@@ -38,7 +38,7 @@ namespace Techarria.Content.Tiles.Machines
 				oldY = Position.Y;
 				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
 			}
-			temp = (temp - baseTemp) * ((449f - baseTemp) / (450f - baseTemp)) + baseTemp;
+			temp = (temp - baseTemp) * ((449f) / (450f)) + baseTemp;
 		}
 
 		public void Craft() {

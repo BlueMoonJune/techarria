@@ -132,7 +132,7 @@ namespace Techarria
 					int i = 0;
 					foreach (List<Item> segment in assembler.items) {
 						if (segment != null) {
-							Matrix segmentTransform = Matrix.CreateRotationZ(i * MathHelper.PiOver4) * transform;
+							Matrix segmentTransform = Matrix.CreateRotationZ((i - 2) * MathHelper.PiOver4) * transform;
 
 							Main.spriteBatch.Begin(
 								SpriteSortMode.Deferred,
@@ -147,7 +147,7 @@ namespace Techarria
 							int j = 1;
 							foreach (Item item in segment) {
 								Texture2D texture1 = TextureAssets.Item[item.type].Value;
-								Main.spriteBatch.Draw(texture1, -new Vector2(texture1.Width / 2, texture1.Height / 2) + new Vector2(16 * j, 0), Color.White);
+								Main.spriteBatch.Draw(texture1, -new Vector2(texture1.Width / 2, texture1.Height / 2) + new Vector2(0, 16 * j), Color.White);
 								j++;
 							}
 

@@ -104,6 +104,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 				if (item.stack <= 0) {
 					item.TurnToAir();
 				}
+				
 				return true;
 			}
 			return false;

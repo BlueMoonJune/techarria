@@ -105,7 +105,7 @@ namespace Techarria.Content.Tiles.Machines
 				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
 			}
 
-			temp = (temp - baseTemp) * ((150f - baseTemp) / (151f - baseTemp)) + baseTemp;
+			temp = (temp - baseTemp) * ((150f) / (151f)) + baseTemp;
 
 			foreach (CastingTableRecipe recipe in CastingTableRecipe.recipes) {
 				if (item.type == recipe.input && temp <= recipe.temperature) {

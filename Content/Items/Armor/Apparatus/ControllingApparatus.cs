@@ -3,6 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
+using Techarria.Content.Projectiles.Minions;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.Items.Armor.Apparatus
 {
@@ -59,7 +62,7 @@ namespace Techarria.Content.Items.Armor.Apparatus
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            if (!(head.ModItem is RadiatorApparatus h) || h.charge <= 0)
+            if (!(head.ModItem is ControllingApparatus h) || h.charge <= 0)
             {
                 return false;
             }
@@ -74,7 +77,15 @@ namespace Techarria.Content.Items.Armor.Apparatus
             return true;
         }
 
-        public override void UpdateEquip(Player player)
+		public override void UpdateArmorSet(Player player) {
+			player.AddBuff(ModContent.BuffType<DroneApparatusBuff>(), 2);
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<DroneApparatus>()] <= 0) {
+				Projectile proj = Projectile.NewProjectileDirect(new EntitySource_Buff(player, Type, 0), player.Center, Vector2.Zero, ModContent.ProjectileType<DroneApparatus>(), 0, 0);
+				proj.owner = player.whoAmI;
+			}
+		}
+
+		public override void UpdateEquip(Player player)
         {
             if (charge > 0)
             {

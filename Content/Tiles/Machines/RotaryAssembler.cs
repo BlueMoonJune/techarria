@@ -96,7 +96,6 @@ namespace Techarria.Content.Tiles.Machines
 					if (2 * MathHelper.Pi - angle < angle) {
 						angle -= 2 * MathHelper.Pi;
 					}
-					Main.NewText(angle);
 					if (angle > 0) {
 						degreesLeft -= 45;
 					}

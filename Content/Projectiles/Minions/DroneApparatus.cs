@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,6 +9,7 @@ namespace Techarria.Content.Projectiles.Minions
 {
 	public class DroneApparatusBuff : ModBuff
 	{
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Laser drone");
@@ -21,7 +24,6 @@ namespace Techarria.Content.Projectiles.Minions
 			// If the minions exist reset the buff time, otherwise remove the buff from the player
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<DroneApparatus>()] > 0)
 			{
-				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
@@ -32,8 +34,8 @@ namespace Techarria.Content.Projectiles.Minions
 	}
 	public class DroneApparatus : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
+		public int shootTimer = 0;
+		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Drone Apparatus");
 			Main.projFrames[Projectile.type] = 2;
 
@@ -41,14 +43,15 @@ namespace Techarria.Content.Projectiles.Minions
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
 			// so it follows you I think
-			Main.projPet[Projectile.type] = true;
-
+			Main.projPet[Projectile.type] = false;
 			// no cultist cheese
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+		}
 
+		public override void SetDefaults() {
 			Projectile.width = 38;
-			Projectile.height = 30;
-				
+			Projectile.height = 31;
+
 			// goes through tiles however she likes
 			Projectile.tileCollide = false;
 
@@ -60,42 +63,99 @@ namespace Techarria.Content.Projectiles.Minions
 			Projectile.penetrate = -1; // Needed so the minion doesn't despawn on collision with enemies or tiles
 		}
 		// makes it not destroy your beuatiful lawn
-		public override bool? CanCutTiles()
-		{
+		public override bool? CanCutTiles() {
 			return false;
 		}
-		// raw example code
-		private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter)
-		{
+
+		public override void AI() {
+			Player owner = Main.player[Projectile.owner];
+
+			if (!owner.HasBuff<DroneApparatusBuff>()) {
+				Main.NewText("kill");
+				Projectile.Kill();
+				return;
+			}
+
+			Projectile.timeLeft = 2;
+
+			SearchForTargets(owner, out bool foundTarget, out float distance, out Vector2 center);
+
+			Vector2 moveTarget;
+			if (foundTarget) 
+			{
+				Vector2 offset = Projectile.Center - center;
+				offset.Normalize();
+				offset *= 128;
+				moveTarget = offset + center;
+			}
+			else 
+			{
+				moveTarget = owner.Center + new Vector2(0, -64);
+			}
+
+			Vector2 target = foundTarget ? center : owner.Center;
+
+			if ((moveTarget - Projectile.Center).X > 8) {
+				Projectile.direction = 1;
+				Projectile.spriteDirection = 1;
+			}
+			if ((moveTarget - Projectile.Center).X < -8) {
+				Projectile.direction = -1;
+				Projectile.spriteDirection = -1;
+			}
+
+			Projectile.velocity += ((moveTarget - Projectile.Center) - Projectile.velocity / 0.05f) * 0.005f;
+
+			if (shootTimer > 0)
+				shootTimer--;
+
+			if (shootTimer == 0 && foundTarget) {
+				Projectile.NewProjectile(new EntitySource_Parent(Projectile), Projectile.Center, (target - Projectile.Center), ProjectileID.LaserMachinegunLaser, int.MaxValue - 64, 1, Projectile.owner);
+			//	shootTimer = 10;
+			}
+
+			Visuals();
+		}
+
+		private void Visuals() {
+			Vector2 accel = Projectile.velocity - Projectile.oldVelocity;
+			accel += new Vector2(-Main.windSpeedCurrent * Main.windPhysicsStrength, -Player.defaultGravity) + Projectile.velocity * 0.01f;
+			float angle = MathF.Atan2(accel.X, -accel.Y);
+			Projectile.rotation = angle;
+
+
+			if (++Projectile.frameCounter >= 2) {
+				Projectile.frameCounter = 0;
+
+				Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
+			}
+		}
+
+		private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter) {
 			// Starting search distance
 			distanceFromTarget = 700f;
 			targetCenter = Projectile.position;
 			foundTarget = false;
 
 			// This code is required if your minion weapon has the targeting feature
-			if (owner.HasMinionAttackTargetNPC)
-			{
+			if (owner.HasMinionAttackTargetNPC) {
 				NPC npc = Main.npc[owner.MinionAttackTargetNPC];
 				float between = Vector2.Distance(npc.Center, Projectile.Center);
 
 				// Reasonable distance away so it doesn't target across multiple screens
-				if (between < 2000f)
-				{
+				if (between < 2000f) {
 					distanceFromTarget = between;
 					targetCenter = npc.Center;
 					foundTarget = true;
 				}
 			}
 
-			if (!foundTarget)
-			{
+			if (!foundTarget) {
 				// This code is required either way, used for finding a target
-				for (int i = 0; i < Main.maxNPCs; i++)
-				{
+				for (int i = 0; i < Main.maxNPCs; i++) {
 					NPC npc = Main.npc[i];
 
-					if (npc.CanBeChasedBy())
-					{
+					if (npc.CanBeChasedBy()) {
 						float between = Vector2.Distance(npc.Center, Projectile.Center);
 						bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
 						bool inRange = between < distanceFromTarget;
@@ -104,8 +164,7 @@ namespace Techarria.Content.Projectiles.Minions
 						// The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
 						bool closeThroughWall = between < 100f;
 
-						if (((closest && inRange) || !foundTarget) && (lineOfSight || closeThroughWall))
-						{
+						if (((closest && inRange) || !foundTarget) && (lineOfSight || closeThroughWall)) {
 							distanceFromTarget = between;
 							targetCenter = npc.Center;
 							foundTarget = true;
@@ -114,87 +173,6 @@ namespace Techarria.Content.Projectiles.Minions
 				}
 			}
 
-			// friendly needs to be set to true so the minion can deal contact damage
-			// friendly needs to be set to false so it doesn't damage things like target dummies while idling
-			// Both things depend on if it has a target or not, so it's just one assignment here
-			// You don't need this assignment if your minion is shooting things instead of dealing contact damage
-			Projectile.friendly = foundTarget;
 		}
-
-		private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
-		{
-			// Default movement parameters (here for attacking)
-			float speed = 8f;
-			float inertia = 20f;
-
-			if (foundTarget)
-			{
-				// Minion has a target: attack (here, fly towards the enemy)
-				if (distanceFromTarget > 40f)
-				{
-					// The immediate range around the target (so it doesn't latch onto it when close)
-					Vector2 direction = targetCenter - Projectile.Center;
-					direction.Normalize();
-					direction *= speed;
-
-					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-				}
-			}
-			else
-			{
-				// Minion doesn't have a target: return to player and idle
-				if (distanceToIdlePosition > 600f)
-				{
-					// Speed up the minion if it's away from the player
-					speed = 12f;
-					inertia = 60f;
-				}
-				else
-				{
-					// Slow down the minion if closer to the player
-					speed = 4f;
-					inertia = 80f;
-				}
-
-				if (distanceToIdlePosition > 20f)
-				{
-					// The immediate range around the player (when it passively floats about)
-
-					// This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
-					vectorToIdlePosition.Normalize();
-					vectorToIdlePosition *= speed;
-					Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-				}
-				else if (Projectile.velocity == Vector2.Zero)
-				{
-					// If there is a case where it's not moving at all, give it a little "poke"
-					Projectile.velocity.X = -0.15f;
-					Projectile.velocity.Y = -0.05f;
-				}
-			}
-		}
-
-		private void Visuals()
-		{
-			// So it will lean slightly towards the direction it's moving
-			Projectile.rotation = Projectile.velocity.X * 0.05f;
-
-			// This is a simple "loop through all frames from top to bottom" animation
-			int frameSpeed = 5;
-
-			Projectile.frameCounter++;
-
-			if (Projectile.frameCounter >= frameSpeed)
-			{
-				Projectile.frameCounter = 0;
-				Projectile.frame++;
-
-				if (Projectile.frame >= Main.projFrames[Projectile.type])
-				{
-					Projectile.frame = 0;
-				}
-			}
-		}
-
 	}
 }

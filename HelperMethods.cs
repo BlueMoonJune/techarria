@@ -52,6 +52,7 @@ namespace Techarria
 				}
 				output += tempValues[n] * aux;
 			}
+			Main.NewText(output);
 			return (int)output;
 		}
 
