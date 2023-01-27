@@ -6,6 +6,8 @@ using Terraria.GameContent;
 using System;
 using Terraria.DataStructures;
 using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Machines;
+using System.Collections.Generic;
 
 namespace Techarria
 {
@@ -80,7 +82,8 @@ namespace Techarria
                     Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
 
                     Main.spriteBatch.End();
-                } else if (te is StorageCrateTE storage)
+                } 
+				else if (te is StorageCrateTE storage)
                 {
                     Texture2D texture = TextureAssets.Item[storage.item.type].Value;
 
@@ -114,8 +117,67 @@ namespace Techarria
 
                     Main.spriteBatch.End();
                 }
+				else if (te is RotaryAssemblerTE assembler) 
+				{
 
-            }
+					Matrix offset = Matrix.Identity;
+					offset.Translation = new Vector3(p.X * 16 + 24 - Main.screenPosition.X, p.Y * 16 + 24 - Main.screenPosition.Y, 0);
+					Matrix transform = Main.Transform;
+					transform = offset * transform;
+					transform = Matrix.CreateRotationZ(assembler.degrees / 180f * MathF.PI) * transform;
+
+					transform = Matrix.CreateScale(0.5f) * transform;
+
+
+					int i = 0;
+					foreach (List<Item> segment in assembler.items) {
+						if (segment != null) {
+							Matrix segmentTransform = Matrix.CreateRotationZ(i * MathHelper.PiOver4) * transform;
+
+							Main.spriteBatch.Begin(
+								SpriteSortMode.Deferred,
+								BlendState.AlphaBlend,
+								Main.DefaultSamplerState,
+								DepthStencilState.None,
+								Main.Rasterizer,
+								null,
+								segmentTransform
+							);
+
+							int j = 1;
+							foreach (Item item in segment) {
+								Texture2D texture1 = TextureAssets.Item[item.type].Value;
+								Main.spriteBatch.Draw(texture1, -new Vector2(texture1.Width / 2, texture1.Height / 2) + new Vector2(16 * j, 0), Color.White);
+								j++;
+							}
+
+							Main.spriteBatch.End();
+						}
+						i++;
+					}
+
+					Texture2D texture = TextureAssets.Item[assembler.seed.type].Value;
+
+					Main.spriteBatch.Begin(
+						SpriteSortMode.Deferred,
+						BlendState.AlphaBlend,
+						Main.DefaultSamplerState,
+						DepthStencilState.None,
+						Main.Rasterizer,
+						null,
+						transform
+					);
+
+					Color color = assembler.seed.color;
+					if (assembler.seed.color == new Color()) {
+						color = Color.White;
+					}
+
+					Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), Color.White);
+
+					Main.spriteBatch.End();
+				}
+			}
         }
     }
 }

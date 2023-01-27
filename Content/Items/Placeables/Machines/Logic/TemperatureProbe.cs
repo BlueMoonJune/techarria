@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Placeables.Machines.Logic
 {
-	public class ItemPlacer : ModItem
+	public class TemperatureProbe : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -27,7 +27,7 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             Item.useTime = 10;
             Item.autoReuse = true;
 
-            Item.createTile = ModContent.TileType<Tiles.Machines.Logic.ItemPlacer>();
+            Item.createTile = ModContent.TileType<Tiles.Machines.Logic.TemperatureProbe>();
         }
     }
 }
