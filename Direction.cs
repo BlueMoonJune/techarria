@@ -4,10 +4,10 @@ namespace Techarria
 {
 	public class Direction
     {
-        public static readonly Direction Left = new Direction(-1, 0);
-        public static readonly Direction Right = new Direction(1, 0);
-        public static readonly Direction Up = new Direction(0, -1);
-        public static readonly Direction Down = new Direction(0, 1);
+        public static readonly Direction Left = new(-1, 0);
+        public static readonly Direction Right = new(1, 0);
+        public static readonly Direction Up = new(0, -1);
+        public static readonly Direction Down = new(0, 1);
 
         public Point point;
         public int num;
@@ -29,7 +29,7 @@ namespace Techarria
 
         }
 
-        public static implicit operator Direction(Point p) => new Direction(p);
+        public static implicit operator Direction(Point p) => new(p);
         public static implicit operator Point(Direction d) => d.point;
 
         public Direction(int x, int y) => new Direction(new Point(x, y));
@@ -45,7 +45,9 @@ namespace Techarria
         }
 
         public static implicit operator int(Direction d) => d.num;
-        public static implicit operator Direction(int n) => new Direction(n);
+        public static implicit operator Direction(int n) => new(n);
+
+		public static implicit operator Vector2(Direction d) => new(d.point.X, d.point.Y);
 
         public void Rotate(int steps)
         {
@@ -54,6 +56,6 @@ namespace Techarria
             point = newDir.point;
         }
 
-        public Direction Rotated(int steps) => new Direction((num + steps) % 4);
+        public Direction Rotated(int steps) => new((num + steps) % 4);
     }
 }

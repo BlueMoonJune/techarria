@@ -10,7 +10,7 @@ using Terraria.UI;
 namespace Techarria
 {
 	public class ItemOrRecipeGroup {
-		public Item item = new Item();
+		public Item item = new();
 		public RecipeGroup recipeGroup;
 
 		public ItemOrRecipeGroup(Item item) {

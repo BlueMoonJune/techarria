@@ -58,7 +58,7 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class CapacitorRack : PowerConsumer
 	{
-		public static Dictionary<int, string> capacitorTextures = new Dictionary<int, string>();
+		public static Dictionary<int, string> capacitorTextures = new();
 
 		public override void SetStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;

@@ -16,7 +16,7 @@ namespace Techarria.Content.Tiles.Machines
 {
 	public class CastingTableRecipe
 	{
-		public static List<CastingTableRecipe> recipes = new List<CastingTableRecipe>();
+		public static List<CastingTableRecipe> recipes = new();
 
 		public int input;
 		public int output;
@@ -42,8 +42,8 @@ namespace Techarria.Content.Tiles.Machines
 	public class CastingTableTE : ModTileEntity
 	{
 		public int oldY = 0;
-		public Item item = new Item();
-		public Item mold = new Item();
+		public Item item = new();
+		public Item mold = new();
 		public float baseTemp = 25f;
 		public float temp = 25f;
 

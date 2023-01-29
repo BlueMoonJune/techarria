@@ -9,7 +9,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 {
 	public class ItemPlacerTE : ModTileEntity
 	{
-		public Item item = new Item();
+		public Item item = new();
 		public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<ItemPlacer>();
 		}

@@ -105,13 +105,18 @@ namespace Techarria.Content.Projectiles.Minions
 			}
 
 			Projectile.velocity += ((moveTarget - Projectile.Center) - Projectile.velocity / 0.05f) * 0.005f;
+			if (Projectile.velocity.Length() > 10) {
+				Projectile.velocity.Normalize();
+				Projectile.velocity *= 10;
+			}
 
 			if (shootTimer > 0)
 				shootTimer--;
 
 			if (shootTimer == 0 && foundTarget) {
-				Projectile.NewProjectile(new EntitySource_Parent(Projectile), Projectile.Center, (target - Projectile.Center), ProjectileID.LaserMachinegunLaser, int.MaxValue - 64, 1, Projectile.owner);
-			//	shootTimer = 10;
+				Projectile proj = Projectile.NewProjectileDirect(new EntitySource_Parent(Projectile), Projectile.Center, (target - Projectile.Center), ProjectileID.LaserMachinegunLaser, 10, 1, Projectile.owner);
+				proj.DamageType = DamageClass.Summon;
+				shootTimer = 15;
 			}
 
 			Visuals();
@@ -121,7 +126,7 @@ namespace Techarria.Content.Projectiles.Minions
 			Vector2 accel = Projectile.velocity - Projectile.oldVelocity;
 			accel += new Vector2(-Main.windSpeedCurrent * Main.windPhysicsStrength, -Player.defaultGravity) + Projectile.velocity * 0.01f;
 			float angle = MathF.Atan2(accel.X, -accel.Y);
-			Projectile.rotation = angle;
+			Projectile.rotation = (Projectile.rotation - angle) * 0.9f + angle;
 
 
 			if (++Projectile.frameCounter >= 2) {
@@ -129,6 +134,8 @@ namespace Techarria.Content.Projectiles.Minions
 
 				Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
 			}
+
+			Lighting.AddLight((int)Projectile.position.X / 16, (int)Projectile.position.Y / 16, 0, 0.75f, 1);
 		}
 
 		private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter) {

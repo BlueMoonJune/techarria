@@ -13,7 +13,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 	{
 		public int targetTemp = 25;
 		public int difSign = 1;
-		public Direction direction = new Direction(0);
+		public Direction direction = new(0);
 
 		public override bool IsTileValidForEntity(int x, int y)
 		{

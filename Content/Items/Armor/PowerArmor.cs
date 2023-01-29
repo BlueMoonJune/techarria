@@ -21,7 +21,7 @@ namespace Techarria.Content.Items.Armor
         public int visorCooldown = 0;
         public int frames = 0;
 
-        UserInterface EnergyUI = new UserInterface();
+        UserInterface EnergyUI = new();
 
         bool hasMechJump = false;
         bool canMechJump = false;

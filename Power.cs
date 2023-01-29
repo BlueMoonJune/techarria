@@ -70,9 +70,9 @@ namespace Techarria
 
     public class Power
     {
-        public static List<Wire> scanned = new List<Wire>();
+        public static List<Wire> scanned = new();
 
-        public static Dictionary<Wire, PowerDisplayInfo> DisplayInfos = new Dictionary<Wire, PowerDisplayInfo>() { };
+        public static Dictionary<Wire, PowerDisplayInfo> DisplayInfos = new() { };
 
         public static byte GetWire(Tile tile)
         {

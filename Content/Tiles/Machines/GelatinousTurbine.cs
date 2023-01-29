@@ -16,7 +16,7 @@ namespace Techarria.Content.Tiles.Machines
 		public int burnTime = 0;
 		public float pulseFraction = 0;
 		public int frame = 0;
-		public static Rectangle particleRect = new Rectangle(4, 22, 16, 6);
+		public static Rectangle particleRect = new(4, 22, 16, 6);
 
 		public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<GelatinousTurbine>();

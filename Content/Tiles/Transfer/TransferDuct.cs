@@ -326,6 +326,8 @@ namespace Techarria.Content.Tiles.Transfer
 		}
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch) {
+			bool idc = false;
+			TileFrame(i, j, ref idc, ref idc);
 			Rectangle[] sourceRects = GetExtensionSource(i, j);
 			Rectangle[] destinationRects = GetExtensionDestination(i, j);
 			for (int x = 0; x < 4; x++) {

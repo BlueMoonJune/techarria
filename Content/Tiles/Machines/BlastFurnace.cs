@@ -17,12 +17,12 @@ namespace Techarria.Content.Tiles.Machines
 	{
 		public float baseTemp = 25;
 
-		public Item output = new Item();
-		public List<Item> inputs = new List<Item>();
+		public Item output = new();
+		public List<Item> inputs = new();
 		public float progress = 0;
 		public float temp = 25f;
 		public int frame = 0;
-		public static Rectangle particleRect = new Rectangle(6, 6, 24, 16);
+		public static Rectangle particleRect = new(6, 6, 24, 16);
 
 		public int oldY = 0;
 

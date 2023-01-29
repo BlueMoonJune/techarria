@@ -2,6 +2,8 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
+using Techarria.Transfer;
 
 namespace Techarria.Content.Tiles.Machines.Logic
 {
@@ -10,7 +12,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 	/// </summary>
 	public class BlockBreaker : ModTile
 	{
-		public static int power = 4000;
+		public static int power = 100;
 		public override void SetStaticDefaults() {
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
@@ -43,7 +45,34 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			tile.TileFrameY += 16;
 			tile.TileFrameY %= 32;
 
-			Main.LocalPlayer.PickTile(i + xOff, j + yOff, 400);
+			int tx = i + xOff;
+			int ty = j + yOff;
+
+			Point pos = ChestInterface.FindTopLeft(tx, ty);
+			if (pos != Point.Zero) {
+				Chest chest = Main.chest[Chest.FindChest(pos.X, pos.Y)];
+
+				for (int x = 0; x < chest.item.Length; x++) {
+					Item item = chest.item[x];
+					Item.NewItem(new EntitySource_TileBreak(chest.x, chest.y), new Rectangle(chest.x * 16, chest.y * 16, 32, 32), item);
+					chest.item[x].TurnToAir();
+				}
+				Main.LocalPlayer.PickTile(tx, ty, power);
+				return;
+			}
+			pos = ChestInterface.FindTopLeft(tx, ty - 1);
+			if (pos != Point.Zero) {
+				Chest chest = Main.chest[Chest.FindChest(pos.X, pos.Y)];
+
+				for (int x = 0; x < chest.item.Length; x++) {
+					Item item = chest.item[x];
+					Item.NewItem(new EntitySource_TileBreak(chest.x, chest.y), new Rectangle(chest.x * 16, chest.y * 16, 32, 32), item);
+					chest.item[x].TurnToAir();
+				}
+				Main.LocalPlayer.PickTile(tx, ty - 1, power);
+				return;
+			}
+			Main.LocalPlayer.PickTile(tx, ty, power);
 		}
 	}
 }

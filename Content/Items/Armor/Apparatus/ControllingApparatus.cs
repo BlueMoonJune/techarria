@@ -27,11 +27,11 @@ namespace Techarria.Content.Items.Armor.Apparatus
             {
                 color = "[c/BFDFFF:";
             }
-            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "9% increased summon damage]\n" + color + "5% increased whip speed]\n" + color + "Slowly consumes charge while in combat]"));
+            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "9% increased summon damage]\n" + color + "5% increased whip speed]\n" + color + "Increases your max number of minions by 2]\n" + color + "Slowly consumes charge while in combat]"));
             Player player = Main.player[Main.myPlayer];
             if (IsArmorSet(player.armor[0], player.armor[1], player.armor[2]))
             {
-                tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set Bonus:" + color + "Summons a drone minion to attack enemies. The drone drains charge when attacking]"));
+                tooltips.Add(new TooltipLine(Mod, "SetBonus", "Set Bonus: " + color + "Summons a drone minion to attack enemies. The drone drains charge when attacking]"));
             }
             base.ModifyTooltips(tooltips);
         }
@@ -85,12 +85,13 @@ namespace Techarria.Content.Items.Armor.Apparatus
 			}
 		}
 
-		public override void UpdateEquip(Player player)
-        {
-            if (charge > 0)
+		public override void UpdateEquip(Player player) {
+
+			if (charge > 0)
             {
                 player.GetDamage(DamageClass.Summon) += 0.09f;
                 player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.05f;
+				player.maxMinions += 2;
             }
         }
     }

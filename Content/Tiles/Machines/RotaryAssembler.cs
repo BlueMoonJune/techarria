@@ -14,7 +14,7 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class AssemblyRecipe {
 
-		public static List<AssemblyRecipe> recipes = new List<AssemblyRecipe>();
+		public static List<AssemblyRecipe> recipes = new();
 
 		public Item result;
 		public ItemOrRecipeGroup seed;
@@ -44,12 +44,12 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class RotaryAssemblerTE : ModTileEntity
 	{
-		public List<Point> wireHits = new List<Point>();
+		public List<Point> wireHits = new();
 
 		public float degrees = 0;
 		public int step { get { return (int)MathF.Round(degrees / 45f); } }
 
-		public Item seed = new Item();
+		public Item seed = new();
 		public List<Item>[] items = new List<Item>[8];
 
 		public float degreesLeft = 0;

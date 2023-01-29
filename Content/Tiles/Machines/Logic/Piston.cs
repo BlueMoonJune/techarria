@@ -13,7 +13,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 	/// </summary>
 	public class Piston : ModTile
 	{
-		public static List<Point> scanned = new List<Point>();
+		public static List<Point> scanned = new();
 
 		public int myType;
 		public static int blockCount = 0;
@@ -100,7 +100,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			return type == TileID.SlimeBlock || type == TileID.FrozenSlimeBlock || type == TileID.PinkSlimeBlock || type == TileID.HoneyBlock;
 		}
 
-		public static List<Point> SortFrontToBack(List<Point> points, Direction dir) {
+		public static List<Point> SortFrontToBack(List<Point> points, Direction dir, out Rectangle boundingBox) {
 			var sorted = new List<Point>();
 
 			int maxX = 0;
@@ -117,6 +117,8 @@ namespace Techarria.Content.Tiles.Machines.Logic
 				if (point.Y < minY)
 					minY = point.Y;
 			}
+
+			boundingBox = new Rectangle(minX * 16, minY * 16, (maxX - minX) * 16, (maxY - minY) * 16);
 
 			if (dir <= 1) {
 				for (int x = maxX; x >= minX; x--) {
@@ -142,6 +144,10 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 		public static List<Point> Scan(Point p, Direction dir) {
 			var result = new List<Point>();
+
+			if (p.X < 0 || p.X > Main.maxTilesX || p.Y < 0 || p.Y > Main.maxTilesY) {
+				return result;
+			}
 
 			if (scanned.Contains(p))
 				return result;
@@ -190,6 +196,8 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 			foreach (var point in pairs) {
 				Point t = point + dir;
+				if (t.X < 0 || t.X > Main.maxTilesX || t.Y < 0 || t.Y > Main.maxTilesY)
+					return false;
 				if (Main.tile[t].HasTile) {
 					bool inList = false;
 					foreach (Point p in pairs) {
@@ -212,7 +220,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 				return false;
 			}
 
-			List<Point> sorted = SortFrontToBack(pairs, dir);
+			List<Point> sorted = SortFrontToBack(pairs, dir, out Rectangle boundingBox);
 			foreach (Point point in sorted) {
 				Point t = point + dir;
 				CloneTile(point.X, point.Y, t.X, t.Y);
@@ -220,6 +228,35 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 			foreach (Point point in sorted) {
 				WorldGen.TileFrame(point.X, point.Y);
+			}
+
+			boundingBox.Inflate(1, 1);
+			boundingBox.Width += 16;
+			boundingBox.Height += 16;
+			foreach (Player player in Main.player) {
+
+				if (!player.getRect().Intersects(boundingBox)) {
+					continue;
+				}
+				foreach (Point point in sorted) {
+					if (new Rectangle(point.X * 16 - 1, point.Y * 16 - 1, 18, 18).Intersects(player.getRect())) {
+						player.position += (Vector2)dir * 16;
+						break;
+					}
+				}
+			}
+
+			foreach (Item item in Main.item) {
+
+				if (!item.getRect().Intersects(boundingBox)) {
+					continue;
+				}
+				foreach (Point point in sorted) {
+					if (new Rectangle(point.X * 16 - 1, point.Y * 16 - 1, 18, 18).Intersects(item.getRect())) {
+						item.position += (Vector2)dir * 16;
+						break;
+					}
+				}
 			}
 
 			return true;
@@ -235,7 +272,6 @@ namespace Techarria.Content.Tiles.Machines.Logic
 				foreach (var point in scanResult) {
 					Dust.NewDust(new Vector2(point.X, point.Y) * 16, 0, 0, ModContent.DustType<TransferDust>());
 				}
-			SortFrontToBack(scanResult, dir);
 			PushTiles(scanResult, dir);
 		}
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ObjectData;
 
 namespace Techarria.Transfer
@@ -15,7 +16,9 @@ namespace Techarria.Transfer
 
         public static Point FindTopLeft(int i, int j)
         {
-            if (i < 0 || j < 0)
+			int fX = Main.tile[i, j].TileFrameX;
+
+			if (i < 0 || j < 0 || (Chest.IsLocked(i, j) && !(fX >= 18 * 4 && fX < 18 * 6 || fX >= 18 * 8 && fX < 18 * 10)))
             {
                 return new Point();
             }
@@ -42,6 +45,7 @@ namespace Techarria.Transfer
                     partY++;
                 }
 
+				
                 return new Point(i - partX, j - partY);
             }
             return new Point();
