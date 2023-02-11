@@ -21,15 +21,12 @@ namespace Techarria.Content.Items.Armor
         public int visorCooldown = 0;
         public int frames = 0;
 
-        UserInterface EnergyUI = new();
+        public bool hasMechJump = false;
+		public bool canMechJump = false;
+		public bool waitMechJump = true;
 
-        bool hasMechJump = false;
-        bool canMechJump = false;
-        bool waitMechJump = true;
-        bool performingMechJump = false;
-
-        int combatTimer = 0;
-        int helmetDepleteTimer = 0;
+		public int combatTimer = 0;
+		public int helmetDepleteTimer = 0;
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldown)
         {
@@ -89,7 +86,7 @@ namespace Techarria.Content.Items.Armor
                 }
             }
 
-            if ((Player.velocity.Y == 0f || Player.sliding || (Player.autoJump && Player.justJumped)) && hasMechJump)
+            if ((Player.velocity.Y == 0f || Player.sliding || (Player.autoJump && Player.justJumped) || Player.grappling[0] >= 0) && hasMechJump)
             {
                 canMechJump = true;
                 waitMechJump = true;

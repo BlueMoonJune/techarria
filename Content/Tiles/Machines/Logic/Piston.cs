@@ -141,12 +141,53 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 			return sorted;
 		}
+		
+		public static List<Point> ScanAdhesive(int channel, Point p, Direction dir) {
+			var result = new List<Point>();
+			if (p.X < 0 || p.X > Main.maxTilesX || p.Y < 0 || p.Y > Main.maxTilesY) {
+				return result;
+			}
+			if (scanned.Contains(p))
+				return result;
+			if (!Main.tile[p].HasTile)
+				return result;
 
-		public static List<Point> Scan(Point p, Direction dir) {
+			foreach (Direction d in Direction.directions())
+            {
+				Point t = p + d;
+				if (Main.tile[t].Get<Glue>().GetChannel(channel)) {
+					Dust.NewDust(new Vector2(t.X * 16 + 4, t.Y * 16 + 4), 0, 0, ModContent.DustType<TransferDust>());
+					List<Point> scanResult = Scan(p, dir, true);
+					List<Point> adhesiveScanResult = ScanAdhesive(channel, t, dir);
+					foreach (var point in adhesiveScanResult) {
+						result.Add(point);
+					}
+					foreach (var point in scanResult) {
+						result.Add(point);
+					}
+				}
+            }
+
+			return result;
+		}
+
+		public static List<Point> Scan(Point p, Direction dir, bool adhesive = false) {
 			var result = new List<Point>();
 
 			if (p.X < 0 || p.X > Main.maxTilesX || p.Y < 0 || p.Y > Main.maxTilesY) {
 				return result;
+			}
+
+			Glue glue = Main.tile[p].Get<Glue>();
+			if (glue.types != 0 && !adhesive) {
+				for (int i = 0; i < 4; i++) {
+					if (glue.GetChannel(i)) {
+						List<Point> adhesiveScanResult = ScanAdhesive(i, p, dir);
+						foreach (var point in adhesiveScanResult) {
+							result.Add(point);
+						}
+					}
+				}
 			}
 
 			if (scanned.Contains(p))
@@ -157,6 +198,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			if (!Main.tile[p].HasTile || isImmovable(p.X, p.Y)) {
 				return result;
 			}
+
 
 			Point TL = HelperMethods.GetTopLeftTileInMultitile(p.X, p.Y, out int width, out int height);
 

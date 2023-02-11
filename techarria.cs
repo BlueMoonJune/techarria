@@ -84,34 +84,6 @@ namespace Techarria
         private void DrawPowerTransfer(On.Terraria.Main.orig_DrawWires orig, Main self)
         {
             orig(self);
-
-            Rectangle value = new Rectangle(0, 0, 16, 16);
-            Vector2 zero2 = Vector2.Zero;
-            if (Main.drawToScreen)
-            {
-                zero2 = Vector2.Zero;
-            }
-            int num12 = (int)((Main.screenPosition.X - zero2.X) / 16f - 1f);
-            int num13 = (int)((Main.screenPosition.X + (float)Main.screenWidth + zero2.X) / 16f) + 2;
-            int num14 = (int)((Main.screenPosition.Y - zero2.Y) / 16f - 1f);
-            int num15 = (int)((Main.screenPosition.Y + (float)Main.screenHeight + zero2.Y) / 16f) + 5;
-            if (num12 < 0)
-            {
-                num12 = 0;
-            }
-            if (num13 > Main.maxTilesX)
-            {
-                num13 = Main.maxTilesX;
-            }
-            if (num14 < 0)
-            {
-                num14 = 0;
-            }
-            if (num15 > Main.maxTilesY)
-            {
-                num15 = Main.maxTilesY;
-            }
-            Point screenOverdrawOffset = Main.GetScreenOverdrawOffset();
             foreach (Wire wire in Power.DisplayInfos.Keys)
             {
                 Color color;

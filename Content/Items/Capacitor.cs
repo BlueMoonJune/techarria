@@ -1,9 +1,12 @@
-﻿namespace Techarria.Content.Items
+﻿using Techarria.Content.Tiles.Machines;
+
+namespace Techarria.Content.Items
 {
 	public class Capacitor : ChargableItem
     {
         public override void SetStaticDefaults()
         {
+			CapacitorRack.capacitorTextures[Type] = "Capacitor";
             Tooltip.SetDefault("Stores charge and can instantaneously release it");
         }
 

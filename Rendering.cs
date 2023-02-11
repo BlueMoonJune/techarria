@@ -8,155 +8,108 @@ using Terraria.DataStructures;
 using Techarria.Content.Tiles;
 using Techarria.Content.Tiles.Machines;
 using System.Collections.Generic;
+using Techarria.Common.Global;
+using Techarria.Content.Items.Tools.Adhesive;
 
 namespace Techarria
 {
 	internal class Rendering : ModSystem
     {
-        /*
-        public override void PostDrawTiles()
-        {
-            SpriteBatch spriteBatch = Main.spriteBatch;
+
+		public Rectangle getGlueFraming(int i, int j, int c) {
+			Rectangle value = new Rectangle(0, 0, 16, 16);
+			if (Main.tile[i + 1, j].Get<Glue>().GetChannel(c))
+				value.X += 16;
+			if (Main.tile[i, j + 1].Get<Glue>().GetChannel(c))
+				value.X += 32;
+			if (Main.tile[i - 1, j].Get<Glue>().GetChannel(c))
+				value.Y += 16;
+			if (Main.tile[i, j - 1].Get<Glue>().GetChannel(c))
+				value.Y += 32;
+			return value;
+		}
+
+		public void DrawJourneyCrate(JourneyCrateTE JourneyStorage, Point16 p) {
+			Texture2D texture = TextureAssets.Item[JourneyStorage.item.type].Value;
+
+			float scale = 10f / Math.Max(texture.Width, texture.Height);
 
 
-            Matrix matrix = Main.Transform;
+			Matrix offset = Matrix.Identity;
+			offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 11 - Main.screenPosition.Y, 0);
+			Matrix transform = Main.Transform;
+			transform = offset * transform;
 
-            matrix = Matrix.CreateRotationZ((float)(System.DateTime.Now.Millisecond / 500f * Math.PI)) * matrix;
+			transform = Matrix.CreateScale(scale) * transform;
 
+			Main.spriteBatch.Begin(
+				SpriteSortMode.Deferred,
+				BlendState.AlphaBlend,
+				Main.DefaultSamplerState,
+				DepthStencilState.None,
+				Main.Rasterizer,
+				null,
+				transform
+			);
 
-            Vector2 translation = Main.LocalPlayer.Center - Main.screenPosition;
-            matrix.Translation = new Vector3 (translation.X, translation.Y, 0);
+			Color color = JourneyStorage.item.color;
+			if (JourneyStorage.item.color == new Color()) {
+				color = Color.White;
+			}
 
-            spriteBatch.Begin(
-                SpriteSortMode.Immediate, 
-                BlendState.AlphaBlend, 
-                SamplerState.PointClamp, 
-                DepthStencilState.Default, 
-                RasterizerState.CullNone, 
-                null, 
-                matrix
-            );
+			Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
 
-            Tile tile = Main.tile[100, 100];
-            if (tile.HasTile)
-                spriteBatch.Draw(TextureAssets.Tile[tile.TileType].Value, new Vector2(-8, -64), new Rectangle(tile.TileFrameX, tile.TileFrameY + tile.TileFrameNumber, 16, 16), Color.White);
+			Main.spriteBatch.End();
+		}
 
-            spriteBatch.End();
-        }
-        */
+		public void DrawStorageCrate(StorageCrateTE storage, Point16 p) {
+			Texture2D texture = TextureAssets.Item[storage.item.type].Value;
 
-        public override void PostDrawTiles()
-        {
-            foreach (var (p, te) in TileEntity.ByPosition)
-            {
-                if ( te is JourneyCrateTE JourneyStorage)
-                {
-                    Texture2D texture = TextureAssets.Item[JourneyStorage.item.type].Value;
-
-                    float scale = 10f / Math.Max(texture.Width, texture.Height);
+			float scale = 16f / Math.Max(texture.Width, texture.Height);
 
 
-                    Matrix offset = Matrix.Identity;
-                    offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 11 - Main.screenPosition.Y, 0);
-                    Matrix transform = Main.Transform;
-                    transform = offset * transform;
+			Matrix offset = Matrix.Identity;
+			offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
+			Matrix transform = Main.Transform;
+			transform = offset * transform;
 
-                    transform = Matrix.CreateScale(scale) * transform;
+			transform = Matrix.CreateScale(scale) * transform;
 
-                    Main.spriteBatch.Begin(
-                        SpriteSortMode.Deferred,
-                        BlendState.AlphaBlend,
-                        Main.DefaultSamplerState,
-                        DepthStencilState.None,
-                        Main.Rasterizer,
-                        null,
-                        transform
-                    );
+			Main.spriteBatch.Begin(
+				SpriteSortMode.Deferred,
+				BlendState.AlphaBlend,
+				Main.DefaultSamplerState,
+				DepthStencilState.None,
+				Main.Rasterizer,
+				null,
+				transform
+			);
 
-                    Color color = JourneyStorage.item.color;
-                    if (JourneyStorage.item.color == new Color())
-                    {
-                        color = Color.White;
-                    }
+			Color color = storage.item.color;
+			if (storage.item.color == new Color()) {
+				color = Color.White;
+			}
 
-                    Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
+			Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
 
-                    Main.spriteBatch.End();
-                } 
-				else if (te is StorageCrateTE storage)
-                {
-                    Texture2D texture = TextureAssets.Item[storage.item.type].Value;
+			Main.spriteBatch.End();
+		}
 
-                    float scale = 16f / Math.Max(texture.Width, texture.Height);
+		public void DrawRotaryAssembler(RotaryAssemblerTE assembler, Point16 p) {
 
+			Matrix offset = Matrix.Identity;
+			offset.Translation = new Vector3(p.X * 16 + 24 - Main.screenPosition.X, p.Y * 16 + 24 - Main.screenPosition.Y, 0);
+			Matrix transform = Main.Transform;
+			transform = offset * transform;
+			transform = Matrix.CreateRotationZ(assembler.degrees / 180f * MathF.PI) * transform;
 
-                    Matrix offset = Matrix.Identity;
-                    offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
-                    Matrix transform = Main.Transform;
-                    transform = offset * transform;
-
-                    transform = Matrix.CreateScale(scale) * transform;
-
-                    Main.spriteBatch.Begin(
-                        SpriteSortMode.Deferred,
-                        BlendState.AlphaBlend,
-                        Main.DefaultSamplerState,
-                        DepthStencilState.None,
-                        Main.Rasterizer,
-                        null,
-                        transform
-                    );
-
-                    Color color = storage.item.color;
-                    if (storage.item.color == new Color())
-                    {
-                        color = Color.White;
-                    }
-
-                    Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
-
-                    Main.spriteBatch.End();
-                }
-				else if (te is RotaryAssemblerTE assembler) 
-				{
-
-					Matrix offset = Matrix.Identity;
-					offset.Translation = new Vector3(p.X * 16 + 24 - Main.screenPosition.X, p.Y * 16 + 24 - Main.screenPosition.Y, 0);
-					Matrix transform = Main.Transform;
-					transform = offset * transform;
-					transform = Matrix.CreateRotationZ(assembler.degrees / 180f * MathF.PI) * transform;
-
-					transform = Matrix.CreateScale(0.5f) * transform;
+			transform = Matrix.CreateScale(0.5f) * transform;
 
 
-					int i = 0;
-					foreach (List<Item> segment in assembler.items) {
-						if (segment != null) {
-							Matrix segmentTransform = Matrix.CreateRotationZ((i - 2) * MathHelper.PiOver4) * transform;
-
-							Main.spriteBatch.Begin(
-								SpriteSortMode.Deferred,
-								BlendState.AlphaBlend,
-								Main.DefaultSamplerState,
-								DepthStencilState.None,
-								Main.Rasterizer,
-								null,
-								segmentTransform
-							);
-
-							int j = 1;
-							foreach (Item item in segment) {
-								Texture2D texture1 = TextureAssets.Item[item.type].Value;
-								Main.spriteBatch.Draw(texture1, -new Vector2(texture1.Width / 2, texture1.Height / 2) + new Vector2(0, 16 * j), Color.White);
-								j++;
-							}
-
-							Main.spriteBatch.End();
-						}
-						i++;
-					}
-
-					Texture2D texture = TextureAssets.Item[assembler.seed.type].Value;
+			int i = 0;
+			foreach (List<Item> segment in assembler.items) {
+				if (segment != null) {
+					Matrix segmentTransform = Matrix.CreateRotationZ((i - 2) * MathHelper.PiOver4) * transform;
 
 					Main.spriteBatch.Begin(
 						SpriteSortMode.Deferred,
@@ -165,19 +118,190 @@ namespace Techarria
 						DepthStencilState.None,
 						Main.Rasterizer,
 						null,
-						transform
+						segmentTransform
 					);
 
-					Color color = assembler.seed.color;
-					if (assembler.seed.color == new Color()) {
-						color = Color.White;
+					int j = 1;
+					foreach (Item item in segment) {
+						Texture2D texture1 = TextureAssets.Item[item.type].Value;
+						Main.spriteBatch.Draw(texture1, -new Vector2(texture1.Width / 2, texture1.Height / 2) + new Vector2(0, 16 * j), Color.White);
+						j++;
 					}
-
-					Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), Color.White);
 
 					Main.spriteBatch.End();
 				}
+				i++;
 			}
-        }
+
+			Texture2D texture = TextureAssets.Item[assembler.seed.type].Value;
+
+			Main.spriteBatch.Begin(
+				SpriteSortMode.Deferred,
+				BlendState.AlphaBlend,
+				Main.DefaultSamplerState,
+				DepthStencilState.None,
+				Main.Rasterizer,
+				null,
+				transform
+			);
+
+			Color color = assembler.seed.color;
+			if (assembler.seed.color == new Color()) {
+				color = Color.White;
+			}
+
+			Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), Color.White);
+
+			Main.spriteBatch.End();
+		}
+
+		public void DrawGlue() {
+			GlueLensPlayer p = Main.LocalPlayer.GetModPlayer<GlueLensPlayer>();
+
+			if (!(p.glueForced || Main.LocalPlayer.HeldItem.ModItem is Adhesive || Main.LocalPlayer.HeldItem.ModItem is MultiAdhesive)) {
+				return;
+			}
+
+			Texture2D glueTexture = ModContent.Request<Texture2D>("Techarria/Content/Glue").Value;
+
+			_ = Main.gfxQuality;
+			Vector2 zero2 = Vector2.Zero;
+			if (Main.drawToScreen) {
+				zero2 = Vector2.Zero;
+			}
+			int num12 = (int)((Main.screenPosition.X - zero2.X) / 16f - 1f);
+			int num13 = (int)((Main.screenPosition.X + (float)Main.screenWidth + zero2.X) / 16f) + 2;
+			int num14 = (int)((Main.screenPosition.Y - zero2.Y) / 16f - 1f);
+			int num15 = (int)((Main.screenPosition.Y + (float)Main.screenHeight + zero2.Y) / 16f) + 5;
+			if (num12 < 0) {
+				num12 = 0;
+			}
+			if (num13 > Main.maxTilesX) {
+				num13 = Main.maxTilesX;
+			}
+			if (num14 < 0) {
+				num14 = 0;
+			}
+			if (num15 > Main.maxTilesY) {
+				num15 = Main.maxTilesY;
+			}
+			Point screenOverdrawOffset = Main.GetScreenOverdrawOffset();
+
+			Color[] colors = new Color[4] {
+				new Color(0.1f, 0.4f, 1),
+				new Color(0.2f, 0.7f, 0.7f),
+				new Color(1f, 0.4f, 0.6f),
+				new Color(1f, 0.7f, 0.2f)
+			};
+			for (int i = 0; i < 4; i++)
+				if (p.modes[i] == 0)
+					colors[i] = colors[i].MultiplyRGBA(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+			for (int j = num14 + screenOverdrawOffset.Y; j < num15 - screenOverdrawOffset.Y; j++) {
+				for (int i = num12 + screenOverdrawOffset.X; i < num13 - screenOverdrawOffset.X; i++) {
+
+					for (int c = 0; c < 4; c++) {
+						if (Main.tile[i, j].Get<Glue>().GetChannel(c)) {
+							Main.NewText($"{c}, {i}, {j}");
+							Rectangle value = getGlueFraming(i, j, c);
+							Main.spriteBatch.Draw(glueTexture, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y), value, Color.Black.MultiplyRGBA(colors[c]));
+						}
+					}
+				}
+			}
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+			for (int j = num14 + screenOverdrawOffset.Y; j < num15 - screenOverdrawOffset.Y; j++) {
+				for (int i = num12 + screenOverdrawOffset.X; i < num13 - screenOverdrawOffset.X; i++) {
+
+
+					for (int c = 0; c < 4; c++) {
+						if (Main.tile[i, j].Get<Glue>().GetChannel(c)) {
+							Rectangle value = getGlueFraming(i, j, c);
+							Main.spriteBatch.Draw(glueTexture, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y), value, colors[c].MultiplyRGB(p.modes[c] <= 1 ? Lighting.GetColor(i, j) : Color.White));
+						}
+					}
+				}
+			}
+			Main.spriteBatch.End();
+		}
+
+		public void DrawCables() {
+			VertexBuffer vertexBuffer;
+
+			GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
+
+			BasicEffect basicEffect;
+
+			basicEffect = new BasicEffect(graphicsDevice);
+
+			List<VertexPositionColor> vertices = new();
+
+			foreach (var (p, te) in TileEntity.ByPosition) {
+				if (te is CableConnectorTE connectorTE) {
+					if (connectorTE.ID < connectorTE.connectedID && connectorTE.isConnected) {
+						Point16 mPos = connectorTE.Position;
+						Vector2 mVec = new(mPos.X * 16, mPos.Y * 16);
+						CableConnectorTE connectingTE = TileEntity.ByID[connectorTE.connectedID] as CableConnectorTE;
+						Point16 cPos = connectingTE.Position;
+						Vector2 cVec = new(cPos.X * 16, cPos.Y * 16);
+						vertices.Add(new VertexPositionColor(new(mVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+						vertices.Add(new VertexPositionColor(new(cVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+					}
+				}
+			}
+
+			CableConnectorPlayer connectorPlayer = Main.LocalPlayer.GetModPlayer<CableConnectorPlayer>();
+			if (connectorPlayer.isConnecting) {
+				CableConnectorTE connectingTE = TileEntity.ByID[connectorPlayer.connectingID] as CableConnectorTE;
+				Point16 cPos = connectingTE.Position;
+				Vector2 cVec = new(cPos.X * 16, cPos.Y * 16);
+				vertices.Add(new VertexPositionColor(new(Main.MouseWorld, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+				vertices.Add(new VertexPositionColor(new(cVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+			}
+
+			vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionColor), 5, BufferUsage.WriteOnly);
+			vertexBuffer.SetData(vertices.ToArray());
+
+			basicEffect.World = Matrix.CreateTranslation(-new Vector3(Main.screenPosition.X, Main.screenPosition.Y, 0));
+			basicEffect.View = Main.GameViewMatrix.TransformationMatrix;
+			basicEffect.Projection = Matrix.CreateOrthographicOffCenter(0, Main.instance.GraphicsDevice.Viewport.Width, Main.instance.GraphicsDevice.Viewport.Height, 0, -1, 1);
+			basicEffect.VertexColorEnabled = true;
+
+			graphicsDevice.SetVertexBuffer(vertexBuffer);
+
+			RasterizerState rasterizerState = new RasterizerState();
+			rasterizerState.CullMode = CullMode.None;
+			graphicsDevice.RasterizerState = rasterizerState;
+			graphicsDevice.BlendState = BlendState.AlphaBlend;
+
+			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes) {
+				pass.Apply();
+				graphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, vertices.Count / 2);
+			}
+		}
+
+		public override void PostDrawTiles() {
+			foreach (var (point, te) in TileEntity.ByPosition) {
+				if (te is JourneyCrateTE JourneyStorage) {
+					DrawJourneyCrate(JourneyStorage, point);
+				}
+				else if (te is StorageCrateTE storage) {
+					DrawStorageCrate(storage, point);
+				}
+				else if (te is RotaryAssemblerTE assembler) {
+					DrawRotaryAssembler(assembler, point);
+				}
+			}
+
+			DrawGlue();
+
+			//DrawCables();
+
+		}
     }
 }

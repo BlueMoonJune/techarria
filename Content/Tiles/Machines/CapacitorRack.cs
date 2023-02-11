@@ -72,29 +72,29 @@ namespace Techarria.Content.Tiles.Machines
 			AdjTiles = new int[] { TileID.WorkBenches };
 
 			// placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
-			TileObjectData.newTile.CoordinateHeights = new[] { 18 };
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
+			TileObjectData.newTile.CoordinateHeights = new[] { 18, 18 };
 			TileObjectData.addTile(Type);
 
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 
 			// map info
 			ModTranslation name = CreateMapEntryName();
-			AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.WorkBench"));
+			AddMapEntry(new Color(200, 200, 200), Language.GetText("Casting Table"));
 		}
 
 		public CapacitorRackTE GetTileEntity(int i, int j) {
 			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 2;
-			j -= tile.TileFrameY / 18 % 1;
+			i -= tile.TileFrameX / 18 % 3;
+			j -= tile.TileFrameY / 18 % 2;
 			TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity tileEntity);
 			return tileEntity as CapacitorRackTE;
 		}
 
 		public override void PlaceInWorld(int i, int j, Item item) {
 			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 2;
-			j -= tile.TileFrameY / 18 % 1;
+			i -= tile.TileFrameX / 18 % 3;
+			j -= tile.TileFrameY / 18 % 2;
 			ModContent.GetInstance<CapacitorRackTE>().Place(i, j);
 		}
 
@@ -116,6 +116,7 @@ namespace Techarria.Content.Tiles.Machines
 
 		public override bool RightClick(int i, int j) {
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
+			Point16 subtile = new Point16(i, j) - tileEntity.Position;
 			if (tileEntity == null)
 				return false;
 
@@ -128,8 +129,15 @@ namespace Techarria.Content.Tiles.Machines
 				playerItem = Main.player[Main.myPlayer].HeldItem;
 			}
 
-			if (playerItem.ModItem is Mold) {
-
+			if (subtile.Y == 0) {
+				int index = subtile.X;
+				if (tileEntity.items[index].IsAir && playerItem.ModItem is Capacitor) {
+					tileEntity.items[index] = playerItem.Clone();
+					playerItem.TurnToAir();
+				} else if (!tileEntity.items[index].IsAir) {
+					Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 16, 16, tileEntity.items[index]);
+					tileEntity.items[index].TurnToAir();
+				}
 			}
 			return false;
 		}
