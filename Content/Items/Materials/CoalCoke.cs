@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Materials
 {
-    internal class CoalCoke : ModItem
+    public class CoalCoke : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,6 +14,7 @@ namespace Techarria.Content.Items.Materials
             // journey mode
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;
         }
+        
         public override void SetDefaults()
         {
             Item.width = 16; // The item texture's width
@@ -24,6 +25,7 @@ namespace Techarria.Content.Items.Materials
             // platinum/gold/silver/copper arguments provided to it.
             Item.value = Item.buyPrice(silver: 3, copper: 87);
         }
+        
 
         public override void AddRecipes()
         {

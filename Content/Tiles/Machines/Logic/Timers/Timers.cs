@@ -85,7 +85,6 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             AddMapEntry(new Color(60/255f, 50/255f, 44/255f), CreateMapEntryName());
 
             DustType = DustID.Stone;
-            ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();
 
             HitSound = SoundID.Tink;
         }
@@ -135,6 +134,8 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
         {
             duration = 300;
             base.SetStaticDefaults();
+
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.FiveSecondTimer>();
         }
     }
     public class ThreeSecondTimer : Timer
@@ -143,6 +144,8 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
         {
             duration = 180;
             base.SetStaticDefaults();
+
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.ThreeSecondTimer>();
         }
     }
     public class OneSecondTimer : Timer
@@ -151,6 +154,8 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
         {
             duration = 60;
             base.SetStaticDefaults();
+
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.OneSecondTimer>();
         }
     }
     public class HalfSecondTimer : Timer
@@ -159,6 +164,8 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
         {
             duration = 30;
             base.SetStaticDefaults();
+
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.HalfSecondTimer>();
         }
     }
 
@@ -168,6 +175,8 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
         {
             duration = 15;
             base.SetStaticDefaults();
+
+            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.QuarterSecondTimer>();
         }
     }
 }

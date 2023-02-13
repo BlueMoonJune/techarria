@@ -12,6 +12,7 @@ namespace Techarria.Content.Tiles.Transfer
 	{
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
+
 			TileID.Sets.CanBeSloped[Type] = true;
 			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.DirectionalDuct>();
 		}
