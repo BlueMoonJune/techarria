@@ -19,9 +19,9 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new ChestInterface(point.X, point.Y);
 
-			point = ExternalInterfaceInterface.FindTopLeft(x, y);
+			point = MagicStorageInterface.FindTopLeft(x, y);
 			if (point != Point.Zero)
-				return new ExternalInterfaceInterface(point.X, point.Y);
+				return new MagicStorageInterface(point.X, point.Y);
 
 			point = GelatinousTurbineInterface.FindTopLeft(x, y);
 			if (point != Point.Zero)

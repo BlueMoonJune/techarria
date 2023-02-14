@@ -8,9 +8,9 @@ using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-	public class ExternalInterfaceInterface : ContainerInterface
+	public class MagicStorageInterface : ContainerInterface
     {
-        public ExternalInterfaceInterface(int i, int j)
+        public MagicStorageInterface(int i, int j)
         {
             x = i;
             y = j;
@@ -22,7 +22,7 @@ namespace Techarria.Transfer
             if (i < 0 || j < 0)
                 return new Point();
 
-            if (!tile.HasTile || tile.TileType != ModContent.TileType<ExternalInterface>())
+            if (!tile.HasTile || ModContent.GetModTile(tile.TileType) is not StorageAccess)
                 return new Point();
 
             if (tile.TileFrameX > 0) i--;
@@ -32,7 +32,7 @@ namespace Techarria.Transfer
 
         public override List<Item> GetItems()
         {
-            if (ModContent.GetModTile(Main.tile[x, y].TileType) is ExternalInterface modTile)
+            if (ModContent.GetModTile(Main.tile[x, y].TileType) is StorageAccess modTile)
             {
                 return modTile.GetHeart(x, y).GetStoredItems().ToList();
             }
@@ -43,7 +43,7 @@ namespace Techarria.Transfer
         {
             Item tempItem = item.Clone();
             tempItem.stack = 1;
-            if (ModContent.GetModTile(Main.tile[x, y].TileType) is ExternalInterface modTile)
+            if (ModContent.GetModTile(Main.tile[x, y].TileType) is StorageAccess modTile)
             {
                 TEStorageHeart heart = modTile.GetHeart(x, y);
                 return !heart.Withdraw(tempItem, true).IsAir;
@@ -55,7 +55,7 @@ namespace Techarria.Transfer
         {
             Item deposit = item.Clone();
             deposit.stack = 1;
-            if (ModContent.GetModTile(Main.tile[x, y].TileType) is ExternalInterface modTile)
+            if (ModContent.GetModTile(Main.tile[x, y].TileType) is StorageAccess modTile)
             {
                 TEStorageHeart heart = modTile.GetHeart(x, y);
                 foreach (TEAbstractStorageUnit storageUnit in heart.GetStorageUnits())
