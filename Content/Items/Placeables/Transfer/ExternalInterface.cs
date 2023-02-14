@@ -7,6 +7,10 @@ namespace Techarria.Content.Items.Placeables.Transfer
     [ExtendsFromMod("MagicStorage")]
     public class ExternalInterface : StorageComponent
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("A component for transfer ducts to insert and extract from your Magic Storage system");
+        }
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -13,6 +13,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
+            Tooltip.SetDefault("When activated sucks in items above into your ducts");
         }
 
         public override void SetDefaults()

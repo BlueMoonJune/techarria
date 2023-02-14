@@ -4,6 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using Techarria.Common.UI.MultiAdhesiveUI;
+using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Tools.Adhesive
 {
@@ -12,6 +13,9 @@ namespace Techarria.Content.Items.Tools.Adhesive
 
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Hot Glue Gun");
+			Tooltip.SetDefault("Right click while holding to edit adhesive settings");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
@@ -20,7 +24,7 @@ namespace Techarria.Content.Items.Tools.Adhesive
 			Item.maxStack = 1;
 			Item.value = Item.buyPrice(0, 0, 1, 0);
 
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.useTurn = true;
 			Item.useAnimation = 5;
 			Item.useTime = 5;

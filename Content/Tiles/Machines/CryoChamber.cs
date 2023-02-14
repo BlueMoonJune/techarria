@@ -192,7 +192,7 @@ namespace Techarria.Content.Tiles.Machines
 			{
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconText = tileEntity.progress + " / " + tileEntity.powerNeeded;
-				player.cursorItemIconID = ModContent.ItemType<Volts>();
+				player.cursorItemIconID = ModContent.ItemType<Items.RecipeItems.Power>();
 			}
 
 			if (item != null && !item.IsAir && subTile.X <= 2 && subTile.Y <= 2)

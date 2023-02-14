@@ -10,6 +10,9 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
+            Tooltip.SetDefault("Activates wires when the tile in front of it is at target temperature\n" +
+                "Target temperature is set when activated");
         }
 
         public override void SetDefaults()

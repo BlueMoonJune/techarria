@@ -9,6 +9,8 @@ namespace Techarria.Content.Items.Placeables.Timers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("5 Second Timer");
+            Tooltip.SetDefault("A timer which doesn't need supporting tiles\n" +
+                "Doesn't need to be re-activated on world startup");
         }
 
         public override void SetDefaults()
@@ -35,6 +37,8 @@ namespace Techarria.Content.Items.Placeables.Timers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("3 Second Timer");
+            Tooltip.SetDefault("A timer which doesn't need supporting tiles\n" +
+                "Doesn't need to be re-activated on world startup");
         }
 
         public override void SetDefaults()
@@ -61,6 +65,8 @@ namespace Techarria.Content.Items.Placeables.Timers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("1 Second Timer");
+            Tooltip.SetDefault("A timer which doesn't need supporting tiles\n" +
+                "Doesn't need to be re-activated on world startup");
         }
 
         public override void SetDefaults()
@@ -87,6 +93,8 @@ namespace Techarria.Content.Items.Placeables.Timers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("1/2 Second Timer");
+            Tooltip.SetDefault("A timer which doesn't need supporting tiles\n" +
+                "Doesn't need to be re-activated on world startup");
         }
 
         public override void SetDefaults()
@@ -113,6 +121,8 @@ namespace Techarria.Content.Items.Placeables.Timers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("1/4 Second Timer");
+            Tooltip.SetDefault("A timer which doesn't need supporting tiles\n" +
+                "Doesn't need to be re-activated on world startup");
         }
 
         public override void SetDefaults()

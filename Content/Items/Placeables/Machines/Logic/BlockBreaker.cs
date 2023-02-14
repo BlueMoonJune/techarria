@@ -13,6 +13,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
+            Tooltip.SetDefault("Breaks the tile in front of it when activated");
         }
 
         public override void SetDefaults()

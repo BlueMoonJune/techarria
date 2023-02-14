@@ -10,6 +10,9 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
+            Tooltip.SetDefault("Right click to insert an item\n" +
+                "Activate to place items");
         }
 
         public override void SetDefaults()

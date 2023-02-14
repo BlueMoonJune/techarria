@@ -11,9 +11,9 @@ namespace Techarria.Content.Items.Placeables
 		{
 			DisplayName.SetDefault("Infinity Crate");
 
-			Tooltip.SetDefault("'Check my recipe ;)'\n"
-				+ "Can be infinetely inserted into or extracted from\n"
-				+ "Any inserted items will be cleared of any reforges or similar");
+			Tooltip.SetDefault("Can be infinetely inserted into or extracted from\n"
+				+ "Any inserted items will be cleared of any reforges or similar\n"
+				+ "'Check my recipe ;)'");
 		}
 
 		public override void SetDefaults()
