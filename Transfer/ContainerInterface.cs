@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
@@ -19,10 +20,11 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new ChestInterface(point.X, point.Y);
 
-			point = MagicStorageInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new MagicStorageInterface(point.X, point.Y);
-
+			if (ModLoader.TryGetMod("MagicStorage", out Mod _)) {
+				point = MagicStorageInterface.FindTopLeft(x, y);
+				if (point != Point.Zero)
+					return new MagicStorageInterface(point.X, point.Y);
+			}
 			point = GelatinousTurbineInterface.FindTopLeft(x, y);
 			if (point != Point.Zero)
 				return new GelatinousTurbineInterface(point.X, point.Y);

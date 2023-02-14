@@ -2,14 +2,17 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using Techarria.Content.Tiles.Transfer;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
+
+	[JITWhenModsEnabled("MagicStorage")]
+	[ExtendsFromMod("MagicStorage")]
 	public class MagicStorageInterface : ContainerInterface
     {
+
         public MagicStorageInterface(int i, int j)
         {
             x = i;
