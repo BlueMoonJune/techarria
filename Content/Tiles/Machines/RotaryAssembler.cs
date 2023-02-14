@@ -97,10 +97,10 @@ namespace Techarria.Content.Tiles.Machines
 						angle -= 2 * MathHelper.Pi;
 					}
 					if (angle > 0) {
-						degreesLeft -= 45;
+						degreesLeft += 45;
 					}
 					if (angle < 0) {
-						degreesLeft += 45;
+						degreesLeft -= 45;
 					}
 				}
 
