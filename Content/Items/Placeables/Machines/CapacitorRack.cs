@@ -7,6 +7,10 @@ namespace Techarria.Content.Items.Placeables.Machines
 	{
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+			Tooltip.SetDefault("Right click to place Capacitors on the top of the rack\n" +
+                "Diverts power from the bottom right and left of the rack to placed Capacitors\n" +
+                "When the bottom center of the rack is activated, all Capacitors will release all their power to connected wires");
 		}
 
 		public override void SetDefaults() {

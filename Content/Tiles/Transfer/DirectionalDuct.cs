@@ -12,8 +12,9 @@ namespace Techarria.Content.Tiles.Transfer
 	{
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
+
 			TileID.Sets.CanBeSloped[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.DirectionalDuct>();
+			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.DirectionalDuct>();
 		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {

@@ -11,7 +11,7 @@ namespace Techarria.Content.Items.Placeables
 		{
 			DisplayName.SetDefault("Journey Crate");
 
-			Tooltip.SetDefault("'Obtained from researching a Storage Crate'\n"
+			Tooltip.SetDefault("Obtained from researching a Storage Crate\n"
 				+ "Can be infinetely inserted into or extracted from so long as you have enough to research the item\n"
 				+ "Any inserted items will be cleared of any reforges or similar");
 

@@ -7,6 +7,9 @@ namespace Techarria.Content.Items.Placeables.Machines
 	{
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+			Tooltip.SetDefault("Burns gel to produce power\n" +
+				$"[i:{ ModContent.ItemType<RecipeItems.Power>()}]" + "60 power per second");
 		}
 
 		public override void SetDefaults() {

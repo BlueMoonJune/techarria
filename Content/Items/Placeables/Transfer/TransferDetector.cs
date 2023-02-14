@@ -13,6 +13,9 @@ namespace Techarria.Content.Items.Placeables.Transfer
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
+            Tooltip.SetDefault("Will activate wires when an item is sent through it\n" +
+                "'Can't recursively power.. trust me you don't want that'");
         }
 
         public override void SetDefaults()

@@ -6,6 +6,7 @@ using Techarria.Content.Dusts;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Techarria.Transfer;
+using System;
 
 namespace Techarria.Content.Tiles.Transfer
 {
@@ -106,6 +107,7 @@ namespace Techarria.Content.Tiles.Transfer
 			Main.tileSolidTop[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileTable[Type] = true;
+			Main.tileBlockLight[Type] = false;
 
 			Techarria.tileIsTransferDuct[Type] = true;
 			Techarria.tileConnectToPipe[Type] = true;
@@ -136,16 +138,22 @@ namespace Techarria.Content.Tiles.Transfer
 				&&
 				MatchingPaint(x, y, i, j)
 				||
-				FindContainer(i, j) != null
-			;
+				FindContainer(i, j) != null;
 
+		}
+
+
+		public override void PlaceInWorld(int i, int j, Item item)
+		{
+			Tile tile = Framing.GetTileSafely(i, j);
+			tile.TileFrameX += (Int16)(new Random(j * Main.maxTilesY + i).Next(3) * 64);
 		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
 			SetStaticDefaults();
 
 			Tile tile = Framing.GetTileSafely(i, j);
-			tile.TileFrameX = 0;
+			tile.TileFrameX /= 64 * 64;
 			if (ShouldConnect(i + 1, j, i, j)) {
 				tile.TileFrameX += 16;
 			}
@@ -161,16 +169,19 @@ namespace Techarria.Content.Tiles.Transfer
 				tile.TileFrameY += 32;
 			}
 
+			//tile.TileFrameX += (Int16)(new Random(j * Main.maxTilesY + i).Next(3) * 64);
+
 			return true;
 		}
+        
 
-		/// <summary>
-		/// Finds a container at the specified coordinates
-		/// </summary>
-		/// <param name="i">X coordinate</param>
-		/// <param name="j">Y coordinate</param>
-		/// <returns>The ContainerInterface object coresponding to the found container</returns>
-		public ContainerInterface FindContainer(int i, int j) {
+        /// <summary>
+        /// Finds a container at the specified coordinates
+        /// </summary>
+        /// <param name="i">X coordinate</param>
+        /// <param name="j">Y coordinate</param>
+        /// <returns>The ContainerInterface object coresponding to the found container</returns>
+        public ContainerInterface FindContainer(int i, int j) {
 			return ContainerInterface.Find(i, j);
 		}
 

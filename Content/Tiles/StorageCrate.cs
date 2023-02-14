@@ -171,6 +171,8 @@ namespace Techarria.Content.Tiles
 		}
 
 		/*
+		 * unused
+		 * 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			StorageCrateTE tileEntity = GetTileEntity(i, j);

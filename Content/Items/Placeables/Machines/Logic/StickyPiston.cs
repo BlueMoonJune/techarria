@@ -13,6 +13,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
+            Tooltip.SetDefault("'From a mod to a game to a mod'");
         }
 
         public override void SetDefaults()

@@ -11,9 +11,9 @@ namespace Techarria.Content.Items.Placeables
 		{
 			DisplayName.SetDefault("Storage Crate");
 
-			Tooltip.SetDefault("'Stores items with 99% accuracy'\n"
-				+ "Stores up to 999999 matching items\n"
-				+ "Any inserted items will be cleared of any reforges or similar");
+			Tooltip.SetDefault("Stores up to 999999 matching items\n"
+				+ "Any inserted items will be cleared of any reforges or similar\n" +
+				"'Stores items with 99% accuracy'");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

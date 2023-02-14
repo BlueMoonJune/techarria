@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 
-namespace Techarria.Content.Items.Placeables.Machines.Logic
+namespace Techarria.Content.Items.Placeables.Transfer
 {
 	/// <summary>
 	/// Item form of DirectionalDuct
@@ -13,6 +13,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
+            Tooltip.SetDefault("Only allows items to transfer in the direction its facing");
         }
 
         public override void SetDefaults()
