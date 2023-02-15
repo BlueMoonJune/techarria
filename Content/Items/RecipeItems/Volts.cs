@@ -12,8 +12,8 @@ namespace Techarria.Content.Items.RecipeItems
 
         public override void SetDefaults()
         {
-            Item.width = 16;
-            Item.height = 32;
+            Item.width = 44;
+            Item.height = 40;
             Item.maxStack = 99999;
         }
     }

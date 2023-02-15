@@ -2,18 +2,18 @@
 
 namespace Techarria.Content.Items.RecipeItems
 {
-    public class Power : ModItem
+    public class Activations : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Power");
-            Tooltip.SetDefault("Power needed for this recipe");
+            DisplayName.SetDefault("Activations");
+            Tooltip.SetDefault("Logic signal activations needed for this recipe");
         }
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 24;
+            Item.width = 40;
+            Item.height = 40;
             Item.maxStack = 99999;
         }
     }
