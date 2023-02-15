@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Machines;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria
@@ -144,30 +146,36 @@ namespace Techarria
             return Search(new Wire(i, j, channel));
         }
 
-        public static List<Point> Search(Wire wire)
-        {
-            List<Point> list = new List<Point>();
-            scanned.Add(wire);
-            Point p = new Point(wire.X, wire.Y);
+		public static List<Point> Search(Wire wire) {
+			List<Point> list = new List<Point>();
+			scanned.Add(wire);
+			Point p = new Point(wire.X, wire.Y);
 
-            Tile tile = Main.tile[p];
-            if (ModContent.GetModTile(tile.TileType) is PowerConsumer consumer && consumer.IsConsumer(p.X, p.Y))
-            {
-                list.Add(p);
-            }
+			Tile tile = Main.tile[p];
+			if (ModContent.GetModTile(tile.TileType) is PowerConsumer consumer && consumer.IsConsumer(p.X, p.Y)) {
+				list.Add(p);
+			}
 
-            PowerDisplayInfo displayInfo = new PowerDisplayInfo(wire.C);
-            foreach (Direction dir in Direction.directions())
-            {
-                Point target = p + dir.point;
-                Wire w = new Wire(target.X, target.Y, wire.C);
-                tile = Main.tile[target];
-                if (!scanned.Contains(w) && GetWire(tile, wire.C))
-                {
-                    displayInfo.AddDirection(dir);
-                    list = Concat<Point>(list, Search(w));
-                }
-            }
+			PowerDisplayInfo displayInfo = new PowerDisplayInfo(wire.C);
+			foreach (Direction dir in Direction.directions()) {
+				Point target = p + dir.point;
+				Wire w = new Wire(target.X, target.Y, wire.C);
+				tile = Main.tile[target];
+				if (!scanned.Contains(w) && GetWire(tile, wire.C)) {
+					displayInfo.AddDirection(dir);
+					list = Concat(list, Search(w));
+				}
+			}
+
+			if (Main.tile[wire.X, wire.Y].TileType == ModContent.TileType<CableConnector>()) 
+			{
+				CableConnectorTE connectorTE = CableConnector.GetTileEntity(wire.X, wire.Y);
+				CableConnectorTE connectedTE = TileEntity.ByID[connectorTE.connectedID] as CableConnectorTE;
+				Wire w = new Wire(connectedTE.Position.X, connectedTE.Position.Y, wire.C);
+				if (!scanned.Contains(w) && GetWire(Main.tile[connectedTE.Position.X, connectedTE.Position.Y], wire.C))
+					list = Concat(list, Search(w));
+			}
+
             foreach (Wire point in DisplayInfos.Keys)
             {
                 if (point.X == p.X && point.Y == p.Y)
@@ -176,6 +184,7 @@ namespace Techarria
                     return list;
                 }
             }
+
             DisplayInfos.Add(wire, displayInfo);
             return list;
 

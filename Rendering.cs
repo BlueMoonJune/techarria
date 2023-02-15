@@ -15,6 +15,9 @@ namespace Techarria
 {
 	internal class Rendering : ModSystem
     {
+		static GraphicsDevice graphicsDevice;
+
+		static BasicEffect basicEffect;
 
 		public Rectangle getGlueFraming(int i, int j, int c) {
 			Rectangle value = new Rectangle(0, 0, 16, 16);
@@ -231,13 +234,14 @@ namespace Techarria
 		}
 
 		public void DrawCables() {
+
+			if (graphicsDevice == null)
+				graphicsDevice = Main.graphics.GraphicsDevice;
+			if (basicEffect == null)
+				basicEffect = new BasicEffect(graphicsDevice);
+
+
 			VertexBuffer vertexBuffer;
-
-			GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
-
-			BasicEffect basicEffect;
-
-			basicEffect = new BasicEffect(graphicsDevice);
 
 			List<VertexPositionColor> vertices = new();
 
@@ -246,11 +250,12 @@ namespace Techarria
 					if (connectorTE.ID < connectorTE.connectedID && connectorTE.isConnected) {
 						Point16 mPos = connectorTE.Position;
 						Vector2 mVec = new(mPos.X * 16, mPos.Y * 16);
-						CableConnectorTE connectingTE = TileEntity.ByID[connectorTE.connectedID] as CableConnectorTE;
-						Point16 cPos = connectingTE.Position;
-						Vector2 cVec = new(cPos.X * 16, cPos.Y * 16);
-						vertices.Add(new VertexPositionColor(new(mVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
-						vertices.Add(new VertexPositionColor(new(cVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+						if (TileEntity.ByID.TryGetValue(connectorTE.connectedID, out TileEntity temp) && temp is CableConnectorTE connectingTE) {
+							Point16 cPos = connectingTE.Position;
+							Vector2 cVec = new(cPos.X * 16, cPos.Y * 16);
+							vertices.Add(new VertexPositionColor(new(mVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+							vertices.Add(new VertexPositionColor(new(cVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+						}
 					}
 				}
 			}
@@ -300,7 +305,7 @@ namespace Techarria
 
 			DrawGlue();
 
-			//DrawCables();
+			DrawCables();
 
 		}
     }
