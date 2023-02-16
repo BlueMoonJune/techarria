@@ -59,7 +59,7 @@ namespace Techarria.Content.Items.Armor.Apparatus
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            if (!(head.ModItem is RadiatorApparatus h) || h.charge <= 0)
+            if (!(head.ModItem is TechnomancyApparatus h) || h.charge <= 0)
             {
                 return false;
             }

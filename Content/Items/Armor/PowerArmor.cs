@@ -62,8 +62,6 @@ namespace Techarria.Content.Items.Armor
                 hasMechJump = false;
                 canMechJump = false;
             }
-
-            
         }
 
         public override void PostUpdate()
