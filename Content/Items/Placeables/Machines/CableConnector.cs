@@ -13,6 +13,7 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Tooltip.SetDefault("Provides a way to freely connect wires long distance\n" +
                 "Right click with wires to extend the max length\n" +
                 "Right click with a free hand to connect two Cable Connectors\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] diverts Power\n" +
                 "'Also try Immersive Engineering!'");
 		}
 
@@ -31,6 +32,15 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.autoReuse = true;
 
 			Item.createTile = ModContent.TileType<Tiles.Machines.CableConnector>();
+		}
+		public override void AddRecipes()
+		{
+			Recipe recipe = Recipe.Create(ModContent.ItemType<Machines.CableConnector>(), 2);
+			recipe.AddTile(TileID.HeavyWorkBench);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 3);
+			recipe.AddIngredient(ItemID.Wood, 2);
+			recipe.AddIngredient(ItemID.Wire, 10);
+			recipe.Register();
 		}
 	}
 }

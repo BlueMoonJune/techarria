@@ -8,7 +8,7 @@ using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Tools.Adhesive
 {
-	internal class MultiAdhesive : ModItem
+	public class MultiAdhesive : ModItem
 	{
 
 		public override void SetStaticDefaults() {
@@ -112,6 +112,16 @@ namespace Techarria.Content.Items.Tools.Adhesive
 
 			tile.Get<Glue>().types = (GlueTypes)newTypes;
 			SoundEngine.PlaySound(SoundID.NPCHit25, Main.MouseWorld);
+		}
+		public override void AddRecipes()
+		{
+			Recipe recipe = Recipe.Create(ModContent.ItemType<MultiAdhesive>());
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.AddIngredient<SlimyAdhesive>();
+			recipe.AddIngredient<FrigidAdhesive>();
+			recipe.AddIngredient<ElasticAdhesive>();
+			recipe.AddIngredient<SweetAdhesive>();
+			recipe.Register();
 		}
 	}
 

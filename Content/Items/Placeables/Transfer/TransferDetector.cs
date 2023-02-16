@@ -15,7 +15,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
             Tooltip.SetDefault("Will activate wires when an item is sent through it\n" +
-                "'Can't recursively power.. trust me you don't want that'");
+            $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts and causes Activations\n" +
+            "'Can't recursively power.. trust me you don't want that'");
         }
 
         public override void SetDefaults()
@@ -34,6 +35,15 @@ namespace Techarria.Content.Items.Placeables.Transfer
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Transfer.TransferDetector>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.TransferDetector>());
+            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient<Transfer.TransferDuct>();
+            recipe.AddIngredient(ItemID.Cog, 5);
+            recipe.AddIngredient(ItemID.Wire);
+            recipe.Register();
         }
     }
 }

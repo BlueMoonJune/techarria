@@ -31,7 +31,7 @@ namespace Techarria.Content.Items.Materials
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<Items.Materials.CoalCoke>());
             recipe.AddTile(TileID.Furnaces);
-            recipe.AddIngredient<Materials.Sprocket>(3);
+            recipe.AddIngredient<Materials.IndustrialCoal>(3);
             recipe.Register();
         }
     }

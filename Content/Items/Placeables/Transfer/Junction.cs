@@ -35,5 +35,13 @@ namespace Techarria.Content.Items.Placeables.Transfer
 
             Item.createTile = ModContent.TileType<Tiles.Transfer.Junction>();
         }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.Junction>());
+            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient<Transfer.TransferDuct>();
+            recipe.AddIngredient(ItemID.WirePipe);
+            recipe.Register();
+        }
     }
 }

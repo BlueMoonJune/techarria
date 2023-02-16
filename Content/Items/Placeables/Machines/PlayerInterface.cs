@@ -1,4 +1,6 @@
-﻿using Terraria.GameContent.Creative;
+﻿using Terraria;
+using Terraria.GameContent.Creative;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Placeables.Machines
@@ -10,7 +12,8 @@ namespace Techarria.Content.Items.Placeables.Machines
 
 			Tooltip.SetDefault("Accesses the player standing in front of it\n" +
                 "Can act as either input or output for ducts\n" +
-                "Will charge player items when powered");
+				"Will charge player items when powered\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] diverts Power");
 		}
 
 		public override void SetDefaults() {
@@ -19,6 +22,15 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.maxStack = 99;
 			Item.width = 48;
 			Item.height = 48;
+		}
+		public override void AddRecipes()
+		{
+			Recipe recipe = Recipe.Create(ModContent.ItemType<Machines.PlayerInterface>());
+			recipe.AddTile(TileID.Anvils);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipe.AddIngredient<Materials.SpikeSteelSheet>(10);
+			recipe.AddIngredient(ItemID.Extractinator);
+			recipe.Register();
 		}
 	}
 }

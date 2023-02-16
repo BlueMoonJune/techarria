@@ -10,6 +10,7 @@ namespace Techarria.Content.Items.Placeables.Machines
 
 			Tooltip.SetDefault("Items inserted depending on direction they are inserted from\n" +
 				"When activated, rotates 45° in a direction correspondant to the direction the wires flow\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations\n" +
                 "'I reccomend you play with it to figure out the directional movement direction'");
 		}
 

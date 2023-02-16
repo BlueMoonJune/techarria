@@ -14,7 +14,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Breaks the tile in front of it when activated");
+            Tooltip.SetDefault("Breaks the tile in front of it when activated\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
         }
 
         public override void SetDefaults()
@@ -33,6 +34,15 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.BlockBreaker>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Logic.BlockBreaker>());
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.AddIngredient(ItemID.StoneBlock, 25);
+            recipe.Register();
         }
     }
 }

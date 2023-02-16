@@ -14,7 +14,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("When activated sucks in items above into your ducts");
+            Tooltip.SetDefault("When activated sucks in items above into your ducts\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
         }
 
         public override void SetDefaults()
@@ -34,6 +35,15 @@ namespace Techarria.Content.Items.Placeables.Transfer
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Transfer.Hopper>();
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.Hopper>());
+            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient<Transfer.TransferDuct>();
+            recipe.AddRecipeGroup(nameof(ItemID.Chest));
+            recipe.Register();
         }
     }
 }

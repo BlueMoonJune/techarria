@@ -12,7 +12,9 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
             Tooltip.SetDefault("Activates wires when the tile in front of it is at target temperature\n" +
-                "Target temperature is set when activated");
+                "Target temperature is set when activated\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Temperature>()}] displays Temperature\n" +
+                $"[i:{ ModContent.ItemType<RecipeItems.Activations>()}] accepts and causes Activations");
         }
 
         public override void SetDefaults()
@@ -31,6 +33,15 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.TemperatureProbe>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Logic.TemperatureProbe>());
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+            recipe.AddIngredient(ItemID.Fireblossom);
+            recipe.AddIngredient(ItemID.Shiverthorn);
+            recipe.Register();
         }
     }
 }

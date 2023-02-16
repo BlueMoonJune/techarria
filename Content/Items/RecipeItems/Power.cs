@@ -1,8 +1,9 @@
-﻿using Terraria.ModLoader;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.RecipeItems
 {
-    public class Power : ModItem
+    public class Power : RecipeItem
     {
         public override void SetStaticDefaults()
         {
@@ -10,11 +11,5 @@ namespace Techarria.Content.Items.RecipeItems
             Tooltip.SetDefault("Power needed for this recipe");
         }
 
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 24;
-            Item.maxStack = 99999;
-        }
     }
 }
