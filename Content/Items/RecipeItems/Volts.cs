@@ -1,8 +1,9 @@
-﻿using Terraria.ModLoader;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.RecipeItems
 {
-    internal class Volts : ModItem
+    public class Volts : RecipeItem
     {
         public override void SetStaticDefaults()
         {
@@ -10,11 +11,5 @@ namespace Techarria.Content.Items.RecipeItems
             Tooltip.SetDefault("Single pulse charge needed for this recipe");
         }
 
-        public override void SetDefaults()
-        {
-            Item.width = 44;
-            Item.height = 40;
-            Item.maxStack = 99999;
-        }
     }
 }

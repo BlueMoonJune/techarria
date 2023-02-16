@@ -14,7 +14,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("'From a mod to a game to a mod'");
+            Tooltip.SetDefault($"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations\n" +
+                "'From a mod to a game to a mod'");
         }
 
         public override void SetDefaults()
@@ -33,6 +34,21 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.StickyPiston>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Logic.StickyPiston>());
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+            recipe.AddIngredient(ItemID.Wood, 2);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.Register();
+
+            Recipe recipe2 = Recipe.Create(ModContent.ItemType<Logic.StickyPiston>());
+            recipe2.AddTile(TileID.WorkBenches);
+            recipe2.AddIngredient(ItemID.Gel, 5);
+            recipe2.AddIngredient<Logic.Piston>();
+            recipe2.Register();
         }
     }
 }

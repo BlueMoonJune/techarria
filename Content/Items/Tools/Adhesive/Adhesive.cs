@@ -55,6 +55,33 @@ namespace Techarria.Content.Items.Tools.Adhesive
 			tile.Get<Glue>().SetChannel(type, true);
 			SoundEngine.PlaySound(SoundID.NPCHit25, Main.MouseWorld);
 		}
+
+		public override void AddRecipes()
+		{
+			Recipe recipeSlime = Recipe.Create(ModContent.ItemType<SlimyAdhesive>());
+			recipeSlime.AddTile(TileID.Solidifier);
+			recipeSlime.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipeSlime.AddIngredient(ItemID.SlimeBlock, 3);
+			recipeSlime.Register();
+
+			Recipe recipeIce = Recipe.Create(ModContent.ItemType<FrigidAdhesive>());
+			recipeIce.AddTile(TileID.Solidifier);
+			recipeIce.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipeIce.AddIngredient(ItemID.FrozenSlimeBlock, 3);
+			recipeIce.Register();
+
+			Recipe recipePink = Recipe.Create(ModContent.ItemType<ElasticAdhesive>());
+			recipePink.AddTile(TileID.Solidifier);
+			recipePink.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipePink.AddIngredient(ItemID.PinkSlimeBlock, 3);
+			recipePink.Register();
+
+			Recipe recipeHoney = Recipe.Create(ModContent.ItemType<SweetAdhesive>());
+			recipeHoney.AddTile(TileID.Solidifier);
+			recipeHoney.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipeHoney.AddIngredient(ItemID.HoneyBlock, 3);
+			recipeHoney.Register();
+		}
 	}
 
 	public class SlimyAdhesive : Adhesive 

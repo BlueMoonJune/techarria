@@ -43,24 +43,23 @@ namespace Techarria.Content.Items.Placeables
 			recipe.AddCondition(Recipe.Condition.InWaterCandle);
 			// requires expert mode
 			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("No casuals"), r => Main.masterMode == true);
+			recipe.AddCondition(NetworkText.FromKey("No casuals"), r => Main.masterMode);
 			// npc conditions
 			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("You have talked to Angler"), r => NPC.savedAngler == true);
-			recipe.AddCondition(NetworkText.FromKey("Goblin Tinkerer has not been saved"), r => NPC.savedGoblin == false);
+			recipe.AddCondition(NetworkText.FromKey("You have talked to Angler"), r => NPC.savedAngler);
+			recipe.AddCondition(NetworkText.FromKey("Goblin Tinkerer has not been saved"), r => !NPC.savedGoblin);
 			// active NPC
 			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("Currently fighting EOL"), r => NPC.AnyNPCs(NPCID.HallowBoss));
+			//recipe.AddCondition(NetworkText.FromKey("Currently fighting EOL"), r => NPC.AnyNPCs(NPCID.HallowBoss));
 			// boss downed conditions
-			recipe.AddCondition(NetworkText.FromKey("The evil presence has been left alive"), r => NPC.downedBoss1 == false);
-			recipe.AddCondition(NetworkText.FromKey("The Old Man is cursed"), r => NPC.downedBoss3 == false);
-			recipe.AddCondition(NetworkText.FromKey("Golem has not been destroyed"), r => NPC.downedGolemBoss == false);
+			recipe.AddCondition(NetworkText.FromKey("The evil presence has been left alive"), r => !NPC.downedBoss1);
+			recipe.AddCondition(NetworkText.FromKey("The Old Man is cursed"), r => !NPC.downedBoss3);
+			recipe.AddCondition(NetworkText.FromKey("Golem has not been destroyed"), r => !NPC.downedGolemBoss);
 			// time conditions
 			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("Daytime"), r => Main.dayTime == true);
+			recipe.AddCondition(NetworkText.FromKey("Daytime"), r => Main.dayTime);
 			// player conditions
 			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("100 hp"), r => Main.LocalPlayer.statLife < 100);
 			recipe.AddCondition(NetworkText.FromKey("100 max hp"), r => Main.LocalPlayer.statLifeMax == 100);
 
 			// items required

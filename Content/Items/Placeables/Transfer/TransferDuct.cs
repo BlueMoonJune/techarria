@@ -15,7 +15,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
             Tooltip.SetDefault("Can insert or extract from an adjcacent container when activated\n" +
                 "When there is no adjacent containers and the duct is activated it will toggle its ability to transfer items\n" +
                "When there is no destination for transfered items the duct will do nothing\n" +
-               "2 ducts painted differently do not connect");
+               "2 ducts painted differently do not connect\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
         }
@@ -36,6 +37,15 @@ namespace Techarria.Content.Items.Placeables.Transfer
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Transfer.TransferDuct>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.TransferDuct>());
+            recipe.AddTile(TileID.SteampunkBoiler);
+            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+            recipe.AddIngredient(ItemID.SoulofFlight);
+            recipe.AddIngredient(ItemID.Wire);
+            recipe.Register();
         }
     }
 }

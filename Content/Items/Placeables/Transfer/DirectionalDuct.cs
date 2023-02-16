@@ -14,7 +14,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Only allows items to transfer in the direction its facing");
+            Tooltip.SetDefault("Only allows items to transfer in the direction its facing\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
         }
 
         public override void SetDefaults()
@@ -33,6 +34,14 @@ namespace Techarria.Content.Items.Placeables.Transfer
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Transfer.DirectionalDuct>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.DirectionalDuct>());
+            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient<Transfer.TransferDuct>();
+            recipe.AddIngredient(ItemID.WoodenArrow);
+            recipe.Register();
         }
     }
 }

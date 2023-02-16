@@ -1,4 +1,6 @@
-﻿using Terraria.GameContent.Creative;
+﻿using Terraria;
+using Terraria.GameContent.Creative;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Placeables.Machines
@@ -10,7 +12,9 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Tooltip.SetDefault("Used for simple alloy crafting\n" +
                 "Provide power anywhere to heat up the Blast Furnace\n" +
                 "Input items at the top\n" +
-                "Items can be extracted using transfer ducts at the bottom");
+                "Items can be extracted using transfer ducts at the bottom\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Temperature>()}] prefers higher Temperature\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] accepts Power");
 		}
 
 		public override void SetDefaults() {
@@ -19,6 +23,15 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.maxStack = 99;
 			Item.width = 28;
 			Item.height = 20;
+		}
+		public override void AddRecipes()
+		{
+			Recipe recipe = Recipe.Create(ModContent.ItemType<Machines.BlastFurnace>());
+			recipe.AddTile(TileID.HeavyWorkBench);
+			recipe.AddIngredient(ItemID.Hellforge);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 3);
+			recipe.AddIngredient(ItemID.RedBrick, 10);
+			recipe.Register();
 		}
 	}
 }

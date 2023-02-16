@@ -15,7 +15,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
             Tooltip.SetDefault("Right click with an item to specify what can pass through this duct\n" +
-                "When activated switches to a blacklist filter");
+                "When activated switches to a blacklist filter\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
         }
 
         public override void SetDefaults()
@@ -34,6 +35,14 @@ namespace Techarria.Content.Items.Placeables.Transfer
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Transfer.Filter>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.Filter>());
+            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient<Transfer.TransferDuct>();
+            recipe.AddIngredient(ItemID.Actuator);
+            recipe.Register();
         }
     }
 }

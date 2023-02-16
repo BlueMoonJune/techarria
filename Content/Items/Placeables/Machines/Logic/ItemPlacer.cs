@@ -12,7 +12,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
             Tooltip.SetDefault("Right click to insert an item\n" +
-                "Activate to place items");
+                "Activate to place items\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
         }
 
         public override void SetDefaults()
@@ -31,6 +32,15 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             Item.autoReuse = true;
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.ItemPlacer>();
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Logic.ItemPlacer>());
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddIngredient(ItemID.Wire, 10);
+            recipe.AddIngredient(ItemID.StoneBlock, 25);
+            recipe.Register();
         }
     }
 }

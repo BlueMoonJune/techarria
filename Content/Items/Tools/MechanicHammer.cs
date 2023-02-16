@@ -23,7 +23,7 @@ namespace Techarria.Content.Items.Tools
 			Item.useTime = 5;
 			Item.useAnimation = 5;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.value = 10000;
+			Item.value = Item.buyPrice(gold: 3, silver: 25);
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false; // Automatically re-swing/re-use this item after its swinging animation is over.
@@ -49,5 +49,15 @@ namespace Techarria.Content.Items.Tools
 			}
 			return false;
 		}
-    }
+
+		public override void AddRecipes()
+		{
+			Recipe recipe = Recipe.Create(ModContent.ItemType<MechanicHammer>());
+			recipe.AddTile(TileID.Anvils);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
+			recipe.AddIngredient(ItemID.SoulofFlight);
+			recipe.AddIngredient(ItemID.Wire);
+			recipe.Register();
+		}
+	}
 }
