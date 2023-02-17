@@ -1,4 +1,6 @@
-﻿using Techarria.Transfer;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Techarria.Transfer;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -43,6 +45,29 @@ namespace Techarria.Content.Tiles.Transfer
 		}
 
 		public override void HitWire(int x, int y) {
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch) {
+
+			Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
+			Vector2 pos = new Vector2(i, j) * 16 - new Vector2(2) - Main.screenPosition + TileOffset;
+			Rectangle sourceRect = new Rectangle(0, 0, 20, 20);
+			if (Main.tile[i - 1, j].HasTile) {
+				sourceRect.X = 2;
+				sourceRect.Width = 18;
+				pos.X += 2;
+			}
+			if (Main.tile[i, j - 1].HasTile) {
+				sourceRect.Y = 2;
+				sourceRect.Height = 18;
+				pos.Y += 2;
+			}
+			if (Main.tile[i + 1, j].HasTile)
+				sourceRect.Width -= 2;
+
+			spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Transfer/JunctionOutline").Value, pos, sourceRect, Lighting.GetColor(i, j));
+
+			return true;
 		}
 	}
 }

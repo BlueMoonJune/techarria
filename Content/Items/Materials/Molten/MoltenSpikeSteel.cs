@@ -14,7 +14,7 @@ namespace Techarria.Content.Items.Materials.Molten
         {
             temp = 1500;
             Item.width = 24;
-            Item.height = 22;
+            Item.height = 18;
             Item.maxStack = 999;
         }
 

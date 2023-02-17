@@ -21,8 +21,8 @@ namespace Techarria.Content.Items
 
 		public override void SetDefaults()
 		{
-			Item.width = 28; // The item texture's width
-			Item.height = 28; // The item texture's height
+			Item.width = 44; // The item texture's width
+			Item.height = 44; // The item texture's height
 			Item.maxStack = 99; // The item's max stack value
 			Item.value = Item.buyPrice(silver: 1); // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on platinum/gold/silver/copper arguments provided to it.
 

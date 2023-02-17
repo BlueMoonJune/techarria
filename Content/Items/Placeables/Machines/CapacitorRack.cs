@@ -21,8 +21,8 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Machines.CapacitorRack>());
 			Item.value = 150;
 			Item.maxStack = 99;
-			Item.width = 48;
-			Item.height = 32;
+			Item.width = 26;
+			Item.height = 18;
 		}
 
 		public override void AddRecipes()

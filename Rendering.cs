@@ -10,6 +10,7 @@ using Techarria.Content.Tiles.Machines;
 using System.Collections.Generic;
 using Techarria.Common.Global;
 using Techarria.Content.Items.Tools.Adhesive;
+using Techarria.Content.Dusts;
 
 namespace Techarria
 {
@@ -233,6 +234,32 @@ namespace Techarria
 			Main.spriteBatch.End();
 		}
 
+		public Vector2 BezierPoint(Vector2 start, Vector2 end, Vector2 startControl, Vector2 endControl, float t) {
+			Vector2 A = Vector2.Lerp(start, startControl, t);
+			Vector2 B = Vector2.Lerp(startControl, endControl, t);
+			Vector2 C = Vector2.Lerp(endControl, end, t);
+			Vector2 AB = Vector2.Lerp(A, B, t);
+			Vector2 BC = Vector2.Lerp(B, C, t);
+			return Vector2.Lerp(AB, BC, t);
+
+		}
+
+		public List<Vector2> BezierCurve(Vector2 start, Vector2 end, Vector2 startControl, Vector2 endControl, int segmentCount = 10, bool relativeControlPostions = true) {
+			if (relativeControlPostions) {
+				startControl += start;
+				endControl += end;
+			}
+			List<Vector2> points = new List<Vector2>();
+			for (int i = 0; i < segmentCount; i++) {
+				float t1 = i / (float)segmentCount;
+				float t2 = (i + 1) / (float)segmentCount;
+				points.Add(BezierPoint(start, end, startControl, endControl, t1));
+				points.Add(BezierPoint(start, end, startControl, endControl, t2));
+			}
+
+			return points;
+		}
+
 		public void DrawCables() {
 
 			if (graphicsDevice == null)
@@ -249,12 +276,16 @@ namespace Techarria
 				if (te is CableConnectorTE connectorTE) {
 					if (connectorTE.ID < connectorTE.connectedID && connectorTE.isConnected) {
 						Point16 mPos = connectorTE.Position;
-						Vector2 mVec = new(mPos.X * 16, mPos.Y * 16);
+						Vector2 mVec = new Vector2(mPos.X * 16, mPos.Y * 16) + Vector2.One * 8;
 						if (TileEntity.ByID.TryGetValue(connectorTE.connectedID, out TileEntity temp) && temp is CableConnectorTE connectingTE) {
 							Point16 cPos = connectingTE.Position;
-							Vector2 cVec = new(cPos.X * 16, cPos.Y * 16);
-							vertices.Add(new VertexPositionColor(new(mVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
-							vertices.Add(new VertexPositionColor(new(cVec + Vector2.One * 8, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+							Vector2 cVec = new Vector2(cPos.X * 16, cPos.Y * 16) + Vector2.One * 8;
+							List<Vector2> points = BezierCurve(mVec, cVec, new Vector2(16, 16), new Vector2(-16, 16));
+							foreach (Vector2 point in points) {
+								vertices.Add(new VertexPositionColor(new(point, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
+								Dust.NewDust(point - new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
+							}
+							Main.NewText(vertices);
 						}
 					}
 				}
@@ -286,7 +317,7 @@ namespace Techarria
 
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes) {
 				pass.Apply();
-				graphicsDevice.DrawPrimitives(PrimitiveType.LineList, 0, vertices.Count / 2);
+				graphicsDevice.DrawPrimitives(PrimitiveType.LineStrip, 0, vertices.Count);
 			}
 		}
 

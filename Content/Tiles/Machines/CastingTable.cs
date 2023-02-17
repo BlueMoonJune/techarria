@@ -117,16 +117,14 @@ namespace Techarria.Content.Tiles.Machines
 		public override void SaveData(TagCompound tag) {
 			tag.Add("item", item);
 			tag.Add("mold", mold);
+			tag.Add("temp", temp);
 			base.SaveData(tag);
 		}
 
 		public override void LoadData(TagCompound tag) {
 			item = tag.Get<Item>("item");
 			mold = tag.Get<Item>("mold");
-			if (item.ModItem is MoltenBlob blob)
-				temp = blob.temp;
-			else
-				temp = baseTemp;
+			temp = tag.GetFloat("temp");
 			base.LoadData(tag);
 		}
 	}

@@ -20,8 +20,8 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Machines.PlayerInterface>());
 			Item.value = 150;
 			Item.maxStack = 99;
-			Item.width = 48;
-			Item.height = 48;
+			Item.width = 26;
+			Item.height = 26;
 		}
 		public override void AddRecipes()
 		{

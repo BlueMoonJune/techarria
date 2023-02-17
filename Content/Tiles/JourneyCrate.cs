@@ -11,7 +11,7 @@ namespace Techarria.Content.Tiles
     {
 		public override bool IsTileValidForEntity(int x, int y)
         {
-            return Main.tile[x, y].TileType == ModContent.TileType<InfinityCrate>();
+            return Main.tile[x, y].TileType == ModContent.TileType<JourneyCrate>();
         }
 
         public override void Update()

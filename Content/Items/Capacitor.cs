@@ -18,8 +18,8 @@ namespace Techarria.Content.Items
         {
             maxcharge = 100;
             Item.maxStack = 1;
-            Item.width = 16;
-            Item.height = 16;
+            Item.width = 20;
+            Item.height = 32;
             base.SetDefaults();
         }
         public override void AddRecipes()

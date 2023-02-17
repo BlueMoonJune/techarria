@@ -178,11 +178,13 @@ namespace Techarria.Content.Tiles.Machines
 
 		public override void SaveData(TagCompound tag) {
 			tag.Add("inputs", inputs);
+			tag.Add("temp", temp);
 			base.SaveData(tag);
 		}
 
 		public override void LoadData(TagCompound tag) {
 			inputs = tag.Get<List<Item>>("inputs");
+			temp = tag.GetFloat("temp");
 			base.LoadData(tag);
 		}
 	}
