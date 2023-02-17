@@ -46,6 +46,7 @@ namespace Techarria.Content.Tiles
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
+			TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
 			Main.tileTable[Type] = true;
 
 			// placement
@@ -90,9 +91,9 @@ namespace Techarria.Content.Tiles
 				{
 					item.TurnToAir();
 				}
+				return;
 			}
-
-			base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+			fail = true;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
