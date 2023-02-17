@@ -93,7 +93,6 @@ namespace Techarria.Content.Tiles
 				}
 				return;
 			}
-			fail = true;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
