@@ -122,11 +122,12 @@ namespace Techarria.Content.Tiles.Machines
 
 			// Etc
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Player Interface");
+			name.SetDefault("Gelatinous Turbine");
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 
-		public GelatinousTurbineTE GetTileEntity(int i, int j) {
+		public GelatinousTurbineTE GetTileEntity(int i, int j) 
+		{
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 2;

@@ -41,12 +41,13 @@ namespace Techarria.Content.Tiles
 
 			// Properties
 			Main.tileLavaDeath[Type] = false;
-			Main.tileSolidTop[Type] = true;
-			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
 			TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
+
+			Main.tileFrameImportant[Type] = true;
+			Main.tileSolidTop[Type] = true;
 			Main.tileTable[Type] = true;
 
 			// placement

@@ -16,6 +16,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\NewFolder\" />
     <Folder Include="Common\Players\" />
     <Folder Include="Content\Gores\" />
   </ItemGroup>

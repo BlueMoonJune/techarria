@@ -27,7 +27,7 @@ namespace Techarria.Content.Items.Placeables.Machines
 
 		public override void AddRecipes()
 		{
-			Recipe recipe = Recipe.Create(ModContent.ItemType<Machines.CapacitorRack>());
+			Recipe recipe = Recipe.Create(ModContent.ItemType<Machines.CastingTable>());
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
 			recipe.AddIngredient<Transfer.TransferDuct>();

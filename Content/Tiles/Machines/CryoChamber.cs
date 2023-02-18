@@ -212,9 +212,9 @@ namespace Techarria.Content.Tiles.Machines
 				tileEntity.progress += amount;
 				if (tileEntity.progress >= tileEntity.powerNeeded)
 				{
-					tileEntity.madeUpNPC.position = new Vector2((i + 1) * 16, (j - 2) * 16);
+					tileEntity.madeUpNPC.position = new Vector2(i * 16, (j - 2) * 16);
 
-					Main.NewText("The items have spawned at... " + (i + 1) * 16 + " " + (j - 2) * 16);
+					Main.NewText("The items have spawned at... " + i * 16 + " " + (j - 2) * 16);
 					DropAttemptInfo info = new()
 					{
 						player = Main.LocalPlayer,

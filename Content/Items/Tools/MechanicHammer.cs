@@ -49,15 +49,5 @@ namespace Techarria.Content.Items.Tools
 			}
 			return false;
 		}
-
-		public override void AddRecipes()
-		{
-			Recipe recipe = Recipe.Create(ModContent.ItemType<MechanicHammer>());
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
-			recipe.AddIngredient(ItemID.SoulofFlight);
-			recipe.AddIngredient(ItemID.Wire);
-			recipe.Register();
-		}
 	}
 }

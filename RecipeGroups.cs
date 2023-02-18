@@ -25,6 +25,17 @@ namespace Techarria
             RecipeGroup IronOreRecipeGroup = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.IronOre)}",
                 ItemID.IronOre, ItemID.LeadOre);
             RecipeGroup.RegisterGroup(nameof(ItemID.IronOre), IronOreRecipeGroup);
+
+
+            // any Copper Bar
+            RecipeGroup CopperRecipeGroup = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.CopperBar)}",
+                ItemID.CopperBar, ItemID.TinBar);
+            RecipeGroup.RegisterGroup(nameof(ItemID.CopperBar), CopperRecipeGroup);
+
+            // any Candle
+            RecipeGroup CandleRecipeGroup = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.Candle)}",
+                ItemID.Candle, ItemID.PlatinumCandle);
+            RecipeGroup.RegisterGroup(nameof(ItemID.Candle), CandleRecipeGroup);
         }
     }
 }

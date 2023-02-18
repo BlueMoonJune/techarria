@@ -55,33 +55,6 @@ namespace Techarria.Content.Items.Tools.Adhesive
 			tile.Get<Glue>().SetChannel(type, true);
 			SoundEngine.PlaySound(SoundID.NPCHit25, Main.MouseWorld);
 		}
-
-		public override void AddRecipes()
-		{
-			Recipe recipeSlime = Recipe.Create(ModContent.ItemType<SlimyAdhesive>());
-			recipeSlime.AddTile(TileID.Solidifier);
-			recipeSlime.AddRecipeGroup(RecipeGroupID.IronBar, 5);
-			recipeSlime.AddIngredient(ItemID.SlimeBlock, 3);
-			recipeSlime.Register();
-
-			Recipe recipeIce = Recipe.Create(ModContent.ItemType<FrigidAdhesive>());
-			recipeIce.AddTile(TileID.Solidifier);
-			recipeIce.AddRecipeGroup(RecipeGroupID.IronBar, 5);
-			recipeIce.AddIngredient(ItemID.FrozenSlimeBlock, 3);
-			recipeIce.Register();
-
-			Recipe recipePink = Recipe.Create(ModContent.ItemType<ElasticAdhesive>());
-			recipePink.AddTile(TileID.Solidifier);
-			recipePink.AddRecipeGroup(RecipeGroupID.IronBar, 5);
-			recipePink.AddIngredient(ItemID.PinkSlimeBlock, 3);
-			recipePink.Register();
-
-			Recipe recipeHoney = Recipe.Create(ModContent.ItemType<SweetAdhesive>());
-			recipeHoney.AddTile(TileID.Solidifier);
-			recipeHoney.AddRecipeGroup(RecipeGroupID.IronBar, 5);
-			recipeHoney.AddIngredient(ItemID.HoneyBlock, 3);
-			recipeHoney.Register();
-		}
 	}
 
 	public class SlimyAdhesive : Adhesive 
@@ -98,7 +71,16 @@ namespace Techarria.Content.Items.Tools.Adhesive
 			Tooltip.SetDefault("Places blue adhesive\n" +
 				"'Reccomended for ingestion'");
 		}
-	}
+
+        public override void AddRecipes()
+        {
+			Recipe recipeSlime = Recipe.Create(ModContent.ItemType<SlimyAdhesive>());
+			recipeSlime.AddTile(TileID.Blendomatic);
+			recipeSlime.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipeSlime.AddIngredient(ItemID.SlimeBlock, 3);
+			recipeSlime.Register();
+		}
+    }
 	public class FrigidAdhesive : Adhesive
 	{
 		public override void SetDefaults() {
@@ -113,7 +95,15 @@ namespace Techarria.Content.Items.Tools.Adhesive
 			Tooltip.SetDefault("Places light blue adhesive\n" +
 				"'Its like smearing a popsicle on the ground'");
 		}
-    }
+		public override void AddRecipes()
+		{
+			Recipe recipeIce = Recipe.Create(ModContent.ItemType<FrigidAdhesive>());
+			recipeIce.AddTile(TileID.Blendomatic);
+			recipeIce.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipeIce.AddIngredient(ItemID.FrozenSlimeBlock, 3);
+			recipeIce.Register();
+		}
+	}
 	public class ElasticAdhesive : Adhesive
 	{
 		public override void SetDefaults() {
@@ -126,6 +116,14 @@ namespace Techarria.Content.Items.Tools.Adhesive
 			base.SetStaticDefaults();
 			Tooltip.SetDefault("Places pink adhesive\n" +
 				"'Reccomended for ingestion'");
+		}
+		public override void AddRecipes()
+		{
+			Recipe recipePink = Recipe.Create(ModContent.ItemType<ElasticAdhesive>());
+			recipePink.AddTile(TileID.Blendomatic);
+			recipePink.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipePink.AddIngredient(ItemID.PinkSlimeBlock, 3);
+			recipePink.Register();
 		}
 	}
 	public class SweetAdhesive : Adhesive
@@ -140,6 +138,14 @@ namespace Techarria.Content.Items.Tools.Adhesive
 			base.SetStaticDefaults();
 			Tooltip.SetDefault("Places yellow adhesive\n" +
 				"'Reccomended for ingestion'");
+		}
+		public override void AddRecipes()
+		{
+			Recipe recipeHoney = Recipe.Create(ModContent.ItemType<SweetAdhesive>());
+			recipeHoney.AddTile(TileID.Blendomatic);
+			recipeHoney.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipeHoney.AddIngredient(ItemID.HoneyBlock, 3);
+			recipeHoney.Register();
 		}
 	}
 
@@ -172,6 +178,15 @@ namespace Techarria.Content.Items.Tools.Adhesive
 				tile.Get<Glue>().types = 0;
 				SoundEngine.PlaySound(SoundID.NPCDeath28, Main.MouseWorld);
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			Recipe recipe = Recipe.Create(ModContent.ItemType<AdhesiveSolvent>());
+			recipe.AddTile(TileID.Blendomatic);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
+			recipe.AddIngredient(ItemID.Torch, 3);
+			recipe.Register();
 		}
 	}
 }

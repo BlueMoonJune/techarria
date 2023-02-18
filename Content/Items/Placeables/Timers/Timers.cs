@@ -21,38 +21,6 @@ namespace Techarria.Content.Items.Placeables.Timers
             Item.useTime = 10;
             Item.autoReuse = true;
         }
-        public override void AddRecipes()
-        {
-            Recipe recipe5 = Recipe.Create(ModContent.ItemType<Timers.FiveSecondTimer>());
-            recipe5.AddTile(TileID.HeavyWorkBench);
-            recipe5.AddRecipeGroup(RecipeGroupID.IronBar, 3);
-            recipe5.AddIngredient(ItemID.Timer5Second);
-            recipe5.Register();
-
-            Recipe recipe3 = Recipe.Create(ModContent.ItemType<Timers.ThreeSecondTimer>());
-            recipe3.AddTile(TileID.HeavyWorkBench);
-            recipe3.AddRecipeGroup(RecipeGroupID.IronBar, 3);
-            recipe3.AddIngredient(ItemID.Timer3Second);
-            recipe3.Register();
-
-            Recipe recipe1 = Recipe.Create(ModContent.ItemType<Timers.OneSecondTimer>());
-            recipe1.AddTile(TileID.HeavyWorkBench);
-            recipe1.AddRecipeGroup(RecipeGroupID.IronBar, 3);
-            recipe1.AddIngredient(ItemID.Timer1Second);
-            recipe1.Register();
-
-            Recipe recipeHalf = Recipe.Create(ModContent.ItemType<Timers.HalfSecondTimer>());
-            recipeHalf.AddTile(TileID.HeavyWorkBench);
-            recipeHalf.AddRecipeGroup(RecipeGroupID.IronBar, 3);
-            recipeHalf.AddIngredient(ItemID.TimerOneHalfSecond);
-            recipeHalf.Register();
-
-            Recipe recipeQuarter = Recipe.Create(ModContent.ItemType<Timers.QuarterSecondTimer>());
-            recipeQuarter.AddTile(TileID.HeavyWorkBench);
-            recipeQuarter.AddRecipeGroup(RecipeGroupID.IronBar, 3);
-            recipeQuarter.AddIngredient(ItemID.TimerOneFourthSecond);
-            recipeQuarter.Register();
-        }
     }
 	public class FiveSecondTimer : TimerItem
     {
@@ -69,6 +37,15 @@ namespace Techarria.Content.Items.Placeables.Timers
             base.SetDefaults();
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.FiveSecondTimer>();
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe5 = Recipe.Create(ModContent.ItemType<Timers.FiveSecondTimer>());
+            recipe5.AddTile(TileID.HeavyWorkBench);
+            recipe5.AddRecipeGroup(RecipeGroupID.IronBar, 3);
+            recipe5.AddIngredient(ItemID.Timer5Second);
+            recipe5.Register();
         }
     }
 
@@ -88,6 +65,14 @@ namespace Techarria.Content.Items.Placeables.Timers
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.ThreeSecondTimer>();
         }
+        public override void AddRecipes()
+        {
+            Recipe recipe3 = Recipe.Create(ModContent.ItemType<Timers.ThreeSecondTimer>());
+            recipe3.AddTile(TileID.HeavyWorkBench);
+            recipe3.AddRecipeGroup(RecipeGroupID.IronBar, 3);
+            recipe3.AddIngredient(ItemID.Timer3Second);
+            recipe3.Register();
+        }
     }
 
     public class OneSecondTimer : TimerItem
@@ -105,6 +90,14 @@ namespace Techarria.Content.Items.Placeables.Timers
             base.SetDefaults();
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.OneSecondTimer>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe1 = Recipe.Create(ModContent.ItemType<Timers.OneSecondTimer>());
+            recipe1.AddTile(TileID.HeavyWorkBench);
+            recipe1.AddRecipeGroup(RecipeGroupID.IronBar, 3);
+            recipe1.AddIngredient(ItemID.Timer1Second);
+            recipe1.Register();
         }
     }
 
@@ -124,6 +117,14 @@ namespace Techarria.Content.Items.Placeables.Timers
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.HalfSecondTimer>();
         }
+        public override void AddRecipes()
+        {
+            Recipe recipeHalf = Recipe.Create(ModContent.ItemType<Timers.HalfSecondTimer>());
+            recipeHalf.AddTile(TileID.HeavyWorkBench);
+            recipeHalf.AddRecipeGroup(RecipeGroupID.IronBar, 3);
+            recipeHalf.AddIngredient(ItemID.TimerOneHalfSecond);
+            recipeHalf.Register();
+        }
     }
 
     public class QuarterSecondTimer : TimerItem
@@ -141,6 +142,14 @@ namespace Techarria.Content.Items.Placeables.Timers
             base.SetDefaults();
 
             Item.createTile = ModContent.TileType<Tiles.Machines.Logic.Timers.QuarterSecondTimer>();
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipeQuarter = Recipe.Create(ModContent.ItemType<Timers.QuarterSecondTimer>());
+            recipeQuarter.AddTile(TileID.HeavyWorkBench);
+            recipeQuarter.AddRecipeGroup(RecipeGroupID.IronBar, 3);
+            recipeQuarter.AddIngredient(ItemID.TimerOneFourthSecond);
+            recipeQuarter.Register();
         }
     }
 }

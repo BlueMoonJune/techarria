@@ -18,6 +18,7 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.maxStack = 99;
 			Item.width = 28;
 			Item.height = 20;
+			Item.mech = true;
 		}
 	}
 }

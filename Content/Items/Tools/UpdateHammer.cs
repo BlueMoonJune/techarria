@@ -1,14 +1,18 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Tools
 {
 	public class UpdateHammer : ModItem
 	{
-		public override void SetStaticDefaults()
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+			return ModContent.GetInstance<Common.Configs.TecharriaServerConfig>().DevItemsEnabled;
+		}
+        public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Use this to update the textures of blocks");
 

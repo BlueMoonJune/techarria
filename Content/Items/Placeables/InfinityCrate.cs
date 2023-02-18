@@ -7,6 +7,10 @@ namespace Techarria.Content.Items.Placeables
 {
 	public class InfinityCrate : ModItem
     {
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<Common.Configs.TecharriaServerConfig>().DevItemsEnabled;
+		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Infinity Crate");
