@@ -74,12 +74,16 @@ namespace Techarria.Content.Tiles.Machines
         public override void SaveData(TagCompound tag)
         {
             tag.Add("candleLit", candleLit);
+            tag.Add("frames", frames);
+            tag.Add("randTime", randTime);
             base.SaveData(tag);
         }
 
         public override void LoadData(TagCompound tag)
         {
             candleLit = tag.GetBool("candleLit");
+            frames = tag.GetInt("frames");
+            randTime = tag.GetInt("randTime");
             base.LoadData(tag);
         }
     }
@@ -142,6 +146,8 @@ namespace Techarria.Content.Tiles.Machines
             if (tileEntity.candleLit)
             {
                 tileEntity.randTime = new Random().Next(StirlingEngineTE.LOW_SECONDS, StirlingEngineTE.HIGH_SECONDS) * 60;
+
+                tileEntity.frames = 0;
             }
         }
 
@@ -154,6 +160,9 @@ namespace Techarria.Content.Tiles.Machines
             if (tileEntity.candleLit)
             {
                 tileEntity.randTime = new Random().Next(StirlingEngineTE.LOW_SECONDS, StirlingEngineTE.HIGH_SECONDS) * 60;
+            } else
+            {
+                tileEntity.frames = 0;
             }
 
             return true;

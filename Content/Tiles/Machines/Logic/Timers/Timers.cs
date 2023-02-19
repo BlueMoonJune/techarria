@@ -137,6 +137,14 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
 
             ItemDrop = ModContent.ItemType<Items.Placeables.Timers.FiveSecondTimer>();
         }
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Timers.FiveSecondTimer>();
+        }
     }
     public class ThreeSecondTimer : Timer
     {
@@ -146,6 +154,14 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             base.SetStaticDefaults();
 
             ItemDrop = ModContent.ItemType<Items.Placeables.Timers.ThreeSecondTimer>();
+        }
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Timers.ThreeSecondTimer>();
         }
     }
     public class OneSecondTimer : Timer
@@ -157,6 +173,14 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
 
             ItemDrop = ModContent.ItemType<Items.Placeables.Timers.OneSecondTimer>();
         }
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Timers.OneSecondTimer>();
+        }
     }
     public class HalfSecondTimer : Timer
     {
@@ -166,6 +190,14 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             base.SetStaticDefaults();
 
             ItemDrop = ModContent.ItemType<Items.Placeables.Timers.HalfSecondTimer>();
+        }
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Timers.HalfSecondTimer>();
         }
     }
 
@@ -177,6 +209,14 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             base.SetStaticDefaults();
 
             ItemDrop = ModContent.ItemType<Items.Placeables.Timers.QuarterSecondTimer>();
+        }
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Timers.QuarterSecondTimer>();
         }
     }
 }
