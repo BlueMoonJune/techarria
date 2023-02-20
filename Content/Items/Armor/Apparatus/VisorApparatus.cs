@@ -82,5 +82,13 @@ namespace Techarria.Content.Items.Armor.Apparatus
                 player.GetCritChance(DamageClass.Ranged) += 0.07f;
             }
         }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Items.Armor.Apparatus.VisorApparatus>());
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.AddIngredient<Materials.SpikeSteelSheet>(12);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.Register();
+        }
     }
 }

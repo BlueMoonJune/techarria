@@ -15,6 +15,9 @@ namespace Techarria
 				// This item sells for the normal price.
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Content.Items.Tools.MechanicHammer>());
 				nextSlot++; // Don't forget this line, it is essential.
+
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Content.Items.Placeables.Machines.Logic.Button>());
+				nextSlot++;
 			}
 		}
 	}

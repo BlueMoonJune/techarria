@@ -51,5 +51,14 @@ namespace Techarria.Content.Items.Armor.Apparatus
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item1;
         }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Items.Armor.Apparatus.BreastplateApparatus>());
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.AddIngredient<Materials.SpikeSteelSheet>(18);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.Register();
+        }
     }
 }

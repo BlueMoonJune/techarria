@@ -84,5 +84,13 @@ namespace Techarria.Content.Items.Armor.Apparatus
             }
 
         }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Items.Armor.Apparatus.TechnomancyApparatus>());
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.AddIngredient<Materials.SpikeSteelSheet>(12);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.Register();
+        }
     }
 }

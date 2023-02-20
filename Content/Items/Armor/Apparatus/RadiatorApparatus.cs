@@ -24,7 +24,7 @@ namespace Techarria.Content.Items.Armor.Apparatus
             {
                 color = "[c/BFDFFF:";
             }
-            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "12% increased melee damage]\n" + color + "4% increased melee speed]\n" + color + "5% increased critical strike chance]\n" + color + "Slowly consumes charge while in combat]"));
+            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "12% increased melee damage]\n" + color + "4% increased melee speed]\n" + color + "10% increased critical strike chance]\n" + color + "Slowly consumes charge while in combat]"));
             Player player = Main.player[Main.myPlayer];
             if (IsArmorSet(player.armor[0], player.armor[1], player.armor[2]))
             {
@@ -82,6 +82,14 @@ namespace Techarria.Content.Items.Armor.Apparatus
                 player.GetAttackSpeed(DamageClass.Melee) += 0.04f;
                 player.GetCritChance(DamageClass.Melee) += 0.05f;
             }
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Items.Armor.Apparatus.RadiatorApparatus>());
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.AddIngredient<Materials.SpikeSteelSheet>(12);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.Register();
         }
     }
 }

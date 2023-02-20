@@ -94,5 +94,13 @@ namespace Techarria.Content.Items.Armor.Apparatus
 				player.maxMinions += 2;
             }
         }
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Items.Armor.Apparatus.ControllingApparatus>());
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.AddIngredient<Materials.SpikeSteelSheet>(12);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.Register();
+        }
     }
 }

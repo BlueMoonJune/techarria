@@ -12,7 +12,7 @@ namespace Techarria.Content.Items.Armor
 	public abstract class PowerArmor : ChargableItem
     {
         public int damageClass = 0;
-        public static int ApparatusMaxCharge = 200;
+        public static int ApparatusMaxCharge = 500;
 
     }
 
@@ -39,13 +39,13 @@ namespace Techarria.Content.Items.Armor
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
             if (Player.armor[1].ModItem is BreastplateApparatus chestplate && chestplate.charge > 0)
-                Player.endurance += 0.05f;
+                Player.endurance += 0.10f;
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             if (Player.armor[1].ModItem is BreastplateApparatus chestplate && chestplate.charge > 0)
-                Player.endurance += 0.05f;
+                Player.endurance += 0.10f;
         }
 
         public override void UpdateEquips()

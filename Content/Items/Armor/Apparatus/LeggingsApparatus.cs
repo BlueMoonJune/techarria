@@ -25,7 +25,8 @@ namespace Techarria.Content.Items.Armor.Apparatus
             {
                 color = "[c/BFDFFF:";
             }
-            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "Allows the wearer to double jump, consuming energy on use]"));
+            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "Allows the wearer to double jump, consuming energy on use]\n" +
+                color + "10% increased movement speed]"));
             Player player = Main.player[Main.myPlayer];
             if (player.armor[0] == null && player.armor[0].ModItem.IsArmorSet(player.armor[0], player.armor[1], player.armor[2]))
             {
@@ -56,17 +57,14 @@ namespace Techarria.Content.Items.Armor.Apparatus
             // No buffTime because otherwise the item tooltip would say something like "1 minute duration"
             Item.shoot = ModContent.ProjectileType<DroneApparatus>(); // This item creates the minion projectile
         }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void UpdateEquip(Player player)
         {
-            // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
-            player.AddBuff(Item.buffType, 2);
+            if (charge > 0)
+            {
+                player.moveSpeed += .1f;
+                player.maxRunSpeed += .1f;
+            }
 
-            // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
-            var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
-            projectile.originalDamage = Item.damage;
-
-            // Since we spawned the projectile manually already, we do not need the game to spawn it for ourselves anymore, so return false
-            return false;
         }
 
         public override int Charge(int amount)
@@ -79,6 +77,13 @@ namespace Techarria.Content.Items.Armor.Apparatus
             return base.Deplete(amount);
 
         }
-
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Items.Armor.Apparatus.LeggingsApparatus>());
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.AddIngredient<Materials.SpikeSteelSheet>(15);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.Register();
+        }
     }
 }

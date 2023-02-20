@@ -21,6 +21,7 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
             Item.useTurn = true;
             Item.autoReuse = true;
             Item.consumable = true;
+            Item.value = Item.buyPrice(silver: 30);
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 10;
             Item.useAnimation = 15;
