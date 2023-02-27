@@ -2,6 +2,7 @@
 using System;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -70,6 +71,10 @@ namespace Techarria.Content.Projectiles.Minions
 		public override void AI() {
 			Player owner = Main.player[Projectile.owner];
 
+			if (owner.Distance(Projectile.Center) > 2880) {
+				Projectile.Center = owner.Center;
+			}
+
 			if (!owner.HasBuff<DroneApparatusBuff>()) {
 				Main.NewText("kill");
 				Projectile.Kill();
@@ -135,7 +140,7 @@ namespace Techarria.Content.Projectiles.Minions
 				Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
 			}
 
-			Lighting.AddLight((int)Projectile.position.X / 16, (int)Projectile.position.Y / 16, 0, 0.75f, 1);
+			Lighting.AddLight((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, 0, 0.75f, 1);
 		}
 
 		private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter) {

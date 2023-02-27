@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Techarria.Content.Entities;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -45,6 +46,10 @@ namespace Techarria.Content.Items.Tools
 					return true;
 				}
 			}
+			for (int i = 0; i < Drone.drones.Count; i++ ) {
+				Drone.drones[0].Kill();
+			}
+			Drone.NewDrone(Main.MouseWorld);
 			return false;
 
         }

@@ -8,6 +8,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\Gores\**" />
+    <EmbeddedResource Remove="Content\Gores\**" />
+    <None Remove="Content\Gores\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
@@ -18,6 +23,5 @@
   <ItemGroup>
     <Folder Include="Common\NewFolder\" />
     <Folder Include="Common\Players\" />
-    <Folder Include="Content\Gores\" />
   </ItemGroup>
 </Project>
