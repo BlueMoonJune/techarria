@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Techarria.Content.Dusts;
 using Terraria;
@@ -7,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using Terraria.GameContent;
 
 namespace Techarria.Content.Tiles.Machines
 {
@@ -20,6 +22,7 @@ namespace Techarria.Content.Tiles.Machines
         public bool candleLit;
         public int frames;
         public int randTime;
+        public int animFrame = 0;
         public override bool IsTileValidForEntity(int x, int y)
         {
             return Main.tile[x, y].TileType == ModContent.TileType<StirlingEngine>();
@@ -34,7 +37,7 @@ namespace Techarria.Content.Tiles.Machines
 
                 for (int i = 0; i < 3; i++)
                 {
-                    for (int j = 0; j < 2; j++)
+                    for (int j = 0; j < 3; j++)
                     {
                         Tile tile = Main.tile[Position.X + i, Position.Y + j];
                         tile.TileFrameX = (short)(i * 18);
@@ -46,12 +49,14 @@ namespace Techarria.Content.Tiles.Machines
 
             if (candleLit)
             {
+                animFrame = frames / 4 % 4;
                 for (int i = 0; i < 3; i++)
                 {
-                    for (int j = 0; j < 2; j++)
+                    for (int j = 0; j < 3; j++)
                     {
                         Tile tile = Main.tile[Position.X + i, Position.Y + j];
                         tile.TileFrameX = (short)(54 + 18 * i);
+                        tile.TileFrameY = (short)(animFrame * 54 + j * 18);
                     }
                 }
 
@@ -62,7 +67,7 @@ namespace Techarria.Content.Tiles.Machines
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    for (int j = 0; j < 2; j++)
+                    for (int j = 0; j < 3; j++)
                     {
                         Tile tile = Main.tile[Position.X + i, Position.Y + j];
                         tile.TileFrameX = (short)(i * 18);
@@ -103,7 +108,7 @@ namespace Techarria.Content.Tiles.Machines
             AdjTiles = new int[] { TileID.Tables };
 
             // Placement
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.addTile(Type);
@@ -118,14 +123,14 @@ namespace Techarria.Content.Tiles.Machines
         {
             Tile tile = Framing.GetTileSafely(i, j);
             i -= tile.TileFrameX / 18 % 3;
-            j -= tile.TileFrameY / 18 % 2;
+            j -= tile.TileFrameY / 18 % 3;
             return TileEntity.ByPosition[new Point16(i, j)] as StirlingEngineTE;
         }
         public override void PlaceInWorld(int i, int j, Item item)
         {
             Tile tile = Framing.GetTileSafely(i, j);
             i -= tile.TileFrameX / 18 % 3;
-            j -= tile.TileFrameY / 18 % 2;
+            j -= tile.TileFrameY / 18 % 3;
             ModContent.GetInstance<StirlingEngineTE>().Place(i, j);
             StirlingEngineTE tileEntity = GetTileEntity(i, j);
             tileEntity.candleLit = true;
@@ -150,6 +155,51 @@ namespace Techarria.Content.Tiles.Machines
                 tileEntity.frames = 0;
             }
         }
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            StirlingEngineTE tileEntity = GetTileEntity((int)i, j);
+            // The following code draws multiple flames on top our placed torch.
+            Point16 subTile = new Point16(i, j) - tileEntity.Position;
+            if (subTile.X == 2 && subTile.Y == 0)
+            {
+                // where the particle is
+                int offsetY = 0;
+                int offsetX = 0;
+
+                Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
+
+                if (Main.drawToScreen)
+                {
+                    zero = Vector2.Zero;
+                }
+
+                ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)(uint)i); // Don't remove any casts.
+                Color color = new Color(100, 100, 100, 0);
+                int width = 50;
+                int height = 50;
+                var tile = Main.tile[i, j];
+                int frameX = tile.TileFrameX;
+                int frameY = tile.TileFrameY;
+
+
+                if (tileEntity.candleLit)
+                {
+                    // iterations dictate particle density
+                    for (int k = 0; k < 7; k++)
+                    {
+                        float xx = Utils.RandomInt(ref randSeed, -10, 11) * 0.15f;
+                        float yy = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
+
+                        Rectangle sourceRect = new Rectangle(frameX, frameY, width, height);
+                        Rectangle destRect = new Rectangle(frameX, frameY, width, height);
+
+                        spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/IHateModding").Value, sourceRect, destRect, color);
+                    }
+                }
+            }
+        }
+
 
         public override bool RightClick(int i, int j)
         {
