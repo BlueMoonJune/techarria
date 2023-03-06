@@ -35,7 +35,7 @@ namespace Techarria.Content.Tiles.Machines
 		public override void SaveData(TagCompound tag)
 		{
 			tag.Add("item", item);
-			tag.Add("frozen dude", madeUpNPC);
+			//tag.Add("frozen dude", madeUpNPC);
 			tag.Add("power needed", powerNeeded);
 			base.SaveData(tag);
 		}
@@ -43,7 +43,7 @@ namespace Techarria.Content.Tiles.Machines
 		public override void LoadData(TagCompound tag)
 		{
 			item = tag.Get<Item>("item");
-			madeUpNPC = tag.Get<NPC>("frozen dude");
+			//madeUpNPC = tag.Get<NPC>("frozen dude");
 			powerNeeded = tag.GetInt("power needed");
 			base.LoadData(tag);
 		}

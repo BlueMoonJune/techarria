@@ -14,6 +14,7 @@ namespace Techarria.Content.Entities
 	internal class Drone
 	{
 		public static List<Drone> drones = new();
+		public static bool DRONES_DIE_ON_TILE_COLLIDE = true;
 
 		public Vector2 position;
 		public Vector2 velocity;
@@ -56,6 +57,8 @@ namespace Techarria.Content.Entities
 		}
 
 		public void Update() {
+			Vector2 evAccel = new Vector2(-Main.windSpeedCurrent * Main.windPhysicsStrength, -Player.defaultGravity) + velocity * 0.01f;
+
 			position += velocity;
 
 			Vector2 moveTarget = Main.MouseWorld;
@@ -67,11 +70,11 @@ namespace Techarria.Content.Entities
 			}
 
 			Vector2 accel = velocity - oldVelocity;
-			accel += new Vector2(-Main.windSpeedCurrent * Main.windPhysicsStrength, -Player.defaultGravity) + velocity * 0.01f;
+			accel += evAccel;
 			float angle = MathF.Atan2(accel.X, -accel.Y);
 			rotation = (rotation - angle) * 0.9f + angle;
 
-			if (Collision.SolidCollision(position, (int)Width, (int)Height)) {
+			if (Collision.SolidCollision(position, (int)Width, (int)Height) && DRONES_DIE_ON_TILE_COLLIDE) {
 				Kill();
 			}
 			
