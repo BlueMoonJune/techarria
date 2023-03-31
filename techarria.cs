@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.ID;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
+
 namespace Techarria
 {
 
@@ -77,8 +81,11 @@ namespace Techarria
             On.Terraria.Dust.NewDust += DustDetour;
             On.Terraria.Main.DrawWires += DrawPowerTransfer;
 
-            //BlastFurnaceRecipe.recipes.Clear();
-            //BlastFurnaceRecipe.recipes.Add(new BlastFurnaceRecipe(new List<int>( ItemID.IronBar, ItemID.Spike), ))
+            if (Main.netMode != NetmodeID.Server) {
+				Ref<Effect> screenRef = new Ref<Effect>(ModContent.Request<Effect>("Techarria/Assets/Effects/Field").Value);
+				Filters.Scene["Field"] = new Filter(new ScreenShaderData(screenRef, "Field"), EffectPriority.VeryHigh);
+				Filters.Scene["Field"].Load();
+			}
         }
 
         private void DrawPowerTransfer(On.Terraria.Main.orig_DrawWires orig, Main self)

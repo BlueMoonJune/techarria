@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 
 namespace Techarria.Content.Items.Tools
 {
@@ -46,12 +48,16 @@ namespace Techarria.Content.Items.Tools
 					return true;
 				}
 			}
+			/*
 			for (int i = 0; i < Drone.drones.Count; i++ ) {
 				Drone.drones[0].Kill();
 			}
 			Drone.NewDrone(Main.MouseWorld);
+			*/
+			if (Main.netMode != NetmodeID.Server && !Filters.Scene["Field"].IsActive()) {
+				Filters.Scene.Activate("Field").GetShader();
+			}
 			return false;
-
-        }
+		}
     }
 }
