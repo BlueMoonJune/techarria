@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Techarria.Common.Global;
 using Techarria.Content.Items.Tools.Adhesive;
 using Techarria.Content.Dusts;
+using Techarria.Content.Entities;
 
 namespace Techarria
 {
@@ -321,6 +322,12 @@ namespace Techarria
 			}
 		}
 
+		public void DrawDrones() {
+			foreach (Drone drone in Drone.drones) {
+				drone.Draw();
+			}
+		}
+
 		public override void PostDrawTiles() {
 			foreach (var (point, te) in TileEntity.ByPosition) {
 				if (te is JourneyCrateTE JourneyStorage) {
@@ -338,6 +345,7 @@ namespace Techarria
 
 			DrawCables();
 
+			DrawDrones();
 		}
     }
 }

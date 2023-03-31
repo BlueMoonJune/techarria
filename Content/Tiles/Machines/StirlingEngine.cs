@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Techarria.Content.Dusts;
@@ -156,48 +156,25 @@ namespace Techarria.Content.Tiles.Machines
             }
         }
 
-        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            StirlingEngineTE tileEntity = GetTileEntity((int)i, j);
-            // The following code draws multiple flames on top our placed torch.
-            Point16 subTile = new Point16(i, j) - tileEntity.Position;
-            if (subTile.X == 2 && subTile.Y == 0)
-            {
-                // where the particle is
-                int offsetY = 0;
-                int offsetX = 0;
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch) {
+			StirlingEngineTE tileEntity = GetTileEntity(i, j);
+			Point16 subTile = new Point16(i, j) - tileEntity.Position;
+			if (subTile.X == 2 && subTile.Y == 1 && tileEntity.candleLit) {
 
-                Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
+				Vector2 offset = new(4, 8);
 
-                if (Main.drawToScreen)
-                {
-                    zero = Vector2.Zero;
-                }
+				Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
+				Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
 
-                ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)(uint)i); // Don't remove any casts.
-                Color color = new Color(100, 100, 100, 0);
-                int width = 50;
-                int height = 50;
-                var tile = Main.tile[i, j];
-                int frameX = tile.TileFrameX;
-                int frameY = tile.TileFrameY;
+				ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)(uint)i); // Don't remove any casts.
 
+				for (int k = 0; k < 7; k++) {
+					float xx = Utils.RandomInt(ref randSeed, -10, 11) * 0.15f;
+					float yy = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
 
-                if (tileEntity.candleLit)
-                {
-                    // iterations dictate particle density
-                    for (int k = 0; k < 7; k++)
-                    {
-                        float xx = Utils.RandomInt(ref randSeed, -10, 11) * 0.15f;
-                        float yy = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
-
-                        Rectangle sourceRect = new Rectangle(frameX, frameY, width, height);
-                        Rectangle destRect = new Rectangle(frameX, frameY, width, height);
-
-                        spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/IHateModding").Value, sourceRect, destRect, color);
-                    }
-                }
-            }
+					spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/IHateModding").Value, pos + new Vector2(xx, yy) + offset, new Color(100, 100, 100, 0));
+				}
+			}
         }
 
 

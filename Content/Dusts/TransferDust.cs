@@ -23,8 +23,6 @@ namespace Techarria.Content.Dusts
 			dust.rotation += (float) (dust.velocity.Length() / Math.PI);
 			dust.scale *= 0.94f;
 
-			float light = 1f * dust.scale;
-
 			if (dust.scale < 0.1f)
 			{
 				dust.active = false;

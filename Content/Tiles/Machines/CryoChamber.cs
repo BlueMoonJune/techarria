@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -35,7 +35,7 @@ namespace Techarria.Content.Tiles.Machines
 		public override void SaveData(TagCompound tag)
 		{
 			tag.Add("item", item);
-			tag.Add("frozen dude", madeUpNPC);
+			//tag.Add("frozen dude", madeUpNPC);
 			tag.Add("power needed", powerNeeded);
 			base.SaveData(tag);
 		}
@@ -43,7 +43,7 @@ namespace Techarria.Content.Tiles.Machines
 		public override void LoadData(TagCompound tag)
 		{
 			item = tag.Get<Item>("item");
-			madeUpNPC = tag.Get<NPC>("frozen dude");
+			//madeUpNPC = tag.Get<NPC>("frozen dude");
 			powerNeeded = tag.GetInt("power needed");
 			base.LoadData(tag);
 		}
@@ -212,9 +212,8 @@ namespace Techarria.Content.Tiles.Machines
 				tileEntity.progress += amount;
 				if (tileEntity.progress >= tileEntity.powerNeeded)
 				{
-					tileEntity.madeUpNPC.position = new Vector2(i * 16, (j - 2) * 16);
+					tileEntity.madeUpNPC.position = new Vector2(i * 16 + 8, (j - 2) * 16 + 8);
 
-					Main.NewText("The items have spawned at... " + i * 16 + " " + (j - 2) * 16);
 					DropAttemptInfo info = new()
 					{
 						player = Main.LocalPlayer,

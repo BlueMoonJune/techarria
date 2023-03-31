@@ -77,7 +77,7 @@ namespace Techarria.Content.Tiles.Transfer
 
 
 
-		public override void PlaceInWorld(int i, int j, Item item) {
+		  public override void PlaceInWorld(int i, int j, Item item) {
 			ModContent.GetInstance<FilterTE>().Place(i, j);
 		}
 
