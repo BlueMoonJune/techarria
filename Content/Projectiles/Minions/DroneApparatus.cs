@@ -13,8 +13,8 @@ namespace Techarria.Content.Projectiles.Minions
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Laser drone");
-			Description.SetDefault("Little lady with little lasers");
+			// DisplayName.SetDefault("Laser drone");
+			// Description.SetDefault("Little lady with little lasers");
 
 			Main.buffNoSave[Type] = true; // This buff won't save when you exit the world
 			Main.buffNoTimeDisplay[Type] = true; // The time remaining won't display on this buff
@@ -37,7 +37,7 @@ namespace Techarria.Content.Projectiles.Minions
 	{
 		public int shootTimer = 0;
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Drone Apparatus");
+			// DisplayName.SetDefault("Drone Apparatus");
 			Main.projFrames[Projectile.type] = 2;
 
 			// right-click targetting

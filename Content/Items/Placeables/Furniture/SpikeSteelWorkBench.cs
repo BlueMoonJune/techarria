@@ -9,8 +9,8 @@ namespace Techarria.Content.Items.Placeables.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spikesteel Work Bench");
-            Tooltip.SetDefault("Used for basic crafting");
+            // DisplayName.SetDefault("Spikesteel Work Bench");
+            // Tooltip.SetDefault("Used for basic crafting");
 
             // journey mode
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

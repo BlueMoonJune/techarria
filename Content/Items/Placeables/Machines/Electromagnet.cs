@@ -9,8 +9,8 @@ namespace Techarria.Content.Items.Placeables.Machines
 	{
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-			Tooltip.SetDefault("Pulls items in when powered\n" +
-				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] accepts Power");
+			/* Tooltip.SetDefault("Pulls items in when powered\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] accepts Power"); */
 		}
 
 		public override void SetDefaults() {

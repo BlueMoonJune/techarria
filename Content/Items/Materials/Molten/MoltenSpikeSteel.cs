@@ -20,7 +20,7 @@ namespace Techarria.Content.Items.Materials.Molten
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'I would recommend putting this down'");
+            // Tooltip.SetDefault("'I would recommend putting this down'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
         }

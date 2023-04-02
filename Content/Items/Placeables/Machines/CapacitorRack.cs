@@ -10,11 +10,11 @@ namespace Techarria.Content.Items.Placeables.Machines
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-			Tooltip.SetDefault("Right click to place Capacitors on the top of the rack\n" +
+			/* Tooltip.SetDefault("Right click to place Capacitors on the top of the rack\n" +
                 "Diverts power from the bottom right and left of the rack to placed Capacitors\n" +
                 "When the bottom center of the rack is activated, all Capacitors will release all their power to connected wires\n" +
 				$"[i:{ ModContent.ItemType<RecipeItems.Power>()}] stores Power\n" +
-				$"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts activations");
+				$"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts activations"); */
 		}
 
 		public override void SetDefaults() {

@@ -8,8 +8,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Button");
-            Tooltip.SetDefault($"[i:{ModContent.ItemType<RecipeItems.Activations>()}] causes Activations");
+            // DisplayName.SetDefault("Button");
+            // Tooltip.SetDefault($"[i:{ModContent.ItemType<RecipeItems.Activations>()}] causes Activations");
         }
 
         public override void SetDefaults()

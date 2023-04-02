@@ -1,11 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Techarria.Content.Entities;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 using Techarria.Structures;
 
 namespace Techarria.Content.Items.Tools
@@ -18,7 +15,7 @@ namespace Techarria.Content.Items.Tools
 		}
         public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Use this to update the textures of blocks");
+			//Tooltip.SetDefault("Use this to update the textures of blocks");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

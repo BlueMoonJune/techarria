@@ -10,7 +10,7 @@ namespace Techarria.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Displays the coordinates of the clicked tile");
+			// Tooltip.SetDefault("Displays the coordinates of the clicked tile");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

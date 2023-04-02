@@ -10,9 +10,9 @@ namespace Techarria.Content.Items.Placeables.Machines
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cryo Chamber");
-			Tooltip.SetDefault("insert an enemy banner and provide power to generate enemy loot\n" +
-				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] accepts Power");
+			// DisplayName.SetDefault("Cryo Chamber");
+			/* Tooltip.SetDefault("insert an enemy banner and provide power to generate enemy loot\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] accepts Power"); */
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

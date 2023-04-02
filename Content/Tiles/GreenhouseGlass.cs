@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles
@@ -21,7 +22,7 @@ namespace Techarria.Content.Tiles
 			Main.tileBrick[Type] = true;
 
 			// map stuff
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(254, 208, 200), name);
 
 			DustType = 84;

@@ -5,6 +5,7 @@ using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
@@ -32,8 +33,8 @@ namespace Techarria.Content.Tiles.Machines
             TileObjectData.addTile(Type);
 
             // Etc
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Electromagnet");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Electromagnet");
             AddMapEntry(new Color(200, 200, 200), name);
         }
 

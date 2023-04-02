@@ -68,8 +68,8 @@ namespace Techarria.Content.Items.Tools.Adhesive
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Tooltip.SetDefault("Places blue adhesive\n" +
-				"'Reccomended for ingestion'");
+			/* Tooltip.SetDefault("Places blue adhesive\n" +
+				"'Reccomended for ingestion'"); */
 		}
 
         public override void AddRecipes()
@@ -92,8 +92,8 @@ namespace Techarria.Content.Items.Tools.Adhesive
         public override void SetStaticDefaults()
         {
 			base.SetStaticDefaults();
-			Tooltip.SetDefault("Places light blue adhesive\n" +
-				"'Its like smearing a popsicle on the ground'");
+			/* Tooltip.SetDefault("Places light blue adhesive\n" +
+				"'Its like smearing a popsicle on the ground'"); */
 		}
 		public override void AddRecipes()
 		{
@@ -114,8 +114,8 @@ namespace Techarria.Content.Items.Tools.Adhesive
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Tooltip.SetDefault("Places pink adhesive\n" +
-				"'Reccomended for ingestion'");
+			/* Tooltip.SetDefault("Places pink adhesive\n" +
+				"'Reccomended for ingestion'"); */
 		}
 		public override void AddRecipes()
 		{
@@ -136,8 +136,8 @@ namespace Techarria.Content.Items.Tools.Adhesive
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Tooltip.SetDefault("Places yellow adhesive\n" +
-				"'Reccomended for ingestion'");
+			/* Tooltip.SetDefault("Places yellow adhesive\n" +
+				"'Reccomended for ingestion'"); */
 		}
 		public override void AddRecipes()
 		{
@@ -154,7 +154,7 @@ namespace Techarria.Content.Items.Tools.Adhesive
 	{
         public override void SetStaticDefaults()
         {
-			Tooltip.SetDefault("Removes adhesive");
+			// Tooltip.SetDefault("Removes adhesive");
         }
         public override void SetDefaults() {
 			Item.width = 32;

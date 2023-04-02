@@ -13,11 +13,11 @@ namespace Techarria.Content.Items.Placeables
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Infinity Crate");
+			// DisplayName.SetDefault("Infinity Crate");
 
-			Tooltip.SetDefault("Can be infinetely inserted into or extracted from\n"
+			/* Tooltip.SetDefault("Can be infinetely inserted into or extracted from\n"
 				+ "Any inserted items will be cleared of any reforges or similar\n"
-				+ "'Check my recipe ;)'");
+				+ "'Check my recipe ;)'"); */
 		}
 
 		public override void SetDefaults()
@@ -35,6 +35,7 @@ namespace Techarria.Content.Items.Placeables
 			Item.useTime = 10;
 			Item.useAnimation = 15;
 		}
+		/*
 		public override void AddRecipes()
 		{
 			// recipe.AddCondition(NetworkText.FromKey("\n"), r => true); is a new line in the recipe
@@ -44,7 +45,7 @@ namespace Techarria.Content.Items.Placeables
 			recipe.AddTile(TileID.Heart);
 			recipe.AddTile(TileID.DemonAltar);
 			// requires water candle buff
-			recipe.AddCondition(Recipe.Condition.InWaterCandle);
+			recipe.AddCondition(Condition.InWaterCandle);
 			// requires expert mode
 			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
 			recipe.AddCondition(NetworkText.FromKey("No casuals"), r => Main.masterMode);
@@ -72,5 +73,6 @@ namespace Techarria.Content.Items.Placeables
 			// register
 			recipe.Register();
 		}
+		*/
 	}
 }

@@ -9,11 +9,11 @@ namespace Techarria.Content.Items.Placeables
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Storage Crate");
+			// DisplayName.SetDefault("Storage Crate");
 
-			Tooltip.SetDefault("Stores up to 999999 matching items\n"
+			/* Tooltip.SetDefault("Stores up to 999999 matching items\n"
 				+ "Any inserted items will be cleared of any reforges or similar\n" +
-				"'Stores items with 99% accuracy'");
+				"'Stores items with 99% accuracy'"); */
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

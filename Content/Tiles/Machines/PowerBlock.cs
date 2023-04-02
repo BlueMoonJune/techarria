@@ -4,6 +4,7 @@ using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
@@ -22,8 +23,8 @@ namespace Techarria.Content.Tiles.Machines
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
 
 			// Etc
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("PowerBlock");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("PowerBlock");
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 

@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coal Coke");
+            // DisplayName.SetDefault("Coal Coke");
 
             // journey mode
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;

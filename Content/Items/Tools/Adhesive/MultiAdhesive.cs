@@ -12,8 +12,8 @@ namespace Techarria.Content.Items.Tools.Adhesive
 	{
 
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Hot Glue Gun");
-			Tooltip.SetDefault("Right click while holding to edit adhesive settings");
+			// DisplayName.SetDefault("Hot Glue Gun");
+			// Tooltip.SetDefault("Right click while holding to edit adhesive settings");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

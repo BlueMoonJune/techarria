@@ -7,8 +7,8 @@ namespace Techarria.Content.Items.RecipeItems
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Power");
-            Tooltip.SetDefault("Power needed for this recipe");
+            // DisplayName.SetDefault("Power");
+            // Tooltip.SetDefault("Power needed for this recipe");
         }
 
     }

@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.NPC;
 
 namespace Techarria.Content.Projectiles
 {
@@ -107,22 +108,27 @@ namespace Techarria.Content.Projectiles
                     continue;
                 }
 
-                if (npc.type == NPCID.SkeletronPrime || npc.type == NPCID.PrimeCannon || npc.type == NPCID.PrimeLaser || npc.type == NPCID.PrimeSaw || npc.type == NPCID.PrimeVice)
-                    npc.StrikeNPC(1000, 0, 0);
+				HitInfo hitInfo = new HitInfo();
+				hitInfo.Damage = 1000;
+				npc.StrikeNPC(new HitInfo());
+				if (npc.type == NPCID.SkeletronPrime || npc.type == NPCID.PrimeCannon || npc.type == NPCID.PrimeLaser || npc.type == NPCID.PrimeSaw || npc.type == NPCID.PrimeVice)
+                    npc.StrikeNPC(hitInfo);
 
                 if (npc.type == NPCID.Spazmatism || npc.type == NPCID.Retinazer)
-                    npc.StrikeNPC(1000, 0, 0);
+                    npc.StrikeNPC(hitInfo);
 
                 if (npc.type == NPCID.Probe)
-                    npc.StrikeNPC(1000, 0, 0);
+                    npc.StrikeNPC(hitInfo);
 
                 if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
                     destroyerSegments.Add(npc);
 
             }
-            foreach (NPC npc in destroyerSegments)
-            {
-                npc.StrikeNPC(2000 / destroyerSegments.Count, 0, 0);
+            foreach (NPC npc in destroyerSegments) {
+				HitInfo hitInfo = new HitInfo();
+				hitInfo.Damage = 2000 / destroyerSegments.Count;
+				npc.StrikeNPC(new HitInfo());
+				npc.StrikeNPC(hitInfo);
             }
         }
 

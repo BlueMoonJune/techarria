@@ -7,8 +7,8 @@ namespace Techarria.Content.Items.RecipeItems
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Activations");
-            Tooltip.SetDefault("Logic signal activations needed for this recipe");
+            // DisplayName.SetDefault("Activations");
+            // Tooltip.SetDefault("Logic signal activations needed for this recipe");
         }
     }
 }

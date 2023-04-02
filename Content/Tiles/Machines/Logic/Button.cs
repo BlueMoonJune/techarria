@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
@@ -24,8 +25,8 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			TileObjectData.addTile(Type);
 
 			// map entry
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Button");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Button");
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)

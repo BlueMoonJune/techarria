@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spikesteel Chair");
+            // DisplayName.SetDefault("Spikesteel Chair");
 
             // journey mode
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

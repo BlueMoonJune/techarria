@@ -12,9 +12,9 @@ namespace Techarria.Content.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("EMP Grenade");
-			Tooltip.SetDefault("A large explosion that will destroy wires\n" +
-				"'More like a bomb than a grenade'");
+			// DisplayName.SetDefault("EMP Grenade");
+			/* Tooltip.SetDefault("A large explosion that will destroy wires\n" +
+				"'More like a bomb than a grenade'"); */
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99; // How many items are needed in order to research duplication of this item in Journey mode. See https://terraria.gamepedia.com/Journey_Mode/Research_list for a list of commonly used research amounts depending on item type.
 		}

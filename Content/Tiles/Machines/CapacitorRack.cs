@@ -79,7 +79,7 @@ namespace Techarria.Content.Tiles.Machines
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 
 			// map info
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(200, 200, 200), Language.GetText("Casting Table"));
 		}
 

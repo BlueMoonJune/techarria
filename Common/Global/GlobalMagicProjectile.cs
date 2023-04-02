@@ -16,8 +16,8 @@ namespace Techarria.Common.Global
 			return entity.DamageType.CountsAsClass(DamageClass.Magic);
 		}
 
-		public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
-			Player owner = Main.player[projectile.owner];
+		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) {
+		Player owner = Main.player[projectile.owner];
 
 			PowerArmorPlayer player = owner.GetModPlayer<PowerArmorPlayer>();
 			if (owner.armor[0].ModItem is TechnomancyApparatus helm) {

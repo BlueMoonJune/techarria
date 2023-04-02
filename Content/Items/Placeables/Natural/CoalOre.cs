@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables.Natural
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Industrial Coal Stone Block");
+			// DisplayName.SetDefault("Industrial Coal Stone Block");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 200;
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 58;
@@ -34,7 +34,7 @@ namespace Techarria.Content.Items.Placeables.Natural
 		{
 			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.Natural.CoalOre>());
 			recipe.AddTile(TileID.HeavyWorkBench);
-			recipe.AddCondition(Recipe.Condition.InGraveyardBiome);
+			recipe.AddCondition(Condition.InGraveyard);
 			recipe.AddIngredient(ItemID.StoneBlock);
 			recipe.AddIngredient<Materials.IndustrialCoal>();
 			recipe.Register();

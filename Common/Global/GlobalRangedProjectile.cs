@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.NPC;
 
 namespace Techarria.Common.Global
 {
@@ -42,7 +43,9 @@ namespace Techarria.Common.Global
                     {
                         if (!npc.friendly && Techarria.Intersects(npc.getRect(), line))
                         {
-                            npc.StrikeNPC((int)(p.GetDamage(DamageClass.Ranged).ApplyTo(7)), 0, 0);
+							HitInfo hitInfo = new HitInfo();
+							hitInfo.Damage = (int)p.GetDamage(DamageClass.Ranged).ApplyTo(7);
+							npc.StrikeNPC(new HitInfo());
                             npc.AddBuff(BuffID.Electrified, 600);
                             if (new Random().Next(0) == 0)
                                 Projectile.NewProjectile(source, npc.Center, Vector2.Zero, ModContent.ProjectileType<Content.Projectiles.Lightning>(), 2, 100000);

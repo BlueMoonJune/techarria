@@ -9,8 +9,8 @@ namespace Techarria.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Circuit Overload");
-            Description.SetDefault("Your armor is fried! You can't use your arms!");
+            // DisplayName.SetDefault("Circuit Overload");
+            // Description.SetDefault("Your armor is fried! You can't use your arms!");
         }
 
         public override void Update(Player player, ref int buffIndex)

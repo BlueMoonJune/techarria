@@ -10,10 +10,10 @@ namespace Techarria.Content.Items.Placeables.Machines
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-			Tooltip.SetDefault("Accesses the player standing in front of it\n" +
+			/* Tooltip.SetDefault("Accesses the player standing in front of it\n" +
                 "Can act as either input or output for ducts\n" +
 				"Will charge player items when powered\n" +
-				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] diverts Power");
+				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] diverts Power"); */
 		}
 
 		public override void SetDefaults() {

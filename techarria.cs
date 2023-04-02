@@ -8,8 +8,6 @@ using Terraria.ID;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 
-using Terraria.On;
-
 namespace Techarria
 {
 

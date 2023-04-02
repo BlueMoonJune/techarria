@@ -14,7 +14,7 @@ namespace Techarria
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Displays room info when clicking");
+			// Tooltip.SetDefault("Displays room info when clicking");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

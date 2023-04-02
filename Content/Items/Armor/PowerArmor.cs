@@ -5,7 +5,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace Techarria.Content.Items.Armor
 {
@@ -28,7 +27,7 @@ namespace Techarria.Content.Items.Armor
 		public int combatTimer = 0;
 		public int helmetDepleteTimer = 0;
 
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldown)
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             if (Player.armor[1].ModItem is BreastplateApparatus chestplate)
             {
@@ -36,13 +35,13 @@ namespace Techarria.Content.Items.Armor
             }
         }
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             if (Player.armor[1].ModItem is BreastplateApparatus chestplate && chestplate.charge > 0)
                 Player.endurance += 0.10f;
         }
 
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+		public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             if (Player.armor[1].ModItem is BreastplateApparatus chestplate && chestplate.charge > 0)
                 Player.endurance += 0.10f;
@@ -137,7 +136,7 @@ namespace Techarria.Content.Items.Armor
                 {
                     if (Player.dead)
                     {
-                        WorldGen.PlaceLiquid((int)Player.Center.X / 16, (int)Player.Center.Y / 16, LiquidID.Lava, 255);
+                        WorldGen.PlaceLiquid((int)Player.Center.X / 16, (int)Player.Center.Y / 16, (byte)LiquidID.Lava, 255);
                     }
                     item.TurnToAir();
                 }

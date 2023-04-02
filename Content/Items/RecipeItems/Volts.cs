@@ -7,8 +7,8 @@ namespace Techarria.Content.Items.RecipeItems
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Volts");
-            Tooltip.SetDefault("Single pulse charge needed for this recipe");
+            // DisplayName.SetDefault("Volts");
+            // Tooltip.SetDefault("Single pulse charge needed for this recipe");
         }
 
     }

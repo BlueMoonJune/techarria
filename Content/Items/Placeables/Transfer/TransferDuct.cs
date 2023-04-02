@@ -12,11 +12,11 @@ namespace Techarria.Content.Items.Placeables.Transfer
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Can insert or extract from an adjcacent container when activated\n" +
+            /* Tooltip.SetDefault("Can insert or extract from an adjcacent container when activated\n" +
                 "When there is no adjacent containers and the duct is activated it will toggle its ability to transfer items\n" +
                "When there is no destination for transfered items the duct will do nothing\n" +
                "2 ducts painted differently do not connect\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
         }

@@ -9,12 +9,12 @@ namespace Techarria.Content.Items.Placeables.Machines
 	{
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-			Tooltip.SetDefault("Used for simple alloy crafting\n" +
+			/* Tooltip.SetDefault("Used for simple alloy crafting\n" +
                 "Provide power anywhere to heat up the Blast Furnace\n" +
                 "Input items at the top\n" +
                 "Items can be extracted using transfer ducts at the bottom\n" +
 				$"[i:{ModContent.ItemType<RecipeItems.Temperature>()}] prefers higher Temperature\n" +
-				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] accepts Power");
+				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] accepts Power"); */
 		}
 
 		public override void SetDefaults() {

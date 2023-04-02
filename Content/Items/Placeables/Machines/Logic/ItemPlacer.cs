@@ -11,9 +11,9 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Right click to insert an item\n" +
+            /* Tooltip.SetDefault("Right click to insert an item\n" +
                 "Activate to place items\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations"); */
         }
 
         public override void SetDefaults()

@@ -14,9 +14,9 @@ namespace Techarria.Content.Items.Placeables.Transfer
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Will activate wires when an item is sent through it\n" +
+            /* Tooltip.SetDefault("Will activate wires when an item is sent through it\n" +
             $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts and causes Activations\n" +
-            "'Can't recursively power.. trust me you don't want that'");
+            "'Can't recursively power.. trust me you don't want that'"); */
         }
 
         public override void SetDefaults()

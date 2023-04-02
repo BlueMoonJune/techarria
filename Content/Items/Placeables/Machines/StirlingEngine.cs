@@ -8,11 +8,11 @@ namespace Techarria.Content.Items.Placeables.Machines
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Produces small amounts of power when the candle is lit\n" +
+            /* Tooltip.SetDefault("Produces small amounts of power when the candle is lit\n" +
                 "The candle periodically burns out\n" +
                 "Activations relight the candle\n" +
                 $"[i:{ModContent.ItemType<RecipeItems.Power>()}] generates " + Tiles.Machines.StirlingEngineTE.STIRLING_GENERATION * 60 + " Power per second\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts activations");
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts activations"); */
         }
         public override void SetDefaults()
         {

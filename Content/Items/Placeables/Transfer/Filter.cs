@@ -14,9 +14,9 @@ namespace Techarria.Content.Items.Placeables.Transfer
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Right click with an item to specify what can pass through this duct\n" +
+            /* Tooltip.SetDefault("Right click with an item to specify what can pass through this duct\n" +
                 "When activated switches to a blacklist filter\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations"); */
         }
 
         public override void SetDefaults()

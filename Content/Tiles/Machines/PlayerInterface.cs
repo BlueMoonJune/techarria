@@ -3,6 +3,7 @@ using Techarria.Content.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -27,8 +28,8 @@ namespace Techarria.Content.Tiles.Machines
 			TileObjectData.addTile(Type);
 
 			// Etc
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Player Interface");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Player Interface");
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 

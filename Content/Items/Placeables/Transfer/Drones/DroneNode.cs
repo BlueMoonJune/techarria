@@ -13,8 +13,8 @@ namespace Techarria.Content.Items.Placeables.Transfer.Drones
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-			Tooltip.SetDefault("Used to guide Transfer Drones\nCreates activations when a drone arrives\n" +
-				$"[i:{ModContent.ItemType<RecipeItems.Activations>()}] causes Activations");
+			/* Tooltip.SetDefault("Used to guide Transfer Drones\nCreates activations when a drone arrives\n" +
+				$"[i:{ModContent.ItemType<RecipeItems.Activations>()}] causes Activations"); */
 		}
 
 		public override void SetDefaults() {

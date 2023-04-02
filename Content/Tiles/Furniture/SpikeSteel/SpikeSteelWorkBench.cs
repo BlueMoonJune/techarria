@@ -31,7 +31,7 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 
             // map info
-            ModTranslation name = CreateMapEntryName();
+            LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.WorkBench"));
         }
         public override void KillMultiTile(int x, int y, int frameX, int frameY)

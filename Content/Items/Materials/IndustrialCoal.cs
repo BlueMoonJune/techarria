@@ -8,8 +8,8 @@ namespace Techarria.Content.Items.Materials
 	public class IndustrialCoal : ModItem
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Industrial Coal");
-			Tooltip.SetDefault("'Even less festive than normal'");
+			// DisplayName.SetDefault("Industrial Coal");
+			// Tooltip.SetDefault("'Even less festive than normal'");
 
 			// journey mode
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 200;

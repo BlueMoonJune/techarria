@@ -24,7 +24,7 @@ namespace Techarria.Content.Items.Materials.Molten
         {
             if (Item.velocity.Y == 0)
             {
-                WorldGen.PlaceLiquid((int)Item.Center.X / 16, (int)Item.Center.Y / 16, LiquidID.Lava, 255);
+                WorldGen.PlaceLiquid((int)Item.Center.X / 16, (int)Item.Center.Y / 16, (byte)LiquidID.Lava, 255);
                 Item.TurnToAir();
             }
         }

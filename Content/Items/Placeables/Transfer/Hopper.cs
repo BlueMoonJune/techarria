@@ -14,8 +14,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("When activated sucks in items above into your ducts\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
+            /* Tooltip.SetDefault("When activated sucks in items above into your ducts\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations"); */
         }
 
         public override void SetDefaults()

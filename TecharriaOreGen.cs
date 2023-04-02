@@ -9,7 +9,7 @@ namespace Techarria
 {
 	public class OreSystem : ModSystem
 	{
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			// Because world generation is like layering several images ontop of each other, we need to do some steps between the original world generation steps.
 
@@ -47,8 +47,8 @@ namespace Techarria
 				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 
-				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use GenVars.rockLayer or other WorldGen values.
+				int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
 
 				// first Rand is strength (how much per vein) and second is steps (makes it snakey)
 				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(26, 32), WorldGen.genRand.Next(215, 285), ModContent.TileType<CoalOre>());
@@ -67,8 +67,8 @@ namespace Techarria
 				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 
-				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use GenVars.rockLayer or other WorldGen values.
+				int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
 
 				// first Rand is strength (how much per vein) and second is steps (makes it snakey)
 				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(4, 8), ModContent.TileType<CoalOre>());
@@ -81,8 +81,8 @@ namespace Techarria
 				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 
-				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use GenVars.rockLayer or other WorldGen values.
+				int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
 
 				// first Rand is strength (how much per vein) and second is steps (makes it snakey)
 				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(78, 112), ModContent.TileType<Limestone>());

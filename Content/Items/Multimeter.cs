@@ -8,7 +8,7 @@ namespace Techarria.Content.Items
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Displays transfer of power");
+            // Tooltip.SetDefault("Displays transfer of power");
         }
 
 		public override void SetDefaults()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Tiles.Natural
@@ -30,8 +31,8 @@ namespace Techarria.Content.Tiles.Natural
 			Main.tileBrick[Type] = true;
 
 			// map stuff
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Industrial Coal");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Industrial Coal");
 			AddMapEntry(new Color(27, 27, 31), name);
 
 			DustType = 84;

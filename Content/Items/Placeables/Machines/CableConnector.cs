@@ -10,11 +10,11 @@ namespace Techarria.Content.Items.Placeables.Machines
 		public override void SetStaticDefaults() {
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-			Tooltip.SetDefault("Provides a way to freely connect wires long distance\n" +
+			/* Tooltip.SetDefault("Provides a way to freely connect wires long distance\n" +
                 "Right click with wires to extend the max length\n" +
                 "Right click with a free hand to connect two Cable Connectors\n" +
 				$"[i:{ModContent.ItemType<RecipeItems.Power>()}] diverts Power\n" +
-                "'Also try Immersive Engineering!'");
+                "'Also try Immersive Engineering!'"); */
 		}
 
 		public override void SetDefaults() {

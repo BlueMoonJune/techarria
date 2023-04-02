@@ -8,6 +8,7 @@ using Techarria.Content.Items.RecipeItems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
@@ -82,8 +83,8 @@ namespace Techarria.Content.Tiles.Machines
 		public bool InsertMolten(Item i) {
 			if (i.ModItem is MoltenBlob blob) {
 				if (!IsFullyCovered()) {
-					WorldGen.PlaceLiquid(Position.X, Position.Y - 1, LiquidID.Lava, 32);
-					WorldGen.PlaceLiquid(Position.X + 1, Position.Y - 1, LiquidID.Lava, 32);
+					WorldGen.PlaceLiquid(Position.X, Position.Y - 1, (byte)LiquidID.Lava, 32);
+					WorldGen.PlaceLiquid(Position.X + 1, Position.Y - 1, (byte)LiquidID.Lava, 32);
 					temp = Math.Max(blob.temp, temp);
 					return true;
 
@@ -149,8 +150,8 @@ namespace Techarria.Content.Tiles.Machines
 			TileObjectData.addTile(Type);
 
 			// Etc
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Player Interface");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Player Interface");
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 

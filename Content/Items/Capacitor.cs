@@ -11,7 +11,7 @@ namespace Techarria.Content.Items
         public override void SetStaticDefaults()
         {
 			CapacitorRack.capacitorTextures[Type] = "Capacitor";
-            Tooltip.SetDefault("Stores charge and can instantaneously release it");
+            // Tooltip.SetDefault("Stores charge and can instantaneously release it");
         }
 
         public override void SetDefaults()

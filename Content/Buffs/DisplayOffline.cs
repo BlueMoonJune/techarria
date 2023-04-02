@@ -9,8 +9,8 @@ namespace Techarria.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Display Offline");
-            Description.SetDefault("Your armor is fried! You can't see!");
+            // DisplayName.SetDefault("Display Offline");
+            // Description.SetDefault("Your armor is fried! You can't see!");
         }
 
         public override void Update(Player player, ref int buffIndex)

@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Used in the Casting Table to make sheets");
+            // Tooltip.SetDefault("Used in the Casting Table to make sheets");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

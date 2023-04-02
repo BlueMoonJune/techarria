@@ -14,8 +14,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Only allows items to transfer in the direction its facing\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
+            /* Tooltip.SetDefault("Only allows items to transfer in the direction its facing\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations"); */
         }
 
         public override void SetDefaults()

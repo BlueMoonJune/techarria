@@ -14,8 +14,8 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Breaks the tile in front of it when activated\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations");
+            /* Tooltip.SetDefault("Breaks the tile in front of it when activated\n" +
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations"); */
         }
 
         public override void SetDefaults()

@@ -13,9 +13,9 @@ namespace Techarria.Content.Items.Placeables.Machines
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Actications produce power\n" +
+            /* Tooltip.SetDefault("Actications produce power\n" +
                 $"[i:{ModContent.ItemType<RecipeItems.Power>()}] generates " + Tiles.Machines.PowerBlock.POWERBLOCK_GENERATION + " Power\n" +
-                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts activations");
+                $"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts activations"); */
         }
         public override void SetDefaults()
         {

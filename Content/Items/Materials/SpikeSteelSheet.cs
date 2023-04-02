@@ -10,8 +10,8 @@ namespace Techarria.Content.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spikesteel Sheet");
-            Tooltip.SetDefault("Casted from molten Spikesteel for use in crafting");
+            // DisplayName.SetDefault("Spikesteel Sheet");
+            // Tooltip.SetDefault("Casted from molten Spikesteel for use in crafting");
 
             // journey mode
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 50;

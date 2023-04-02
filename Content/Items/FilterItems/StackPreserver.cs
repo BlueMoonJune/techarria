@@ -12,9 +12,9 @@ namespace Techarria.Content.Items.FilterItems
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Can be placed in a Filter\n" +
+            /* Tooltip.SetDefault("Can be placed in a Filter\n" +
                 "If in a whitelist filter will preserve a single item from a stack\n" +
-                "If in a blacklist filter will only take single items");
+                "If in a blacklist filter will only take single items"); */
         }
         
         public override void SetDefaults()

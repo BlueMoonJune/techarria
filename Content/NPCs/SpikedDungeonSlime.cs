@@ -12,7 +12,7 @@ namespace Techarria.Content.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spiked Dungeon Slime");
+            // DisplayName.SetDefault("Spiked Dungeon Slime");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[2];
 
             // debuff immunity

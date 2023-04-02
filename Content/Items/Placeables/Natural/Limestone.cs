@@ -9,7 +9,7 @@ namespace Techarria.Content.Items.Placeables.Natural
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Limestone");
+            // DisplayName.SetDefault("Limestone");
 
             // journey mode
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;

@@ -14,8 +14,8 @@ namespace Techarria.Content.Items.Placeables.Transfer
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Seperates duct paths\n" +
-                "'Roundabouts are better'");
+            /* Tooltip.SetDefault("Seperates duct paths\n" +
+                "'Roundabouts are better'"); */
         }
 
         public override void SetDefaults()

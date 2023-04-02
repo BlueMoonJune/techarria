@@ -11,10 +11,10 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
 
-            Tooltip.SetDefault("Activates wires when the tile in front of it is at target temperature\n" +
+            /* Tooltip.SetDefault("Activates wires when the tile in front of it is at target temperature\n" +
                 "Target temperature is set when activated\n" +
                 $"[i:{ModContent.ItemType<RecipeItems.Temperature>()}] displays Temperature\n" +
-                $"[i:{ ModContent.ItemType<RecipeItems.Activations>()}] accepts and causes Activations");
+                $"[i:{ ModContent.ItemType<RecipeItems.Activations>()}] accepts and causes Activations"); */
         }
 
         public override void SetDefaults()
