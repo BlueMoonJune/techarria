@@ -8,6 +8,8 @@ using Terraria.ID;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 
+using Terraria.On;
+
 namespace Techarria
 {
 
@@ -77,9 +79,9 @@ namespace Techarria
 
         public override void Load()
         {
-            On.Terraria.WorldGen.paintTile += WorldGen_paintTile;
-            On.Terraria.Dust.NewDust += DustDetour;
-            On.Terraria.Main.DrawWires += DrawPowerTransfer;
+            Terraria.On_WorldGen.paintTile += WorldGen_paintTile;
+            Terraria.On_Dust.NewDust += DustDetour;
+            Terraria.On_Main.DrawWires += DrawPowerTransfer;
 
             if (Main.netMode != NetmodeID.Server) {
 				Ref<Effect> screenRef = new Ref<Effect>(ModContent.Request<Effect>("Techarria/Assets/Effects/Field").Value);
@@ -88,7 +90,7 @@ namespace Techarria
 			}
         }
 
-        private void DrawPowerTransfer(On.Terraria.Main.orig_DrawWires orig, Main self)
+        private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
         {
             orig(self);
             foreach (Wire wire in Power.DisplayInfos.Keys)
@@ -129,7 +131,8 @@ namespace Techarria
             }
         }
 
-        private int DustDetour(On.Terraria.Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+		
+        private int DustDetour(Terraria.On_Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
         {
             if (BlockDusts)
             {
@@ -140,10 +143,10 @@ namespace Techarria
 
         public override void Unload()
         {
-            On.Terraria.WorldGen.paintTile -= WorldGen_paintTile;
+            Terraria.On_WorldGen.paintTile -= WorldGen_paintTile;
         }
 
-        private bool WorldGen_paintTile(On.Terraria.WorldGen.orig_paintTile orig, int x, int y, byte color, bool broadCast)
+        private bool WorldGen_paintTile(Terraria.On_WorldGen.orig_paintTile orig, int x, int y, byte color, bool broadCast)
         {
             bool result = orig.Invoke(x, y, color, broadCast);
             TransferDuctFrame(x, y);

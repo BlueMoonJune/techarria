@@ -123,22 +123,29 @@ namespace Techarria.Structures
 			return true;
 		}
 
+		public void Remove() {
+			greenhouses.Remove(this);
+			foreach (Point p in Interior) {
+				GreenhousePoints.Remove(p);
+			}
+		}
+
 		public bool CheckStructure() {
 			foreach (List<Point> wall in walls.AllWalls) {
 				foreach (Point point in wall) {
 					Tile tile = Main.tile[point];
 					Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
 					if (!IsWallTile(tile)) {
-						greenhouses.Remove(this);
-						foreach (Point p in Interior) {
-							GreenhousePoints.Remove(p);
-						}
+						Remove();
 						return false;
 					}
 				}
 			}
 			foreach (Point p in Interior) {
-				Main.NewText(Main.tile[p].WallType);
+				if (Main.tile[p].WallType == 0) {
+					Remove();
+					return false;
+				}
 			}
 			return true;
 		}
