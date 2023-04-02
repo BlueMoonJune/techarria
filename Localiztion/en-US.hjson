@@ -1,0 +1,416 @@
+
+Mods: {
+	Techarria: {
+		Projectiles: {
+			Lightning.DisplayName: Lightning
+			EMPGrenade.DisplayName: EMP Grenade
+			EMPBlast.DisplayName: EMP Blast
+			DroneApparatus.DisplayName: Drone Apparatus
+		}
+
+		NPCs.SpikedDungeonSlime.DisplayName: Spiked Dungeon Slime
+
+		Items: {
+			RoomTester: {
+				Tooltip: ""
+				DisplayName: Room Tester
+			}
+
+			UpdateHammer: {
+				Tooltip: ""
+				DisplayName: Update Hammer
+			}
+
+			MechanicHammer: {
+				Tooltip: ""
+				DisplayName: Mechanic's Hammer
+			}
+
+			CoordinateProbe: {
+				Tooltip: ""
+				DisplayName: Coordinate Probe
+			}
+
+			SlimyAdhesive: {
+				Tooltip: "Places blue adhesive\n'Reccomended for ingestion'"
+				DisplayName: Slimy Adhesive
+			}
+
+			FrigidAdhesive: {
+				Tooltip: "Places light blue adhesive\n'Its like smearing a popsicle on the ground'"
+				DisplayName: Frigid Adhesive
+			}
+
+			ElasticAdhesive: {
+				Tooltip: "Places pink adhesive\n'Reccomended for ingestion'"
+				DisplayName: Elastic Adhesive
+			}
+
+			SweetAdhesive: {
+				Tooltip: "Places yellow adhesive\n'Reccomended for ingestion'"
+				DisplayName: Sweet Adhesive
+			}
+
+			AdhesiveSolvent: {
+				Tooltip: Removes Adhesive
+				DisplayName: Adhesive Solvent
+			}
+
+			MultiAdhesive: {
+				Tooltip: Right click while holding to edit adhesive settings
+				DisplayName: Hot Glue Gun
+			}
+
+			Volts: {
+				Tooltip: ""
+				DisplayName: Volts
+			}
+
+			Temperature: {
+				Tooltip: ""
+				DisplayName: Temperature
+			}
+
+			Power: {
+				Tooltip: ""
+				DisplayName: Power
+			}
+
+			Activations: {
+				Tooltip: ""
+				DisplayName: Activations
+			}
+
+			TransferDuct: {
+				Tooltip: ""
+				DisplayName: Transfer Duct
+			}
+
+			TransferDetector: {
+				Tooltip: ""
+				DisplayName: Transfer Detector
+			}
+
+			Junction: {
+				Tooltip: ""
+				DisplayName: Junction
+			}
+
+			Hopper: {
+				Tooltip: ""
+				DisplayName: Hopper
+			}
+
+			Filter: {
+				Tooltip: ""
+				DisplayName: Filter
+			}
+
+			DroneNode: {
+				Tooltip: ""
+				DisplayName: Drone Node
+			}
+
+			DirectionalDuct: {
+				Tooltip: ""
+				DisplayName: Directional Duct
+			}
+
+			ThreeSecondTimer: {
+				Tooltip: ""
+				DisplayName: Three Second Timer
+			}
+
+			QuarterSecondTimer: {
+				Tooltip: ""
+				DisplayName: Quarter Second Timer
+			}
+
+			OneSecondTimer: {
+				Tooltip: ""
+				DisplayName: One Second Timer
+			}
+
+			HalfSecondTimer: {
+				Tooltip: ""
+				DisplayName: Half Second Timer
+			}
+
+			FiveSecondTimer: {
+				Tooltip: ""
+				DisplayName: Five Second Timer
+			}
+
+			StorageCrate: {
+				Tooltip: ""
+				DisplayName: Storage Crate
+			}
+
+			Limestone: {
+				Tooltip: ""
+				DisplayName: Limestone
+			}
+
+			CoalOre: {
+				Tooltip: ""
+				DisplayName: Coal Ore
+			}
+
+			StirlingEngine: {
+				Tooltip: ""
+				DisplayName: Stirling Engine
+			}
+
+			RotaryAssembler: {
+				Tooltip: ""
+				DisplayName: Rotary Assembler
+			}
+
+			PowerBlock: {
+				Tooltip: ""
+				DisplayName: Power Block
+			}
+
+			PlayerInterface: {
+				Tooltip: ""
+				DisplayName: Player Interface
+			}
+
+			TemperatureProbe: {
+				Tooltip: ""
+				DisplayName: Temperature Probe
+			}
+
+			StickyPiston: {
+				Tooltip: ""
+				DisplayName: Sticky Piston
+			}
+
+			Piston: {
+				Tooltip: ""
+				DisplayName: Piston
+			}
+
+			ItemPlacer: {
+				Tooltip: ""
+				DisplayName: Item Placer
+			}
+
+			Button: {
+				Tooltip: ""
+				DisplayName: Button
+			}
+
+			BlockBreaker: {
+				Tooltip: ""
+				DisplayName: Block Breaker
+			}
+
+			GreenhouseController: {
+				Tooltip: ""
+				DisplayName: Greenhouse Controller
+			}
+
+			GelatinousTurbine: {
+				Tooltip: ""
+				DisplayName: Gelatinous Turbine
+			}
+
+			Electromagnet: {
+				Tooltip: ""
+				DisplayName: Electromagnet
+			}
+
+			CryoChamber: {
+				Tooltip: ""
+				DisplayName: Cryo Chamber
+			}
+
+			CastingTable: {
+				Tooltip: ""
+				DisplayName: Casting Table
+			}
+
+			CapacitorRack: {
+				Tooltip: ""
+				DisplayName: Capacitor Rack
+			}
+
+			Capacitor: {
+				Tooltip: ""
+				DisplayName: Capacitor
+			}
+
+			CableConnector: {
+				Tooltip: ""
+				DisplayName: Cable Connector
+			}
+
+			BlastFurnace: {
+				Tooltip: ""
+				DisplayName: Blast Furnace
+			}
+
+			JourneyCrate: {
+				Tooltip: ""
+				DisplayName: Journey Crate
+			}
+
+			InfinityCrate: {
+				Tooltip: ""
+				DisplayName: Infinity Crate
+			}
+
+			GreenhouseGlass: {
+				Tooltip: ""
+				DisplayName: Greenhouse Glass
+			}
+
+			SpikeSteelWorkBench: {
+				Tooltip: ""
+				DisplayName: Spike Steel Work Bench
+			}
+
+			SpikeSteelChair: {
+				Tooltip: ""
+				DisplayName: Spike Steel Chair
+			}
+
+			Multimeter: {
+				Tooltip: ""
+				DisplayName: Multimeter
+			}
+
+			Sprocket: {
+				Tooltip: ""
+				DisplayName: Sprocket
+			}
+
+			SpikeSteelSheet: {
+				Tooltip: ""
+				DisplayName: Spike Steel Sheet
+			}
+
+			SheetMold: {
+				Tooltip: ""
+				DisplayName: Sheet Mold
+			}
+
+			MoltenSpikeSteel: {
+				Tooltip: ""
+				DisplayName: Molten Spike Steel
+			}
+
+			MechanicalScrap: {
+				Tooltip: ""
+				DisplayName: Mechanical Scrap
+			}
+
+			IndustrialCoal: {
+				Tooltip: ""
+				DisplayName: Industrial Coal
+			}
+
+			CoalCoke: {
+				Tooltip: ""
+				DisplayName: Coal Coke
+			}
+
+			StackPreserver: {
+				Tooltip: ""
+				DisplayName: Stack Preserver
+			}
+
+			EMPGrenade: {
+				Tooltip: ""
+				DisplayName: EMP Grenade
+			}
+
+			VisorApparatus: {
+				Tooltip: ""
+				DisplayName: Visor Apparatus
+			}
+
+			TechnomancyApparatus: {
+				Tooltip: ""
+				DisplayName: Technomancy Apparatus
+			}
+
+			RadiatorApparatus: {
+				Tooltip: ""
+				DisplayName: Radiator Apparatus
+			}
+
+			LeggingsApparatus: {
+				Tooltip: ""
+				DisplayName: Leggings Apparatus
+			}
+
+			ControllingApparatus: {
+				Tooltip: ""
+				DisplayName: Controlling Apparatus
+			}
+
+			BreastplateApparatus: {
+				Tooltip: ""
+				DisplayName: Breastplate Apparatus
+			}
+		}
+
+		Buffs: {
+			DroneApparatusBuff: {
+				Description: Mods.Techarria.Buffs.DroneApparatusBuff.Description
+				DisplayName: Drone Apparatus Buff
+			}
+
+			MotorMalfunction: {
+				Description: Mods.Techarria.Buffs.MotorMalfunction.Description
+				DisplayName: Motor Malfunction
+			}
+
+			DisplayOffline: {
+				Description: Mods.Techarria.Buffs.DisplayOffline.Description
+				DisplayName: Display Offline
+			}
+
+			CircuitOverload: {
+				Description: Mods.Techarria.Buffs.CircuitOverload.Description
+				DisplayName: Circuit Overload
+			}
+		}
+
+		Tiles: {
+			TransferDuct.MapEntry: Transfer Duct
+			TransferDetector.MapEntry: Transfer Detector
+			Junction.MapEntry: Junction
+			Hopper.MapEntry: Hopper
+			Filter.MapEntry: Filter
+			DisabledTransferDuct.MapEntry: Disabled Transfer Duct
+			DirectionalDuct.MapEntry: Directional Duct
+			CoalOre.MapEntry: Coal Ore
+			StirlingEngine.MapEntry: Stirling Engine
+			RotaryAssembler.MapEntry: Rotary Assembler
+			PowerBlock.MapEntry: Power Block
+			PlayerInterface.MapEntry: Player Interface
+			ThreeSecondTimer.MapEntry: Three Second Timer
+			QuarterSecondTimer.MapEntry: Quarter Second Timer
+			OneSecondTimer.MapEntry: One Second Timer
+			HalfSecondTimer.MapEntry: Half Second Timer
+			FiveSecondTimer.MapEntry: Five Second Timer
+			TemperatureProbe.MapEntry: Temperature Probe
+			StickyPiston.MapEntry: Sticky Piston
+			Piston.MapEntry: Piston
+			ItemPlacer.MapEntry: Item Placer
+			Button.MapEntry: Button
+			BlockBreaker.MapEntry: Block Breaker
+			GelatinousTurbine.MapEntry: Gelatinous Turbine
+			Electromagnet.MapEntry: Electromagnet
+			CryoChamber.MapEntry: Cryo Chamber
+			CastingTable.MapEntry: Casting Table
+			CapacitorRack.MapEntry: Capacitor Rack
+			BlastFurnace.MapEntry: Blast Furnace
+			GreenhouseGlass.MapEntry: Greenhouse Glass
+			SpikeSteelWorkBench.MapEntry: Spike Steel Work Bench
+		}
+	}
+}

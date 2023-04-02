@@ -1,0 +1,11 @@
+Mods: {
+	Techarria: {
+		Content: {
+			Items: {
+				JourneyCrate: {
+					Tooltip: Mods.Techarria.Content.Items.JourneyCrate.en_us
+				}
+			}
+		}
+	}
+}

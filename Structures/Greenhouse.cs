@@ -43,12 +43,16 @@ namespace Techarria.Structures
 		}
 	}
 
-	internal class Greenhouse
+	public class Greenhouse
 	{
+		public static float GREENHOUSE_ROOF_PERCENTAGE_REQUIREMENT = 0.5f;
+
 		public bool isValid = false;
 		public string invalidation = "";
 		public Point[] Interior;
 		public StructureWalls walls;
+
+		public bool validRoof = false;
 
 		public static List<Greenhouse> greenhouses = new();
 
@@ -60,17 +64,17 @@ namespace Techarria.Structures
 			return Main.tileSolid[tile.TileType] && tile.HasTile || TileID.Sets.HousingWalls[tile.TileType];
 		}
 
-		public static void CreateGreenhouse(int x, int y) {
+		public static Greenhouse CreateGreenhouse(int x, int y) {
 			if (GreenhousePoints.Contains(new(x, y))) {
 				Main.NewText("A Greenhouse exists here!");
 				ScannedPoints.Clear();
-				return;
+				return null;
 			}
 			Greenhouse greenhouse = new();
 			if (!ScanTile(new Point(x, y))) {
 				Main.NewText("Greenhouse is too big!");
 				ScannedPoints.Clear();
-				return;
+				return null;
 			}
 			greenhouse.walls = StructureWalls.GenerateWallsFromInterior(ScannedPoints);
 			greenhouse.Interior = ScannedPoints.ToArray();
@@ -84,7 +88,7 @@ namespace Techarria.Structures
 				Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<DroneNodeDust>());
 			}
 			ScannedPoints.Clear();
-			greenhouses.Add(greenhouse);
+			return greenhouse;
 		}
 
 		public static bool ScanTile(Point p) {
@@ -116,7 +120,7 @@ namespace Techarria.Structures
 			}
 			for (int i = 1; i < 51; i++) {
 				Tile tile = Main.tile[new Point(p.X, p.Y - i)];
-				if (Main.tileBlockLight[tile.TileType] && ! tile.IsActuated) {
+				if (tile.HasTile && Main.tileBlockLight[tile.TileType] && !tile.IsActuated) {
 					return false;
 				}
 			}
@@ -124,7 +128,6 @@ namespace Techarria.Structures
 		}
 
 		public void Remove() {
-			greenhouses.Remove(this);
 			foreach (Point p in Interior) {
 				GreenhousePoints.Remove(p);
 			}
@@ -134,7 +137,6 @@ namespace Techarria.Structures
 			foreach (List<Point> wall in walls.AllWalls) {
 				foreach (Point point in wall) {
 					Tile tile = Main.tile[point];
-					Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
 					if (!IsWallTile(tile)) {
 						Remove();
 						return false;
@@ -147,7 +149,22 @@ namespace Techarria.Structures
 					return false;
 				}
 			}
+
+			int successes = 0;
+			int checks = 0;
+			foreach (Point p in walls.ceilings) {
+				Dust.NewDust(new Vector2(p.X * 16 + 4, p.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
+				if (!Main.tileSolidTop[Main.tile[p].TileType]) {
+					checks++;
+					if (CheckGlass(p))
+						successes++;
+				}
+			}
+			validRoof = successes / (float)checks >= GREENHOUSE_ROOF_PERCENTAGE_REQUIREMENT;
+			Main.NewText(validRoof);
+
 			return true;
+
 		}
 	}
 }
