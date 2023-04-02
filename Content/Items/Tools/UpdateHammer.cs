@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using Techarria.Structures;
 
 namespace Techarria.Content.Items.Tools
 {
@@ -47,15 +48,7 @@ namespace Techarria.Content.Items.Tools
 					tile.TileFrame(pos.X, pos.Y, ref idc, ref idc);
 					return true;
 				}
-			}
-			/*
-			for (int i = 0; i < Drone.drones.Count; i++ ) {
-				Drone.drones[0].Kill();
-			}
-			Drone.NewDrone(Main.MouseWorld);
-			*/
-			if (Main.netMode != NetmodeID.Server && !Filters.Scene["Field"].IsActive()) {
-				Filters.Scene.Activate("Field").GetShader();
+				Greenhouse.CreateGreenhouse(pos.X, pos.Y);
 			}
 			return false;
 		}

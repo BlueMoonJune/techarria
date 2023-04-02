@@ -5,11 +5,14 @@ using Terraria.DataStructures;
 using Techarria.Content.Items.Materials.Molten;
 using Techarria.Content.Entities;
 using System.Collections.Generic;
+using Techarria.Structures;
 
 namespace Techarria
 {
 	internal class Update : ModSystem
     {
+		int CheckStructuresTimer = 0;
+
 		public void DestroyChestsWithMoltenItems() {
 			bool logged = false;
 			foreach (Chest chest in Main.chest) {
@@ -47,6 +50,13 @@ namespace Techarria
         {
 			DestroyChestsWithMoltenItems();
 			UpdateDrones();
+			CheckStructuresTimer++;
+			if (CheckStructuresTimer > 60) {
+				foreach (Greenhouse greenhouse in Greenhouse.greenhouses) {
+					greenhouse.CheckWalls();
+				}
+				CheckStructuresTimer = 0;
+			}
         }
     }
 }

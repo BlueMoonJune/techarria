@@ -9,6 +9,7 @@ using Techarria.Content.Tiles;
 using Techarria.Content.Tiles.Machines;
 using System.Collections.Generic;
 using Terraria.ModLoader.IO;
+using Techarria.Structures;
 
 namespace Techarria
 {
@@ -34,6 +35,8 @@ namespace Techarria
 		}
 
 		public override void LoadWorldData(TagCompound tag) {
+			Greenhouse.GreenhousePoints.Clear();
+			Greenhouse.greenhouses.Clear();
 			if (tag.ContainsKey("gluePoints") && tag.ContainsKey("glueValues")) {
 				List<Vector2> points = tag.Get<List<Vector2>>("gluePoints");
 				List<byte> glues = tag.Get<List<byte>>("glueValues");
