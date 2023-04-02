@@ -32,22 +32,38 @@ Mods: {
 			}
 
 			SlimyAdhesive: {
-				Tooltip: "Places blue adhesive\n'Reccomended for ingestion'"
+				Tooltip:
+					'''
+					Places blue adhesive
+					'Reccomended for ingestion'
+					'''
 				DisplayName: Slimy Adhesive
 			}
 
 			FrigidAdhesive: {
-				Tooltip: "Places light blue adhesive\n'Its like smearing a popsicle on the ground'"
+				Tooltip:
+					'''
+					Places light blue adhesive
+					'Its like smearing a popsicle on the ground'
+					'''
 				DisplayName: Frigid Adhesive
 			}
 
 			ElasticAdhesive: {
-				Tooltip: "Places pink adhesive\n'Reccomended for ingestion'"
+				Tooltip:
+					'''
+					Places pink adhesive
+					'Reccomended for ingestion'
+					'''
 				DisplayName: Elastic Adhesive
 			}
 
 			SweetAdhesive: {
-				Tooltip: "Places yellow adhesive\n'Reccomended for ingestion'"
+				Tooltip:
+					'''
+					Places yellow adhesive
+					'Reccomended for ingestion'
+					'''
 				DisplayName: Sweet Adhesive
 			}
 

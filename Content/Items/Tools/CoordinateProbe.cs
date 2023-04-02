@@ -36,7 +36,7 @@ namespace Techarria.Content.Items.Tools
 				Point tile = Main.MouseWorld.ToTileCoordinates();
 
 				Main.NewText($"Tile Coords: X:{tile.X}, Y:{tile.Y}\nEntity Coords: X:{(int)pos.X}, Y:{(int)pos.Y}\nTile Type: {Main.tile[tile].TileType}\nTile Frame: {Main.tile[tile].TileFrameX}, {Main.tile[tile].TileFrameY}");
-				Main.tile[tile].TileType = 84;
+				Main.tile[tile].TileType = 83;
 				
 			}
 

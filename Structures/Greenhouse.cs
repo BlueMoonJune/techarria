@@ -153,7 +153,6 @@ namespace Techarria.Structures
 			int successes = 0;
 			int checks = 0;
 			foreach (Point p in walls.ceilings) {
-				Dust.NewDust(new Vector2(p.X * 16 + 4, p.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
 				if (!Main.tileSolidTop[Main.tile[p].TileType]) {
 					checks++;
 					if (CheckGlass(p))
@@ -161,7 +160,6 @@ namespace Techarria.Structures
 				}
 			}
 			validRoof = successes / (float)checks >= GREENHOUSE_ROOF_PERCENTAGE_REQUIREMENT;
-			Main.NewText(validRoof);
 
 			return true;
 
