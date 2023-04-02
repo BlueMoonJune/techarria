@@ -52,8 +52,10 @@ namespace Techarria
 			UpdateDrones();
 			CheckStructuresTimer++;
 			if (CheckStructuresTimer > 60) {
-				foreach (Greenhouse greenhouse in Greenhouse.greenhouses) {
-					greenhouse.CheckWalls();
+				for (int i = 0; i < Greenhouse.greenhouses.Count;) {
+					if (Greenhouse.greenhouses[i].CheckStructure()) {
+						i++;
+					}
 				}
 				CheckStructuresTimer = 0;
 			}

@@ -47,7 +47,7 @@ namespace Techarria.Structures
 	{
 		public bool isValid = false;
 		public string invalidation = "";
-		public List<Point> Interior = new();
+		public Point[] Interior;
 		public StructureWalls walls;
 
 		public static List<Greenhouse> greenhouses = new();
@@ -55,6 +55,10 @@ namespace Techarria.Structures
 		public static List<Point> ScannedPoints = new();
 
 		public static List<Point> GreenhousePoints = new();
+
+		public static bool IsWallTile(Tile tile) {
+			return Main.tileSolid[tile.TileType] && tile.HasTile || TileID.Sets.HousingWalls[tile.TileType];
+		}
 
 		public static void CreateGreenhouse(int x, int y) {
 			if (GreenhousePoints.Contains(new(x, y))) {
@@ -69,6 +73,7 @@ namespace Techarria.Structures
 				return;
 			}
 			greenhouse.walls = StructureWalls.GenerateWallsFromInterior(ScannedPoints);
+			greenhouse.Interior = ScannedPoints.ToArray();
 			foreach (List<Point> wall in greenhouse.walls.AllWalls) {
 				foreach (Point point in wall) {
 					Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
@@ -85,7 +90,7 @@ namespace Techarria.Structures
 		public static bool ScanTile(Point p) {
 
 			Tile tile = Main.tile[p];
-			if (!Main.tileSolid[tile.TileType] || !tile.HasTile) {
+			if (!IsWallTile(tile)) {
 				ScannedPoints.Add(p);
 
 				if (ScannedPoints.Count() > 750) {
@@ -118,15 +123,22 @@ namespace Techarria.Structures
 			return true;
 		}
 
-		public bool CheckWalls() {
+		public bool CheckStructure() {
 			foreach (List<Point> wall in walls.AllWalls) {
 				foreach (Point point in wall) {
 					Tile tile = Main.tile[point];
 					Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
-					if (!Main.tileSolid[tile.TileType] || !tile.HasTile) {
+					if (!IsWallTile(tile)) {
+						greenhouses.Remove(this);
+						foreach (Point p in Interior) {
+							GreenhousePoints.Remove(p);
+						}
 						return false;
 					}
 				}
+			}
+			foreach (Point p in Interior) {
+				Main.NewText(Main.tile[p].WallType);
 			}
 			return true;
 		}
