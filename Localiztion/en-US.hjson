@@ -11,23 +11,22 @@ Mods: {
 		NPCs.SpikedDungeonSlime.DisplayName: Spiked Dungeon Slime
 
 		Items: {
-			RoomTester: {
-				Tooltip: ""
-				DisplayName: Room Tester
-			}
-
 			UpdateHammer: {
 				Tooltip: ""
 				DisplayName: Update Hammer
 			}
 
 			MechanicHammer: {
-				Tooltip: ""
+				Tooltip: Left click to trigger blocks\nRight click to spark wires
 				DisplayName: Mechanic's Hammer
 			}
 
 			CoordinateProbe: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Displays the technical coordinates of the clicked tile
+					'Useful for devs, not really for anyone else'
+					'''
 				DisplayName: Coordinate Probe
 			}
 
@@ -78,27 +77,34 @@ Mods: {
 			}
 
 			Volts: {
-				Tooltip: ""
+				Tooltip: Single pulse charge needed for this recipe
 				DisplayName: Volts
 			}
 
 			Temperature: {
-				Tooltip: ""
+				Tooltip: The temperature needed for this recipe
 				DisplayName: Temperature
 			}
 
 			Power: {
-				Tooltip: ""
+				Tooltip: Power needed for this recipe
 				DisplayName: Power
 			}
 
 			Activations: {
-				Tooltip: ""
+				Tooltip: Logic signal activations needed for this recipe
 				DisplayName: Activations
 			}
 
 			TransferDuct: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Can insert or extract from an adjcacent container when activated
+					When there is no adjacent containers and the duct is activated it will toggle its ability to transfer items
+					When there is no destination for transfered items the duct will do nothing
+					2 ducts painted differently do not connect
+					$"[i:{ModContent.ItemType<RecipeItems.Activations>()}] accepts Activations"
+					'''
 				DisplayName: Transfer Duct
 			}
 
@@ -371,6 +377,11 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Breastplate Apparatus
 			}
+
+			GreenhouseAccentGlass: {
+				DisplayName: Greenhouse Accent Glass
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -427,6 +438,7 @@ Mods: {
 			BlastFurnace.MapEntry: Blast Furnace
 			GreenhouseGlass.MapEntry: Greenhouse Glass
 			SpikeSteelWorkBench.MapEntry: Spike Steel Work Bench
+			GreenhouseAccentGlass.MapEntry: Greenhouse Accent Glass
 		}
 	}
 }
