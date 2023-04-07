@@ -80,12 +80,12 @@ namespace Techarria.Structures
 			greenhouse.Interior = ScannedPoints.ToArray();
 			foreach (List<Point> wall in greenhouse.walls.AllWalls) {
 				foreach (Point point in wall) {
-					Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
+					//Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
 				}
 			}
 			foreach (Point point in ScannedPoints) {
 				GreenhousePoints.Add(point);
-				Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<DroneNodeDust>());
+				//Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<DroneNodeDust>());
 			}
 			ScannedPoints.Clear();
 			return greenhouse;
@@ -104,7 +104,7 @@ namespace Techarria.Structures
 				foreach (Direction dir in Direction.directions()) {
 					Point t = p + dir.point;
 					if (!ScannedPoints.Contains(t)) {
-						Dust.NewDust(new Vector2(t.X * 16 + 4, t.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
+						//Dust.NewDust(new Vector2(t.X * 16 + 4, t.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
 						Main.NewText(Main.tileSolid[tile.TileType]);
 						if (!ScanTile(t)) return false;
 						continue;

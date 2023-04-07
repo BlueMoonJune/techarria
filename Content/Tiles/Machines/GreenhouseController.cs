@@ -20,6 +20,7 @@ namespace Techarria.Content.Tiles.Machines
 		int scanProgress = 0;
 		int harvestProgress = 0;
 		public Greenhouse greenhouse;
+		public float animFrame = 0;
 
 		public static int[] seeds = new int[7] { 
 			ItemID.DaybloomSeeds, 
@@ -37,7 +38,17 @@ namespace Techarria.Content.Tiles.Machines
 
 		public override void Update() {
 			updateTimer--;
+
 			if (updateTimer <= 0) {
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < 2; j++)
+					{
+						Tile tile = Main.tile[Position.X + i, Position.Y + j];
+						tile.TileFrameX = (short)(i * 18);
+					}
+				}
+
 				if (greenhouse != null) {
 					if (!greenhouse.CheckStructure()) {
 						greenhouse = null;
@@ -65,6 +76,23 @@ namespace Techarria.Content.Tiles.Machines
 		}
 
 		public void InsertCharge(int amount) {
+			animFrame++;
+			if (animFrame >= 32)
+			{
+				animFrame = 0;
+			}
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < 2; j++)
+				{
+					Tile tile2 = Main.tile[Position.X + i, Position.Y + j];
+					tile2.TileFrameX = (short)(36 + 18 * i);
+					tile2.TileFrameY = (short)(Math.Floor(animFrame / 8) * 36 + j * 18);
+				}
+			}
+
+
+
 			if (greenhouse == null || !greenhouse.validRoof) return;
 			if (scanIndex >= greenhouse.Interior.Length)
 				scanIndex = 0;
