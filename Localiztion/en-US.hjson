@@ -17,7 +17,7 @@ Mods: {
 			}
 
 			MechanicHammer: {
-				Tooltip: 
+				Tooltip:
 					'''
 					<left> to trigger blocks
 					<right> to spark wires
@@ -628,6 +628,10 @@ Mods: {
 			BlastFurnace.MapEntry: Blast Furnace
 			GreenhouseGlass.MapEntry: Greenhouse Glass
 			SpikeSteelWorkBench.MapEntry: Spike Steel Work Bench
+			GreenhouseAccentGlass.MapEntry: Greenhouse Accent Glass
+			AdvancedBlockBreaker.MapEntry: Advanced Block Breaker
+			LuminiteEviscerator.MapEntry: Luminite Eviscerator
+			SolarDrill.MapEntry: Solar Drill
 		}
 	}
 }
