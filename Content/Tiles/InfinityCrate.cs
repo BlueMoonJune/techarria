@@ -19,7 +19,7 @@ namespace Techarria.Content.Tiles
     }
 
 	// Where the TE ends and the Tile starts
-	public class InfinityCrate : CashCompactor
+	public class InfinityCrate : StorageCrate
 	{
 		public override void PlaceInWorld(int i, int j, Item item)
 		{

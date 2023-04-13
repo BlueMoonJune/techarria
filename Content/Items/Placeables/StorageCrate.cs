@@ -5,7 +5,7 @@ using Terraria;
 
 namespace Techarria.Content.Items.Placeables
 {
-    public class CashCompactor : ModItem
+    public class StorageCrate : ModItem
     {
 		public override void SetStaticDefaults()
 		{
@@ -20,7 +20,7 @@ namespace Techarria.Content.Items.Placeables
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.CashCompactor>());
+			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.StorageCrate>());
 			Item.value = 100;
 			Item.maxStack = 99;
 			Item.width = 32;
@@ -35,19 +35,19 @@ namespace Techarria.Content.Items.Placeables
 		}
 		public override void AddRecipes()
 		{
-			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.CashCompactor>());
+			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.StorageCrate>());
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ItemID.IronCrate);
 			recipe.AddRecipeGroup(nameof(ItemID.Chest));
 			recipe.Register();
 
-			Recipe recipeHard = Recipe.Create(ModContent.ItemType<Placeables.CashCompactor>());
+			Recipe recipeHard = Recipe.Create(ModContent.ItemType<Placeables.StorageCrate>());
 			recipeHard.AddTile(TileID.WorkBenches);
 			recipeHard.AddIngredient(ItemID.IronCrateHard);
 			recipeHard.AddRecipeGroup(nameof(ItemID.Chest));
 			recipeHard.Register();
 
-			Recipe recipeAlt = Recipe.Create(ModContent.ItemType<Placeables.CashCompactor>());
+			Recipe recipeAlt = Recipe.Create(ModContent.ItemType<Placeables.StorageCrate>());
 			recipeAlt.AddTile(TileID.WorkBenches);
 			recipeAlt.AddRecipeGroup(nameof(ItemID.IronBar), 10);
 			recipeAlt.AddIngredient(ItemID.SteampunkChest);
