@@ -21,8 +21,8 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Machines.GreenhouseController>());
 			Item.value = 150;
 			Item.maxStack = 99;
-			Item.width = 28;
-			Item.height = 20;
+			Item.width = 24;
+			Item.height = 26;
 			Item.mech = true;
 		}
 		public override void AddRecipes()

@@ -11,23 +11,26 @@ Mods: {
 		NPCs.SpikedDungeonSlime.DisplayName: Spiked Dungeon Slime
 
 		Items: {
-			RoomTester: {
-				Tooltip: ""
-				DisplayName: Room Tester
-			}
-
 			UpdateHammer: {
 				Tooltip: ""
 				DisplayName: Update Hammer
 			}
 
 			MechanicHammer: {
-				Tooltip: ""
+				Tooltip: 
+					'''
+					<left> to trigger blocks
+					<right> to spark wires
+					'''
 				DisplayName: Mechanic's Hammer
 			}
 
 			CoordinateProbe: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Displays the technical coordinates of the clicked tile
+					'Useful for devs, not really for anyone else'
+					'''
 				DisplayName: Coordinate Probe
 			}
 
@@ -53,7 +56,7 @@ Mods: {
 				Tooltip:
 					'''
 					Places pink adhesive
-					'Reccomended for ingestion'
+					'Would taste good, wouldn't feel good'
 					'''
 				DisplayName: Elastic Adhesive
 			}
@@ -62,7 +65,7 @@ Mods: {
 				Tooltip:
 					'''
 					Places yellow adhesive
-					'Reccomended for ingestion'
+					'Nature's glue'
 					'''
 				DisplayName: Sweet Adhesive
 			}
@@ -73,92 +76,156 @@ Mods: {
 			}
 
 			MultiAdhesive: {
-				Tooltip: Right click while holding to edit adhesive settings
+				Tooltip: <right> while holding to edit adhesive settings
 				DisplayName: Hot Glue Gun
 			}
 
 			Volts: {
-				Tooltip: ""
+				Tooltip: Single pulse charge needed for this recipe
 				DisplayName: Volts
 			}
 
 			Temperature: {
-				Tooltip: ""
+				Tooltip: The temperature needed for this recipe
 				DisplayName: Temperature
 			}
 
 			Power: {
-				Tooltip: ""
+				Tooltip: Power needed for this recipe
 				DisplayName: Power
 			}
 
 			Activations: {
-				Tooltip: ""
+				Tooltip: Logic signal activations needed for this recipe
 				DisplayName: Activations
 			}
 
 			TransferDuct: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Can insert or extract from an adjcacent container when activated
+					When there is no adjacent containers and the duct is activated it will toggle its ability to transfer items
+					When there is no destination for transfered items the duct will do nothing
+					2 ducts painted differently do not connect
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Transfer Duct
 			}
 
 			TransferDetector: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Will activate wires when an item is sent through it
+					[i:Techarria/Activations] accepts and causes Activations
+					'Can't recursively activate.. trust me, you don't want that
+					'''
 				DisplayName: Transfer Detector
 			}
 
 			Junction: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Seperates duct paths
+					'Roundabouts are better'
+					'''
 				DisplayName: Junction
 			}
 
 			Hopper: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					When activated sucks in items above into your ducts
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Hopper
 			}
 
 			Filter: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					<right> with an item to specify what can pass through this duct
+					When activated switches to a blacklist filter
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Filter
 			}
 
 			DroneNode: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Used to guide Transfer Drones
+					Creates activations when a drone arrives
+					[i:Techarria/Activations] causes Activations
+					'''
 				DisplayName: Drone Node
 			}
 
 			DirectionalDuct: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Only allows items to transfer in the direction its facing
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Directional Duct
 			}
 
 			ThreeSecondTimer: {
-				Tooltip: ""
-				DisplayName: Three Second Timer
+				Tooltip:
+					'''
+					A timer which doesn't need supporting tiles
+					Doesn't need to be re-activated on world startup
+					[i:Techarria/Activations] causes Activations
+					'''
+				DisplayName: 3 Second Timer
 			}
 
 			QuarterSecondTimer: {
-				Tooltip: ""
-				DisplayName: Quarter Second Timer
+				Tooltip:
+					'''
+					A timer which doesn't need supporting tiles
+					Doesn't need to be re-activated on world startup
+					[i:Techarria/Activations] causes Activations
+					'''
+				DisplayName: 1/4 Second Timer
 			}
 
 			OneSecondTimer: {
-				Tooltip: ""
-				DisplayName: One Second Timer
+				Tooltip:
+					'''
+					A timer which doesn't need supporting tiles
+					Doesn't need to be re-activated on world startup
+					[i:Techarria/Activations] causes Activations
+					'''
+				DisplayName: 1 Second Timer
 			}
 
 			HalfSecondTimer: {
-				Tooltip: ""
-				DisplayName: Half Second Timer
+				Tooltip:
+					'''
+					A timer which doesn't need supporting tiles
+					Doesn't need to be re-activated on world startup
+					[i:Techarria/Activations] causes Activations
+					'''
+				DisplayName: 1/2 Second Timer
 			}
 
 			FiveSecondTimer: {
-				Tooltip: ""
-				DisplayName: Five Second Timer
+				Tooltip:
+					'''
+					A timer which doesn't need supporting tiles
+					Doesn't need to be re-activated on world startup
+					[i:Techarria/Activations] causes Activations
+					'''
+				DisplayName: 5 Second Timer
 			}
 
 			StorageCrate: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Stores up to 9999999 matching items
+					Any inserted items will be cleared of any reforges or similar
+					'Stores items with 99% accuracy'
+					'''
 				DisplayName: Storage Crate
 			}
 
@@ -169,86 +236,165 @@ Mods: {
 
 			CoalOre: {
 				Tooltip: ""
-				DisplayName: Coal Ore
+				DisplayName: Industrial Coal Stone Block
 			}
 
 			StirlingEngine: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Produces small amounts of power when the candle is lit
+					The candle periodically burns out
+					Activations relight the candle
+					[i:Techarria/Power] generates 60 Power per second
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Stirling Engine
 			}
 
 			RotaryAssembler: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Items inserted depending on direction they are inserted from
+					When activated, rotates 45� in a direction correspondant to the direction the wires flow
+					[i:Techarria/Activations] accepts Activations
+					'I reccomend you play with it to figure out the directional movement direction'
+					'''
 				DisplayName: Rotary Assembler
 			}
 
 			PowerBlock: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Activations produce power
+					[i:Techarria/Power] generates 50000 Power
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Power Block
 			}
 
 			PlayerInterface: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Accesses the player standing in front of it
+					Can act as either input or output for ducts
+					Will charge player items when powered
+					[i:Techarria/Power] diverts Power
+					'''
 				DisplayName: Player Interface
 			}
 
 			TemperatureProbe: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Activates wires when the tile in front of it is at target temperature
+					Target temperature is set when activated
+					[i:Techarria/Temperature] displays Temperature
+					[i:Techarria/Activations] accepts and causes Activations
+					'''
 				DisplayName: Temperature Probe
 			}
 
 			StickyPiston: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					[i:Techarria/Activations] accepts Activations
+					'From a mod to a game to a mod'
+					'''
 				DisplayName: Sticky Piston
 			}
 
 			Piston: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					[i:Techarria/Activations] accepts Activations
+					'From a mod to a game to a mod'
+					'''
 				DisplayName: Piston
 			}
 
 			ItemPlacer: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					<right> to insert an item
+					Activate to place items
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Item Placer
 			}
 
 			Button: {
-				Tooltip: ""
+				Tooltip: "[i:Techarria/Activations] causes Activations"
 				DisplayName: Button
 			}
 
 			BlockBreaker: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Breaks the tile in front of it when activated
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Block Breaker
 			}
 
 			GreenhouseController: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Initializes a greenhouse when in an ecnlosed room with a [i:Techarria/GreenhouseGlass]Greenhouse Glass ceiling
+					If a greenhouse can not be created, a message will explain why
+					When powered, the controller will automatically harvest and replant herbs within its greenhouse
+					[i:Techarria/Power] accepts Power
+					'''
 				DisplayName: Greenhouse Controller
 			}
 
 			GelatinousTurbine: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Burns gel to produce power
+					[i:Techarria/Power] generates 60 Power per second
+					'''
 				DisplayName: Gelatinous Turbine
 			}
 
 			Electromagnet: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Pulls items in when powered
+					[i:Techarria/Power] accepts Power
+					'''
 				DisplayName: Electromagnet
 			}
 
 			CryoChamber: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					insert an enemy banner and provide power to generate enemy loot
+					[i:Techarria/Power] accepts Power
+					'''
 				DisplayName: Cryo Chamber
 			}
 
 			CastingTable: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Requires a mold for special crafting
+					Accepts transfer duct input from any side, a solid lid may be handy to avoid spillage
+					Once the molten metal is cooled to the required temperature, the resulting item may be extracted from the top
+					Can not be extracted from with solid tiles covering the top
+					[i:Techarria/Temperature] prefers lower Temperature
+					'''
 				DisplayName: Casting Table
 			}
 
 			CapacitorRack: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					<right> to place Capacitors on the top of the rack
+					Diverts power from the bottom right and left of the rack to placed Capacitors
+					When the bottom center of the rack is activated, all Capacitors will release all their power to connected wires
+					[i:Techarria/Power] stores Power
+					[i:Techarria/Activations] accepts Activations
+					'''
 				DisplayName: Capacitor Rack
 			}
 
@@ -372,6 +518,11 @@ Mods: {
 				DisplayName: Breastplate Apparatus
 			}
 
+			GreenhouseAccentGlass: {
+				DisplayName: Greenhouse Accent Glass
+				Tooltip: ""
+			}
+
 			LuminiteEviscerator: {
 				DisplayName: Luminite Eviscerator
 				Tooltip: ""
@@ -477,10 +628,6 @@ Mods: {
 			BlastFurnace.MapEntry: Blast Furnace
 			GreenhouseGlass.MapEntry: Greenhouse Glass
 			SpikeSteelWorkBench.MapEntry: Spike Steel Work Bench
-			LuminiteEviscerator.MapEntry: Luminite Eviscerator
-			SolarDrill.MapEntry: Solar Drill
-			ChargingRack.MapEntry: Charging Rack
-			AdvancedBlockBreaker.MapEntry: Advanced Block Breaker
 		}
 	}
 }
