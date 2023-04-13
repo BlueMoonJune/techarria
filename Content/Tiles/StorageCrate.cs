@@ -131,7 +131,7 @@ namespace Techarria.Content.Tiles
 				}
 				return true;
 			}
-			if (!item.IsAir && playerItem.type == item.type && item.stack < 999999 /* <- max storage within a single storage crate */) 
+			if (!item.IsAir && playerItem.type == item.type && item.stack < 9999999 /* <- max storage within a single storage crate */) 
 			{
 				item.stack += playerItem.stack;
 				playerItem.stack -= playerItem.stack;
