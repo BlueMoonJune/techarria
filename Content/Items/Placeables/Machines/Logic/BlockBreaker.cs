@@ -37,7 +37,7 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         }
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<Logic.BlockBreaker>());
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BlockBreaker>());
             recipe.AddTile(TileID.WorkBenches);
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
             recipe.AddIngredient(ItemID.Wire, 5);

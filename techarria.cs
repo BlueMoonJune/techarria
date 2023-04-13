@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using ReLogic.Content;
 
 namespace Techarria
 {
@@ -80,13 +81,7 @@ namespace Techarria
             Terraria.On_WorldGen.paintTile += WorldGen_paintTile;
             Terraria.On_Dust.NewDust += DustDetour;
             Terraria.On_Main.DrawWires += DrawPowerTransfer;
-
-            if (Main.netMode != NetmodeID.Server) {
-				Ref<Effect> screenRef = new Ref<Effect>(ModContent.Request<Effect>("Techarria/Assets/Effects/Field").Value);
-				Filters.Scene["Field"] = new Filter(new ScreenShaderData(screenRef, "Field"), EffectPriority.VeryHigh);
-				Filters.Scene["Field"].Load();
-			}
-        }
+		}
 
         private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
         {

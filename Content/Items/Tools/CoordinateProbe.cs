@@ -35,8 +35,12 @@ namespace Techarria.Content.Items.Tools
 				Vector2 pos = Main.MouseWorld;
 				Point tile = Main.MouseWorld.ToTileCoordinates();
 
-				Main.NewText($"Tile Coords: X:{tile.X}, Y:{tile.Y}\nEntity Coords: X:{(int)pos.X}, Y:{(int)pos.Y}\nTile Type: {Main.tile[tile].TileType}\nTile Frame: {Main.tile[tile].TileFrameX}, {Main.tile[tile].TileFrameY}");
-				Main.tile[tile].TileType = 83;
+				Main.NewText($"Tile Coords: X:{tile.X}, Y:{tile.Y}\n" +
+					$"Entity Coords: X:{(int)pos.X}, Y:{(int)pos.Y}\n" +
+					$"Tile Type: {Main.tile[tile].TileType}\n" +
+					$"Tile Frame: {Main.tile[tile].TileFrameX}, {Main.tile[tile].TileFrameY}\n" +
+					$"Liquid Type: {Main.tile[tile].LiquidType}\n" +
+					$"Liquid Amount: {Main.tile[tile].LiquidAmount}");
 				
 			}
 

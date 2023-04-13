@@ -131,7 +131,7 @@ namespace Techarria.Content.Tiles.Machines
 						// sets NPC madeUpNPC to the npcID from the banner
 						tileEntity.madeUpNPC = ContentSamples.NpcsByNetId[tileEntity.bannerEnemyId];
 						// determines how much power is needed for 1 item roll
-						tileEntity.powerNeeded = (tileEntity.madeUpNPC.lifeMax * tileEntity.madeUpNPC.damage);
+						tileEntity.powerNeeded = (int)(tileEntity.madeUpNPC.lifeMax * tileEntity.madeUpNPC.damage * tileEntity.madeUpNPC.defense * 0.3f);
 
 
 						if (playerItem.stack <= 0)
@@ -211,7 +211,7 @@ namespace Techarria.Content.Tiles.Machines
 			if (tileEntity.bannerEnemyId != 0)
             {
 				tileEntity.progress += amount;
-				if (tileEntity.progress >= tileEntity.powerNeeded)
+				while (tileEntity.progress >= tileEntity.powerNeeded)
 				{
 					tileEntity.madeUpNPC.position = new Vector2(i * 16 + 8, (j - 2) * 16 + 8);
 
@@ -224,7 +224,7 @@ namespace Techarria.Content.Tiles.Machines
 						rng = Main.rand,
 					};
 					Main.ItemDropSolver.TryDropping(info);
-					tileEntity.progress -= tileEntity.powerNeeded;
+						tileEntity.progress -= tileEntity.powerNeeded;
 				}
 			}
 			

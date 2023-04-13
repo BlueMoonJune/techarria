@@ -62,25 +62,21 @@ namespace Techarria.Content.Tiles.Machines
 
 		public override void SetStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;
-			Main.tileTable[Type] = true;
-			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
-			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
 
-			AdjTiles = new int[] { TileID.WorkBenches };
+			DustType = ModContent.DustType<Wormhole>();
 
-			// placement
+			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-			TileObjectData.newTile.CoordinateHeights = new[] { 18, 18 };
+			TileObjectData.newTile.StyleHorizontal = true;
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
+			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 
-			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-
 			// map info
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(200, 200, 200), Language.GetText("Casting Table"));
+			AddMapEntry(new Color(200, 200, 200), Language.GetText("Capacitor Rack"));
 		}
 
 		public CapacitorRackTE GetTileEntity(int i, int j) {

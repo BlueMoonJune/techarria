@@ -15,6 +15,7 @@ namespace Techarria.Content.Dusts
 			dust.noGravity = true;
 			dust.noLight = true;
 			dust.scale = 1f;
+			dust.frame = new(0, 0, 8, 8);
 		}
 
 		public override bool Update(Dust dust)

@@ -12,6 +12,10 @@ using Techarria.Common.Global;
 using Techarria.Content.Items.Tools.Adhesive;
 using Techarria.Content.Dusts;
 using Techarria.Content.Entities;
+using Techarria.Content.Tiles.Machines.Logic;
+using Terraria.UI.Chat;
+using ReLogic.Graphics;
+using Terraria.GameContent.Creative;
 
 namespace Techarria
 {
@@ -20,6 +24,10 @@ namespace Techarria
 		static GraphicsDevice graphicsDevice;
 
 		static BasicEffect basicEffect;
+
+		static Effect effect;
+
+		Texture2D texture;
 
 		public Rectangle getGlueFraming(int i, int j, int c) {
 			Rectangle value = new Rectangle(0, 0, 16, 16);
@@ -63,11 +71,29 @@ namespace Techarria
 			}
 
 			Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
+			DynamicSpriteFont font = FontAssets.MouseText.Value;
+			Item item = JourneyStorage.item;
+			int ResearchRequirement = 0;
+			if (item == null || item.IsAir) {
+				Main.spriteBatch.End();
+				return;
+			}
+			string text;
+			if (!CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId.TryGetValue(item.type, out ResearchRequirement)) {
+				text = "X";
+			} else if (item.stack > ResearchRequirement) {
+				text = "∞";
+			} else {text = $"{item.stack}/{ResearchRequirement}";
+			}
+			Vector2 size = font.MeasureString(text);
+			Vector2 textScale = Vector2.One / scale / Math.Max(size.X / 16, size.Y / 16);
+			ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, font, text, -size/2 * textScale + new Vector2(0, 14)/scale, Color.White, 0, Vector2.Zero, textScale);
 
 			Main.spriteBatch.End();
 		}
 
 		public void DrawStorageCrate(StorageCrateTE storage, Point16 p) {
+
 			Texture2D texture = TextureAssets.Item[storage.item.type].Value;
 
 			float scale = 16f / Math.Max(texture.Width, texture.Height);
@@ -327,6 +353,39 @@ namespace Techarria
 				drone.Draw();
 			}
 		}
+		public void DrawChargingRack(ChargingRackTE storage, Point16 p) {
+
+			Texture2D texture = TextureAssets.Item[storage.item.type].Value;
+
+			float scale = 16f / Math.Max(texture.Width, texture.Height);
+
+
+			Matrix offset = Matrix.Identity;
+			offset.Translation = new Vector3(p.X * 16 + 24 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
+			Matrix transform = Main.Transform;
+			transform = offset * transform;
+
+			transform = Matrix.CreateScale(scale) * transform;
+
+			Main.spriteBatch.Begin(
+				SpriteSortMode.Deferred,
+				BlendState.AlphaBlend,
+				Main.DefaultSamplerState,
+				DepthStencilState.None,
+				Main.Rasterizer,
+				null,
+				transform
+			);
+
+			Color color = storage.item.color;
+			if (storage.item.color == new Color()) {
+				color = Color.White;
+			}
+
+			Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height), color);
+
+			Main.spriteBatch.End();
+		}
 
 		public override void PostDrawTiles() {
 			foreach (var (point, te) in TileEntity.ByPosition) {
@@ -339,6 +398,9 @@ namespace Techarria
 				else if (te is RotaryAssemblerTE assembler) {
 					DrawRotaryAssembler(assembler, point);
 				}
+				else if (te is ChargingRackTE chargingRack) {
+					DrawChargingRack(chargingRack, point);
+				}
 			}
 
 			DrawGlue();
@@ -346,6 +408,52 @@ namespace Techarria
 			DrawCables();
 
 			DrawDrones();
+
+
+			if (texture == null) {
+				texture = new(Main.graphics.GraphicsDevice, 320, 16);
+			}
+
+			foreach (var (modtile, effect) in BeamDrill.effects) {
+				Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange) - Main.screenPosition;
+				Main.spriteBatch.Begin(
+					SpriteSortMode.Immediate,
+					BlendState.AlphaBlend,
+					Main.DefaultSamplerState,
+					DepthStencilState.None,
+					Main.Rasterizer,
+					effect,
+					Matrix.CreateTranslation(TileOffset.X, TileOffset.Y, 0) * Main.Transform
+				);
+
+				effect.Parameters["myParam"].SetValue(Main.GlobalTimeWrappedHourly);
+				effect.Parameters["uImageSize0"].SetValue(new Vector2(320, 16));
+				effect.Parameters["waveSize"].SetValue(-100);
+				effect.Parameters["waveFrequency"].SetValue(20);
+				effect.Parameters["pixelate"].SetValue(true);
+				effect.Parameters["pixelScale"].SetValue(2);
+
+				foreach (var (p, te) in TileEntity.ByPosition) {
+					if (te is BeamDrillTE drill && drill.modtile == modtile) {
+
+						if (drill.range > 0.5f) {
+							effect.Parameters["thickness"].SetValue(8);
+							effect.Parameters["beamLength"].SetValue(drill.range * 16 - 8);
+							effect.Parameters["indent"].SetValue(1.5f);
+							effect.Parameters["waveAmplitude"].SetValue(0.75f);
+						}
+						else {
+							effect.Parameters["thickness"].SetValue(drill.range * 16);
+							effect.Parameters["beamLength"].SetValue(0);
+							effect.Parameters["indent"].SetValue(0);
+							effect.Parameters["waveAmplitude"].SetValue(0);
+						}
+						Main.spriteBatch.Draw(texture, new Vector2(drill.Position.X * 16 - 200 + 16, drill.Position.Y * 16 - 200 + 16), null, Color.White, drill.dir * MathHelper.PiOver2, new Vector2(0, 8), 1f, SpriteEffects.None, 0);
+					}
+				}
+
+				Main.spriteBatch.End();
+			}
 		}
     }
 }

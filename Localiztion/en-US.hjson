@@ -371,6 +371,56 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Breastplate Apparatus
 			}
+
+			LuminiteEviscerator: {
+				DisplayName: Luminite Eviscerator
+				Tooltip: ""
+			}
+
+			ExampleDye: {
+				DisplayName: Example Dye
+				Tooltip: ""
+			}
+
+			SolarDrill: {
+				DisplayName: Solar Drill
+				Tooltip: ""
+			}
+
+			ChargingRack: {
+				DisplayName: Charging Rack
+				Tooltip: ""
+			}
+
+			FluidicSeperator: {
+				DisplayName: Fluidic Seperator
+				Tooltip: ""
+			}
+
+			StructuralDecomposer: {
+				DisplayName: Structural Decomposer
+				Tooltip: ""
+			}
+
+			FusionCombiner: {
+				DisplayName: Combiner Thing Lol
+				Tooltip: ""
+			}
+
+			AdvancedBlockBreaker: {
+				DisplayName: Advanced Block Breaker
+				Tooltip: ""
+			}
+
+			BlobOfLava: {
+				DisplayName: Blob Of Lava
+				Tooltip: ""
+			}
+
+			CashCompactor: {
+				DisplayName: Cash Compactor
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -427,6 +477,10 @@ Mods: {
 			BlastFurnace.MapEntry: Blast Furnace
 			GreenhouseGlass.MapEntry: Greenhouse Glass
 			SpikeSteelWorkBench.MapEntry: Spike Steel Work Bench
+			LuminiteEviscerator.MapEntry: Luminite Eviscerator
+			SolarDrill.MapEntry: Solar Drill
+			ChargingRack.MapEntry: Charging Rack
+			AdvancedBlockBreaker.MapEntry: Advanced Block Breaker
 		}
 	}
 }

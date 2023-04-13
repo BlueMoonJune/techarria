@@ -121,6 +121,244 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			}
 		}
 
+		public void UseExtractinator(int i, int j, int extractType) {
+
+			int num = 5000;
+			int num2 = 25;
+			int num3 = 50;
+			int num4 = -1;
+			if (extractType == 3347) {
+				num /= 3;
+				num2 *= 2;
+				num3 = 20;
+				num4 = 10;
+			}
+			int num5 = -1;
+			int num6 = 1;
+			if (num4 != -1 && Main.rand.Next(num4) == 0) {
+				num5 = 3380;
+				if (Main.rand.Next(5) == 0) {
+					num6 += Main.rand.Next(2);
+				}
+				if (Main.rand.Next(10) == 0) {
+					num6 += Main.rand.Next(3);
+				}
+				if (Main.rand.Next(15) == 0) {
+					num6 += Main.rand.Next(4);
+				}
+			}
+			else if (Main.rand.Next(2) == 0) {
+				if (Main.rand.Next(12000) == 0) {
+					num5 = 74;
+					if (Main.rand.Next(14) == 0) {
+						num6 += Main.rand.Next(0, 2);
+					}
+					if (Main.rand.Next(14) == 0) {
+						num6 += Main.rand.Next(0, 2);
+					}
+					if (Main.rand.Next(14) == 0) {
+						num6 += Main.rand.Next(0, 2);
+					}
+				}
+				else if (Main.rand.Next(800) == 0) {
+					num5 = 73;
+					if (Main.rand.Next(6) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(6) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(6) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(6) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(6) == 0) {
+						num6 += Main.rand.Next(1, 20);
+					}
+				}
+				else if (Main.rand.Next(60) == 0) {
+					num5 = 72;
+					if (Main.rand.Next(4) == 0) {
+						num6 += Main.rand.Next(5, 26);
+					}
+					if (Main.rand.Next(4) == 0) {
+						num6 += Main.rand.Next(5, 26);
+					}
+					if (Main.rand.Next(4) == 0) {
+						num6 += Main.rand.Next(5, 26);
+					}
+					if (Main.rand.Next(4) == 0) {
+						num6 += Main.rand.Next(5, 25);
+					}
+				}
+				else {
+					num5 = 71;
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(10, 26);
+					}
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(10, 26);
+					}
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(10, 26);
+					}
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(10, 25);
+					}
+				}
+			}
+			else if (num != -1 && Main.rand.Next(num) == 0) {
+				num5 = 1242;
+			}
+			else if (num2 != -1 && Main.rand.Next(num2) == 0) {
+				num5 = Main.rand.Next(6) switch {
+					0 => 181,
+					1 => 180,
+					2 => 177,
+					3 => 179,
+					4 => 178,
+					_ => 182,
+				};
+				if (Main.rand.Next(20) == 0) {
+					num6 += Main.rand.Next(0, 2);
+				}
+				if (Main.rand.Next(30) == 0) {
+					num6 += Main.rand.Next(0, 3);
+				}
+				if (Main.rand.Next(40) == 0) {
+					num6 += Main.rand.Next(0, 4);
+				}
+				if (Main.rand.Next(50) == 0) {
+					num6 += Main.rand.Next(0, 5);
+				}
+				if (Main.rand.Next(60) == 0) {
+					num6 += Main.rand.Next(0, 6);
+				}
+			}
+			else if (num3 != -1 && Main.rand.Next(num3) == 0) {
+				num5 = 999;
+				if (Main.rand.Next(20) == 0) {
+					num6 += Main.rand.Next(0, 2);
+				}
+				if (Main.rand.Next(30) == 0) {
+					num6 += Main.rand.Next(0, 3);
+				}
+				if (Main.rand.Next(40) == 0) {
+					num6 += Main.rand.Next(0, 4);
+				}
+				if (Main.rand.Next(50) == 0) {
+					num6 += Main.rand.Next(0, 5);
+				}
+				if (Main.rand.Next(60) == 0) {
+					num6 += Main.rand.Next(0, 6);
+				}
+			}
+			else if (Main.rand.Next(3) == 0) {
+				if (Main.rand.Next(5000) == 0) {
+					num5 = 74;
+					if (Main.rand.Next(10) == 0) {
+						num6 += Main.rand.Next(0, 3);
+					}
+					if (Main.rand.Next(10) == 0) {
+						num6 += Main.rand.Next(0, 3);
+					}
+					if (Main.rand.Next(10) == 0) {
+						num6 += Main.rand.Next(0, 3);
+					}
+					if (Main.rand.Next(10) == 0) {
+						num6 += Main.rand.Next(0, 3);
+					}
+					if (Main.rand.Next(10) == 0) {
+						num6 += Main.rand.Next(0, 3);
+					}
+				}
+				else if (Main.rand.Next(400) == 0) {
+					num5 = 73;
+					if (Main.rand.Next(5) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(5) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(5) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(5) == 0) {
+						num6 += Main.rand.Next(1, 21);
+					}
+					if (Main.rand.Next(5) == 0) {
+						num6 += Main.rand.Next(1, 20);
+					}
+				}
+				else if (Main.rand.Next(30) == 0) {
+					num5 = 72;
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(5, 26);
+					}
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(5, 26);
+					}
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(5, 26);
+					}
+					if (Main.rand.Next(3) == 0) {
+						num6 += Main.rand.Next(5, 25);
+					}
+				}
+				else {
+					num5 = 71;
+					if (Main.rand.Next(2) == 0) {
+						num6 += Main.rand.Next(10, 26);
+					}
+					if (Main.rand.Next(2) == 0) {
+						num6 += Main.rand.Next(10, 26);
+					}
+					if (Main.rand.Next(2) == 0) {
+						num6 += Main.rand.Next(10, 26);
+					}
+					if (Main.rand.Next(2) == 0) {
+						num6 += Main.rand.Next(10, 25);
+					}
+				}
+			}
+			else {
+				num5 = Main.rand.Next(8) switch {
+					0 => 12,
+					1 => 11,
+					2 => 14,
+					3 => 13,
+					4 => 699,
+					5 => 700,
+					6 => 701,
+					_ => 702,
+				};
+				if (Main.rand.Next(20) == 0) {
+					num6 += Main.rand.Next(0, 2);
+				}
+				if (Main.rand.Next(30) == 0) {
+					num6 += Main.rand.Next(0, 3);
+				}
+				if (Main.rand.Next(40) == 0) {
+					num6 += Main.rand.Next(0, 4);
+				}
+				if (Main.rand.Next(50) == 0) {
+					num6 += Main.rand.Next(0, 5);
+				}
+				if (Main.rand.Next(60) == 0) {
+					num6 += Main.rand.Next(0, 6);
+				}
+			}
+			ItemLoader.ExtractinatorUse(ref num5, ref num6, extractType, TileID.Extractinator);
+			if (num5 > 0) {
+				int number = Item.NewItem(new EntitySource_TileUpdate(i, j), i*16, j*16, 16, 16, num5, num6, noBroadcast: false, -1);
+				if (Main.netMode == 1) {
+					NetMessage.SendData(21, -1, -1, null, number, 1f);
+				}
+			}
+		}
+
 		public override void HitWire(int i, int j) {
 			ItemPlacerTE tileEntity = GetTileEntity(i, j);
 			Item item = tileEntity.item;
@@ -131,6 +369,19 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 			int xOff = dir.point.X;
 			int yOff = dir.point.Y;
+
+			if (Main.tile[i + xOff, j + yOff].TileType == TileID.Extractinator && ItemID.Sets.ExtractinatorMode[item.type] >= 0) {
+				UseExtractinator(i + xOff, j + yOff, ItemID.Sets.ExtractinatorMode[item.type]);
+
+				item.stack--;
+				if (item.stack <= 0) {
+					item.TurnToAir();
+					item.createTile = -1;
+				}
+
+				return;
+			}
+
 			if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
 				item.stack--;
 				if (item.stack <= 0) {
@@ -138,7 +389,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 					item.createTile = -1;
 				}
 			}
-			else if (item.createTile <= -1) {
+			else if (item.createTile <= -1 && !item.IsAir) {
 				Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 1);
 
 				item.stack--;

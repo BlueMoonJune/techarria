@@ -12,7 +12,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 	/// </summary>
 	public class BlockBreaker : ModTile
 	{
-		public static int power = 100;
+		public int power = 40;
 		public override void SetStaticDefaults() {
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;

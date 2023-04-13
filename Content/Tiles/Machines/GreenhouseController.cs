@@ -15,6 +15,8 @@ namespace Techarria.Content.Tiles.Machines
 		public static int SCAN_TILE_COST = 12;
 		public static int HARVEST_PLANT_COST = 30;
 
+		public string error = "";
+
 		int updateTimer = 0;
 		int scanIndex = 0;
 		int scanProgress = 0;
@@ -44,7 +46,19 @@ namespace Techarria.Content.Tiles.Machines
 					}
 				}
 				if (greenhouse == null) {
-					greenhouse = Greenhouse.CreateGreenhouse(Position.X, Position.Y);
+					Greenhouse greenhouse = Greenhouse.CreateGreenhouse(Position.X, Position.Y);
+					if (greenhouse.isValid) {
+						this.greenhouse = greenhouse;
+						error = "";
+					} else {
+						this.greenhouse = null;
+						error = greenhouse.invalidation;
+							Main.NewText(error);
+						if (error == "A greenhouse exists here!") {
+							Greenhouse.GreenhousePoints.Clear();
+							Main.NewText(Greenhouse.GreenhousePoints.Count);
+						}
+					}
 				}
 				updateTimer = 60;
 			}
@@ -61,11 +75,15 @@ namespace Techarria.Content.Tiles.Machines
 						}
 					}
 				}
+				error = greenhouse.validRoof ? "" : "Not enough sky access!";
 			}
 		}
 
 		public void InsertCharge(int amount) {
-			if (greenhouse == null || !greenhouse.validRoof) return;
+			if (greenhouse == null || !greenhouse.isValid || !greenhouse.validRoof) {
+				Main.NewText("no");
+				return; 
+			}
 			if (scanIndex >= greenhouse.Interior.Length)
 				scanIndex = 0;
 			Point p = greenhouse.Interior[scanIndex];
@@ -135,7 +153,8 @@ namespace Techarria.Content.Tiles.Machines
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			GetTileEntity(i, j).greenhouse.Remove();
+			GreenhouseControllerTE te = GetTileEntity(i, j);
+			if (te.greenhouse != null) te.greenhouse.Remove();
 			ModContent.GetInstance<GreenhouseControllerTE>().Kill(i, j);
 		}
 
@@ -143,6 +162,15 @@ namespace Techarria.Content.Tiles.Machines
 			GreenhouseControllerTE te = GetTileEntity(i, j);
 			te.InsertCharge(amount);
 
+		}
+
+		public override void MouseOver(int i, int j) {
+			GreenhouseControllerTE te = GetTileEntity(i, j);
+			Player player = Main.LocalPlayer;
+			if (te.error != "") {
+				player.cursorItemIconEnabled = true;
+				player.cursorItemIconText = te.error;
+			}
 		}
 	}
 }

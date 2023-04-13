@@ -47,7 +47,7 @@ namespace Techarria.Structures
 	{
 		public static float GREENHOUSE_ROOF_PERCENTAGE_REQUIREMENT = 0.5f;
 
-		public bool isValid = false;
+		public bool isValid = true;
 		public string invalidation = "";
 		public Point[] Interior;
 		public StructureWalls walls;
@@ -65,40 +65,49 @@ namespace Techarria.Structures
 		}
 
 		public static Greenhouse CreateGreenhouse(int x, int y) {
-			if (GreenhousePoints.Contains(new(x, y))) {
-				Main.NewText("A Greenhouse exists here!");
-				ScannedPoints.Clear();
-				return null;
-			}
 			Greenhouse greenhouse = new();
-			if (!ScanTile(new Point(x, y))) {
-				Main.NewText("Greenhouse is too big!");
-				ScannedPoints.Clear();
-				return null;
+			if (GreenhousePoints.Contains(new(x, y))) {
+				greenhouse.isValid = false;
+				greenhouse.invalidation = "A greenhouse exists here!";
+				return greenhouse;
+			}
+			int res = ScanTile(new Point(x, y));
+			foreach (Point point in ScannedPoints) {
+				GreenhousePoints.Add(point);
 			}
 			greenhouse.walls = StructureWalls.GenerateWallsFromInterior(ScannedPoints);
 			greenhouse.Interior = ScannedPoints.ToArray();
+			ScannedPoints.Clear();
+			if (res == 1) {
+				greenhouse.isValid = false;
+				greenhouse.invalidation = "Greenhouse is missing walls!";
+				return greenhouse;
+			}
+			if (res == 2) {
+				greenhouse.isValid = false;
+				greenhouse.invalidation = "Greenhouse is too big!";
+				return greenhouse;
+			}
 			foreach (List<Point> wall in greenhouse.walls.AllWalls) {
 				foreach (Point point in wall) {
 					Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
 				}
 			}
-			foreach (Point point in ScannedPoints) {
-				GreenhousePoints.Add(point);
-				Dust.NewDust(new Vector2(point.X * 16 + 4, point.Y * 16 + 4), 0, 0, ModContent.DustType<DroneNodeDust>());
-			}
-			ScannedPoints.Clear();
 			return greenhouse;
 		}
 
-		public static bool ScanTile(Point p) {
+		public static int ScanTile(Point p) {
 
 			Tile tile = Main.tile[p];
 			if (!IsWallTile(tile)) {
 				ScannedPoints.Add(p);
 
+				if (tile.WallType == 0) {
+					return 1;
+				}
+
 				if (ScannedPoints.Count() > 750) {
-					return false;
+					return 2;
 				}
 
 				foreach (Direction dir in Direction.directions()) {
@@ -106,12 +115,12 @@ namespace Techarria.Structures
 					if (!ScannedPoints.Contains(t)) {
 						Dust.NewDust(new Vector2(t.X * 16 + 4, t.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
 						Main.NewText(Main.tileSolid[tile.TileType]);
-						if (!ScanTile(t)) return false;
-						continue;
+						int res = ScanTile(t);
+						if (res != 0) return res;
 					}
 				}
 			}
-			return true;
+			return 0;
 		}
 
 		public static bool CheckGlass(Point p) {
@@ -159,8 +168,7 @@ namespace Techarria.Structures
 						successes++;
 				}
 			}
-			validRoof = successes / (float)checks >= GREENHOUSE_ROOF_PERCENTAGE_REQUIREMENT;
-
+			validRoof = successes / (float)checks > GREENHOUSE_ROOF_PERCENTAGE_REQUIREMENT;
 			return true;
 
 		}

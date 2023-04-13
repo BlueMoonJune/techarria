@@ -110,10 +110,8 @@ namespace Techarria.Content.Tiles.Machines
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
-			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
 
 			DustType = ModContent.DustType<Wormhole>();
-			AdjTiles = new int[] { TileID.Tables };
 
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
@@ -122,9 +120,7 @@ namespace Techarria.Content.Tiles.Machines
 			TileObjectData.addTile(Type);
 
 			// Etc
-			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Gelatinous Turbine");
-			AddMapEntry(new Color(200, 200, 200), name);
+			AddMapEntry(new Color(200, 200, 200), Language.GetText("Gelatinous Turbine"));
 		}
 
 		public GelatinousTurbineTE GetTileEntity(int i, int j) 

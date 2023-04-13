@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Techarria.Transfer;
 using System;
+using System.Collections.Generic;
 
 namespace Techarria.Content.Tiles.Transfer
 {
@@ -281,14 +282,17 @@ namespace Techarria.Content.Tiles.Transfer
 		public override void HitWire(int i, int j) {
 			ContainerInterface container = FindAdjacentContainer(i, j);
 			if (container != null && !container.IsEmpty()) {
-				var suction = Dust.NewDustDirect(new Vector2(i + dirToX(container.dir), j + dirToY(container.dir)) * 16 + new Vector2(4), 0, 0, ModContent.DustType<Suction>());
-				suction.velocity = new Vector2(-dirToX(container.dir), -dirToY(container.dir));
+				for (int x = 0; x < 2; x++) {
+					var suction = Dust.NewDustDirect(new Vector2(i + dirToX(container.dir), j + dirToY(container.dir)) * 16 + new Vector2(-4), 24, 24, ModContent.DustType<Suction>());
+					suction.customData = new List<Vector2>() { new(i * 16 + 8, j * 16 + 8), new(i * 16 + 8 + dirToX(container.dir)*32, j * 16 + 8 + dirToY(container.dir)*32), };
+					suction.velocity = new Vector2(-dirToX(container.dir), -dirToY(container.dir)) * 0.5f;
+				}
 				foreach (Item item in container.GetItems()) {
 					if (item == null)
 						continue;
 					ContainerInterface target = EvaluatePath(i, j, item, (container.dir + 2) % 4, 0);
 					if (target != null && target.InsertItem(item)) {
-						SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer"), new Vector2(i, j) * 16);
+						SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer", SoundType.Sound), new Vector2(i, j) * 16);
 						container.ExtractItem(item);
 						return;
 					}

@@ -317,17 +317,25 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			PushTiles(scanResult, dir);
 		}
 
-		public override void HitWire(int i, int j) {
+		public static void StaticPush(int i, int j, Direction dir) {
+			ModContent.GetInstance<Piston>().Push(i, j, dir);
+		}
+
+		public void Push(int i, int j, Direction dir) {
 			scanned.Clear();
 			scanned.Add(new Point(i, j));
+			Extend(new Point(i, j), dir);
+		}
+
+		public override void HitWire(int i, int j) {
 			Tile tile = Framing.GetTileSafely(i, j);
+
+			Direction dir = tile.TileFrameX / 16;
 			if (tile.TileFrameY != 0) {
 				return;
 			}
 
-			Direction dir = tile.TileFrameX / 16;
-
-			Extend(new Point(i, j), dir);
+			Push(i, j, dir);
 		}
 	}
 }

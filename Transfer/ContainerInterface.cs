@@ -41,8 +41,19 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new RotaryAssemblerInterface(point.X, point.Y);
 
+			point = ChargingRackInterface.FindTopLeft(x, y);
+			if (point != Point.Zero)
+				return new ChargingRackInterface(point.X, point.Y);
+
+			point = CashCompactorInterface.FindTopLeft(x, y);
+			if (point != Point.Zero)
+				return new CashCompactorInterface(point.X, point.Y);
+
 			if (ItemPlacerInterface.Check(x, y))
 				return new ItemPlacerInterface(x, y);
+
+			if (AdvancedBlockBreakerInterface.Check(x, y))
+				return new AdvancedBlockBreakerInterface(x, y);
 
 			return null;
 		}

@@ -36,7 +36,7 @@ namespace Techarria
 
 		public override void LoadWorldData(TagCompound tag) {
 			Greenhouse.GreenhousePoints.Clear();
-			Greenhouse.greenhouses.Clear();
+			System.Console.WriteLine("Clearing Greenhouse points");
 			if (tag.ContainsKey("gluePoints") && tag.ContainsKey("glueValues")) {
 				List<Vector2> points = tag.Get<List<Vector2>>("gluePoints");
 				List<byte> glues = tag.Get<List<byte>>("glueValues");
