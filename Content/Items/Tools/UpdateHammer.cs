@@ -45,7 +45,7 @@ namespace Techarria.Content.Items.Tools
 					tile.TileFrame(pos.X, pos.Y, ref idc, ref idc);
 					return true;
 				}
-				Greenhouse.CreateGreenhouse(pos.X, pos.Y);
+				WorldGen.PlaceLiquid(pos.X, pos.Y, 4, 255);
 			}
 			return false;
 		}

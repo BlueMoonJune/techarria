@@ -281,7 +281,8 @@ namespace Techarria.Content.Tiles.Machines.Logic
 					continue;
 				}
 				foreach (Point point in sorted) {
-					if (new Rectangle(point.X * 16 - 1, point.Y * 16 - 1, 18, 18).Intersects(player.getRect())) {
+					Point p = point + dir;
+					if (new Rectangle(p.X * 16 - 1, p.Y * 16 - 1, 18, 17).Intersects(player.getRect())) {
 						player.position += (Vector2)dir * 16;
 						break;
 					}
@@ -294,7 +295,8 @@ namespace Techarria.Content.Tiles.Machines.Logic
 					continue;
 				}
 				foreach (Point point in sorted) {
-					if (new Rectangle(point.X * 16 - 1, point.Y * 16 - 1, 18, 18).Intersects(item.getRect())) {
+					Point p = point + dir;
+					if (new Rectangle(point.X * 16 - 1, point.Y * 16 - 1, 18, 17).Intersects(item.getRect())) {
 						item.position += (Vector2)dir * 16;
 						break;
 					}

@@ -76,7 +76,6 @@ namespace Techarria.Content.Projectiles.Minions
 			}
 
 			if (!owner.HasBuff<DroneApparatusBuff>()) {
-				Main.NewText("kill");
 				Projectile.Kill();
 				return;
 			}

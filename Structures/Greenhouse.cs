@@ -119,7 +119,6 @@ namespace Techarria.Structures
 					Point t = p + dir.point;
 					if (!ScannedPoints.Contains(t)) {
 						//Dust.NewDust(new Vector2(t.X * 16 + 4, t.Y * 16 + 4), 0, 0, ModContent.DustType<Indicator>());
-						Main.NewText(Main.tileSolid[tile.TileType]);
 						int res = ScanTile(t);
 						if (res != 0) return res;
 					}

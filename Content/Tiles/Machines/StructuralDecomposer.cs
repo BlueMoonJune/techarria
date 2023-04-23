@@ -110,7 +110,15 @@ namespace Techarria.Content.Tiles.Machines
 					}
 					break;
 				case 1:
+					int squish = (int)(progress / (float)REQUIRED_CHARGE * 8) * 2;
+					int oldSquish = (int)((progress - amount) / (float)REQUIRED_CHARGE * 8) * 2;
 					progress += amount;
+					if (squish > 6 && oldSquish <= 6) {
+						Tile tile = new Tile();
+						tile.TileType = (ushort)this.tile;
+						for (int i = 0; i < 10; i++)
+						WorldGen.KillTile_MakeTileDust(pos.X + 1, pos.Y + 1, tile);
+					}
 					if (progress >= REQUIRED_CHARGE) {
 						status = 2;
 						progress = 0;
@@ -135,15 +143,6 @@ namespace Techarria.Content.Tiles.Machines
 					}
 					break;
 			}
-
-			int frame = status == 2 ? 8 : status == 0 ? 0 : (int)(progress / (float)StructuralDecomposerTE.REQUIRED_CHARGE * 8);
-			for (int x = 0; x < 3; x++) {
-				for (int y = 0; y < 2; y++) {
-					int tx = Position.X + x;
-					int ty = Position.Y + y;
-					Main.tile[tx, ty].TileFrameY = (short)(frame * 36 + y * 18);
-				}
-			}
 		}
 
 		public void flip() {
@@ -160,12 +159,14 @@ namespace Techarria.Content.Tiles.Machines
 		public override void SaveData(TagCompound tag) {
 			tag.Add("progress", progress);
 			tag.Add("tile", tile);
+			tag.Add("flipped", flipped);
 			base.SaveData(tag);
 		}
 
 		public override void LoadData(TagCompound tag) {
 			progress = tag.Get<int>("progress");
 			tile = tag.Get<int>("tile");
+			flipped = tag.Get<bool>("flipped");
 			base.LoadData(tag);
 		}
 	}
@@ -235,7 +236,7 @@ namespace Techarria.Content.Tiles.Machines
 			Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
 
 			int squish = tileEntity.status == 2 ? 16 : (int)(tileEntity.progress / (float)StructuralDecomposerTE.REQUIRED_CHARGE * 8) * 2;
-			if (tileEntity.tile >= 0 && subTile == new Point16(1, 1) && tileEntity.status == 1) {
+			if (tileEntity.tile >= 0 && subTile == new Point16(1, 1) && tileEntity.status == 1 && squish <= 6) {
 				Texture2D texture = TextureAssets.Tile[tileEntity.tile].Value;
 				spriteBatch.Draw(texture, pos + new Vector2(0, squish - 2), new Rectangle(162, 54 + squish, 16, 16 - squish), Lighting.GetColor(i, j));
 			}
@@ -279,7 +280,7 @@ namespace Techarria.Content.Tiles.Machines
 					}
 				}
 			}
-			spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/StructuralDecomposer_Overlay").Value, pos, new Rectangle(subTile.X*18, subTile.Y*18, 16, 16), Lighting.GetColor(i, j));
+			spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/StructuralDecomposer_Overlay").Value, pos, new Rectangle(subTile.X*18, subTile.Y*18 + 18 * squish, 16, 16), Lighting.GetColor(i, j));
 		}
 	}
 }

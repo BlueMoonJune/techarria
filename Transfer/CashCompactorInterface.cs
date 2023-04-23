@@ -50,7 +50,6 @@ namespace Techarria.Transfer
 			List<int> coinTypes = new List<int>(CashCompactorTE.coinTypes);
 			int index = coinTypes.FindIndex(value => value == item.type);
 			if (index >= 0) {
-				Main.NewText(index);
 				tileEntity.amount += CashCompactorTE.coinValues[index];
 				return true;
 			}

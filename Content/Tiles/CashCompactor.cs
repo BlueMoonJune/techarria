@@ -155,7 +155,6 @@ namespace Techarria.Content.Tiles
 			List<int> coinTypes = new List<int>(CashCompactorTE.coinTypes);
 			int index = coinTypes.FindIndex(value => value == playerItem.type);
 			if (index >= 0) {
-				Main.NewText(index);
 				tileEntity.amount += CashCompactorTE.coinValues[index];
 				playerItem.stack--;
 				if (playerItem.stack <= 0) {
@@ -219,7 +218,6 @@ namespace Techarria.Content.Tiles
 
 				Vector2 size = font.MeasureString(text);
 				Vector2 textScale = Vector2.One / Math.Max(size.X / 48, size.Y / 16);
-				Main.NewText(new Vector2(i * 16 - 16, j * 16 - 8));
 				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, -size / 2 * textScale + pos + new Vector2(-16, -4), Color.White, 0, Vector2.Zero, textScale);
 
 			}

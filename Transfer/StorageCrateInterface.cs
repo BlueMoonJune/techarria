@@ -22,7 +22,7 @@ namespace Techarria.Transfer
                 return new Point();
             }
             Tile tile = Main.tile[i, j];
-            if (ModContent.GetModTile(tile.TileType) is CashCompactor)
+            if (ModContent.GetModTile(tile.TileType) is StorageCrate)
             {
                 i -= tile.TileFrameX / 18 % 2;
                 j -= tile.TileFrameY / 18 % 2;

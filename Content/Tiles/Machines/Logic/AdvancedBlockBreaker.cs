@@ -150,10 +150,6 @@ namespace Techarria.Content.Tiles.Machines.Logic
 					Main.item[x].TurnToAir();
 				}
 			}
-
-			foreach (Item item in tileEntity.items) {
-				Main.NewText(item.Name);
-			}
 		}
 	}
 }

@@ -6,6 +6,8 @@ using Techarria.Content.Items.Materials.Molten;
 using Techarria.Content.Entities;
 using System.Collections.Generic;
 using Techarria.Structures;
+using Techarria.Content.Tiles;
+using Techarria.Content.Dusts;
 
 namespace Techarria
 {

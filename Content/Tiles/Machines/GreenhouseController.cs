@@ -64,10 +64,8 @@ namespace Techarria.Content.Tiles.Machines
 					} else {
 						this.greenhouse = null;
 						error = greenhouse.invalidation;
-							Main.NewText(error);
 						if (error == "A greenhouse exists here!") {
 							Greenhouse.GreenhousePoints.Clear();
-							Main.NewText(Greenhouse.GreenhousePoints.Count);
 						}
 					}
 				}

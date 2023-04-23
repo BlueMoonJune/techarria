@@ -383,6 +383,9 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			}
 
 			if (item.createTile > -1 && WorldGen.PlaceTile(i + xOff, j + yOff, item.createTile)) {
+				ModTile modTile = ModContent.GetModTile(item.createTile);
+				if (modTile != null)
+					modTile.PlaceInWorld(i + xOff, j + yOff, item);
 				item.stack--;
 				if (item.stack <= 0) {
 					item.TurnToAir();

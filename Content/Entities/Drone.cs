@@ -41,7 +41,6 @@ namespace Techarria.Content.Entities
 			Drone drone = new Drone();
 			drone.Center = pos;
 			Drone.drones.Add(drone);
-			Main.NewText($"Created Drone #{drones.Count} at {pos.X}, {pos.Y}");
 			return drone;
 		}
 

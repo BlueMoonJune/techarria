@@ -33,7 +33,6 @@ namespace Techarria.Content.Tiles.Machines
         {
             if (frames >= randTime)
             {
-                Main.NewText("stirling turned off");
                 candleLit = false;
 
                 for (int i = 0; i < 3; i++)

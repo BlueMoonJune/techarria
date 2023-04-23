@@ -235,7 +235,6 @@ namespace Techarria
 
 					for (int c = 0; c < 4; c++) {
 						if (Main.tile[i, j].Get<Glue>().GetChannel(c)) {
-							Main.NewText($"{c}, {i}, {j}");
 							Rectangle value = getGlueFraming(i, j, c);
 							Main.spriteBatch.Draw(glueTexture, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y), value, Color.Black.MultiplyRGBA(colors[c]));
 						}
@@ -312,7 +311,6 @@ namespace Techarria
 								vertices.Add(new VertexPositionColor(new(point, 0), new Color(218 / 255f, 98 / 255f, 82 / 255f)));
 								Dust.NewDust(point - new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
 							}
-							Main.NewText(vertices);
 						}
 					}
 				}

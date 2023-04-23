@@ -126,7 +126,6 @@ namespace Techarria.Content.Tiles.Machines
 
 						// banner to enemy
 						tileEntity.bannerEnemyId = Item.BannerToNPC(item.placeStyle - 21);
-						Main.NewText(tileEntity.bannerEnemyId);
 
 						// sets NPC madeUpNPC to the npcID from the banner
 						tileEntity.madeUpNPC = ContentSamples.NpcsByNetId[tileEntity.bannerEnemyId];
@@ -160,7 +159,6 @@ namespace Techarria.Content.Tiles.Machines
 					tileEntity.madeUpNPC = ContentSamples.NpcsByNetId[0];
 					tileEntity.progress = 0;
 					tileEntity.powerNeeded = 0;
-					Main.NewText(tileEntity.bannerEnemyId);
 
 					if (item.stack <= 0)
 					{

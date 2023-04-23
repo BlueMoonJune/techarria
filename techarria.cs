@@ -52,7 +52,6 @@ namespace Techarria
         public static void print(object obj)
         {
             System.Console.WriteLine(obj);
-            Main.NewText(obj);
         }
 
         /// <summary>Whether or not this type is an item transfer tile</summary>

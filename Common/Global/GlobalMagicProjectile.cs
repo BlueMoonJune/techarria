@@ -21,11 +21,8 @@ namespace Techarria.Common.Global
 
 			PowerArmorPlayer player = owner.GetModPlayer<PowerArmorPlayer>();
 			if (owner.armor[0].ModItem is TechnomancyApparatus helm) {
-				Main.NewText("1");
 				if (helm.IsArmorSet(owner.armor[0], owner.armor[1], owner.armor[2])) {
-					Main.NewText("2");
 					if (Main.rand.NextBool(3, 5)) {
-						Main.NewText("3");
 						for (int i = 0; i < 8; i++) {
 							Vector2 pos = target.Center;
 							Vector2 vel = new Vector2(10, 0).RotatedBy(i * MathHelper.PiOver4);

@@ -5,6 +5,9 @@ Mods: {
 			EMPGrenade.DisplayName: EMP Grenade
 			EMPBlast.DisplayName: EMP Blast
 			DroneApparatus.DisplayName: Drone Apparatus
+			SuperconductingHookProjectile.DisplayName: Superconducting Hook Projectile
+			AetherealHookProjectile.DisplayName: Aethereal Hook Projectile
+			BiofusingHookProjectile.DisplayName: Biofusing Hook Projectile
 		}
 
 		NPCs.SpikedDungeonSlime.DisplayName: Spiked Dungeon Slime
@@ -572,6 +575,36 @@ Mods: {
 				Tooltip: ""
 			}
 
+			CoinFilter: {
+				DisplayName: Coin Filter
+				Tooltip: ""
+			}
+
+			ArcFurnace: {
+				DisplayName: Arc Furnace
+				Tooltip: ""
+			}
+
+			Sludge: {
+				DisplayName: Sludge
+				Tooltip: ""
+			}
+
+			SuperconductingHook: {
+				DisplayName: Superconducting Hook
+				Tooltip: ""
+			}
+
+			AetherealHook: {
+				DisplayName: Aethereal Hook
+				Tooltip: ""
+			}
+
+			BiofusingHook: {
+				DisplayName: Biofusing Hook
+				Tooltip: ""
+			}
+
 			SpikesteelRifle: {
 				ToolTip:
 					'''
@@ -642,6 +675,9 @@ Mods: {
 			AdvancedBlockBreaker.MapEntry: Advanced Block Breaker
 			LuminiteEviscerator.MapEntry: Luminite Eviscerator
 			SolarDrill.MapEntry: Solar Drill
+			ArcFurnace.MapEntry: Arc Furnace
+			Sludge.MapEntry: Sludge
+			AetherealAnchor.MapEntry: Aethereal Anchor
 		}
 	}
 }
