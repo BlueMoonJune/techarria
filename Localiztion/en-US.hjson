@@ -606,14 +606,13 @@ Mods: {
 			}
 
 			SpikesteelRifle: {
-				ToolTip:
+				Tooltip:
 					'''
 					Will probably have charge compat l8r
 					Shoots a powerful, high velocity bullet
 					Inflicts Bleeding on enemies (doesn't do that yet)
 					'''
 				DisplayName: Spikesteel Rifle
-				Tooltip: ""
 			}
 		}
 
