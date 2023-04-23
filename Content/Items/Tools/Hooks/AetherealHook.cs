@@ -92,15 +92,14 @@ namespace Techarria.Content.Items.Tools.Hooks
 			if (grappleDist == 0) {
 				grappleDist = Projectile.Distance(player.Center);
 			}
-			grappleDist += (player.controlDown && grappleDist <= GrappleRange() ? 1 : 0) - (player.controlUp && grappleDist >= 17 ? 1 : 0);
-			Vector2 pos = player.Center + player.position - player.oldPosition + new Vector2(((player.controlRight ? 1 : 0) - (player.controlLeft ? 1 : 0)) / 60f, player.gravity);
+			Vector2 pos = player.Center + player.position - player.oldPosition + new Vector2(0, player.gravity);
 			Vector2 dir = Projectile.DirectionTo(pos);
 			float dist = Projectile.Distance(pos);
 			if (dist - grappleDist > 10) {
 				grappleDist = dist - 10;
 			}
-			grappleX += dir.X * Math.Min(grappleDist, dist + (grappleDist - dist) * 0.010f);
-			grappleY += dir.Y * Math.Min(grappleDist, dist + (grappleDist - dist) * 0.010f);
+			grappleX += dir.X * grappleDist;
+			grappleY += dir.Y * grappleDist;
 		}
 
 		// Can customize what tiles this hook can latch onto, or force/prevent latching alltogether, like Squirrel Hook also latching to trees
