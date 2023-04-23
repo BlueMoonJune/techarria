@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using ReLogic.Content;
+using System.Collections.Generic;
 
 namespace Techarria
 {
@@ -19,6 +20,8 @@ namespace Techarria
         public static float UsageMultiplier = 1;
 
         public static bool BlockDusts = false;
+
+		public static Dictionary<int, NPC> moddedBannerToNPC = new();
 
         public static bool Intersects(Rectangle rect, LineSegment line)
         {
@@ -82,7 +85,19 @@ namespace Techarria
             Terraria.On_Main.DrawWires += DrawPowerTransfer;
 		}
 
-        private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
+		public override void PostSetupContent() {
+			Console.WriteLine("Techaria: Linking Banners...");
+			foreach (Mod mod in ModLoader.Mods) {
+				foreach (ModNPC npc in mod.GetContent<ModNPC>()) {
+					if (npc.BannerItem != 0) {
+						moddedBannerToNPC.Add(npc.BannerItem, npc.NPC);
+						Console.WriteLine($"Linked banner with item type \"{npc.BannerItem}\" to \"{npc.DisplayName.Value}\"");
+					}
+				}
+			}
+		}
+
+		private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
         {
             orig(self);
             foreach (Wire wire in Power.DisplayInfos.Keys)

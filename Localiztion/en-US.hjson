@@ -614,6 +614,11 @@ Mods: {
 					'''
 				DisplayName: Spikesteel Rifle
 			}
+
+			SpikedDungeonSlimeBanner: {
+				DisplayName: Spiked Dungeon Slime Banner
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {

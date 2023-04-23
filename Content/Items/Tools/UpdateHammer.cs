@@ -4,6 +4,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Techarria.Structures;
+using Techarria.Content.NPCs;
 
 namespace Techarria.Content.Items.Tools
 {
@@ -45,7 +46,7 @@ namespace Techarria.Content.Items.Tools
 					tile.TileFrame(pos.X, pos.Y, ref idc, ref idc);
 					return true;
 				}
-				WorldGen.PlaceLiquid(pos.X, pos.Y, 4, 255);
+				Main.NewText(ModContent.ItemType<SpikedDungeonSlimeBanner>());
 			}
 			return false;
 		}

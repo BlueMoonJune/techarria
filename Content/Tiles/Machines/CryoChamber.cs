@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Techarria.Content.Dusts;
@@ -10,6 +11,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Core;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 
@@ -138,9 +140,32 @@ namespace Techarria.Content.Tiles.Machines
 							playerItem.TurnToAir();
 						}
 						return true;
+
+					} else if (Techarria.moddedBannerToNPC.ContainsKey(playerItem.type)) {
+
+						item = playerItem.Clone();
+						item.stack = 1;
+						tileEntity.item = item;
+						playerItem.stack--;
+
+						tileEntity.bannerEnemyId = Item.BannerToNPC(item.type);
+
+						// sets NPC madeUpNPC to the npcID from the banner
+						tileEntity.madeUpNPC = Techarria.moddedBannerToNPC[playerItem.type];
+						tileEntity.madeUpNPC.SetDefaults(tileEntity.madeUpNPC.type);
+						Main.NewText(tileEntity.madeUpNPC);
+						// determines how much power is needed for 1 item roll
+						tileEntity.powerNeeded = (int)(tileEntity.madeUpNPC.lifeMax * tileEntity.madeUpNPC.damage * tileEntity.madeUpNPC.defense * 0.3f);
+
+
+						if (playerItem.stack <= 0) {
+							playerItem.TurnToAir();
+						}
+						return true;
+
 					} else if (!playerItem.IsAir)
                     {
-						MessageBox.Show("You need to input a vanilla enemy banner" +
+						MessageBox.Show("You need to input an enemy banner" +
                             "\nSorry for no mod support :(" +
                             "\nBut hey, atleast I figured out how to make these cool message boxes", "Read tooltips next time (that message was for anyone who wasn't trying to input a modded enemy banner, if you were you're perfect and did nothing wrong)",
 						MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -212,6 +237,9 @@ namespace Techarria.Content.Tiles.Machines
 				while (tileEntity.progress >= tileEntity.powerNeeded)
 				{
 					tileEntity.madeUpNPC.position = new Vector2(i * 16 + 8, (j - 2) * 16 + 8);
+
+					Console.WriteLine(tileEntity.madeUpNPC);
+					Console.WriteLine(tileEntity.progress);
 
 					DropAttemptInfo info = new()
 					{

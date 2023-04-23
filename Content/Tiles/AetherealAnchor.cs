@@ -10,7 +10,7 @@ namespace Techarria.Content.Tiles
 	{
 		public override void SetStaticDefaults() {
 
-			Main.tileSolid[Type] = true;
+			Main.tileSolid[Type] = false;
 			Main.tileBlockLight[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 

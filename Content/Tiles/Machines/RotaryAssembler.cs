@@ -115,6 +115,7 @@ namespace Techarria.Content.Tiles.Machines
 		{
 			foreach (AssemblyRecipe recipe in AssemblyRecipe.recipes) {
 				if (!recipe.seed.AcceptsItem(seed)) {
+					Main.NewText($"Seed Invalid for {recipe.result.Name}");
 					continue;
 				}
 
@@ -126,6 +127,7 @@ namespace Techarria.Content.Tiles.Machines
 							ItemOrRecipeGroup item = items[r];
 							if (this.items[t] == null || this.items[t].Count <= r || !item.AcceptsItem(this.items[t][r])) {
 
+								Main.NewText($"Attempt {step+1} out of 8: item at ({r}, {theta}) failed check for {item.item.Name}");
 								goto RecipeFailed;
 							}
 						}

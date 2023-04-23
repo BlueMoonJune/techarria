@@ -16,6 +16,15 @@ namespace Techarria.Content.Items.Tools.Hooks
 			Item.shootSpeed = 18f; // This defines how quickly the hook is shot.
 			Item.shoot = ModContent.ProjectileType<SuperconductingHookProjectile>(); // Makes the item shoot the hook's projectile when used.
 		}
+
+		public override void AddRecipes() {
+			CreateRecipe()
+				.AddIngredient(ItemID.HallowedBar, 10)
+				.AddIngredient<Capacitor>()
+				.AddIngredient(ItemID.Hook)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
+		}
 	}
 
 	internal class SuperconductingHookProjectile : ModProjectile

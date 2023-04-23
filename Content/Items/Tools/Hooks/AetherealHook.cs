@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Machines;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +17,45 @@ namespace Techarria.Content.Items.Tools.Hooks
 			Item.CloneDefaults(ItemID.AmethystHook);
 			Item.shootSpeed = 18f; // This defines how quickly the hook is shot.
 			Item.shoot = ModContent.ProjectileType<AetherealHookProjectile>(); // Makes the item shoot the hook's projectile when used.
+		}
+
+		public override void AddRecipes() {
+			AssemblyRecipe.recipes.Add(new AssemblyRecipe(new Item(Type), new Item(ModContent.ItemType<SuperconductingHook>()))
+				.AddItem(new Item(ItemID.FragmentSolar), 0)
+				.AddItem(new Item(ItemID.FragmentVortex), 2)
+				.AddItem(new Item(ItemID.FragmentNebula), 4)
+				.AddItem(new Item(ItemID.FragmentStardust), 6)
+				.AddItem(new Item(ItemID.LunarOre), 1)
+				.AddItem(new Item(ItemID.LunarOre), 3)
+				.AddItem(new Item(ItemID.LunarOre), 5)
+				.AddItem(new Item(ItemID.LunarOre), 7)
+				.AddItem(new Item(ItemID.ShimmerBlock), 0)
+				.AddItem(new Item(ItemID.ShimmerBlock), 1)
+				.AddItem(new Item(ItemID.ShimmerBlock), 2)
+				.AddItem(new Item(ItemID.ShimmerBlock), 3)
+				.AddItem(new Item(ItemID.ShimmerBlock), 4)
+				.AddItem(new Item(ItemID.ShimmerBlock), 5)
+				.AddItem(new Item(ItemID.ShimmerBlock), 6)
+				.AddItem(new Item(ItemID.ShimmerBlock), 7)
+				);
+			AssemblyRecipe.recipes.Add(new AssemblyRecipe(new Item(Type), new Item(ModContent.ItemType<SuperconductingHook>()))
+				.AddItem(new Item(ItemID.FragmentSolar), 0)
+				.AddItem(new Item(ItemID.FragmentVortex), 6)
+				.AddItem(new Item(ItemID.FragmentNebula), 4)
+				.AddItem(new Item(ItemID.FragmentStardust), 2)
+				.AddItem(new Item(ItemID.LunarOre), 1)
+				.AddItem(new Item(ItemID.LunarOre), 3)
+				.AddItem(new Item(ItemID.LunarOre), 5)
+				.AddItem(new Item(ItemID.LunarOre), 7)
+				.AddItem(new Item(ItemID.ShimmerBlock), 0)
+				.AddItem(new Item(ItemID.ShimmerBlock), 1)
+				.AddItem(new Item(ItemID.ShimmerBlock), 2)
+				.AddItem(new Item(ItemID.ShimmerBlock), 3)
+				.AddItem(new Item(ItemID.ShimmerBlock), 4)
+				.AddItem(new Item(ItemID.ShimmerBlock), 5)
+				.AddItem(new Item(ItemID.ShimmerBlock), 6)
+				.AddItem(new Item(ItemID.ShimmerBlock), 7)
+				);
 		}
 	}
 
@@ -104,7 +144,8 @@ namespace Techarria.Content.Items.Tools.Hooks
 
 		// Can customize what tiles this hook can latch onto, or force/prevent latching alltogether, like Squirrel Hook also latching to trees
 		public override bool? GrappleCanLatchOnTo(Player player, int x, int y) {
-
+			if (Main.tile[x, y].TileType == ModContent.TileType<AetherealAnchor>())
+				return true;
 			// In any other case, behave like a normal hook
 			return null;
 		}
