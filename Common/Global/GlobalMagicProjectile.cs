@@ -18,7 +18,6 @@ namespace Techarria.Common.Global
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) {
 		Player owner = Main.player[projectile.owner];
-
 			PowerArmorPlayer player = owner.GetModPlayer<PowerArmorPlayer>();
 			if (owner.armor[0].ModItem is TechnomancyApparatus helm) {
 				if (helm.IsArmorSet(owner.armor[0], owner.armor[1], owner.armor[2])) {

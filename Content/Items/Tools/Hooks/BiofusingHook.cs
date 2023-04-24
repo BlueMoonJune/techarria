@@ -27,6 +27,8 @@ namespace Techarria.Content.Items.Tools.Hooks
 		public bool tileHooked = false;
 		public int grabTileCounter = 0;
 
+		public int frameCount = 0;
+
 		public override void Load() { // This is called once on mod (re)load when this piece of content is being loaded.
 									  // This is the path to the texture that we'll use for the hook's chain. Make sure to update it.
 			chainTexture = ModContent.Request<Texture2D>("Techarria/Content/Items/Tools/Hooks/BiofusingHookChain");
@@ -36,13 +38,6 @@ namespace Techarria.Content.Items.Tools.Hooks
 										// It's currently pretty important to unload your static fields like this, to avoid having parts of your mod remain in memory when it's been unloaded.
 			chainTexture = null;
 		}
-
-		/*
-		public override void SetStaticDefaults() {
-			// If you wish for your hook projectile to have ONE copy of it PER player, uncomment this section.
-			ProjectileID.Sets.SingleGrappleHook[Type] = true;
-		}
-		*/
 
 		public override void SetDefaults() {
 			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst); // Copies the attributes of the Amethyst hook's projectile.
@@ -59,31 +54,6 @@ namespace Techarria.Content.Items.Tools.Hooks
 
 			return hooksOut <= 2;
 		}
-
-		// Use this to kill oldest hook. For hooks that kill the oldest when shot, not when the newest latches on: Like SkeletronHand
-		// You can also change the projectile like: Dual Hook, Lunar Hook
-		// public override void UseGrapple(Player player, ref int type)
-		// {
-		//	int hooksOut = 0;
-		//	int oldestHookIndex = -1;
-		//	int oldestHookTimeLeft = 100000;
-		//	for (int i = 0; i < 1000; i++)
-		//	{
-		//		if (Main.projectile[i].active && Main.projectile[i].owner == projectile.whoAmI && Main.projectile[i].type == projectile.type)
-		//		{
-		//			hooksOut++;
-		//			if (Main.projectile[i].timeLeft < oldestHookTimeLeft)
-		//			{
-		//				oldestHookIndex = i;
-		//				oldestHookTimeLeft = Main.projectile[i].timeLeft;
-		//			}
-		//		}
-		//	}
-		//	if (hooksOut > 1)
-		//	{
-		//		Main.projectile[oldestHookIndex].Kill();
-		//	}
-		// }
 
 		public override void AI() {
 			if (!hooked) {
@@ -181,9 +151,11 @@ namespace Techarria.Content.Items.Tools.Hooks
 		public override bool? GrappleCanLatchOnTo(Player player, int x, int y) {
 			if (hooked)
 				return true;
+			if (Main.tileSpelunker[Main.tile[x, y].TileType])
+					return true;
 
-			// In any other case, behave like a normal hook
-			return null;
+            // In any other case, behave like a normal hook
+            return null;
 		}
 
 		// Draws the grappling hook's chain.

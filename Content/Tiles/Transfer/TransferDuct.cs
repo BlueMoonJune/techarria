@@ -151,20 +151,22 @@ namespace Techarria.Content.Tiles.Transfer
 		public override void PlaceInWorld(int i, int j, Item item)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
-			//tile.TileFrameX += (Int16)(new Random(j * Main.maxTilesY + i).Next(3) * 64);
+			tile.TileFrameX += (Int16)(new Random(j * Main.maxTilesX + i).Next(3) * 64);
 		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
 			SetStaticDefaults();
 
 			Tile tile = Framing.GetTileSafely(i, j);
-			tile.TileFrameX /= 64 * 64;
+			int variant = tile.TileFrameX / 64;
+			tile.TileFrameX = 0;
 			if (ShouldConnect(i + 1, j, i, j)) {
 				tile.TileFrameX += 16;
 			}
 			if (ShouldConnect(i - 1, j, i, j)) {
 				tile.TileFrameX += 32;
 			}
+			tile.TileFrameX += (short)(variant * 64);
 
 			tile.TileFrameY = 0;
 			if (ShouldConnect(i, j + 1, i, j)) {
