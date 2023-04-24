@@ -121,7 +121,7 @@ namespace Techarria.Content.Items.Tools.Hooks
 				grappleDist = Projectile.Distance(player.Center);
 			}
 			grappleDist += (player.controlDown && grappleDist <= GrappleRange() ? 1 : 0) - (player.controlUp && grappleDist >= 17 ? 1 : 0);
-			Vector2 pos = player.Center + player.position - player.oldPosition + new Vector2(((player.controlRight ? 1 : 0) - (player.controlLeft ? 1 : 0)) / 60f, player.gravity);
+			Vector2 pos = player.Center + player.position - player.oldPosition + new Vector2(((player.controlRight ? 1 : 0) - (player.controlLeft ? 1 : 0)) / 60f, player.gravity * player.gravDir);
 			Vector2 dir = Projectile.DirectionTo(pos);
 			float dist = Projectile.Distance(pos);
 			if (dist - grappleDist > 10) {

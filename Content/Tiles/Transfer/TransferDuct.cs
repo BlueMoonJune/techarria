@@ -102,6 +102,8 @@ namespace Techarria.Content.Tiles.Transfer
 				Main.tile[i, j].TileColor == Main.tile[x, y].TileColor;
 		}
 
+		public static SoundStyle transferSound = new("Techarria/Content/Sounds/Transfer", SoundType.Sound);
+
 		public override void SetStaticDefaults() {
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = false;
@@ -119,6 +121,8 @@ namespace Techarria.Content.Tiles.Transfer
 			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();
 
 			HitSound = SoundID.Tink;
+
+			transferSound.PitchVariance = 1f;
 		}
 
 		public override bool Slope(int i, int j) {
@@ -235,9 +239,11 @@ namespace Techarria.Content.Tiles.Transfer
 		/// <param name="y">Y coordinates</param>
 		/// <param name="dir">Direction of item transfer. -1 causes no motion and is used for transfer failure</param>
 		public virtual void CreateParticles(int x, int y, int dir) {
-			var dust = Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
+			var dust1 = Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
+			var dust2 = Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(dirToX(dir), dirToY(dir)) * 8 + new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
 			if (dir >= 0) {
-				dust.velocity = new Vector2(dirToX(dir), dirToY(dir));
+				dust1.velocity = new Vector2(dirToX(dir), dirToY(dir));
+				dust2.velocity = new Vector2(dirToX(dir), dirToY(dir));
 				return;
 			}
 		}
@@ -292,7 +298,7 @@ namespace Techarria.Content.Tiles.Transfer
 						continue;
 					ContainerInterface target = EvaluatePath(i, j, item, (container.dir + 2) % 4, 0);
 					if (target != null && target.InsertItem(item)) {
-						SoundEngine.PlaySound(new SoundStyle("Techarria/Content/Sounds/Transfer", SoundType.Sound), new Vector2(i, j) * 16);
+						SoundEngine.PlaySound(transferSound, new Vector2(i, j) * 16);
 						container.ExtractItem(item);
 						return;
 					}

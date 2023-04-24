@@ -682,6 +682,7 @@ Mods: {
 			ArcFurnace.MapEntry: Arc Furnace
 			Sludge.MapEntry: Sludge
 			AetherealAnchor.MapEntry: Aethereal Anchor
+			SpikedDungeonSlimeBannerTile.MapEntry: Spiked Dungeon Slime Banner Tile
 		}
 	}
 }

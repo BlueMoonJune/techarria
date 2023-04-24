@@ -6,6 +6,9 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using Terraria.ObjectData;
+using Terraria.Enums;
+using Microsoft.Xna.Framework;
 
 namespace Techarria.Content.NPCs
 {
@@ -71,24 +74,58 @@ namespace Techarria.Content.NPCs
         }
     }
 
+
+	//Banner code from https://github.com/HolyDrillDev/DarknessFallenMod
 	public class SpikedDungeonSlimeBanner : ModItem {
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Industrial Coal");
-			// Tooltip.SetDefault("'Even less festive than normal'");
-
-			// journey mode
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 200;
-
-			ItemID.Sets.SortingPriorityMaterials[Item.type] = 58;
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
-		public override void SetDefaults() {
-			Item.width = 22; // The item texture's width
-			Item.height = 22; // The item texture's height
+		public override void SetDefaults()
+		{
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTurn = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.autoReuse = true;
+			Item.maxStack = 999;
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<SpikedDungeonSlimeBannerTile>();
+			Item.width = 10;
+			Item.height = 24;
+			Item.value = 500;
+			Item.rare = ItemRarityID.Blue;
+		}
+	}
 
-			Item.maxStack = 999; // The item's max stack value
-								 // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on
-								 // platinum/gold/silver/copper arguments provided to it.
-			Item.value = Item.buyPrice(silver: 1, copper: 25);
+
+	public class SpikedDungeonSlimeBannerTile : ModTile
+	{
+		public override void SetStaticDefaults() {
+			Main.tileFrameImportant[Type] = true;
+			Main.tileNoAttach[Type] = true;
+			Main.tileLavaDeath[Type] = true;
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);
+			TileObjectData.newTile.Height = 3;
+			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };
+			TileObjectData.newTile.DrawYOffset = -2;
+			TileObjectData.newTile.StyleHorizontal = true;
+			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
+			TileObjectData.newTile.StyleWrapLimit = 111;
+			TileObjectData.addTile(Type);
+			AddMapEntry(Color.Purple, CreateMapEntryName());
+		}
+
+		public override void NearbyEffects(int i, int j, bool closer) {
+			if (closer) {
+				int type = ModContent.NPCType<SpikedDungeonSlime>();
+
+				Main.SceneMetrics.hasBanner = true;
+				Main.SceneMetrics.NPCBannerBuff[type] = true;
+			}
+		}
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+			//Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SpikedDungeonSlimeBanner>(), 1);
 		}
 	}
 }

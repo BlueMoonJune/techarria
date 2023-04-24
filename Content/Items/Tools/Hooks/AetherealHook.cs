@@ -132,7 +132,7 @@ namespace Techarria.Content.Items.Tools.Hooks
 			if (grappleDist == 0) {
 				grappleDist = Projectile.Distance(player.Center);
 			}
-			Vector2 pos = player.Center + player.position - player.oldPosition + new Vector2(0, player.gravity);
+			Vector2 pos = player.Center + player.position - player.oldPosition + new Vector2(0, player.gravity * player.gravDir);
 			Vector2 dir = Projectile.DirectionTo(pos);
 			float dist = Projectile.Distance(pos);
 			if (dist - grappleDist > 10) {
