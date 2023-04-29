@@ -22,6 +22,7 @@ namespace Techarria.Common.Global
         {
             if (source is EntitySource_ItemUse_WithAmmo s && s.Entity is Player p)
             {
+                // spikesteel set bonus
                 PowerArmorPlayer player = p.GetModPlayer<PowerArmorPlayer>();
                 if (player.visorCooldown <= 0 && p.armor[0].ModItem is VisorApparatus visor && visor.IsArmorSet(p.armor[0], p.armor[1], p.armor[2]))
                 {
@@ -65,4 +66,6 @@ namespace Techarria.Common.Global
             }
         }
     }
+
+
 }

@@ -90,7 +90,7 @@ namespace Techarria
 			foreach (Mod mod in ModLoader.Mods) {
 				foreach (ModNPC npc in mod.GetContent<ModNPC>()) {
 					if (npc.BannerItem != 0) {
-						moddedBannerToNPC.Add(npc.BannerItem, npc.NPC);
+						moddedBannerToNPC.TryAdd(npc.BannerItem, npc.NPC);
 						Console.WriteLine($"Linked banner with item type \"{npc.BannerItem}\" to \"{npc.DisplayName.Value}\"");
 					}
 				}

@@ -121,7 +121,7 @@ Mods: {
 					[i:Techarria/Activations] accepts and causes Activations
 					'Can't recursively activate.. trust me, you don't want that
 					'''
-				DisplayName: Transfer Detector
+				DisplayName: Detection Duct
 			}
 
 			Junction: {
@@ -130,7 +130,7 @@ Mods: {
 					Seperates duct paths
 					'Roundabouts are better'
 					'''
-				DisplayName: Junction
+				DisplayName: Transfer Junction
 			}
 
 			Hopper: {
@@ -139,7 +139,7 @@ Mods: {
 					When activated sucks in items above into your ducts
 					[i:Techarria/Activations] accepts Activations
 					'''
-				DisplayName: Hopper
+				DisplayName: Transfer Hopper
 			}
 
 			Filter: {
@@ -149,7 +149,7 @@ Mods: {
 					When activated switches to a blacklist filter
 					[i:Techarria/Activations] accepts Activations
 					'''
-				DisplayName: Filter
+				DisplayName: Filter Duct
 			}
 
 			DroneNode: {
@@ -341,8 +341,7 @@ Mods: {
 			GreenhouseController: {
 				Tooltip:
 					'''
-					Initializes a greenhouse when in an ecnlosed room with a [i:Techarria/GreenhouseGlass]Greenhouse Glass ceiling
-					If a greenhouse can not be created, a message will explain why
+					Initializes a greenhouse when in an enclosed room with a [i:Techarria/GreenhouseGlass]Greenhouse Glass ceiling
 					When powered, the controller will automatically harvest and replant herbs within its greenhouse
 					[i:Techarria/Power] accepts Power
 					'''
@@ -362,6 +361,7 @@ Mods: {
 				Tooltip:
 					'''
 					Pulls items in when powered
+					The pull strength is dependent on how much Power is provided
 					[i:Techarria/Power] accepts Power
 					'''
 				DisplayName: Electromagnet
@@ -370,7 +370,7 @@ Mods: {
 			CryoChamber: {
 				Tooltip:
 					'''
-					insert an enemy banner and provide power to generate enemy loot
+					Insert an enemy banner and provide power to generate enemy loot
 					[i:Techarria/Power] accepts Power
 					'''
 				DisplayName: Cryo Chamber
@@ -401,37 +401,62 @@ Mods: {
 			}
 
 			Capacitor: {
-				Tooltip: ""
+				Tooltip: Stores charge and can instantaneously release it
 				DisplayName: Capacitor
 			}
 
 			CableConnector: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Provides a way to freely connect wires long distance
+					Right click with wires to extend the max length
+					Right click with a free hand to connect two Cable Connectors
+					[i:Techarria:Power] diverts Power
+					'Also try Immersive Engineering!'
+					'''
 				DisplayName: Cable Connector
 			}
 
 			BlastFurnace: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Used for simple alloy crafting
+					Provide power anywhere to heat up the Blast Furnace
+					Input items at the top
+					Items can be extracted using transfer ducts at the bottom
+					[i:Techarria/Temperature] prefers higher Temperature
+					[i:Techarria/Power] accepts Power
+					'''
 				DisplayName: Blast Furnace
 			}
 
 			JourneyCrate: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Obtained from researching a Storage Crate
+					Can be infinetely inserted into or extracted from so long as you have enough to research the item
+					Any inserted items will be cleared of any reforges or similar
+					'''
 				DisplayName: Journey Crate
 			}
 
 			InfinityCrate: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					Can be infinetely inserted into or extracted from
+					Any inserted items will be cleared of any reforges or similar
+					'Wait for the devs to figure out recipe conditions for 1.4.4, and then check my recipe ;)'
+					'''
 				DisplayName: Infinity Crate
 			}
 
 			GreenhouseGlass: {
-				Tooltip: ""
+				Tooltip: Valid Greenhouse ceiling tile
 				DisplayName: Greenhouse Glass
 			}
 
 			SpikeSteelWorkBench: {
-				Tooltip: ""
+				Tooltip: Used for basic crafting
 				DisplayName: Spike Steel Work Bench
 			}
 
@@ -441,7 +466,7 @@ Mods: {
 			}
 
 			Multimeter: {
-				Tooltip: ""
+				Tooltip: Displays transfer of power
 				DisplayName: Multimeter
 			}
 
@@ -451,17 +476,17 @@ Mods: {
 			}
 
 			SpikeSteelSheet: {
-				Tooltip: ""
+				Tooltip: Casted from molten Spikesteel for use in crafting
 				DisplayName: Spike Steel Sheet
 			}
 
 			SheetMold: {
-				Tooltip: ""
+				Tooltip: Used in the Casting Table to make sheets
 				DisplayName: Sheet Mold
 			}
 
 			MoltenSpikeSteel: {
-				Tooltip: ""
+				Tooltip: "'I would recommend putting this down'"
 				DisplayName: Molten Spike Steel
 			}
 
@@ -471,7 +496,7 @@ Mods: {
 			}
 
 			IndustrialCoal: {
-				Tooltip: ""
+				Tooltip: "'Even less festive than normal'"
 				DisplayName: Industrial Coal
 			}
 
@@ -481,12 +506,21 @@ Mods: {
 			}
 
 			StackPreserver: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					[i:Techarria/Filter] Can be placed in a Filter
+					If in a whitelist filter, will preserve a single item from a stack
+					If in a blacklist filter, will only take single items
+					'''
 				DisplayName: Stack Preserver
 			}
 
 			EMPGrenade: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					A large explosion that will destroy wires
+					'More like a bomb than a grenade'
+					'''
 				DisplayName: EMP Grenade
 			}
 
@@ -501,7 +535,7 @@ Mods: {
 			}
 
 			RadiatorApparatus: {
-				Tooltip: ""
+				Tooltip: "'1000° night's edge challenge'"
 				DisplayName: Radiator Apparatus
 			}
 
@@ -522,12 +556,17 @@ Mods: {
 
 			GreenhouseAccentGlass: {
 				DisplayName: Greenhouse Accent Glass
-				Tooltip: ""
+				Tooltip: Valid Greenhouse ceiling tile
 			}
 
 			LuminiteEviscerator: {
 				DisplayName: Luminite Eviscerator
-				Tooltip: ""
+				Tooltip:
+					'''
+					When Powered, generates a beam which destroyes tiles
+					Stores destroyed tiles
+					[i:Techarria/Power] accepts Power
+					'''
 			}
 
 			ExampleDye: {
@@ -536,48 +575,75 @@ Mods: {
 			}
 
 			SolarDrill: {
-				DisplayName: Solar Drill
-				Tooltip: ""
+				DisplayName: Lihzahrd Lhazer
+				Tooltip:
+					'''
+					When Powered, generates a beam which destroyes tiles
+					[i:Techarria/Power] accepts Power
+					'''
 			}
 
 			ChargingRack: {
 				DisplayName: Charging Rack
-				Tooltip: ""
-			}
-
-			FluidicSeperator: {
-				DisplayName: Fluidic Seperator
-				Tooltip: ""
+				Tooltip:
+					'''
+					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+					[i:Techarria/Power] diverts Power
+					[i:Techarria/Activations] does something with Activations
+					'''
 			}
 
 			StructuralDecomposer: {
 				DisplayName: Structural Decomposer
-				Tooltip: ""
+				Tooltip:
+					'''
+					Uses Power to split the above tile into 2 parts
+					[i: Techarria/Power] accepts Power
+					'''
 			}
 
 			FusionCombiner: {
-				DisplayName: Combiner Thing Lol
-				Tooltip: ""
+				DisplayName: Fusion Combiner
+				Tooltip:
+					'''
+					Uses Power to fuse tiles on both sides
+					[i: Techarria/Power] accepts Power
+					'''
 			}
 
 			AdvancedBlockBreaker: {
 				DisplayName: Advanced Block Breaker
-				Tooltip: ""
+				Tooltip:
+					'''
+					Breaks the tile in front of it when activated
+					Stores destroyed tiles
+					[i:Techarria/Activations] accepts Activations
+					'''
 			}
 
 			BlobOfLava: {
 				DisplayName: Blob Of Lava
-				Tooltip: ""
+				Tooltip: "'I would reccomend putting this down'"
 			}
 
 			CashCompactor: {
 				DisplayName: Cash Compactor
-				Tooltip: ""
+				Tooltip:
+					'''
+					Compacts inserted coins
+					Extract from the respective coin slots for specific coins
+					Extract elsewhere for highest coin value
+					'''
 			}
 
 			CoinFilter: {
 				DisplayName: Coin Filter
-				Tooltip: ""
+				Tooltip:
+					'''
+					[i:Techarria/Filter] Can be placed in a Filter 
+					If in a whitelist filter, will only let coins pass
+					If in a blacklist filter, will never let coins pass
+					'''
 			}
 
 			ArcFurnace: {
@@ -587,37 +653,44 @@ Mods: {
 
 			Sludge: {
 				DisplayName: Sludge
-				Tooltip: ""
+				Tooltip:
+					'''
+					Does this even exist?
+					'''
 			}
 
 			SuperconductingHook: {
 				DisplayName: Superconducting Hook
-				Tooltip: ""
+				Tooltip:
+					'''
+					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+					'''
 			}
 
 			AetherealHook: {
 				DisplayName: Aethereal Hook
-				Tooltip: ""
+				Tooltip:
+					'''
+					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+					'''
 			}
 
 			BiofusingHook: {
 				DisplayName: Biofusing Hook
-				Tooltip: ""
+				Tooltip:
+					'''
+					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+					'''
 			}
 
 			SpikesteelRifle: {
-				Tooltip:
-					'''
-					Will probably have charge compat l8r
-					Shoots a powerful, high velocity bullet
-					Inflicts Bleeding on enemies (doesn't do that yet)
-					'''
+				Tooltip: Inflicts Bleeding on enemies
 				DisplayName: Spikesteel Rifle
 			}
 
 			SpikedDungeonSlimeBanner: {
 				DisplayName: Spiked Dungeon Slime Banner
-				Tooltip: ""
+				Tooltip: Nearby players get a bonus against:  Spiked Dungeon Slime
 			}
 		}
 
