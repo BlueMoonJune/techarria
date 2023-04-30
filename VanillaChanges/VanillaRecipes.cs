@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using Techarria.Content.Tiles.Machines;
 
 namespace Techarria.VanillaChanges
 {

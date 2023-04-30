@@ -9,16 +9,19 @@ using Terraria.UI;
 
 namespace Techarria
 {
-	public class ItemOrRecipeGroup {
+	public class RecipeIngredient {
 		public Item item = new();
 		public RecipeGroup recipeGroup;
+		public int count;
 
-		public ItemOrRecipeGroup(Item item) {
+		public RecipeIngredient(Item item, int count = 1) {
 			this.item = item;
+			this.count = count;
 		}
 
-		public ItemOrRecipeGroup(RecipeGroup recipeGroup) {
+		public RecipeIngredient(RecipeGroup recipeGroup, int count = 1) {
 			this.recipeGroup = recipeGroup;
+			this.count = count;
 		}
 
 		public bool AcceptsItem(Item item) {

@@ -9,6 +9,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using ReLogic.Content;
 using System.Collections.Generic;
+using Techarria.Content.Tiles;
 
 namespace Techarria
 {
@@ -83,6 +84,17 @@ namespace Techarria
             Terraria.On_WorldGen.paintTile += WorldGen_paintTile;
             Terraria.On_Dust.NewDust += DustDetour;
             Terraria.On_Main.DrawWires += DrawPowerTransfer;
+			Terraria.On_Player.Update += On_Player_Update;
+		}
+
+		int biorepulsionFieldType;
+		int invertedBiorepulsionFieldType;
+		private void On_Player_Update(On_Player.orig_Update orig, Player self, int i) {
+			Main.tileSolid[biorepulsionFieldType] = true;
+			Main.tileSolid[invertedBiorepulsionFieldType] = false;
+			orig(self, i);
+			Main.tileSolid[biorepulsionFieldType] = false;
+			Main.tileSolid[invertedBiorepulsionFieldType] = true;
 		}
 
 		public override void PostSetupContent() {
@@ -90,11 +102,13 @@ namespace Techarria
 			foreach (Mod mod in ModLoader.Mods) {
 				foreach (ModNPC npc in mod.GetContent<ModNPC>()) {
 					if (npc.BannerItem != 0) {
-						moddedBannerToNPC.Add(npc.BannerItem, npc.NPC);
+						moddedBannerToNPC.TryAdd(npc.BannerItem, npc.NPC);
 						Console.WriteLine($"Linked banner with item type \"{npc.BannerItem}\" to \"{npc.DisplayName.Value}\"");
 					}
 				}
 			}
+			biorepulsionFieldType = ModContent.TileType<BiorepulsionField>();
+			invertedBiorepulsionFieldType = ModContent.TileType<InvertedBiorepulsionField>();
 		}
 
 		private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
@@ -151,7 +165,10 @@ namespace Techarria
         public override void Unload()
         {
             Terraria.On_WorldGen.paintTile -= WorldGen_paintTile;
-        }
+			Terraria.On_Dust.NewDust -= DustDetour;
+			Terraria.On_Main.DrawWires -= DrawPowerTransfer;
+			Terraria.On_Player.Update -= On_Player_Update;
+		}
 
         private bool WorldGen_paintTile(Terraria.On_WorldGen.orig_paintTile orig, int x, int y, byte color, bool broadCast)
         {

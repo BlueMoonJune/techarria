@@ -391,8 +391,22 @@ namespace Techarria.Content.Tiles.Machines.Logic
 					item.TurnToAir();
 					item.createTile = -1;
 				}
+				return;
 			}
-			else if (item.createTile <= -1 && !item.IsAir) {
+			Main.NewText(item.createWall);
+			if (item.createWall > 0 && Main.tile[i + xOff, j + yOff].WallType > 0) {
+				WorldGen.PlaceWall(i + xOff, j + yOff, item.createWall);
+				ModWall modWall = ModContent.GetModWall(item.createWall);
+				if (modWall != null)
+					modWall.PlaceInWorld(i + xOff, j + yOff, item);
+				item.stack--;
+				if (item.stack <= 0) {
+					item.TurnToAir();
+					item.createTile = -1;
+				}
+				return;
+			}
+			if (item.createTile <= -1 && !item.IsAir) {
 				Main.item[Item.NewItem(new EntitySource_TileBreak(i, j), i * 16 - 8, j * 16 - 8, 32, 32, item.type)].velocity = new Vector2(xOff * 5, yOff * 5 - 1);
 
 				item.stack--;

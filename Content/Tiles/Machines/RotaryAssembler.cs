@@ -18,12 +18,12 @@ namespace Techarria.Content.Tiles.Machines
 		public static List<AssemblyRecipe> recipes = new();
 
 		public Item result;
-		public ItemOrRecipeGroup seed;
-		public List<ItemOrRecipeGroup>[] segments = new List<ItemOrRecipeGroup>[8];
+		public RecipeIngredient seed;
+		public List<RecipeIngredient>[] segments = new List<RecipeIngredient>[8];
 		
 		public AssemblyRecipe(Item result, Item seed) {
 			this.result = result;
-			this.seed = new ItemOrRecipeGroup(seed);
+			this.seed = new RecipeIngredient(seed);
 			recipes.Add(this);
 		}
 
@@ -31,14 +31,14 @@ namespace Techarria.Content.Tiles.Machines
 			Item temp = item.Clone();
 			temp.stack = 1;
 			if (segments[segment] == null) {
-				segments[segment] = new List<ItemOrRecipeGroup>();
+				segments[segment] = new List<RecipeIngredient>();
 			}
-			segments[segment].Add(new ItemOrRecipeGroup(temp));
+			segments[segment].Add(new RecipeIngredient(temp));
 			return this;
 		}
 
 		public AssemblyRecipe AddRecipeGroup(RecipeGroup recipeGroup, int segment) {
-			segments[segment].Add(new ItemOrRecipeGroup(recipeGroup));
+			segments[segment].Add(new RecipeIngredient(recipeGroup));
 			return this;
 		}
 	}
@@ -122,9 +122,9 @@ namespace Techarria.Content.Tiles.Machines
 				for (int step = 0; step < 8; step++) {
 					for (int t = 0; t < 8; t++) {
 						int theta = (t + step) % 8;
-						List<ItemOrRecipeGroup> items = recipe.segments[theta];
+						List<RecipeIngredient> items = recipe.segments[theta];
 						for (int r = 0; r < items.Count; r++) {
-							ItemOrRecipeGroup item = items[r];
+							RecipeIngredient item = items[r];
 							if (this.items[t] == null || this.items[t].Count <= r || !item.AcceptsItem(this.items[t][r])) {
 
 								Main.NewText($"Attempt {step+1} out of 8: item at ({r}, {theta}) failed check for {item.item.Name}");

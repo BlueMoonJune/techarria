@@ -9,9 +9,10 @@ namespace Techarria.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Motor Malfunction");
-            // Description.SetDefault("Your armor is fried! You can't move!");
-        }
+			// DisplayName.SetDefault("Motor Malfunction");
+			// Description.SetDefault("Your armor is fried! You can't move!");
+			Main.debuff[Type] = true;
+		}
 
         public override void Update(Player player, ref int buffIndex)
         {

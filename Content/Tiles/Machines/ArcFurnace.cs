@@ -13,6 +13,77 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles.Machines
 {
+	public class ArcFurnaceRecipe {
+		public static List<ArcFurnaceRecipe> recipes = new();
+
+		public Item result;
+		public int voltage = 0;
+		public List<RecipeIngredient> ingredients = new();
+
+		public ArcFurnaceRecipe(Item result, int voltage, List<RecipeIngredient> ingredients = null) {
+			this.result = result;
+			this.voltage = voltage;
+			if (ingredients != null) {
+				this.ingredients = ingredients;
+			}
+			recipes.Add(this);
+		}
+
+		public void AddIngredient(Item item, int count) {
+			ingredients.Add(new(item, count));
+		}
+
+		public void AddIngredient(RecipeGroup recipeGroup, int count) {
+			ingredients.Add(new(recipeGroup, count));
+		}
+
+		public void AddIngredient(RecipeIngredient ingredient) {
+			ingredients.Add(ingredient);
+		}
+
+		public bool CanCraft(List<Item> items, int voltage) {
+			if (voltage < this.voltage) {
+				return false;
+			}
+			foreach (RecipeIngredient ing in ingredients) {
+				int countLeft = ing.count;
+				foreach (Item item in items) {
+					if (ing.AcceptsItem(item)) {
+						if (countLeft <= item.stack) {
+							countLeft = 0;
+							break;
+						}
+						countLeft -= item.stack;
+					}
+				}
+				if (countLeft > 0) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public Item Craft(List<Item> items) {
+			foreach (RecipeIngredient ing in ingredients) {
+				int countLeft = ing.count;
+				foreach (Item item in items) {
+					if (ing.AcceptsItem(item)) {
+						if (countLeft <= item.stack) {
+							item.stack -= countLeft;
+							countLeft = 0;
+							if (item.stack <= 0) {
+								items.Remove(item);
+							}
+							break;
+						}
+						countLeft -= item.stack;
+						items.Remove(item);
+					}
+				}
+			}
+			return result;
+		}
+	}
 
 	public class ArcFurnaceTE : ModTileEntity
 	{
@@ -29,23 +100,44 @@ namespace Techarria.Content.Tiles.Machines
 
 		public override void Update() 
 		{
-			/*
-			if (oldY != Position.Y) {
-				oldY = Position.Y;
-				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
+			if (charge > 0) {
+				foreach (ArcFurnaceRecipe recipe in ArcFurnaceRecipe.recipes) {
+					if (recipe.CanCraft(inputs, charge)) {
+						Item result = recipe.Craft(inputs);
+						if (result.type == output.type) {
+							output.stack += result.stack;
+						} else {
+							output = result;
+						}
+					}
+				}
 			}
-			temp = (temp - baseTemp) * ((449f) / (450f)) + baseTemp;
-			*/
-		}
-
-		public void Craft() {
-		}
-
-		public Recipe GetRecipe() {
-			return null;
+			charge = 0;
 		}
 
 		public bool InsertItem(Item item) {
+
+			foreach (Item input in inputs) {
+				if (item.type == input.type && input.stack < input.maxStack) {
+					input.stack++;
+					item.stack--;
+					if (item.stack <= 0) {
+						item.TurnToAir();
+					}
+					return true;
+				}
+			}
+
+			if (item != null && !item.IsAir) {
+				Item copy = item.Clone();
+				copy.stack = 1;
+				inputs.Add(copy);
+				item.stack--;
+				if (item.stack <= 0) {
+					item.TurnToAir();
+				}
+				return true;
+			}
 			return false;
 		}
 
@@ -124,34 +216,29 @@ namespace Techarria.Content.Tiles.Machines
 		public override bool RightClick(int i, int j) {
 			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
-			if (subTile.X == 1 && subTile.Y <= 1) {
-				Item playerItem;
-				if (!Main.mouseItem.IsAir)
-					playerItem = Main.mouseItem;
-				else
-					playerItem = Main.player[Main.myPlayer].HeldItem;
+			Item playerItem;
+			if (!Main.mouseItem.IsAir)
+				playerItem = Main.mouseItem;
+			else
+				playerItem = Main.player[Main.myPlayer].HeldItem;
 
-				if (tileEntity.InsertItem(playerItem)) {
-					if (--playerItem.stack <= 0) {
-						playerItem.TurnToAir();
-					}
-					return true;
-				}
-
-				Item item = tileEntity.ExtractItem();
-				if (item != null) {
-					Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), item);
-				}
-			}
-			if (subTile.X != 1 && subTile.Y == 3) {
-				Recipe recipe = tileEntity.GetRecipe();
-				if (recipe == null) {
-					return false;
-				}
-				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), recipe.createItem.type);
-				tileEntity.Craft();
+			if (tileEntity.InsertItem(playerItem)) {
+				return true;
 			}
 
+			Item item = tileEntity.ExtractItem();
+			if (item != null) {
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), item);
+			}
+			if (!tileEntity.output.IsAir) {
+				Item clone = tileEntity.output.Clone();
+				clone.stack = 1;
+				tileEntity.output.stack--;
+				if (tileEntity.output.stack <= 0) {
+					tileEntity.output.TurnToAir();
+				}
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), clone);
+			}
 
 			return false;
 

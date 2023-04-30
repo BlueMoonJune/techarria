@@ -41,12 +41,15 @@ namespace Techarria.Content.Items.Tools
 			{
 				bool idc = false;
 				Point pos = Main.MouseWorld.ToTileCoordinates();
+				Tile t = Main.tile[pos];
+
+				Main.tileSolid[t.TileType] = true;
+				Main.NewText(Main.tileSolid[t.TileType]);
 				ModTile tile = TileLoader.GetTile(Main.tile[pos.X, pos.Y].TileType);
 				if (tile != null) {
 					tile.TileFrame(pos.X, pos.Y, ref idc, ref idc);
 					return true;
 				}
-				Main.NewText(ModContent.ItemType<SpikedDungeonSlimeBanner>());
 			}
 			return false;
 		}
