@@ -36,24 +36,14 @@ namespace Techarria.Content.Items.Placeables
 		public override void AddRecipes()
 		{
 			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.CashCompactor>());
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(ItemID.IronCrate);
-			recipe.AddRecipeGroup(nameof(ItemID.Chest));
+			recipe.AddTile(TileID.HeavyWorkBench);
+			recipe.AddIngredient(ItemID.CopperCoin);
+            recipe.AddIngredient(ItemID.SilverCoin);
+            recipe.AddIngredient(ItemID.GoldCoin);
+            recipe.AddIngredient(ItemID.PlatinumCoin);
+            recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.AddRecipeGroup(nameof(ItemID.Chest));
 			recipe.Register();
-
-			Recipe recipeHard = Recipe.Create(ModContent.ItemType<Placeables.CashCompactor>());
-			recipeHard.AddTile(TileID.WorkBenches);
-			recipeHard.AddIngredient(ItemID.IronCrateHard);
-			recipeHard.AddRecipeGroup(nameof(ItemID.Chest));
-			recipeHard.Register();
-
-			Recipe recipeAlt = Recipe.Create(ModContent.ItemType<Placeables.CashCompactor>());
-			recipeAlt.AddTile(TileID.WorkBenches);
-			recipeAlt.AddRecipeGroup(nameof(ItemID.IronBar), 10);
-			recipeAlt.AddIngredient(ItemID.SteampunkChest);
-			recipeAlt.Register();
-
-
 		}
 	}
 }

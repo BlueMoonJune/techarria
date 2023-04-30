@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Techarria.Content.Items.Armor.Apparatus;
 using Techarria.Content.Items.Materials;
 using Terraria;
 using Terraria.Audio;
@@ -7,36 +9,49 @@ using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Weapons
 {
-    internal class SpikesteelRifle : ModItem
+    internal class SpikesteelRifle : ChargableItem
     {
         public override void SetDefaults()
         {
-            // Modders can use Item.DefaultToRangedWeapon to quickly set many common properties, such as: useTime, useAnimation, useStyle, autoReuse, DamageType, shoot, shootSpeed, useAmmo, and noMelee. These are all shown individually here for teaching purposes.
-
-            // Common Properties
-            Item.width = 114; // Hitbox width of the item.
-            Item.height = 34; // Hitbox height of the item.
-            Item.rare = ItemRarityID.Green; // The color that the item's name will be in-game.
+            Item.width = 114; 
+            Item.height = 34;
+            Item.rare = ItemRarityID.Green; 
 
             // Use Properties
             Item.useTime = 30; // The item's use time in ticks (60 ticks == 1 second.)
             Item.useAnimation = 30; // The length of the item's use animation in ticks (60 ticks == 1 second.)
-            Item.useStyle = ItemUseStyleID.Shoot; // How you use the item (swinging, holding out, etc.)
-            Item.autoReuse = true; // Whether or not you can hold click to automatically use it again.
+            Item.useStyle = ItemUseStyleID.Shoot; 
+            Item.autoReuse = true;
 
-            // The sound that this item plays when used.
             Item.UseSound = SoundID.Item40;
 
             // Weapon Properties
-            Item.DamageType = DamageClass.Ranged; // Sets the damage type to ranged.
-            Item.damage = 37; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
-            Item.knockBack = 10f; // Sets the item's knockback. Note that projectiles shot by this weapon will use its and the used ammunition's knockback added together.
-            Item.noMelee = true; // So the item's animation doesn't do damage.
+            Item.DamageType = DamageClass.Ranged; 
+            Item.damage = 32;
+            Item.crit = 20;
+            Item.knockBack = 10f; 
+            Item.noMelee = true;
+
+            maxcharge = 250;
 
             // Gun Properties
             Item.shoot = ProjectileID.PurificationPowder; // For some reason, all the guns in the vanilla source have this.
-            Item.shootSpeed = 16f; // The speed of the projectile (measured in pixels per frame.)
+            Item.shootSpeed = 32f; // The speed of the projectile (measured in pixels per frame.)
             Item.useAmmo = AmmoID.Bullet; // The "ammo Id" of the ammo item that this weapon uses. Ammo IDs are magic numbers that usually correspond to the item id of one item that most commonly represent the ammo type.
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string color = "[c/7F7F7F:";
+            if (charge > 0)
+            {
+                color = "[c/BFDFFF:";
+            }
+
+            tooltips.Add(new TooltipLine(Mod, "ChargeBonuses", color + "Converts Bullets to charged shrapnel spikes]"));
+            Player player = Main.player[Main.myPlayer];
+
+            base.ModifyTooltips(tooltips);
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
@@ -57,9 +72,10 @@ namespace Techarria.Content.Items.Weapons
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             // Shoots high velocity bullets
-            if (type == ProjectileID.Bullet)
+            if (type == ProjectileID.Bullet && charge > 0)
             {
-                type = ProjectileID.BulletHighVelocity;
+                type = ProjectileID.ClusterFragmentsI;
+                charge--;
             }
         }
 
