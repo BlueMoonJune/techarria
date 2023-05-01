@@ -8,6 +8,7 @@ Mods: {
 			SuperconductingHookProjectile.DisplayName: Superconducting Hook Projectile
 			AetherealHookProjectile.DisplayName: Aethereal Hook Projectile
 			BiofusingHookProjectile.DisplayName: Biofusing Hook Projectile
+			DematerializationHookProjectile.DisplayName: Dematerialization Hook Projectile
 		}
 
 		NPCs.SpikedDungeonSlime.DisplayName: Spiked Dungeon Slime
@@ -714,6 +715,30 @@ Mods: {
 				DisplayName: Fluid Bottle
 				Tooltip: ""
 			}
+
+			DematerializationHook: {
+				Tooltip: ""
+				DisplayName: Dematerialization Hook
+			}
+
+			BiorepulsionField: {
+				DisplayName: Biorepulsion Field
+				Tooltip: ""
+			}
+
+			AmalurityBlob: {
+				DisplayName: Amalurity Blob
+				Tooltip:
+					'''
+					You sense an evil energy coming from this substance, even though it should be the purest substance you've ever seen...
+					Probably shouldn't let this touch the ground, or your flesh.
+					'''
+			}
+
+			InvertedBiorepulsionField: {
+				DisplayName: Inverted Biorepulsion Field
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -735,6 +760,11 @@ Mods: {
 			CircuitOverload: {
 				Description: Your armor is fried! You can't use your arms!
 				DisplayName: Circuit Overload
+			}
+
+			Dematerialized: {
+				Description: Mods.Techarria.Buffs.Dematerialized.Description
+				DisplayName: Dematerialized
 			}
 		}
 
@@ -777,7 +807,7 @@ Mods: {
 			ArcFurnace.MapEntry: Arc Furnace
 			Sludge.MapEntry: Sludge
 			AetherealAnchor.MapEntry: Aethereal Anchor
-			SpikedDungeonSlimeBannerTile.MapEntry: Spiked Dungeon Slime Banner Tile
+			SpikedDungeonSlimeBannerTile.MapEntry: Banner
 		}
 	}
 }

@@ -20,38 +20,38 @@ namespace Techarria.Content.Tiles
 		public static int[] coinTypes = new int[4] { ItemID.CopperCoin, ItemID.SilverCoin, ItemID.GoldCoin, ItemID.PlatinumCoin };
 		public static int[] coinValues = new int[4] { 1, 100, 10000, 1000000 };
 
-		public int amount = 0;
+		public long amount = 0;
 		public override bool IsTileValidForEntity(int x, int y)
         {
             return Main.tile[x, y].TileType == ModContent.TileType<CashCompactor>();
         }
 
 		public int[] GetCompactedCoinCounts() {
-			int num = amount;
+			long num = amount;
 			int[] coins = new int[4];
 			if (num >= 1000000) {
-				coins[3] = num / 1000000;
+				coins[3] = (int)(num / 1000000);
 				num %= 1000000;
 			}
 			if (num >= 10000) {
-				coins[2] = num / 10000;
+				coins[2] = (int)(num / 10000);
 				num %= 10000;
 			}
 			if (num >= 100) {
-				coins[1] = num / 100;
+				coins[1] = (int)(num / 100);
 				num %= 100;
 			}
-			coins[0] = num;
+			coins[0] = (int)num;
 			return coins;
 		}
 
 		public int[] GetPossibleCoinCounts() {
-			int num = amount;
+			long num = amount;
 			int[] coins = new int[4];
-			coins[3] = num / 1000000;
-			coins[2] = num / 10000;
-			coins[1] = num / 100;
-			coins[0] = num;
+			coins[3] = (int)(num / 1000000);
+			coins[2] = (int)(num / 10000);
+			coins[1] = (int)(num / 100);
+			coins[0] = (int)(num);
 			return coins;
 		}
 
@@ -155,11 +155,8 @@ namespace Techarria.Content.Tiles
 			List<int> coinTypes = new List<int>(CashCompactorTE.coinTypes);
 			int index = coinTypes.FindIndex(value => value == playerItem.type);
 			if (index >= 0) {
-				tileEntity.amount += CashCompactorTE.coinValues[index];
-				playerItem.stack--;
-				if (playerItem.stack <= 0) {
-					playerItem.TurnToAir();
-				}
+				tileEntity.amount += CashCompactorTE.coinValues[index] * playerItem.stack;
+				playerItem.TurnToAir();
 				return true;
 			}
 
@@ -189,10 +186,8 @@ namespace Techarria.Content.Tiles
 					str += $"[i:{item.type}]{item.stack}";
 				}
 			}
-			{
-				player.cursorItemIconEnabled = true;
-				player.cursorItemIconText = str;
-			}
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconText = str;
 		}
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{

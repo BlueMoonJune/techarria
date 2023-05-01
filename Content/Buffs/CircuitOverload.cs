@@ -9,8 +9,9 @@ namespace Techarria.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Circuit Overload");
-            // Description.SetDefault("Your armor is fried! You can't use your arms!");
+			// DisplayName.SetDefault("Circuit Overload");
+			// Description.SetDefault("Your armor is fried! You can't use your arms!");
+			Main.debuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -20,5 +21,5 @@ namespace Techarria.Content.Buffs
             Rectangle rectangle = player.getRect();
             Dust.NewDust(rectangle.TopLeft(), rectangle.Width, rectangle.Height, DustID.MartianSaucerSpark);
         }
-    }
+	}
 }

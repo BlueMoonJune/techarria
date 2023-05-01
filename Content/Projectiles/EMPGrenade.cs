@@ -28,10 +28,14 @@ namespace Techarria.Content.Projectiles
             Projectile.penetrate = -1;
         }
 
-        public override void AI()
-        {
-            Projectile.velocity *= 0.95f;
-            Projectile.rotation += 0.05f;
+        public override void AI() {
+			Projectile.rotation += 0.05f;
+			if (Main.tile[(Projectile.Center / 16).ToPoint()].WallType == WallID.LihzahrdBrickUnsafe && !NPC.downedGolemBoss) {
+				Projectile.velocity.Y += Player.defaultGravity;
+				return;
+			}
+			Projectile.velocity *= 0.95f;
+
 
             Vector2 offset = new Vector2(range, 0);
             offset = offset.RotatedBy(Projectile.rotation);
@@ -47,19 +51,27 @@ namespace Techarria.Content.Projectiles
             Dust.NewDust(Projectile.Center + offset, 0, 0, DustID.Electric);
         }
 
-        public override void Kill(int timeLeft)
-        {
-            Projectile.NewProjectile(new EntitySource_Misc("Visual"), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EMPBlast>(), 0, 0);
+        public override void Kill(int timeLeft) {
+			if (Main.tile[(Projectile.Center / 16).ToPoint()].WallType == WallID.LihzahrdBrickUnsafe && !NPC.downedGolemBoss) {
+				Projectile.velocity.Y += Player.defaultGravity;
+				Projectile.NewProjectileDirect(new EntitySource_Misc("Visual"), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EMPBlast>(), 0, 0);
+				return;
+			}
+			Projectile.NewProjectile(new EntitySource_Misc("Visual"), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EMPBlast>(), 0, 0);
 
-            Rectangle explosionBoundingBox = new Rectangle((int)(Projectile.Center.X - range), (int)(Projectile.Center.Y - range), 512, 512);
+			Rectangle explosionBoundingBox = new Rectangle((int)(Projectile.Center.X - range), (int)(Projectile.Center.Y - range), 512, 512);
             List<Point> tiles = Collision.GetTilesIn(explosionBoundingBox.TopLeft(), explosionBoundingBox.BottomRight());
             foreach (Point point in tiles)
             {
                 Point center = new Point(point.X * 16 + 8, point.Y * 16 + 8);
-                if ((new Vector2(center.X, center.Y) - Projectile.Center).Length() <= range)
-                {
+                if ((new Vector2(center.X, center.Y) - Projectile.Center).Length() <= range) {
+
+					Tile tile = Main.tile[point];
+					if (tile.WallType == WallID.LihzahrdBrickUnsafe) {
+						Dust.NewDust(new Vector2(point.X, point.Y) * 16, 16, 16, DustID.SomethingRed);
+						continue;
+					}
                     Dust.NewDust(new Vector2(point.X, point.Y) * 16, 16, 16, DustID.Electric);
-                    Tile tile = Main.tile[point];
                     for (int c = 0; c < 4; c++)
                     {
                         if (Power.GetWire(tile, c)) {

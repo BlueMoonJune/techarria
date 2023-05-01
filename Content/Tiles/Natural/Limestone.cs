@@ -9,8 +9,8 @@ namespace Techarria.Content.Tiles.Natural
     {
 		public override void SetStaticDefaults()
 		{
-			TileID.Sets.Ore[Type] = true;
 			Main.tileSolid[Type] = true;
+			TileID.Sets.Ore[Type] = true;
 			Main.tileBlockLight[Type] = true;
 
 			// tile merge blending
