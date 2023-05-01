@@ -393,7 +393,6 @@ namespace Techarria.Content.Tiles.Machines.Logic
 				}
 				return;
 			}
-			Main.NewText(item.createWall);
 			if (item.createWall > 0 && Main.tile[i + xOff, j + yOff].WallType > 0) {
 				WorldGen.PlaceWall(i + xOff, j + yOff, item.createWall);
 				ModWall modWall = ModContent.GetModWall(item.createWall);

@@ -97,8 +97,12 @@ namespace Techarria
 
 			Texture2D texture = TextureAssets.Item[storage.item.type].Value;
 
-			float scale = 16f / Math.Max(texture.Width, texture.Height);
+			Rectangle sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
+			if (Main.itemAnimationsRegistered.Contains(storage.item.type)) {
+				sourceRect = Main.itemAnimations[storage.item.type].GetFrame(texture);
+			}
 
+			float scale = 16f / Math.Max(sourceRect.Width, sourceRect.Height);
 
 			Matrix offset = Matrix.Identity;
 			offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
@@ -122,7 +126,17 @@ namespace Techarria
 				color = Color.White;
 			}
 
-			Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
+			ModItem modItem = storage.item.ModItem;
+			if (modItem != null) {
+				if (!modItem.PreDrawInInventory(Main.spriteBatch, Vector2.Zero, sourceRect, Color.White, storage.item.color, Vector2.Zero, 1)) {
+					Main.spriteBatch.End();
+					return;
+				}
+			}
+			Main.spriteBatch.Draw(texture, -new Vector2(sourceRect.Width / 2, sourceRect.Height / 2), sourceRect, color);
+			if (modItem != null) {
+				modItem.PostDrawInInventory(Main.spriteBatch, Vector2.Zero, sourceRect, Color.White, storage.item.color, Vector2.Zero, 1);
+			}
 
 			Main.spriteBatch.End();
 		}
@@ -132,10 +146,15 @@ namespace Techarria
 
             Texture2D texture = TextureAssets.Item[fluidStorage.fluid.type].Value;
 
-            float scale = 16f / Math.Max(texture.Width, texture.Height);
+			Rectangle sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
+			if (Main.itemAnimationsRegistered.Contains(fluidStorage.fluid.type)) {
+				sourceRect = Main.itemAnimations[fluidStorage.fluid.type].GetFrame(texture);
+			}
+
+			float scale = 16f / Math.Max(sourceRect.Width, sourceRect.Height);
 
 
-            Matrix offset = Matrix.Identity;
+			Matrix offset = Matrix.Identity;
             offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
             Matrix transform = Main.Transform;
             transform = offset * transform;
@@ -152,15 +171,32 @@ namespace Techarria
                 transform
             );
 
+			float fillRatio = (float)fluidStorage.fluid.stack / FluidTank.maxStorage;
+
             Color color = fluidStorage.fluid.color;
             if (fluidStorage.fluid.color == new Color())
             {
                 color = Color.White;
             }
+			ModItem modItem = fluidStorage.fluid.ModItem;
+			/*
+			if (modItem != null) {
+				if (!modItem.PreDrawInInventory(Main.spriteBatch, Vector2.Zero, sourceRect, Color.White, fluidStorage.fluid.color, Vector2.Zero, 1)) {
+					Main.spriteBatch.End();
+					return;
+				}
+			}
+			*/
+			Vector2 pos = -new Vector2(sourceRect.Width / 2, sourceRect.Height / 2 + (int)(fillRatio * 16 - 16));
+			sourceRect.Height -= (int)(16 - fillRatio * 16);
 
-            Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
-
-            Main.spriteBatch.End();
+			Main.spriteBatch.Draw(texture, pos, sourceRect, color);
+			/*
+			if (modItem != null) {
+				modItem.PostDrawInInventory(Main.spriteBatch, Vector2.Zero, sourceRect, Color.White, fluidStorage.fluid.color, Vector2.Zero, 1);
+			}
+			*/
+			Main.spriteBatch.End();
         }
 
         public void DrawRotaryAssembler(RotaryAssemblerTE assembler, Point16 p) {

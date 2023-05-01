@@ -152,7 +152,7 @@ namespace Techarria.Content.Tiles.FluidTransfer
             if ((fluid != null) && (!fluid.IsAir))
             {
                 player.cursorItemIconEnabled = true;
-                player.cursorItemIconText = fluid.stack.ToString("#,# mb /") + maxStorage.ToString(" #,# mb");
+                player.cursorItemIconText = fluid.stack.ToString("#,# L /") + maxStorage.ToString(" #,# L");
                 player.cursorItemIconID = fluid.type;
             }
         }

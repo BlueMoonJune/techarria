@@ -41,6 +41,10 @@ namespace Techarria
 
 		public static int[] tempValues = new int[5] {5, 10, 40, 500, 550};
 
+		public static float Dot(this Vector2 a, Vector2 b) {
+			return a.X * b.X + a.Y * b.Y;
+		}
+
 		public static int GetBaseTemp(int y) 
 		{
 			int[] yValues = new int[5] { 0, (int)(Main.worldSurface * 0.35f), (int)Main.worldSurface, Main.UnderworldLayer, Main.maxTilesY };

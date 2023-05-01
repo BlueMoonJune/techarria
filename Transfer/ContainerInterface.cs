@@ -16,6 +16,10 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new StorageCrateInterface(point.X, point.Y);
 
+			point = FluidTankInterface.FindTopLeft(x, y);
+			if (point != Point.Zero)
+				return new FluidTankInterface(point.X, point.Y);
+
 			point = ChestInterface.FindTopLeft(x, y);
 			if (point != Point.Zero)
 				return new ChestInterface(point.X, point.Y);

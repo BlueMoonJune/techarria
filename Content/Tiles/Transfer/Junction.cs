@@ -16,8 +16,11 @@ namespace Techarria.Content.Tiles.Transfer
 			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Junction>();
 		}
 
+		public override void PlaceInWorld(int i, int j, Item item) {
+		}
+
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
-			return true;
+			return false;
 		}
 
 		public override ContainerInterface EvaluatePath(int x, int y, Item item, int origin, int depth) {

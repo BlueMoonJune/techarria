@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Techarria;
 
 namespace Techarria.Content.Items.Tools.Hooks
 {
@@ -75,18 +76,17 @@ namespace Techarria.Content.Items.Tools.Hooks
 
 		// Adjusts the position that the player will be pulled towards. This will make them hang 50 pixels away from the tile being grappled.
 		public override void GrappleTargetPoint(Player player, ref float grappleX, ref float grappleY) {
+			DematerializedPlayer p = player.GetModPlayer<DematerializedPlayer>();
 			float speed = 0;
 			GrapplePullSpeed(player, ref speed);
-			if (player.Distance(Projectile.Center) < speed) {
-				detach = true;
+			if (p.velocity is Vector2 v && v.Dot(player.Center - Projectile.Center) > 0) {
+				Projectile.Kill();
 			}
 			player.AddBuff(ModContent.BuffType<Dematerialized>(), 60);
 		}
 
 		// Can customize what tiles this hook can latch onto, or force/prevent latching alltogether, like Squirrel Hook also latching to trees
 		public override bool? GrappleCanLatchOnTo(Player player, int x, int y) {
-			if (detach)
-				return false;
 
             // In any other case, behave like a normal hook
             return null;
@@ -180,10 +180,9 @@ namespace Techarria.Content.Items.Tools.Hooks
 			if (dematerialized) {
 				if (velocity is Vector2 v) {
 					Vector2 moveVec = new((Player.controlRight?1:0)-(Player.controlLeft?1:0), (Player.controlDown?1:0)-(Player.controlUp?1:0));
-					float mag = v.Length();
 					v += moveVec;
 					v.Normalize();
-					v *= mag;
+					v *= 15f;
 					velocity = v;
 					Player.velocity = v;
 					Player.position += v;

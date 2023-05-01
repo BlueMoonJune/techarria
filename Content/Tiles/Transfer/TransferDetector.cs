@@ -43,6 +43,9 @@ namespace Techarria.Content.Tiles.Transfer
 		}
 
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) {
+			if (fail || effectOnly) {
+				return;
+			}
 			ModContent.GetInstance<TransferDetectorTE>().Kill(i, j);
 		}
 

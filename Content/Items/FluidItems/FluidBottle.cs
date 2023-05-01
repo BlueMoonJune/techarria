@@ -5,10 +5,13 @@ using Terraria.ID;
 using System.IO;
 using Terraria.ModLoader.IO;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Terraria.GameContent;
 
 namespace Techarria.Content.Items.FluidItems
 {
-    public class FluidBottle : FluidItem
+    public class FluidBottle : ModItem
     {
         public int storedItem;
 
@@ -39,7 +42,31 @@ namespace Techarria.Content.Items.FluidItems
             storedItem = reader.ReadInt32();
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale) {
+			Texture2D texture = TextureAssets.Item[storedItem].Value;
+
+			Rectangle sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
+			if (Main.itemAnimationsRegistered.Contains(storedItem)) {
+				sourceRect = Main.itemAnimations[storedItem].GetFrame(texture);
+			}
+
+			spriteBatch.Draw(TextureAssets.Item[storedItem].Value, position - new Vector2(8), sourceRect, drawColor.MultiplyRGBA(drawColor));
+			return true;
+		}
+
+		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
+			Texture2D texture = TextureAssets.Item[storedItem].Value;
+
+			Rectangle sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
+			if (Main.itemAnimationsRegistered.Contains(storedItem)) {
+				sourceRect = Main.itemAnimations[storedItem].GetFrame(texture);
+			}
+
+			spriteBatch.Draw(TextureAssets.Item[storedItem].Value, Main.item[whoAmI].Center - new Vector2(8), sourceRect, lightColor.MultiplyRGBA(alphaColor), rotation, Vector2.Zero, scale, SpriteEffects.None, 0);
+			return true;
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (storedItem != 0)
             {

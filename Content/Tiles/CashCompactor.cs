@@ -81,7 +81,7 @@ namespace Techarria.Content.Tiles
 
 		public override void LoadData(TagCompound tag)
 		{
-			amount = tag.Get<int>("amount");
+			amount = tag.Get<long>("amount");
 			base.LoadData(tag);
 		}
 	}
