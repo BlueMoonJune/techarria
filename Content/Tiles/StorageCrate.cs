@@ -34,7 +34,9 @@ namespace Techarria.Content.Tiles
 	// Where the TE ends and the Tile starts
 	public class StorageCrate : ModTile
 	{
-		public override void SetStaticDefaults()
+		public static int maxStorage = 9999999;
+
+        public override void SetStaticDefaults()
 		{
 			// Spelunker
 			Main.tileSpelunker[Type] = true;
@@ -97,7 +99,6 @@ namespace Techarria.Content.Tiles
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			StorageCrateTE tileEntity = GetTileEntity(i, j);
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.StorageCrate>());
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
 			if (tileEntity.item.IsAir)
 				ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
@@ -123,17 +124,33 @@ namespace Techarria.Content.Tiles
 				item.stack = playerItem.stack;
 				tileEntity.item = item;
 				playerItem.stack -= playerItem.stack;
-				if (playerItem.stack <= 0)
+                // overflow prevention
+                if (item.stack > maxStorage)
+                {
+                    int overflow = item.stack - maxStorage;
+                    playerItem.stack += overflow;
+                    item.stack -= overflow;
+                }
+
+                if (playerItem.stack <= 0)
 				{
 					playerItem.TurnToAir();
 				}
 				return true;
 			}
-			if (!item.IsAir && playerItem.type == item.type && item.stack < 9999999 /* <- max storage within a single storage crate */) 
+			if (!item.IsAir && playerItem.type == item.type && item.stack < maxStorage /* <- max storage within a single storage crate */) 
 			{
 				item.stack += playerItem.stack;
 				playerItem.stack -= playerItem.stack;
-				if (playerItem.stack <= 0)
+                // overflow prevention
+                if (item.stack > maxStorage)
+                {
+                    int overflow = item.stack - maxStorage;
+                    playerItem.stack += overflow;
+                    item.stack -= overflow;
+                }
+
+                if (playerItem.stack <= 0)
 				{
 					playerItem.TurnToAir();
 				}
@@ -164,7 +181,7 @@ namespace Techarria.Content.Tiles
 			if ((item != null) && (!item.IsAir))
 			{
 				player.cursorItemIconEnabled = true;
-				player.cursorItemIconText = "" + item.stack;
+				player.cursorItemIconText = item.stack.ToString("#,# /") + maxStorage.ToString(" #,#");
 				player.cursorItemIconID = item.type;
 			}
 		}

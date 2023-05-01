@@ -16,6 +16,7 @@ using Techarria.Content.Tiles.Machines.Logic;
 using Terraria.UI.Chat;
 using ReLogic.Graphics;
 using Terraria.GameContent.Creative;
+using Techarria.Content.Tiles.FluidTransfer;
 
 namespace Techarria
 {
@@ -126,7 +127,43 @@ namespace Techarria
 			Main.spriteBatch.End();
 		}
 
-		public void DrawRotaryAssembler(RotaryAssemblerTE assembler, Point16 p) {
+        public void DrawFluidTank(FluidTankTE fluidStorage, Point16 p)
+        {
+
+            Texture2D texture = TextureAssets.Item[fluidStorage.fluid.type].Value;
+
+            float scale = 16f / Math.Max(texture.Width, texture.Height);
+
+
+            Matrix offset = Matrix.Identity;
+            offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
+            Matrix transform = Main.Transform;
+            transform = offset * transform;
+
+            transform = Matrix.CreateScale(scale) * transform;
+
+            Main.spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.AlphaBlend,
+                Main.DefaultSamplerState,
+                DepthStencilState.None,
+                Main.Rasterizer,
+                null,
+                transform
+            );
+
+            Color color = fluidStorage.fluid.color;
+            if (fluidStorage.fluid.color == new Color())
+            {
+                color = Color.White;
+            }
+
+            Main.spriteBatch.Draw(texture, -new Vector2(texture.Width / 2, texture.Height / 2), color);
+
+            Main.spriteBatch.End();
+        }
+
+        public void DrawRotaryAssembler(RotaryAssemblerTE assembler, Point16 p) {
 
 			Matrix offset = Matrix.Identity;
 			offset.Translation = new Vector3(p.X * 16 + 24 - Main.screenPosition.X, p.Y * 16 + 24 - Main.screenPosition.Y, 0);
@@ -398,6 +435,10 @@ namespace Techarria
 				}
 				else if (te is ChargingRackTE chargingRack) {
 					DrawChargingRack(chargingRack, point);
+				}
+				else if (te is FluidTankTE fluidStorage)
+				{
+					DrawFluidTank(fluidStorage, point);
 				}
 			}
 

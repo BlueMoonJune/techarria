@@ -653,34 +653,22 @@ Mods: {
 
 			Sludge: {
 				DisplayName: Sludge
-				Tooltip:
-					'''
-					Does this even exist?
-					'''
+				Tooltip: Does this even exist?
 			}
 
 			SuperconductingHook: {
 				DisplayName: Superconducting Hook
-				Tooltip:
-					'''
-					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
-					'''
+				Tooltip: WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
 			}
 
 			AetherealHook: {
 				DisplayName: Aethereal Hook
-				Tooltip:
-					'''
-					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
-					'''
+				Tooltip: WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
 			}
 
 			BiofusingHook: {
 				DisplayName: Biofusing Hook
-				Tooltip:
-					'''
-					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
-					'''
+				Tooltip: WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
 			}
 
 			SpikesteelRifle: {
@@ -692,6 +680,40 @@ Mods: {
 				DisplayName: Spiked Dungeon Slime Banner
 				Tooltip: Nearby players get a bonus against:  Spiked Dungeon Slime
 			}
+
+			FluidTank: {
+				DisplayName: Fluid Tank
+				Tooltip:
+					'''
+					Stores up to 100,000mb of fluid
+					Converts Blobs Of Fluid into 1,000mb
+					'''
+			}
+
+			Lava: {
+				DisplayName: Lava
+				Tooltip: ""
+			}
+
+			Honey: {
+				DisplayName: Honey
+				Tooltip: ""
+			}
+
+			Shimmer: {
+				DisplayName: Shimmer
+				Tooltip: ""
+			}
+
+			Water: {
+				DisplayName: Water
+				Tooltip: ""
+			}
+
+			FluidBottle: {
+				DisplayName: Fluid Bottle
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -701,17 +723,17 @@ Mods: {
 			}
 
 			MotorMalfunction: {
-				Description: Mods.Techarria.Buffs.MotorMalfunction.Description
+				Description: Your armor is fried! You can't move!
 				DisplayName: Motor Malfunction
 			}
 
 			DisplayOffline: {
-				Description: Mods.Techarria.Buffs.DisplayOffline.Description
+				Description: Your armor is fried! You can't see!
 				DisplayName: Display Offline
 			}
 
 			CircuitOverload: {
-				Description: Mods.Techarria.Buffs.CircuitOverload.Description
+				Description: Your armor is fried! You can't use your arms!
 				DisplayName: Circuit Overload
 			}
 		}
