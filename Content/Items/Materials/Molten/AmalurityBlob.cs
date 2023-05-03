@@ -4,12 +4,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using Techarria.Content.Tiles.Machines;
 
-namespace techarria.Content.Items.Materials.Molten
+namespace Techarria.Content.Items.Materials.Molten
 {
-	internal class AmalurityBlob : ModItem
+	internal class AmalurityBlob : MoltenBlob
 	{
 		public override void SetDefaults() {
+			temp = 2000;
 			Item.width = 16;
 			Item.height = 16;
 			Item.maxStack = 999;
@@ -51,6 +53,13 @@ namespace techarria.Content.Items.Materials.Molten
 				}
 				Item.TurnToAir();
 			}
+		}
+
+		public override void AddRecipes() {
+			new ArcFurnaceRecipe(new Item(Type), 1000, new() {
+				new(new Item(ItemID.HallowedBar), 3),
+				new(new Item(ItemID.SoulofLight), 3),
+			});
 		}
 	}
 }

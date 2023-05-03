@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Techarria.Content.Dusts;
 using Terraria.DataStructures;
+using Terraria.Localization;
 
 namespace Techarria.Content.Tiles.Machines.Logic
 {
@@ -269,7 +270,9 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			}
 
 			foreach (Point point in sorted) {
-				WorldGen.TileFrame(point.X, point.Y);
+				Point dest = point + dir;
+				WorldGen.SquareTileFrame(point.X, point.Y);
+				WorldGen.SquareTileFrame(dest.X, dest.Y);
 			}
 
 			boundingBox.Inflate(1, 1);

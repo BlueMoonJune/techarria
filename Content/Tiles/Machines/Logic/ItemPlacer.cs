@@ -370,7 +370,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			int xOff = dir.point.X;
 			int yOff = dir.point.Y;
 
-			if (Main.tile[i + xOff, j + yOff].TileType == TileID.Extractinator && ItemID.Sets.ExtractinatorMode[item.type] >= 0) {
+			if (!item.IsAir && Main.tile[i + xOff, j + yOff].TileType == TileID.Extractinator && ItemID.Sets.ExtractinatorMode[item.type] >= 0) {
 				UseExtractinator(i + xOff, j + yOff, ItemID.Sets.ExtractinatorMode[item.type]);
 
 				item.stack--;

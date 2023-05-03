@@ -13,7 +13,7 @@ namespace Techarria.Common.Global
             return entity.CountsAsClass(DamageClass.Melee);
         }
 
-        public override void MeleeEffects(Item item, Player player, Rectangle hitbox)
+		public override void MeleeEffects(Item item, Player player, Rectangle hitbox)
         {
             base.MeleeEffects(item, player, hitbox);
             if (!(player.armor[0].ModItem is RadiatorApparatus helm && helm.IsArmorSet(player.armor[0], player.armor[1], player.armor[2])))

@@ -94,6 +94,8 @@ namespace Techarria.Content.Tiles.Machines
 
 		public int charge = 0;
 
+		public int displayCycle = 0;
+
 		public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<ArcFurnace>();
 		}
@@ -115,14 +117,16 @@ namespace Techarria.Content.Tiles.Machines
 			charge = 0;
 		}
 
-		public bool InsertItem(Item item) {
+		public bool InsertItem(Item item, bool decrement = true) {
 
 			foreach (Item input in inputs) {
 				if (item.type == input.type && input.stack < input.maxStack) {
 					input.stack++;
-					item.stack--;
-					if (item.stack <= 0) {
-						item.TurnToAir();
+					if (decrement) {
+						item.stack--;
+						if (item.stack <= 0) {
+							item.TurnToAir();
+						}
 					}
 					return true;
 				}
@@ -247,6 +251,42 @@ namespace Techarria.Content.Tiles.Machines
 			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
 			Player player = Main.LocalPlayer;
+
+			player.noThrow = 2;
+
+			if (!tileEntity.output.IsAir) {
+				player.cursorItemIconEnabled = true;
+				player.cursorItemIconText = tileEntity.output.stack.ToString();
+				player.cursorItemIconID = tileEntity.output.type;
+			}
+
+			Item playerItem;
+			if (!Main.mouseItem.IsAir)
+				playerItem = Main.mouseItem;
+			else
+				playerItem = Main.player[Main.myPlayer].HeldItem;
+
+			List<Item> inputs = tileEntity.inputs;
+
+			Item item = null;
+
+			foreach (Item input in inputs) {
+				if (playerItem.type == input.type)
+					item = input;
+			}
+
+			if (item == null) {
+				if (inputs.Count <= 0) {
+					return;
+				}
+				tileEntity.displayCycle++;
+				item = inputs[tileEntity.displayCycle / 60 % inputs.Count];
+			}
+
+
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconText = item.stack.ToString();
+			player.cursorItemIconID = item.type;
 		}
 
 		public override void InsertPower(int i, int j, int amount) {

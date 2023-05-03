@@ -141,63 +141,47 @@ namespace Techarria
 			Main.spriteBatch.End();
 		}
 
-        public void DrawFluidTank(FluidTankTE fluidStorage, Point16 p)
+        public void DrawFluidTank()
         {
 
-            Texture2D texture = TextureAssets.Item[fluidStorage.fluid.type].Value;
+			Texture2D overlayTexture = ModContent.Request<Texture2D>("Techarria/Content/Tiles/FluidTransfer/FluidTank_Overlay").Value;
 
-			Rectangle sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
-			if (Main.itemAnimationsRegistered.Contains(fluidStorage.fluid.type)) {
-				sourceRect = Main.itemAnimations[fluidStorage.fluid.type].GetFrame(texture);
+			Vector2 zero2 = Vector2.Zero;
+			if (Main.drawToScreen) {
+				zero2 = Vector2.Zero;
 			}
+			int num12 = (int)((Main.screenPosition.X - zero2.X) / 16f - 1f);
+			int num13 = (int)((Main.screenPosition.X + (float)Main.screenWidth + zero2.X) / 16f) + 2;
+			int num14 = (int)((Main.screenPosition.Y - zero2.Y) / 16f - 1f);
+			int num15 = (int)((Main.screenPosition.Y + (float)Main.screenHeight + zero2.Y) / 16f) + 5;
+			if (num12 < 0) {
+				num12 = 0;
+			}
+			if (num13 > Main.maxTilesX) {
+				num13 = Main.maxTilesX;
+			}
+			if (num14 < 0) {
+				num14 = 0;
+			}
+			if (num15 > Main.maxTilesY) {
+				num15 = Main.maxTilesY;
+			}
+			Point screenOverdrawOffset = Main.GetScreenOverdrawOffset();
 
-			float scale = 16f / Math.Max(sourceRect.Width, sourceRect.Height);
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
-
-			Matrix offset = Matrix.Identity;
-            offset.Translation = new Vector3(p.X * 16 + 16 - Main.screenPosition.X, p.Y * 16 + 16 - Main.screenPosition.Y, 0);
-            Matrix transform = Main.Transform;
-            transform = offset * transform;
-
-            transform = Matrix.CreateScale(scale) * transform;
-
-            Main.spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.AlphaBlend,
-                Main.DefaultSamplerState,
-                DepthStencilState.None,
-                Main.Rasterizer,
-                null,
-                transform
-            );
-
-			float fillRatio = (float)fluidStorage.fluid.stack / FluidTank.maxStorage;
-
-            Color color = fluidStorage.fluid.color;
-            if (fluidStorage.fluid.color == new Color())
-            {
-                color = Color.White;
-            }
-			ModItem modItem = fluidStorage.fluid.ModItem;
-			/*
-			if (modItem != null) {
-				if (!modItem.PreDrawInInventory(Main.spriteBatch, Vector2.Zero, sourceRect, Color.White, fluidStorage.fluid.color, Vector2.Zero, 1)) {
-					Main.spriteBatch.End();
-					return;
+			for (int j = num14 + screenOverdrawOffset.Y; j < num15 - screenOverdrawOffset.Y; j++) {
+				for (int i = num12 + screenOverdrawOffset.X; i < num13 - screenOverdrawOffset.X; i++) {
+					Tile tile = Main.tile[i, j];
+					if (tile.TileType == ModContent.TileType<FluidTank>()) {
+						Main.spriteBatch.Draw(overlayTexture, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y), new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Lighting.GetColor(i, j));
+					}
 				}
 			}
-			*/
-			Vector2 pos = -new Vector2(sourceRect.Width / 2, sourceRect.Height / 2 + (int)(fillRatio * 16 - 16));
-			sourceRect.Height -= (int)(16 - fillRatio * 16);
 
-			Main.spriteBatch.Draw(texture, pos, sourceRect, color);
-			/*
-			if (modItem != null) {
-				modItem.PostDrawInInventory(Main.spriteBatch, Vector2.Zero, sourceRect, Color.White, fluidStorage.fluid.color, Vector2.Zero, 1);
-			}
-			*/
 			Main.spriteBatch.End();
-        }
+
+		}
 
         public void DrawRotaryAssembler(RotaryAssemblerTE assembler, Point16 p) {
 
@@ -472,10 +456,6 @@ namespace Techarria
 				else if (te is ChargingRackTE chargingRack) {
 					DrawChargingRack(chargingRack, point);
 				}
-				else if (te is FluidTankTE fluidStorage)
-				{
-					DrawFluidTank(fluidStorage, point);
-				}
 			}
 
 			DrawGlue();
@@ -483,6 +463,8 @@ namespace Techarria
 			DrawCables();
 
 			DrawDrones();
+
+			DrawFluidTank();
 
 
 			if (texture == null) {

@@ -8,9 +8,9 @@ using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-	public class FluidTankInterface : ContainerInterface
+	public class FluidPumpInterface : ContainerInterface
 	{
-		public FluidTankInterface(int i, int j) {
+		public FluidPumpInterface(int i, int j) {
 			x = i;
 			y = j;
 		}
@@ -20,7 +20,7 @@ namespace Techarria.Transfer
 				return new Point();
 			}
 			Tile tile = Main.tile[i, j];
-			if (ModContent.GetModTile(tile.TileType) is FluidTank) {
+			if (ModContent.GetModTile(tile.TileType) is FluidPump) {
 				i -= tile.TileFrameX / 18 % 2;
 				j -= tile.TileFrameY / 18 % 2;
 
@@ -31,31 +31,14 @@ namespace Techarria.Transfer
 
 		public override List<Item> GetItems() {
 			TileEntity.ByPosition.TryGetValue(new Point16(x, y), out TileEntity TE);
-			FluidTankTE tileEntity = TE as FluidTankTE;
+			FluidPumpTE tileEntity = TE as FluidPumpTE;
 			if (tileEntity == null)
 				return new List<Item>();
 			return new List<Item>() { tileEntity.fluid };
 		}
 
 		public override bool InsertItem(Item item) {
-			TileEntity.ByPosition.TryGetValue(new Point16(x, y), out TileEntity TE);
-			FluidTankTE tileEntity = TE as FluidTankTE;
-			if (tileEntity == null)
-				return false;
-
-			Item myItem = tileEntity.fluid;
-			if (myItem == null || myItem.IsAir) {
-				myItem = item.Clone();
-				myItem.stack = 1;
-				tileEntity.fluid = myItem;
-				return true;
-			}
-			if (item.type == myItem.type && myItem.stack < tileEntity.maxCapacity /* <- max storage within a single storage crate */) {
-				myItem.stack++;
-				return true;
-			}
 			return false;
-
 		}
 
 	}

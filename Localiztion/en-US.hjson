@@ -570,11 +570,6 @@ Mods: {
 					'''
 			}
 
-			ExampleDye: {
-				DisplayName: Example Dye
-				Tooltip: ""
-			}
-
 			SolarDrill: {
 				DisplayName: Lihzahrd Lhazer
 				Tooltip:
@@ -588,9 +583,10 @@ Mods: {
 				DisplayName: Charging Rack
 				Tooltip:
 					'''
-					WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+					Charges items placed on it.
+					Outputs a signal when the item is fully charged
 					[i:Techarria/Power] diverts Power
-					[i:Techarria/Activations] does something with Activations
+					[i:Techarria/Activations] causes Activations
 					'''
 			}
 
@@ -649,27 +645,35 @@ Mods: {
 
 			ArcFurnace: {
 				DisplayName: Arc Furnace
-				Tooltip: ""
-			}
-
-			Sludge: {
-				DisplayName: Sludge
-				Tooltip: Does this even exist?
+				Tooltip:
+					'''
+					Uses high voltages to melt metals and form alloys
+					[i:Techarria/Power] accepts Power
+					[i:Techarria/Volts] Voltage dependent
+					'''
 			}
 
 			SuperconductingHook: {
 				DisplayName: Superconducting Hook
-				Tooltip: WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+				Tooltip: Swinging Hook
 			}
 
 			AetherealHook: {
 				DisplayName: Aethereal Hook
-				Tooltip: WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+				Tooltip:
+					'''
+					Swinging Hook
+					Can hook on to nothingness
+					'''
 			}
 
 			BiofusingHook: {
 				DisplayName: Biofusing Hook
-				Tooltip: WRITE A TOOLTIP, JUNE !!!!!!!!!!!!!!!!!!!!!
+				Tooltip:
+					'''
+					Can hook onto NPCs and items
+					Hold down for increased strength and to break tiles
+					'''
 			}
 
 			SpikesteelRifle: {
@@ -686,8 +690,8 @@ Mods: {
 				DisplayName: Fluid Tank
 				Tooltip:
 					'''
-					Stores up to 100,000mb of fluid
-					Converts Blobs Of Fluid into 1,000mb
+					Stores up to 2,550 L of fluid
+					Converts Blobs Of Fluid into 255 L
 					'''
 			}
 
@@ -717,13 +721,13 @@ Mods: {
 			}
 
 			DematerializationHook: {
-				Tooltip: ""
+				Tooltip: Allows travel through tiles
 				DisplayName: Dematerialization Hook
 			}
 
 			BiorepulsionField: {
 				DisplayName: Biorepulsion Field
-				Tooltip: ""
+				Tooltip: Only solid to players
 			}
 
 			AmalurityBlob: {
@@ -737,14 +741,28 @@ Mods: {
 
 			InvertedBiorepulsionField: {
 				DisplayName: Inverted Biorepulsion Field
-				Tooltip: ""
+				Tooltip: Only lets players through
+			}
+
+			FluidPump: {
+				DisplayName: Fluid Pump
+				Tooltip: Uses power to gather fluids
+			}
+
+			AmaluritySheet: {
+				DisplayName: Amalurity Sheet
+				Tooltip:
+					'''
+					This material feels like it has great potential, but you can't think of anything you could use it for!
+					(NYI)
+					'''
 			}
 		}
 
 		Buffs: {
 			DroneApparatusBuff: {
-				Description: Mods.Techarria.Buffs.DroneApparatusBuff.Description
-				DisplayName: Drone Apparatus Buff
+				Description: Little Lady with Lasers!
+				DisplayName: Spike Steel Drone
 			}
 
 			MotorMalfunction: {
@@ -763,7 +781,7 @@ Mods: {
 			}
 
 			Dematerialized: {
-				Description: Mods.Techarria.Buffs.Dematerialized.Description
+				Description: Your atoms glide past others
 				DisplayName: Dematerialized
 			}
 		}
@@ -803,7 +821,7 @@ Mods: {
 			GreenhouseAccentGlass.MapEntry: Greenhouse Accent Glass
 			AdvancedBlockBreaker.MapEntry: Advanced Block Breaker
 			LuminiteEviscerator.MapEntry: Luminite Eviscerator
-			SolarDrill.MapEntry: Solar Drill
+			SolarDrill.MapEntry: Lihzahrd Laser
 			ArcFurnace.MapEntry: Arc Furnace
 			Sludge.MapEntry: Sludge
 			AetherealAnchor.MapEntry: Aethereal Anchor

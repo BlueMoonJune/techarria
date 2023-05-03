@@ -68,9 +68,9 @@ namespace Techarria.Content.Tiles.Machines
 			if (burnTime > 0) {
 				for (int i = 0; i < (int)Techarria.GenerationMultiplier; i++) {
 					Wiring.TripWire(Position.X, Position.Y, 3, 2);
-					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);
+					Power.TransferCharge(3, Position.X, Position.Y, 3, 2);
 				}
-				pulseFraction += Techarria.GenerationMultiplier % 1f;
+				pulseFraction += (3 * Techarria.GenerationMultiplier) % 1f;
 				if (pulseFraction >= 1) {
 					pulseFraction -= 1;
 					Power.TransferCharge(1, Position.X, Position.Y, 3, 2);

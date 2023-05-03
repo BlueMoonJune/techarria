@@ -35,10 +35,9 @@ namespace Techarria.Content.Items.Placeables
 			Item.useTime = 10;
 			Item.useAnimation = 15;
 		}
-		/*
 		public override void AddRecipes()
 		{
-			// recipe.AddCondition(NetworkText.FromKey("\n"), r => true); is a new line in the recipe
+			// recipe.AddCondition(Language.GetText("\n"), () => true); is a new line in the recipe
 
 			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.InfinityCrate>());
 			// requires various tiles
@@ -47,25 +46,25 @@ namespace Techarria.Content.Items.Placeables
 			// requires water candle buff
 			recipe.AddCondition(Condition.InWaterCandle);
 			// requires expert mode
-			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("No casuals"), r => Main.masterMode);
+			recipe.AddCondition(Language.GetText("\n"), () => true);
+			recipe.AddCondition(Language.GetText("No casuals"), () => Main.masterMode);
 			// npc conditions
-			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("You have talked to Angler"), r => NPC.savedAngler);
-			recipe.AddCondition(NetworkText.FromKey("Goblin Tinkerer has not been saved"), r => !NPC.savedGoblin);
+			recipe.AddCondition(Language.GetText("\n"), () => true);
+			recipe.AddCondition(Language.GetText("You have talked to Angler"), () => NPC.savedAngler);
+			recipe.AddCondition(Language.GetText("Goblin Tinkerer has not been saved"), () => !NPC.savedGoblin);
 			// active NPC
-			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			//recipe.AddCondition(NetworkText.FromKey("Currently fighting EOL"), r => NPC.AnyNPCs(NPCID.HallowBoss));
+			recipe.AddCondition(Language.GetText("\n"), () => true);
+			//recipe.AddCondition(Language.GetText("Currently fighting EOL"), () => NPC.AnyNPCs(NPCID.HallowBoss));
 			// boss downed conditions
-			recipe.AddCondition(NetworkText.FromKey("The evil presence has been left alive"), r => !NPC.downedBoss1);
-			recipe.AddCondition(NetworkText.FromKey("The Old Man is cursed"), r => !NPC.downedBoss3);
-			recipe.AddCondition(NetworkText.FromKey("Golem has not been destroyed"), r => !NPC.downedGolemBoss);
+			recipe.AddCondition(Language.GetText("The evil presence has been left alive"), () => !NPC.downedBoss1);
+			recipe.AddCondition(Language.GetText("The Old Man is cursed"), () => !NPC.downedBoss3);
+			recipe.AddCondition(Language.GetText("Golem has not been destroyed"), () => !NPC.downedGolemBoss);
 			// time conditions
-			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("Daytime"), r => Main.dayTime);
+			recipe.AddCondition(Language.GetText("\n"), () => true);
+			recipe.AddCondition(Language.GetText("Daytime"), () => Main.dayTime);
 			// player conditions
-			recipe.AddCondition(NetworkText.FromKey("\n"), r => true);
-			recipe.AddCondition(NetworkText.FromKey("100 max hp"), r => Main.LocalPlayer.statLifeMax == 100);
+			recipe.AddCondition(Language.GetText("\n"), () => true);
+			recipe.AddCondition(Language.GetText("100 max hp"), () => Main.LocalPlayer.statLifeMax == 100);
 
 			// items required
 			recipe.AddIngredient(ItemID.GoldWaterStrider, 3);
@@ -73,6 +72,5 @@ namespace Techarria.Content.Items.Placeables
 			// register
 			recipe.Register();
 		}
-		*/
 	}
 }

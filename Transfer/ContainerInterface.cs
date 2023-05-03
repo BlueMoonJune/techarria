@@ -20,6 +20,10 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new FluidTankInterface(point.X, point.Y);
 
+			point = FluidPumpInterface.FindTopLeft(x, y);
+			if (point != Point.Zero)
+				return new FluidPumpInterface(point.X, point.Y);
+
 			point = ChestInterface.FindTopLeft(x, y);
 			if (point != Point.Zero)
 				return new ChestInterface(point.X, point.Y);
@@ -44,6 +48,10 @@ namespace Techarria.Transfer
 			point = RotaryAssemblerInterface.FindTopLeft(x, y);
 			if (point != Point.Zero)
 				return new RotaryAssemblerInterface(point.X, point.Y);
+
+			point = ArcFurnaceInterface.FindTopLeft(x, y);
+			if (point != Point.Zero)
+				return new ArcFurnaceInterface(point.X, point.Y);
 
 			point = ChargingRackInterface.FindTopLeft(x, y);
 			if (point != Point.Zero)
