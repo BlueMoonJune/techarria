@@ -178,7 +178,7 @@ namespace Techarria.Content.Tiles.Machines
 			Main.tileLavaDeath[Type] = false;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 
-			DustType = ModContent.DustType<Wormhole>();
+			DustType = ModContent.DustType<Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
 			// Placement

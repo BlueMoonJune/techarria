@@ -131,7 +131,6 @@ namespace Techarria.Content.Tiles
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			CashCompactorTE tileEntity = GetTileEntity(i, j);
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 32, ModContent.ItemType<Items.Placeables.CashCompactor>());
 			foreach (Item coin in tileEntity.GetCompactedCoins()) {
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 32, coin);
 			}

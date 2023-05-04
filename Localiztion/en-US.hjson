@@ -374,7 +374,7 @@ Mods: {
 					Insert an enemy banner and provide power to generate enemy loot
 					[i:Techarria/Power] accepts Power
 					'''
-				DisplayName: Cryo Chamber
+				DisplayName: Replication Chamber
 			}
 
 			CastingTable: {
@@ -458,12 +458,12 @@ Mods: {
 
 			SpikeSteelWorkBench: {
 				Tooltip: Used for basic crafting
-				DisplayName: Spike Steel Work Bench
+				DisplayName: Spikesteel Work Bench
 			}
 
 			SpikeSteelChair: {
-				Tooltip: ""
-				DisplayName: Spike Steel Chair
+				Tooltip: "A little broken"
+				DisplayName: Spikesteel Chair
 			}
 
 			Multimeter: {
@@ -478,7 +478,7 @@ Mods: {
 
 			SpikeSteelSheet: {
 				Tooltip: Casted from molten Spikesteel for use in crafting
-				DisplayName: Spike Steel Sheet
+				DisplayName: Spikesteel Sheet
 			}
 
 			SheetMold: {
@@ -488,7 +488,7 @@ Mods: {
 
 			MoltenSpikeSteel: {
 				Tooltip: "'I would recommend putting this down'"
-				DisplayName: Molten Spike Steel
+				DisplayName: Molten Spikesteel
 			}
 
 			MechanicalScrap: {
@@ -762,7 +762,7 @@ Mods: {
 		Buffs: {
 			DroneApparatusBuff: {
 				Description: Little Lady with Lasers!
-				DisplayName: Spike Steel Drone
+				DisplayName: Spikesteel Drone
 			}
 
 			MotorMalfunction: {
@@ -812,12 +812,12 @@ Mods: {
 			BlockBreaker.MapEntry: Block Breaker
 			GelatinousTurbine.MapEntry: Gelatinous Turbine
 			Electromagnet.MapEntry: Electromagnet
-			CryoChamber.MapEntry: Cryo Chamber
+			CryoChamber.MapEntry: Replication Chamber
 			CastingTable.MapEntry: Casting Table
 			CapacitorRack.MapEntry: Capacitor Rack
 			BlastFurnace.MapEntry: Blast Furnace
 			GreenhouseGlass.MapEntry: Greenhouse Glass
-			SpikeSteelWorkBench.MapEntry: Spike Steel Work Bench
+			SpikeSteelWorkBench.MapEntry: Spikesteel Work Bench
 			GreenhouseAccentGlass.MapEntry: Greenhouse Accent Glass
 			AdvancedBlockBreaker.MapEntry: Advanced Block Breaker
 			LuminiteEviscerator.MapEntry: Luminite Eviscerator

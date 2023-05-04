@@ -198,7 +198,7 @@ namespace Techarria.Content.Tiles.Machines
 			Main.tileLavaDeath[Type] = false;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 
-			DustType = ModContent.DustType<Wormhole>();
+			DustType = ModContent.DustType<Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
 			// Placement
@@ -228,7 +228,6 @@ namespace Techarria.Content.Tiles.Machines
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.Machines.BlastFurnace>());
 
 			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
 			foreach (Item input in tileEntity.inputs) {

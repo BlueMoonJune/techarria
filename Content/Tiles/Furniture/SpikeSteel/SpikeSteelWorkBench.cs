@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -22,9 +23,10 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
             TileID.Sets.IgnoredByNpcStepUp[Type] = true;
 
             AdjTiles = new int[] { TileID.WorkBenches };
+			DustType = ModContent.DustType<Spikesteel>();
 
-            // placement
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
+			// placement
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
             TileObjectData.newTile.CoordinateHeights = new[] { 18 };
             TileObjectData.addTile(Type);
 
@@ -36,7 +38,6 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
         }
         public override void KillMultiTile(int x, int y, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, ModContent.ItemType<Items.Placeables.Furniture.SpikeSteelWorkBench>());
         }
     }
 }

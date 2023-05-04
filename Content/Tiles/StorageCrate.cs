@@ -52,6 +52,8 @@ namespace Techarria.Content.Tiles
 			Main.tileSolidTop[Type] = true;
 			Main.tileTable[Type] = true;
 
+			DustType = DustID.Stone;
+
 			// placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);

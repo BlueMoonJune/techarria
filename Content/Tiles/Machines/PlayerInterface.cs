@@ -19,7 +19,7 @@ namespace Techarria.Content.Tiles.Machines
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
 
-			DustType = ModContent.DustType<Dusts.Wormhole>();
+			DustType = ModContent.DustType<Dusts.Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
 			// Placement
@@ -38,7 +38,6 @@ namespace Techarria.Content.Tiles.Machines
 		}
 
 		public override void KillMultiTile(int x, int y, int frameX, int frameY) {
-			Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 48, 32, ModContent.ItemType<Items.Placeables.Machines.PlayerInterface>());
 		}
 
 		public override void InsertPower(int i, int j, int amount) {

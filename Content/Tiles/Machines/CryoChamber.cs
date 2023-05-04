@@ -95,7 +95,6 @@ namespace Techarria.Content.Tiles.Machines
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.Machines.CryoChamber>());
 
 			CryoChamberTE tileEntity = GetTileEntity(i, j);
 			Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), tileEntity.item.type, tileEntity.item.stack);

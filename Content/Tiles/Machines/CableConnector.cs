@@ -89,7 +89,6 @@ namespace Techarria.Content.Tiles.Machines
 				if (TileEntity.ByID.TryGetValue(tileEntity.connectedID, out TileEntity temp) && temp is CableConnectorTE connectingTE)
 					connectingTE.isConnected = false;
 			}
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeables.Machines.CableConnector>());
 			if (tileEntity.wireCount > 0)
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ItemID.Wire, tileEntity.wireCount);
 			ModContent.GetInstance<CableConnectorTE>().Kill(i, j);

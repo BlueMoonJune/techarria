@@ -66,7 +66,7 @@ namespace Techarria.Content.Tiles.Machines
 			Main.tileFrameImportant[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 
-			DustType = ModContent.DustType<Wormhole>();
+			DustType = ModContent.DustType<Spikesteel>();
 
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
@@ -102,7 +102,6 @@ namespace Techarria.Content.Tiles.Machines
 					newCapacitor.charge = capacitor.charge;
 				}
 			}
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Placeables.Machines.CapacitorRack>());
 			ModContent.GetInstance<CapacitorRackTE>().Kill(i, j);
 		}
 

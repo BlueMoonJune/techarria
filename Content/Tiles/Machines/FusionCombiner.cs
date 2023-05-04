@@ -160,7 +160,7 @@ namespace Techarria.Content.Tiles.Machines
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			Main.tileSolid[Type] = true;
 
-			DustType = ModContent.DustType<Wormhole>();
+			DustType = ModContent.DustType<Spikesteel>();
 
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
