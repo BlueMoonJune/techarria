@@ -13,6 +13,78 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles.Machines
 {
+	public class BlastFurnaceRecipe
+    {
+		public static List<ArcFurnaceRecipe> recipes = new();
+
+		public Item result;
+		public int voltage = 0;
+		public List<RecipeIngredient> ingredients = new();
+
+		public ArcFurnaceRecipe(Item result, int voltage, List<RecipeIngredient> ingredients = null) {
+			this.result = result;
+			this.voltage = voltage;
+			if (ingredients != null) {
+				this.ingredients = ingredients;
+			}
+			recipes.Add(this);
+		}
+
+		public void AddIngredient(Item item, int count) {
+			ingredients.Add(new(item, count));
+		}
+
+		public void AddIngredient(RecipeGroup recipeGroup, int count) {
+			ingredients.Add(new(recipeGroup, count));
+		}
+
+		public void AddIngredient(RecipeIngredient ingredient) {
+			ingredients.Add(ingredient);
+		}
+
+		public bool CanCraft(List<Item> items, int voltage) {
+			if (voltage < this.voltage) {
+				return false;
+			}
+			foreach (RecipeIngredient ing in ingredients) {
+				int countLeft = ing.count;
+				foreach (Item item in items) {
+					if (ing.AcceptsItem(item)) {
+						if (countLeft <= item.stack) {
+							countLeft = 0;
+							break;
+						}
+						countLeft -= item.stack;
+					}
+				}
+				if (countLeft > 0) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public Item Craft(List<Item> items) {
+			foreach (RecipeIngredient ing in ingredients) {
+				int countLeft = ing.count;
+				foreach (Item item in items) {
+					if (ing.AcceptsItem(item)) {
+						if (countLeft <= item.stack) {
+							item.stack -= countLeft;
+							countLeft = 0;
+							if (item.stack <= 0) {
+								items.Remove(item);
+							}
+							break;
+						}
+						countLeft -= item.stack;
+						items.Remove(item);
+					}
+				}
+			}
+			return result;
+		}
+    }
 
 	public class BlastFurnaceTE : ModTileEntity
 	{
@@ -40,6 +112,12 @@ namespace Techarria.Content.Tiles.Machines
 				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
 			}
 			temp = (temp - baseTemp) * ((449f) / (450f)) + baseTemp;
+			if (temp >= 750) {
+				if (Main.rand.NextBool((int)(75000 / temp) + 1))
+					Dust.NewDustPerfect(Position.ToVector2() * 16 + Vector2.One * 8, DustID.Smoke, new Vector2(-Main.rand.NextFloat(), -Main.rand.NextFloat())).color = new Color(0.5f, 0.5f, 0.5f);
+				if (Main.rand.NextBool((int)(75000 / temp) + 1))
+					Dust.NewDustPerfect(Position.ToVector2() * 16 + new Vector2(40, 8), DustID.Smoke, new Vector2(Main.rand.NextFloat(), -Main.rand.NextFloat())).color = new Color(0.5f, 0.5f, 0.5f);
+			}
 		}
 
 		public void Craft() {

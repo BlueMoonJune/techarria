@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -28,9 +29,10 @@ namespace Techarria.Content.Tiles.Furniture.SpikeSteel
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair); // makes it seen as a chair
 
 			AdjTiles = new int[] { TileID.Chairs };
+			DustType = ModContent.DustType<Spikesteel>();
 
 			// map
-			AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.Chair"));
+			AddMapEntry(new Color(80 / 255f, 73 / 255f, 66 / 255f), Language.GetText("MapObject.Chair"));
 
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);

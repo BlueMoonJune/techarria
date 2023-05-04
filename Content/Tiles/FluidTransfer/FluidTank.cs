@@ -116,8 +116,10 @@ namespace Techarria.Content.Tiles.FluidTransfer
             Main.tileSolidTop[Type] = true;
             Main.tileTable[Type] = true;
 
-            // placement
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+			DustType = ModContent.DustType<Spikesteel>();
+
+			// placement
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
             TileObjectData.newTile.AnchorInvalidTiles = new int[] { TileID.MagicalIceBlock };

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -84,9 +85,9 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
 
             AddMapEntry(new Color(60/255f, 50/255f, 44/255f), CreateMapEntryName());
 
-            DustType = DustID.Stone;
+			DustType = ModContent.DustType<Spikesteel>();
 
-            HitSound = SoundID.Tink;
+			HitSound = SoundID.Tink;
         }
 
         public override void PlaceInWorld(int i, int j, Item item)

@@ -70,6 +70,8 @@ namespace Techarria.Content.Tiles.FluidTransfer
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true;
 			TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
 
+			DustType = ModContent.DustType<Spikesteel>();
+
 			// placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.StyleHorizontal = true;

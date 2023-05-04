@@ -115,7 +115,7 @@ namespace Techarria.Content.Tiles.Transfer
 			Techarria.tileIsTransferDuct[Type] = true;
 			Techarria.tileConnectToPipe[Type] = true;
 
-			AddMapEntry(Color.Blue, CreateMapEntryName());
+			AddMapEntry(new Color(58 / 255f, 61 / 255f, 66 / 255f), CreateMapEntryName());
 
 			DustType = DustID.Stone;
 			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();

@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using System.Collections.Generic;
 using Techarria.Transfer;
+using Techarria.Content.Dusts;
 
 namespace Techarria.Content.Tiles.Machines.Logic
 {
@@ -48,9 +49,9 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			Main.tileBlockLight[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 
-			AddMapEntry(Color.Blue, CreateMapEntryName());
+			AddMapEntry(new Color(80 / 255f, 73 / 255f, 66 / 255f), CreateMapEntryName());
 
-			DustType = DustID.Stone;
+			DustType = ModContent.DustType<Spikesteel>();
 			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.AdvancedBlockBreaker>();
 
 			HitSound = SoundID.Tink;

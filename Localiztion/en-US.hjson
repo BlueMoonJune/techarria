@@ -462,7 +462,7 @@ Mods: {
 			}
 
 			SpikeSteelChair: {
-				Tooltip: "A little broken"
+				Tooltip: A little broken
 				DisplayName: Spikesteel Chair
 			}
 

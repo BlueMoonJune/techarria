@@ -101,6 +101,8 @@ namespace Techarria.Content.Items.Tools.Hooks
 
 		public override void UseGrapple(Player player, ref int type) {
 			Vector2 pos = Main.MouseWorld;
+			Tile tile = Main.tile[pos.ToTileCoordinates()];
+			if (!tile.HasTile || Main.tileCut[tile.TileType])
 			WorldGen.PlaceTile((int)pos.X / 16, (int)pos.Y / 16, ModContent.TileType<AetherealAnchor>());
 		}
 

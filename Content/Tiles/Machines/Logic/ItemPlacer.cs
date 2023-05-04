@@ -34,7 +34,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			Main.tileBlockLight[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 
-			AddMapEntry(Color.Blue, CreateMapEntryName());
+			AddMapEntry(Color.Gray, CreateMapEntryName());
 
 			DustType = DustID.Stone;
 			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.ItemPlacer>();
