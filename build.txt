@@ -1,4 +1,4 @@
 displayName = Techarria
 author = BlueMoonJune & GwabbaWaba
-version = 0.1
+version = 0.1-pre1
 weakReferences = MagicStorage@0.5.7.9

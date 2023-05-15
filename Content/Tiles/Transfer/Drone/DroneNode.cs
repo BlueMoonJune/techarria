@@ -47,7 +47,7 @@ namespace Techarria.Content.Tiles.Transfer.Drone
 
 			Main.tileFrameImportant[Type] = true;
 
-			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Drones.DroneNode>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Drones.DroneNode>();
 		}
 
 		public override void PlaceInWorld(int i, int j, Item item) {

@@ -26,7 +26,7 @@ namespace Techarria.Content.Tiles
 			AddMapEntry(new Color(254, 208, 200), name);
 
 			DustType = 84;
-			ItemDrop = ModContent.ItemType<Items.Placeables.GreenhouseGlass>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.GreenhouseGlass>();
 			HitSound = SoundID.Tink;
 		}
 	}
@@ -54,7 +54,7 @@ namespace Techarria.Content.Tiles
 			AddMapEntry(new Color(254, 208, 200), name);
 
 			DustType = 84;
-			ItemDrop = ModContent.ItemType<Items.Placeables.GreenhouseAccentGlass>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.GreenhouseAccentGlass>();
 			HitSound = SoundID.Tink;
 		}
 	}

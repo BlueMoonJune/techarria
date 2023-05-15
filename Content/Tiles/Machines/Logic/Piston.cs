@@ -29,7 +29,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			AddMapEntry(Color.DarkSlateGray, CreateMapEntryName());
 
 			DustType = DustID.Stone;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.Piston>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.Piston>();
 
 			HitSound = SoundID.Tink;
 		}

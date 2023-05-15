@@ -33,7 +33,7 @@ namespace Techarria.Content.Tiles.Transfer
 	{
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
-			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Filter>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Filter>();
 		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {

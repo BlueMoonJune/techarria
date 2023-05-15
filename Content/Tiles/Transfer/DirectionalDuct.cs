@@ -14,7 +14,7 @@ namespace Techarria.Content.Tiles.Transfer
 			base.SetStaticDefaults();
 
 			TileID.Sets.CanBeSloped[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.DirectionalDuct>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.DirectionalDuct>();
 		}
 
 		public override void PlaceInWorld(int i, int j, Item item) {

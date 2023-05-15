@@ -36,7 +36,7 @@ namespace Techarria.Content.Tiles.Natural
 			AddMapEntry(new Color(27, 27, 31), name);
 
 			DustType = 84;
-			ItemDrop = ModContent.ItemType<Items.Materials.IndustrialCoal>();
+			//ItemDrop = ModContent.ItemType<Items.Materials.IndustrialCoal>();
 			HitSound = SoundID.Tink;
 		}
 	}

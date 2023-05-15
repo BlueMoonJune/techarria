@@ -26,7 +26,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			AddMapEntry(Color.DarkSlateGray, CreateMapEntryName());
 
 			DustType = DustID.Stone;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.SolarDrill>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Machines.SolarDrill>();
 
 			HitSound = SoundID.Tink;
 

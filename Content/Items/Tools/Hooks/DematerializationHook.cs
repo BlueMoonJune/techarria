@@ -25,7 +25,6 @@ namespace Techarria.Content.Items.Tools.Hooks
 		private static Asset<Texture2D> chainTexture;
 
 		public int frameCount = 0;
-		private bool detach;
 
 		public override void Load() { // This is called once on mod (re)load when this piece of content is being loaded.
 									  // This is the path to the texture that we'll use for the hook's chain. Make sure to update it.

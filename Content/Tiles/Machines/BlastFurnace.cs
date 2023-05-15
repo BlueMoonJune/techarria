@@ -15,15 +15,15 @@ namespace Techarria.Content.Tiles.Machines
 {
 	public class BlastFurnaceRecipe
     {
-		public static List<ArcFurnaceRecipe> recipes = new();
+		public static List<BlastFurnaceRecipe> recipes = new();
 
 		public Item result;
-		public int voltage = 0;
+		public int temp = 0;
 		public List<RecipeIngredient> ingredients = new();
 
-		public ArcFurnaceRecipe(Item result, int voltage, List<RecipeIngredient> ingredients = null) {
+		public BlastFurnaceRecipe(Item result, int temp, List<RecipeIngredient> ingredients = null) {
 			this.result = result;
-			this.voltage = voltage;
+			this.temp = temp;
 			if (ingredients != null) {
 				this.ingredients = ingredients;
 			}
@@ -42,8 +42,8 @@ namespace Techarria.Content.Tiles.Machines
 			ingredients.Add(ingredient);
 		}
 
-		public bool CanCraft(List<Item> items, int voltage) {
-			if (voltage < this.voltage) {
+		public bool CanCraft(List<Item> items, int temp) {
+			if (temp < this.temp) {
 				return false;
 			}
 			foreach (RecipeIngredient ing in ingredients) {
@@ -283,6 +283,7 @@ namespace Techarria.Content.Tiles.Machines
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
 			TileObjectData.newTile.StyleHorizontal = false;
 			TileObjectData.newTile.LavaDeath = false;
+			TileObjectData.newTile.CoordinateHeights = new int[4] {16, 16, 16, 18};
 			TileObjectData.addTile(Type);
 
 			// Etc

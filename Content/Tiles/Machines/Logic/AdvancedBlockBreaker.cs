@@ -52,7 +52,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			AddMapEntry(new Color(80 / 255f, 73 / 255f, 66 / 255f), CreateMapEntryName());
 
 			DustType = ModContent.DustType<Spikesteel>();
-			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.AdvancedBlockBreaker>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.AdvancedBlockBreaker>();
 
 			HitSound = SoundID.Tink;
 		}

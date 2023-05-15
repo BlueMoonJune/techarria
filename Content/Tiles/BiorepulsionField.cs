@@ -11,7 +11,7 @@ namespace Techarria.Content.Tiles
 			Main.tileSolid[Type] = false;
 
 			HitSound = SoundID.Meowmere;
-			ItemDrop = ModContent.ItemType<Items.Placeables.BiorepulsionField>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.BiorepulsionField>();
 		}
 	}
 }

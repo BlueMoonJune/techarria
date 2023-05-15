@@ -50,13 +50,13 @@ namespace Techarria.Content.Tiles.FluidTransfer
 				multiblockOrigin = (te as FluidTankTE).multiblockOrigin;
 				multiblockIndexY = (te as FluidTankTE).multiblockIndexY+1;
 				multiblockSize = (te as FluidTankTE).multiblockSize;
-				offset.Y = 36;
+				offset.Y = 72;
 			} else {
 				multiblockOrigin = Position.ToPoint();
 				multiblockIndexY = 0;
 			}
 			if (TileEntity.ByPosition.TryGetValue(Position + new Point16(0, 2), out te)) {
-				offset.X = 36;
+				offset.Y += 36;
 			}
 
 			if (multiblockOrigin != Position.ToPoint()) {
@@ -81,8 +81,6 @@ namespace Techarria.Content.Tiles.FluidTransfer
 					multiblockSize++;
 				}
 			}
-
-			Dust.NewDust(new Vector2(Position.X, Position.Y) * 16, 0, 0, ModContent.DustType<TransferDust>());
 		}
 
 		public override void SaveData(TagCompound tag)

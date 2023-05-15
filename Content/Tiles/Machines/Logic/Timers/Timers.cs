@@ -136,7 +136,7 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             duration = 300;
             base.SetStaticDefaults();
 
-            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.FiveSecondTimer>();
+            //ItemDrop = ModContent.ItemType<Items.Placeables.Timers.FiveSecondTimer>();
         }
         public override void MouseOver(int i, int j)
         {
@@ -154,7 +154,7 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             duration = 180;
             base.SetStaticDefaults();
 
-            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.ThreeSecondTimer>();
+            //ItemDrop = ModContent.ItemType<Items.Placeables.Timers.ThreeSecondTimer>();
         }
         public override void MouseOver(int i, int j)
         {
@@ -172,7 +172,7 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             duration = 60;
             base.SetStaticDefaults();
 
-            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.OneSecondTimer>();
+            //ItemDrop = ModContent.ItemType<Items.Placeables.Timers.OneSecondTimer>();
         }
         public override void MouseOver(int i, int j)
         {
@@ -190,7 +190,7 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             duration = 30;
             base.SetStaticDefaults();
 
-            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.HalfSecondTimer>();
+            //ItemDrop = ModContent.ItemType<Items.Placeables.Timers.HalfSecondTimer>();
         }
         public override void MouseOver(int i, int j)
         {
@@ -209,7 +209,7 @@ namespace Techarria.Content.Tiles.Machines.Logic.Timers
             duration = 15;
             base.SetStaticDefaults();
 
-            ItemDrop = ModContent.ItemType<Items.Placeables.Timers.QuarterSecondTimer>();
+            //ItemDrop = ModContent.ItemType<Items.Placeables.Timers.QuarterSecondTimer>();
         }
         public override void MouseOver(int i, int j)
         {

@@ -12,7 +12,7 @@ namespace Techarria.Content.Tiles.Transfer
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
 			Main.tileSolidTop[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Hopper>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Hopper>();
 		}
 
 		public override void PlaceInWorld(int i, int j, Item item) {

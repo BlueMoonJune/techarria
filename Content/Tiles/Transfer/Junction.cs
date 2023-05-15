@@ -13,7 +13,7 @@ namespace Techarria.Content.Tiles.Transfer
 	{
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
-			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Junction>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.Junction>();
 		}
 
 		public override void PlaceInWorld(int i, int j, Item item) {

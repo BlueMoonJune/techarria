@@ -13,7 +13,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
 			myType = ModContent.TileType<StickyPiston>();
-			ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.StickyPiston>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.StickyPiston>();
 		}
 
 		public override void Extend(Point p, Direction dir) {

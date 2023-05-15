@@ -89,7 +89,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			AddMapEntry(new Color(60 / 255f, 50 / 255f, 44 / 255f), CreateMapEntryName());
 
 			DustType = DustID.Stone;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();
 
 			HitSound = SoundID.Tink;
 		}

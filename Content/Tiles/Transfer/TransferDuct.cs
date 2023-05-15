@@ -118,7 +118,7 @@ namespace Techarria.Content.Tiles.Transfer
 			AddMapEntry(new Color(58 / 255f, 61 / 255f, 66 / 255f), CreateMapEntryName());
 
 			DustType = DustID.Stone;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();
 
 			HitSound = SoundID.Tink;
 

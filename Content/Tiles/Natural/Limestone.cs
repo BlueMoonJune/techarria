@@ -24,7 +24,7 @@ namespace Techarria.Content.Tiles.Natural
 
 
 			DustType = 84;
-			ItemDrop = ModContent.ItemType<Items.Placeables.Natural.Limestone>();
+			//ItemDrop = ModContent.ItemType<Items.Placeables.Natural.Limestone>();
 			HitSound = SoundID.Tink;
 		}
 	}
