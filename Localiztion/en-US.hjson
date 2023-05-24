@@ -757,6 +757,11 @@ Mods: {
 					(NYI)
 					'''
 			}
+
+			Skullotron: {
+				DisplayName: Skullotron
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {

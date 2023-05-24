@@ -31,7 +31,7 @@ namespace Techarria.Common.Global
                         Dust.NewDust(p.TopLeft, p.width, p.height, DustID.Vortex);
                     Vector2 mouse = Main.MouseWorld;
                     Vector2 end = mouse - p.Center;
-                    end.Normalize();
+                    end.SafeNormalize(Vector2.Zero);
                     end *= 1024;
                     end += p.Center;
                     LineSegment line = new LineSegment(p.Center, end);

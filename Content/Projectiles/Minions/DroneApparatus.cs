@@ -88,7 +88,7 @@ namespace Techarria.Content.Projectiles.Minions
 			if (foundTarget) 
 			{
 				Vector2 offset = Projectile.Center - center;
-				offset.Normalize();
+				offset.SafeNormalize(Vector2.Zero);
 				offset *= 128;
 				moveTarget = offset + center;
 			}
@@ -110,7 +110,7 @@ namespace Techarria.Content.Projectiles.Minions
 
 			Projectile.velocity += ((moveTarget - Projectile.Center) - Projectile.velocity / 0.05f) * 0.005f;
 			if (Projectile.velocity.Length() > 10) {
-				Projectile.velocity.Normalize();
+				Projectile.velocity.SafeNormalize(Vector2.Zero);
 				Projectile.velocity *= 10;
 			}
 

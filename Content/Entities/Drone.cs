@@ -64,7 +64,7 @@ namespace Techarria.Content.Entities
 
 			velocity += ((moveTarget - Center) - velocity / 0.05f) * 0.005f;
 			if (velocity.Length() > 10) {
-				velocity.Normalize();
+				velocity.SafeNormalize(Vector2.Zero);
 				velocity *= 10;
 			}
 

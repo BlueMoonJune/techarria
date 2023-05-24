@@ -55,7 +55,7 @@ namespace Techarria.Content.Items
 			Vector2 origin = player.Center;
 			Vector2 mouse = Main.MouseWorld;
 			Vector2 dif = mouse - origin;
-			dif.Normalize();
+			dif.SafeNormalize(Vector2.Zero);
 			dif *= 334.76f;
 			Vector2 center = origin + dif;
 			Vector2 offset = new Vector2(Projectiles.EMPGrenade.range, 0);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -40,6 +41,23 @@ namespace Techarria
 	public static class HelperMethods {
 
 		public static int[] tempValues = new int[5] {5, 10, 40, 500, 550};
+		public static Vector2 vZero = Vector2.Zero;
+
+		public static int Int(this bool b) => b ? 1 : 0;
+
+		public static Vector2 SafeNormalized(this ref Vector2 v, Vector2 def)
+		{
+			if (v == Vector2.Zero)
+			{
+				v = def;
+				return v;
+			}
+			float length = MathF.Sqrt(v.X * v.X + v.Y * v.Y);
+			v.X /= length;
+			v.Y /= length;
+			return v;
+			
+		}
 
 		public static float Dot(this Vector2 a, Vector2 b) {
 			return a.X * b.X + a.Y * b.Y;

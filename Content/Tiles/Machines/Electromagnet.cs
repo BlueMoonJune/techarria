@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using Terraria.GameContent;
+using techarria.Common.Global;
 
 namespace Techarria.Content.Tiles.Machines
 {
@@ -56,10 +57,11 @@ namespace Techarria.Content.Tiles.Machines
 				Vector2 dif = item.Center - center;
 				float dist = dif.LengthSquared();
 				if (dist < amount * 65536.0 && !item.getRect().Intersects(rect)) {
-					dif.Normalize();
-					Vector2 force = dif * amount * 1024.0f / dist;
+					dif.SafeNormalize(Vector2.Zero);
+					Vector2 force = dif * amount * 4f / dist;
 					item.velocity -= force;
 					item.position -= force;
+                    item.GetGlobalItem<GlobalMagnetItem>().magentized = true;
 				}
 			}
 		}
