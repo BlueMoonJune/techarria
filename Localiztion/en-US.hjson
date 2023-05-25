@@ -832,5 +832,24 @@ Mods: {
 			AetherealAnchor.MapEntry: Aethereal Anchor
 			SpikedDungeonSlimeBannerTile.MapEntry: Banner
 		}
+
+		Configs: {
+			TecharriaServerConfig: {
+				DisplayName: Techarria Server Config
+				Headers.DevItems: Dev Items Header
+
+				DevItemsEnabled: {
+					Label: Enable Dev items
+					Tooltip:
+						'''
+						Highly experimental/unbalanced, use at your own risk
+						Affected items:
+						Update Hammer (functional, unnobtainable)
+						Infinity Crate (functional, obtainable)
+						Power Block (functional, unnobtainable)
+						'''
+				}
+			}
+		}
 	}
 }

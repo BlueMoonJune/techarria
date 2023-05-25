@@ -7,7 +7,7 @@ namespace Techarria.Common.Configs
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("Dev Items")]
+        [Header("DevItems")]
         // do not newline these
         [Label("Enable Dev items")]
         [Tooltip("Highly experimental/unbalanced, use at your own risk\n" +

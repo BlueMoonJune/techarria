@@ -28,7 +28,11 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new ChestInterface(point.X, point.Y);
 
-			if (ModLoader.TryGetMod("MagicStorage", out Mod _)) {
+            point = PlayerInterfaceInterface.FindTopLeft(x, y);
+            if (point != Point.Zero)
+                return new PlayerInterfaceInterface(point.X, point.Y);
+
+            if (ModLoader.TryGetMod("MagicStorage", out Mod _)) {
 				point = MagicStorageInterface.FindTopLeft(x, y);
 				if (point != Point.Zero)
 					return new MagicStorageInterface(point.X, point.Y);

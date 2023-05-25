@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Techarria.Content.Items.Tools.Adhesive;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -32,7 +33,8 @@ namespace Techarria.Common.UI.MultiAdhesiveUI
 		public bool pressed = false;
 
 		public MultiAdhesiveButton(Vector2 position, MultiAdhesiveButtonType type) {
-			this.position = position;
+            if (Main.netMode == NetmodeID.Server) return;
+            this.position = position;
 			this.type = type;
 
 			Width = new StyleDimension(TextureAssets.WireUi[0].Value.Width, 1);

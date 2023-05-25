@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.ID;
 
 namespace Techarria.Common.UI.GlueLensUI
 {
@@ -33,6 +34,7 @@ namespace Techarria.Common.UI.GlueLensUI
 		public bool pressed = false;
 
 		public GlueLensButton(Vector2 position, GlueLensButtonType type) {
+			if (Main.netMode == NetmodeID.Server) return;
 			this.position = position;
 			this.type = type;
 
