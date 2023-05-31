@@ -8,6 +8,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using Techarria.Content.Items.Materials;
 
 namespace Techarria.Content.Items.Placeables.FluidTransfer
 {
@@ -37,8 +38,9 @@ namespace Techarria.Content.Items.Placeables.FluidTransfer
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<FluidPump>());
             recipe.AddTile(TileID.WorkBenches);
-            recipe.AddIngredient(ItemID.IronCrate);
-            recipe.AddRecipeGroup(nameof(ItemID.Chest));
+            recipe.AddIngredient<SpikeSteelSheet>(4);
+            recipe.AddIngredient(ItemID.EmptyBucket);
+            recipe.AddIngredient(ItemID.Wire, 5);
             recipe.Register();
         }
     }

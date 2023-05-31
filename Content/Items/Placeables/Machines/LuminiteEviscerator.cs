@@ -34,12 +34,7 @@ namespace Techarria.Content.Items.Placeables.Machines
 			Item.createTile = ModContent.TileType<Tiles.Machines.Logic.LuminiteEviscerator>();
 		}
 		public override void AddRecipes() {
-			var recipe = Recipe.Create(ModContent.ItemType<Content.Items.Placeables.Machines.LuminiteEviscerator>());
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
-			recipe.AddIngredient(ItemID.Wire, 5);
-			recipe.AddIngredient(ItemID.StoneBlock, 25);
-			recipe.Register();
+			
 		}
 	}
 }

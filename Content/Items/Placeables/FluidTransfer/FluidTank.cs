@@ -7,6 +7,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using Techarria.Content.Items.Materials;
 
 namespace Techarria.Content.Items.Placeables.FluidTransfer
 {
@@ -34,11 +35,11 @@ namespace Techarria.Content.Items.Placeables.FluidTransfer
         }
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.FluidTransfer.FluidTank>());
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.AddIngredient(ItemID.IronCrate);
-            recipe.AddRecipeGroup(nameof(ItemID.Chest));
-            recipe.Register();
+            Recipe.Create(ModContent.ItemType<Placeables.FluidTransfer.FluidTank>())
+                .AddTile(TileID.WorkBenches)
+                .AddIngredient<SpikeSteelSheet>(4)
+                .AddIngredient(ItemID.EmptyBucket)
+                .Register();
         }
     }
 }

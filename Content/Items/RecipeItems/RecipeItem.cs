@@ -10,6 +10,11 @@ namespace Techarria.Content.Items.RecipeItems
             Item.TurnToAir();
         }
 
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+        {
+            Item.TurnToAir();
+        }
+
         public override void HoldItem(Player player)
         {
             Item.TurnToAir();

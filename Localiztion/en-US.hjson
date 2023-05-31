@@ -567,6 +567,7 @@ Mods: {
 					When Powered, generates a beam which destroyes tiles
 					Stores destroyed tiles
 					[i:Techarria/Power] accepts Power
+					NYI
 					'''
 			}
 
@@ -576,6 +577,7 @@ Mods: {
 					'''
 					When Powered, generates a beam which destroyes tiles
 					[i:Techarria/Power] accepts Power
+					NYI
 					'''
 			}
 
@@ -762,6 +764,11 @@ Mods: {
 				DisplayName: Skullotron
 				Tooltip: ""
 			}
+
+			ItemDropper: {
+				DisplayName: Item Dropper
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -831,6 +838,7 @@ Mods: {
 			Sludge.MapEntry: Sludge
 			AetherealAnchor.MapEntry: Aethereal Anchor
 			SpikedDungeonSlimeBannerTile.MapEntry: Banner
+			ItemDropper.MapEntry: Item Dropper
 		}
 
 		Configs: {

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Techarria.Content.Dusts;
 using Terraria;
 using Terraria.DataStructures;
@@ -18,6 +20,14 @@ namespace Techarria.Content.Tiles.Machines
 		public float pulseFraction = 0;
 		public int frame = 0;
 		public static Rectangle particleRect = new(4, 22, 16, 6);
+
+		public static Dictionary<int, int> fuelItems = new Dictionary<int, int>()
+		{
+			{ItemID.Gel, 600}, //10 seconds
+            {ItemID.PinkGel, 3600}, //1 minute
+            {ItemID.RoyalGel, 216000}, // 1 hour
+			{ItemID.VolatileGelatin, 438000} // 2 hours
+        };
 
 		public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<GelatinousTurbine>();
@@ -65,7 +75,20 @@ namespace Techarria.Content.Tiles.Machines
 				item = new Item();
 			}
 
-			if (burnTime > 0) {
+            if (burnTime <= 0)
+            {
+                if (fuelItems.Keys.Contains(item.type))
+                {
+                    burnTime += fuelItems[item.type];
+                    item.stack--;
+                    if (item.stack <= 0)
+                    {
+                        item.TurnToAir();
+                    }
+                }
+            }
+
+            if (burnTime > 0) {
 				for (int i = 0; i < (int)Techarria.GenerationMultiplier; i++) {
 					Wiring.TripWire(Position.X, Position.Y, 3, 2);
 					Power.TransferCharge(3, Position.X, Position.Y, 3, 2);
@@ -77,16 +100,7 @@ namespace Techarria.Content.Tiles.Machines
 				}
 				burnTime--;
 			}
-			else {
-				if (item.type == ItemID.Gel)
-					burnTime = 600;
-				if (item.type == ItemID.PinkGel)
-					burnTime = 3600;
-				item.stack--;
-				if (item.stack <= 0) {
-					item.TurnToAir();
-				}
-			}
+			
 		}
 
 		public override void SaveData(TagCompound tag) {
