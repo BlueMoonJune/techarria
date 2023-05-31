@@ -65,7 +65,10 @@ namespace Techarria.Transfer
 			if (point != Point.Zero)
 				return new CashCompactorInterface(point.X, point.Y);
 
-			if (ItemPlacerInterface.Check(x, y))
+            if (ItemDropperInterface.Check(x, y))
+                return new ItemDropperInterface(x, y);
+
+            if (ItemPlacerInterface.Check(x, y))
 				return new ItemPlacerInterface(x, y);
 
 			if (AdvancedBlockBreakerInterface.Check(x, y))
