@@ -19,7 +19,7 @@ namespace Techarria.Common.Configs
         [ReloadRequired]
         public bool DevItemsEnabled;
     }
-    /*
+    /* 
      * client side (unused)
      * 
     public class TecharriaClientConfig : ModConfig
