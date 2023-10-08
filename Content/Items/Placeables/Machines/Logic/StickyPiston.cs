@@ -37,18 +37,21 @@ namespace Techarria.Content.Items.Placeables.Machines.Logic
         }
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<Logic.StickyPiston>());
+            Recipe recipe;
+
+            recipe = Recipe.Create(ModContent.ItemType<Logic.StickyPiston>());
             recipe.AddTile(TileID.WorkBenches);
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
             recipe.AddIngredient(ItemID.Wood, 2);
             recipe.AddIngredient(ItemID.Wire, 5);
+            recipe.AddIngredient(ItemID.Gel, 5);
             recipe.Register();
 
-            Recipe recipe2 = Recipe.Create(ModContent.ItemType<Logic.StickyPiston>());
-            recipe2.AddTile(TileID.WorkBenches);
-            recipe2.AddIngredient(ItemID.Gel, 5);
-            recipe2.AddIngredient<Logic.Piston>();
-            recipe2.Register();
+            recipe = Recipe.Create(ModContent.ItemType<Logic.StickyPiston>());
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddIngredient(ItemID.Gel, 5);
+            recipe.AddIngredient<Logic.Piston>();
+            recipe.Register();
         }
     }
 }

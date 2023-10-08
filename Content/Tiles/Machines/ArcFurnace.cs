@@ -29,17 +29,20 @@ namespace Techarria.Content.Tiles.Machines
 			recipes.Add(this);
 		}
 
-		public void AddIngredient(Item item, int count) {
+		public ArcFurnaceRecipe AddIngredient(Item item, int count) {
 			ingredients.Add(new(item, count));
-		}
+            return this;
+        }
 
-		public void AddIngredient(RecipeGroup recipeGroup, int count) {
+		public ArcFurnaceRecipe AddIngredient(RecipeGroup recipeGroup, int count) {
 			ingredients.Add(new(recipeGroup, count));
+			return this;
 		}
 
-		public void AddIngredient(RecipeIngredient ingredient) {
+		public ArcFurnaceRecipe AddIngredient(RecipeIngredient ingredient) {
 			ingredients.Add(ingredient);
-		}
+            return this;
+        }
 
 		public bool CanCraft(List<Item> items, int voltage) {
 			if (voltage < this.voltage) {
@@ -83,6 +86,25 @@ namespace Techarria.Content.Tiles.Machines
 			}
 			return result;
 		}
+
+		public Recipe Register()
+		{
+            Recipe recipe = Recipe.Create(result.type);
+			recipe.AddTile<ArcFurnace>();
+			foreach (RecipeIngredient item in ingredients)
+			{
+				if (item.item != null)
+				{
+					recipe.AddIngredient(item.item.type, item.count);
+				} else
+                {
+                    recipe.AddRecipeGroup(item.recipeGroup, item.count);
+                }
+			}
+			recipe.AddIngredient<Volts>(voltage);
+			recipe.Register();
+			return recipe;
+        }
 	}
 
 	public class ArcFurnaceTE : ModTileEntity

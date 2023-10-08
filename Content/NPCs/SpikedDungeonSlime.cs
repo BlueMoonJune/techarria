@@ -9,9 +9,26 @@ using Terraria.GameContent.Creative;
 using Terraria.ObjectData;
 using Terraria.Enums;
 using Microsoft.Xna.Framework;
+using System;
+using Microsoft.CodeAnalysis;
 
 namespace Techarria.Content.NPCs
 {
+    public class OpenDoor
+    {
+        public bool isOpen = false;
+
+        public void OnMouseDown()
+        {
+            isOpen = !isOpen;
+        }
+
+        public void Update()
+        {
+            
+        }
+    }
+
     public class SpikedDungeonSlime : ModNPC
     {
         public override void SetStaticDefaults()
@@ -40,8 +57,8 @@ namespace Techarria.Content.NPCs
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
 
-            // grabbing how other enemies work
-            AIType = NPCID.SpikedJungleSlime;
+			// grabbing how other enemies work
+			AIType = NPCID.SpikedJungleSlime;
             AnimationType = NPCID.SpikedJungleSlime;
 
 			// banner stuff
@@ -74,6 +91,43 @@ namespace Techarria.Content.NPCs
         }
     }
 
+	public class SpikedDungeonSlimeGlobalProjectile : GlobalProjectile
+	{
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
+        {
+			return entity.type == ProjectileID.JungleSpike;
+        }
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            if (source is EntitySource_Parent p && p.Entity is NPC npc && npc.ModNPC is SpikedDungeonSlime)
+            {
+                Projectile.NewProjectile(source, projectile.position, projectile.velocity, ModContent.ProjectileType<SpikedDungeonSlimeProjectile>(), projectile.damage, projectile.knockBack);
+                projectile.Kill();
+            }
+        }
+    }
+
+	public class SpikedDungeonSlimeProjectile : ModProjectile
+	{
+        public override void SetDefaults()
+        {
+			AIType = ProjectileID.JungleSpike;
+            Projectile.aiStyle = 1;
+            Projectile.width = 8;
+            Projectile.height = 8;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 600;
+            Projectile.tileCollide = true;
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.Bleeding, 600);
+        }
+    }
 
 	//Banner code from https://github.com/HolyDrillDev/DarknessFallenMod
 	public class SpikedDungeonSlimeBanner : ModItem {
@@ -95,7 +149,7 @@ namespace Techarria.Content.NPCs
 			Item.value = 500;
 			Item.rare = ItemRarityID.Blue;
 		}
-	}
+    }
 
 
 	public class SpikedDungeonSlimeBannerTile : ModTile

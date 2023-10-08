@@ -41,7 +41,6 @@ namespace Techarria.VanillaChanges
             logicGateANDRecipe.AddIngredient(ItemID.WireBulb);
             logicGateANDRecipe.AddIngredient(ItemID.Wire, 5);
             logicGateANDRecipe.Register();
-
         }
     }
 }

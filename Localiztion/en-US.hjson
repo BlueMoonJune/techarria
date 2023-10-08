@@ -9,6 +9,7 @@ Mods: {
 			AetherealHookProjectile.DisplayName: Aethereal Hook Projectile
 			BiofusingHookProjectile.DisplayName: Biofusing Hook Projectile
 			DematerializationHookProjectile.DisplayName: Dematerialization Hook Projectile
+			SpikedDungeonSlimeProjectile.DisplayName: Spiked Dungeon Slime Projectile
 		}
 
 		NPCs.SpikedDungeonSlime.DisplayName: Spiked Dungeon Slime
@@ -41,7 +42,7 @@ Mods: {
 				Tooltip:
 					'''
 					Places blue adhesive
-					'Reccomended for ingestion'
+					'Recommended for ingestion'
 					'''
 				DisplayName: Slimy Adhesive
 			}
@@ -260,7 +261,7 @@ Mods: {
 					Items inserted depending on direction they are inserted from
 					When activated, rotates 45� in a direction correspondant to the direction the wires flow
 					[i:Techarria/Activations] accepts Activations
-					'I reccomend you play with it to figure out the directional movement direction'
+					'I recommend you play with it to figure out the directional movement direction'
 					'''
 				DisplayName: Rotary Assembler
 			}
@@ -622,7 +623,7 @@ Mods: {
 
 			BlobOfLava: {
 				DisplayName: Blob Of Lava
-				Tooltip: "'I would reccomend putting this down'"
+				Tooltip: "'I would recommend putting this down'"
 			}
 
 			CashCompactor: {
@@ -737,7 +738,7 @@ Mods: {
 				Tooltip:
 					'''
 					You sense an evil energy coming from this substance, even though it should be the purest substance you've ever seen...
-					Probably shouldn't let this touch the ground, or your flesh.
+					Probably shouldn't let this touch the ground, or your skin.
 					'''
 			}
 
@@ -767,7 +768,12 @@ Mods: {
 
 			ItemDropper: {
 				DisplayName: Item Dropper
-				Tooltip: ""
+				Tooltip:
+					'''
+					<right> to insert an item
+					Activate to drop all items
+					[i:Techarria/Activations] accepts Activations
+					'''
 			}
 		}
 

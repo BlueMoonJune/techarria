@@ -59,7 +59,7 @@ namespace Techarria.Content.Items.Materials.Molten
 			new ArcFurnaceRecipe(new Item(Type), 1000, new() {
 				new(new Item(ItemID.HallowedBar), 3),
 				new(new Item(ItemID.SoulofLight), 3),
-			});
+			}).Register();
 		}
 	}
 }

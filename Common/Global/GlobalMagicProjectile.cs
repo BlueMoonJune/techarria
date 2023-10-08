@@ -3,6 +3,7 @@ using System;
 using Techarria.Content.Dusts;
 using Techarria.Content.Items.Armor;
 using Techarria.Content.Items.Armor.Apparatus;
+using Techarria.Content.NPCs;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,9 +25,11 @@ namespace Techarria.Common.Global
 					if (Main.rand.NextBool(3, 5)) {
 						for (int i = 0; i < 8; i++) {
 							Vector2 pos = target.Center;
-							Vector2 vel = new Vector2(10, 0).RotatedBy(i * MathHelper.PiOver4);
-							Projectile proj = Projectile.NewProjectileDirect(new EntitySource_OnHit(owner, target), pos, vel, ProjectileID.SpikyBall, 1, 0, projectile.owner);
-							proj.penetrate = 2;
+							Vector2 vel = new Vector2(5, 0).RotatedBy(Main.rand.NextFloat() * MathHelper.TwoPi);
+							Projectile proj = Projectile.NewProjectileDirect(new EntitySource_OnHit(owner, target), pos, vel, ModContent.ProjectileType<SpikedDungeonSlimeProjectile>(), projectile.damage/10, 0, projectile.owner);
+							proj.friendly = true;
+							proj.hostile = false;
+							proj.penetrate = -1;
 						}
 					}
 				}
