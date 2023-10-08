@@ -14,37 +14,14 @@ using Microsoft.CodeAnalysis;
 
 namespace Techarria.Content.NPCs
 {
-    public class OpenDoor
-    {
-        public bool isOpen = false;
-
-        public void OnMouseDown()
-        {
-            isOpen = !isOpen;
-        }
-
-        public void Update()
-        {
-            
-        }
-    }
-
     public class SpikedDungeonSlime : ModNPC
     {
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Spiked Dungeon Slime");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[2];
-
-            // debuff immunity
-            NPCID.Sets.DebuffImmunitySets.Add(Type, new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Poisoned // This NPC will be immune to the Poisoned debuff.
-				}
-            });
         }
-
+        
         public override void SetDefaults()
         {
             NPC.width = 56;

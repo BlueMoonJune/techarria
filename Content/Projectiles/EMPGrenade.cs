@@ -51,7 +51,7 @@ namespace Techarria.Content.Projectiles
             Dust.NewDust(Projectile.Center + offset, 0, 0, DustID.Electric);
         }
 
-        public override void Kill(int timeLeft) {
+        public override void OnKill(int timeLeft) {
 			if (Main.tile[(Projectile.Center / 16).ToPoint()].WallType == WallID.LihzahrdBrickUnsafe && !NPC.downedGolemBoss) {
 				Projectile.velocity.Y += Player.defaultGravity;
 				Projectile.NewProjectileDirect(new EntitySource_Misc("Visual"), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EMPBlast>(), 0, 0);
