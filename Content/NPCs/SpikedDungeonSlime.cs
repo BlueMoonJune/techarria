@@ -20,6 +20,8 @@ namespace Techarria.Content.NPCs
         {
             // DisplayName.SetDefault("Spiked Dungeon Slime");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[2];
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
         }
         
         public override void SetDefaults()
@@ -127,7 +129,6 @@ namespace Techarria.Content.NPCs
 			Item.rare = ItemRarityID.Blue;
 		}
     }
-
 
 	public class SpikedDungeonSlimeBannerTile : ModTile
 	{

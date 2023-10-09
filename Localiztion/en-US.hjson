@@ -775,6 +775,16 @@ Mods: {
 					[i:Techarria/Activations] accepts Activations
 					'''
 			}
+
+			SoulGrinder: {
+				DisplayName: Soul Grinder
+				Tooltip: ""
+			}
+
+			TravelingMarket: {
+				DisplayName: Traveling Market
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -845,6 +855,8 @@ Mods: {
 			AetherealAnchor.MapEntry: Aethereal Anchor
 			SpikedDungeonSlimeBannerTile.MapEntry: Banner
 			ItemDropper.MapEntry: Item Dropper
+			SoulGrinder.MapEntry: Soul Grinder
+			TravelingMarket.MapEntry: Traveling Market
 		}
 
 		Configs: {

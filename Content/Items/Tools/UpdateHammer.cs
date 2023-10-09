@@ -4,7 +4,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Techarria.Structures;
-using Techarria.Content.NPCs;
+//using Techarria.Content.NPCs;
 
 namespace Techarria.Content.Items.Tools
 {
