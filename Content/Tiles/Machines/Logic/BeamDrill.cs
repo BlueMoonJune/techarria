@@ -80,7 +80,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 		}
 	}
 
-	public abstract class BeamDrill : EntityTile<BeamDrillTE>, PowerConsumer
+	public abstract class BeamDrill : EntityTile<BeamDrillTE>, IPowerConsumer
 	{
 		public int power = 0; //pickaxe power
 		public int range = 0; //range in tiles
@@ -126,7 +126,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			ModContent.GetInstance<ItemPlacerTE>().Kill(i, j);
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			float distance = Math.Min(range * amount / (float)cost, range);
 			BeamDrillTE tileEntity = GetTileEntity(i, j);
 			if (distance >= tileEntity.range) {

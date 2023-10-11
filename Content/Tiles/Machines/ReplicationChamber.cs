@@ -52,7 +52,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class ReplicationChamber : EntityTile<ReplicationChamberTE>, PowerConsumer
+	public class ReplicationChamber : EntityTile<ReplicationChamberTE>, IPowerConsumer
 	{
 		public override void SetStaticDefaults()
 		{
@@ -226,7 +226,7 @@ namespace Techarria.Content.Tiles.Machines
 			}
 		}
 
-        public override void InsertPower(int i, int j, int amount)
+        public void InsertPower(int i, int j, int amount)
 		{
 			ReplicationChamberTE tileEntity = GetTileEntity(i, j);
 

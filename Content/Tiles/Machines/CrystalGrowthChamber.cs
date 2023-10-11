@@ -49,7 +49,7 @@ namespace Techarria.Content.Tiles.Machines
         }
     }
 
-    public class CrystalGrowthChamber : EntityTile<CrystalGrowthChamberTE>, PowerConsumer
+    public class CrystalGrowthChamber : EntityTile<CrystalGrowthChamberTE>, IPowerConsumer
     {
         public override void SetStaticDefaults()
         {
@@ -189,7 +189,7 @@ namespace Techarria.Content.Tiles.Machines
             }
         }
 
-        public override void InsertPower(int i, int j, int amount)
+        public void InsertPower(int i, int j, int amount)
         {
             CrystalGrowthChamberTE tileEntity = GetTileEntity(i, j);
 

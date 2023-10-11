@@ -78,7 +78,7 @@ namespace Techarria.Content.Tiles.Machines
         }
     }
 
-	public class PlayerInterface : EntityTile<PlayerInterfaceTE>, PowerConsumer
+	public class PlayerInterface : EntityTile<PlayerInterfaceTE>, IPowerConsumer
 	{
 		public override void SetStaticDefaults() {
 
@@ -107,7 +107,7 @@ namespace Techarria.Content.Tiles.Machines
 		public override void KillMultiTile(int x, int y, int frameX, int frameY) {
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18;
 			j -= tile.TileFrameY / 18;

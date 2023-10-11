@@ -141,7 +141,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class GreenhouseController : EntityTile<GreenhouseControllerTE>, PowerConsumer
+	public class GreenhouseController : EntityTile<GreenhouseControllerTE>, IPowerConsumer
 	{
 		public override void SetStaticDefaults() {
 
@@ -182,7 +182,7 @@ namespace Techarria.Content.Tiles.Machines
 			ModContent.GetInstance<GreenhouseControllerTE>().Kill(i, j);
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			GreenhouseControllerTE te = GetTileEntity(i, j);
 			te.InsertCharge(amount);
 

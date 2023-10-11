@@ -14,7 +14,7 @@ using Techarria.Common.Global;
 
 namespace Techarria.Content.Tiles.Machines
 {
-    public class Electromagnet : ModTile, PowerConsumer
+    public class Electromagnet : ModTile, IPowerConsumer
     {
         public override void SetStaticDefaults()
         {
@@ -43,7 +43,7 @@ namespace Techarria.Content.Tiles.Machines
         {
         }
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 3;

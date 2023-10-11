@@ -151,7 +151,7 @@ namespace Techarria.Content.Tiles.Machines
 	}
 
 	// Where the TE ends and the Tile starts
-	public class FusionCombiner : EntityTile<FusionCombinerTE>, PowerConsumer
+	public class FusionCombiner : EntityTile<FusionCombinerTE>, IPowerConsumer
 	{
 		public override void SetStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;
@@ -195,7 +195,7 @@ namespace Techarria.Content.Tiles.Machines
 			FusionCombinerTE tileEntity = GetTileEntity(i, j);
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			GetTileEntity(i, j).InsertPower(amount);
 		}
 	}

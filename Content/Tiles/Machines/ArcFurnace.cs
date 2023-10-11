@@ -192,7 +192,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class ArcFurnace : EntityTile<ArcFurnaceTE>, PowerConsumer 
+	public class ArcFurnace : EntityTile<ArcFurnaceTE>, IPowerConsumer 
 	{
 		public override void SetStaticDefaults() {
 			Main.tileNoAttach[Type] = true;
@@ -311,7 +311,7 @@ namespace Techarria.Content.Tiles.Machines
 			player.cursorItemIconID = item.type;
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
 
 			tileEntity.charge += amount;
