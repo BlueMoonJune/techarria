@@ -36,7 +36,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class ChargingRack : PowerConsumer
+	public class ChargingRack : EntityTile<ChargingRackTE>, IPowerConsumer
 	{
 		public static Dictionary<int, string> capacitorTextures = new();
 
@@ -125,7 +125,7 @@ namespace Techarria.Content.Tiles.Machines
 			}
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			ChargingRackTE tileEntity = GetTileEntity(i, j);
 			if (tileEntity.item.ModItem is ChargableItem item) {
 				if (item.Charge(amount) == 0) {

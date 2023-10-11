@@ -68,6 +68,11 @@ namespace Techarria
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return C.GetHashCode() << 30 ^ X.GetHashCode() << 15 ^ Y.GetHashCode();
+        }
     }
 
     public class Power
@@ -135,7 +140,7 @@ namespace Techarria
             foreach (Point p in consumers)
             {
                 Tile tile = Main.tile[p];
-                if (ModContent.GetModTile(tile.TileType) is PowerConsumer consumer)
+                if (ModContent.GetModTile(tile.TileType) is IPowerConsumer consumer)
                     consumer.InsertPower(p.X, p.Y, splitCharge);
             }
             return true;
@@ -152,7 +157,7 @@ namespace Techarria
 			Point p = new Point(wire.X, wire.Y);
 
 			Tile tile = Main.tile[p];
-			if (ModContent.GetModTile(tile.TileType) is PowerConsumer consumer && consumer.IsConsumer(p.X, p.Y)) {
+			if (ModContent.GetModTile(tile.TileType) is IPowerConsumer consumer && consumer.IsConsumer(p.X, p.Y)) {
 				list.Add(p);
 			}
 

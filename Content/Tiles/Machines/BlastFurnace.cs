@@ -268,7 +268,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class BlastFurnace : PowerConsumer
+	public class BlastFurnace : EntityTile<BlastFurnaceTE>, IPowerConsumer
 	{
 		public override void SetStaticDefaults() {
 			Main.tileNoAttach[Type] = true;
@@ -404,7 +404,7 @@ namespace Techarria.Content.Tiles.Machines
 			}
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
 
 			int itemCount = 10;

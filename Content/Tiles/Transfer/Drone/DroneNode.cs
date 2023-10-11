@@ -39,8 +39,8 @@ namespace Techarria.Content.Tiles.Transfer.Drone
 	public class DroneNode : ModTile
 	{
 
-		public static int CanPlace(int i, int j) {
-			return 1;
+		public override bool CanPlace(int i, int j) {
+			return false;
 		}
 
 		public override void SetStaticDefaults() {

@@ -6,7 +6,7 @@ using Terraria;
 
 namespace Techarria.Content.Items.Placeables.Machines
 {
-    public class CryoChamber : ModItem
+    public class ReplicationChamber : ModItem
     {
 		public override void SetStaticDefaults()
 		{
@@ -19,7 +19,7 @@ namespace Techarria.Content.Items.Placeables.Machines
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Machines.CryoChamber>());
+			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Machines.ReplicationChamber>());
 			Item.value = 150;
 			Item.maxStack = 99;
 			Item.width = 28;
@@ -28,7 +28,7 @@ namespace Techarria.Content.Items.Placeables.Machines
 		}
 		public override void AddRecipes()
 		{
-			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.Machines.CryoChamber>());
+			Recipe recipe = Recipe.Create(ModContent.ItemType<Placeables.Machines.ReplicationChamber>());
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.AddIngredient(ItemID.IceMachine);
 			recipe.AddIngredient(ItemID.FrostCore);

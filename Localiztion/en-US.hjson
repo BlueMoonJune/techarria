@@ -369,7 +369,7 @@ Mods: {
 				DisplayName: Electromagnet
 			}
 
-			CryoChamber: {
+			ReplicationChamber: {
 				Tooltip:
 					'''
 					Insert an enemy banner and provide power to generate enemy loot
@@ -850,7 +850,7 @@ Mods: {
 			BlockBreaker.MapEntry: Block Breaker
 			GelatinousTurbine.MapEntry: Gelatinous Turbine
 			Electromagnet.MapEntry: Electromagnet
-			CryoChamber.MapEntry: Replication Chamber
+			ReplicationChamber.MapEntry: Replication Chamber
 			CastingTable.MapEntry: Casting Table
 			CapacitorRack.MapEntry: Capacitor Rack
 			BlastFurnace.MapEntry: Blast Furnace

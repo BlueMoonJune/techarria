@@ -115,7 +115,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class SoulCondenser : PowerConsumer
+	public class SoulCondenser : EntityTile<SoulCondenserTE>, IPowerConsumer
 	{
 		public static int width = 3;
         public static int height = 3;
@@ -209,7 +209,7 @@ namespace Techarria.Content.Tiles.Machines
 			}
 		}
 
-        public override void InsertPower(int i, int j, int amount)
+        public void InsertPower(int i, int j, int amount)
 		{
 			GetTileEntity(i, j).InsertPower(amount);
 		}

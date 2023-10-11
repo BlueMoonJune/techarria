@@ -56,7 +56,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class CapacitorRack : PowerConsumer
+	public class CapacitorRack : EntityTile<CapacitorRackTE>, IPowerConsumer
 	{
 		public static Dictionary<int, string> capacitorTextures = new();
 
@@ -163,7 +163,7 @@ namespace Techarria.Content.Tiles.Machines
 			}
 		}
 
-		public override bool IsConsumer(int i, int j) {
+		public bool IsConsumer(int i, int j) {
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
 			if (subTile.X != 1 && subTile.Y == 1) {
@@ -172,7 +172,7 @@ namespace Techarria.Content.Tiles.Machines
 			return false;
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			CapacitorRackTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
 			if (subTile.X != 1 && subTile.Y == 1) {

@@ -56,7 +56,7 @@ namespace Techarria.Content.Tiles.FluidTransfer
 		}
 	}
 
-	public class FluidPump : PowerConsumer
+	public class FluidPump : EntityTile<FluidPumpTE>, IPowerConsumer
 	{
 		public override void SetStaticDefaults() {
 
@@ -98,7 +98,7 @@ namespace Techarria.Content.Tiles.FluidTransfer
 			ModContent.GetInstance<FluidPumpTE>().Kill(i, j);
 		}
 
-		public override void InsertPower(int i, int j, int amount) {
+		public void InsertPower(int i, int j, int amount) {
 			FluidPumpTE te = GetTileEntity(i, j);
 			te.InsertCharge(amount);
 
