@@ -7,7 +7,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace techarria.Content.Tiles.Furniture
+namespace Techarria.Content.Tiles.Furniture
 {
     public class TravelingMarket : ModTile
     {

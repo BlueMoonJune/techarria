@@ -785,6 +785,11 @@ Mods: {
 				DisplayName: Traveling Market
 				Tooltip: ""
 			}
+
+			SoulCondenser: {
+				DisplayName: Soul Condenser
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -857,6 +862,7 @@ Mods: {
 			ItemDropper.MapEntry: Item Dropper
 			SoulGrinder.MapEntry: Soul Grinder
 			TravelingMarket.MapEntry: Traveling Market
+			SoulCondenser.MapEntry: Soul Condenser
 		}
 
 		Configs: {

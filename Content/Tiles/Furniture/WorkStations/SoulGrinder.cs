@@ -7,7 +7,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace techarria.Content.Tiles.Furniture.WorkStations
+namespace Techarria.Content.Tiles.Furniture.WorkStations
 {
     public class SoulGrinder : ModTile
     {

@@ -3,7 +3,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Techarria.Content.Items.Materials;
 
-namespace techarria.Content.Items.Placeables.Furniture.WorkStations
+namespace Techarria.Content.Items.Placeables.Furniture.WorkStations
 {
     public class SoulGrinder : ModItem
     {

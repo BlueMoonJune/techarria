@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using Terraria.GameContent;
-using techarria.Common.Global;
+using Techarria.Common.Global;
 
 namespace Techarria.Content.Tiles.Machines
 {

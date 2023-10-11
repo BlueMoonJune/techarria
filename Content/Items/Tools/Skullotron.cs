@@ -8,10 +8,9 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Steamworks;
 using Techarria;
 
-namespace techarria.Content.Items.Tools
+namespace Techarria.Content.Items.Tools
 {
     internal class Skullotron : ModItem
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace techarria.Common.Global
+namespace Techarria.Common.Global
 {
     internal class GlobalMagnetItem : GlobalItem
     {

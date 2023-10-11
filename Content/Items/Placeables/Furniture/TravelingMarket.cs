@@ -3,7 +3,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Techarria.Content.Items.Materials;
 
-namespace techarria.Content.Items.Placeables.Furniture
+namespace Techarria.Content.Items.Placeables.Furniture
 {
     public class TravelingMarket : ModItem
     {

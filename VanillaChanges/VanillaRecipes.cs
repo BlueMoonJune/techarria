@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Techarria.Content.Tiles.Machines;
-using techarria.Content.Tiles.Furniture.WorkStations;
+using Techarria.Content.Tiles.Furniture.WorkStations;
 
 namespace Techarria.VanillaChanges
 {
