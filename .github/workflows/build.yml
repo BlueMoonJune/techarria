@@ -35,4 +35,4 @@ jobs:
         # The command to execute. "setup", "build" or "publish" 
         command: build
         # The path to mod source.
-        path: build
+        path: .
