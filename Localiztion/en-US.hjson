@@ -790,6 +790,11 @@ Mods: {
 				DisplayName: Soul Condenser
 				Tooltip: ""
 			}
+
+			CrystalGrowthChamber: {
+				DisplayName: Crystal Growth Chamber
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -862,7 +867,6 @@ Mods: {
 			ItemDropper.MapEntry: Item Dropper
 			SoulGrinder.MapEntry: Soul Grinder
 			TravelingMarket.MapEntry: Traveling Market
-			SoulCondenser.MapEntry: Soul Condenser
 		}
 
 		Configs: {
