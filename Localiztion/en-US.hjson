@@ -785,6 +785,11 @@ Mods: {
 				DisplayName: Traveling Market
 				Tooltip: ""
 			}
+
+			CrystalGrowthChamber: {
+				DisplayName: Crystal Growth Chamber
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -857,6 +862,7 @@ Mods: {
 			ItemDropper.MapEntry: Item Dropper
 			SoulGrinder.MapEntry: Soul Grinder
 			TravelingMarket.MapEntry: Traveling Market
+			CrystalGrowthChamber.MapEntry: Crystal Growth Chamber
 		}
 
 		Configs: {
