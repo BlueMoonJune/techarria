@@ -33,6 +33,6 @@ jobs:
       uses: chi-rei-den/ModLoaderTools@v1
       with:
         # The command to execute. "setup", "build" or "publish" 
-        command: build
+        command: setup
         # The path to mod source.
         path: .
