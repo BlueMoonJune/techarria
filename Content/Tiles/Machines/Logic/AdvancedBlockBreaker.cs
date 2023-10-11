@@ -14,7 +14,9 @@ namespace Techarria.Content.Tiles.Machines.Logic
 	{
 		public List<Item> items = new();
 
-		public void AddItem(Item input) {
+        public override Item[] Items => items.ToArray();
+
+        public void AddItem(Item input) {
 			foreach (Item item in items) {
 				if (item.type == input.type) {
 					item.stack += input.stack;
@@ -24,7 +26,31 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			items.Add(input);
 		}
 
-		public override void SaveData(TagCompound tag) {
+        public override bool InsertItem(Item item)
+        {
+            foreach (Item myItem in items)
+            {
+                if (myItem.type == item.type && myItem.stack < myItem.maxStack)
+                {
+                    myItem.stack++;
+                    return true;
+                }
+            }
+            items.Add(item);
+            return true;
+        }
+
+        public override bool ExtractItem(Item item)
+        {
+            bool val = base.ExtractItem(item);
+            if (item.IsAir)
+            {
+                items.Remove(item);
+            }
+            return val;
+        }
+
+        public override void SaveData(TagCompound tag) {
 			tag.Add("items", items);
 			base.SaveData(tag);
 		}
@@ -41,7 +67,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 	{
 		public static int power = 110;
 
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -64,34 +90,20 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			return false;
 		}
 
-		public static AdvancedBlockBreakerTE GetTileEntity(int i, int j) {
-			return TileEntity.ByPosition[new Point16(i, j)] as AdvancedBlockBreakerTE;
-		}
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			ModContent.GetInstance<AdvancedBlockBreakerTE>().Place(i, j);
-		}
-
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) {
 			if (effectOnly || noItem || fail) { return; }
-			AdvancedBlockBreakerTE tileEntity = GetTileEntity(i, j);
-			foreach (Item item in tileEntity.items) {
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, item.type, item.stack);
-				ModContent.GetInstance<AdvancedBlockBreakerTE>().Kill(i, j);
-			}
+			KillMultiTile(i, j, 0, 0);
 		}
 
 		public override bool RightClick(int i, int j) {
 			AdvancedBlockBreakerTE tileEntity = GetTileEntity(i, j);
+			if (tileEntity.items.Count <= 0) return false;
 			Item item = tileEntity.items[0];
 
 			if (!item.IsAir) {
-				item.stack--;
-				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item.type);
-				if (item.stack <= 0) {
-					item.TurnToAir();
-					tileEntity.items.RemoveAt(0);
-				}
+				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), i * 16, j * 16, 32, 32, item);
+				item.TurnToAir();
+				tileEntity.items.RemoveAt(0);
 				
 				return true;
 			}
@@ -108,8 +120,9 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			int xOff = dir.point.X;
 			int yOff = dir.point.Y;
 
-			tile.TileFrameY += 16;
-			tile.TileFrameY %= 32;
+            //Breaks fsr
+            //tile.TileFrameY += 16;
+			//tile.TileFrameY %= 32;
 
 			int tx = i + xOff;
 			int ty = j + yOff;

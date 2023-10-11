@@ -59,7 +59,7 @@ namespace Techarria.Content.Tiles
         {
             Debug.WriteLine($"\n\nChecking for valid tile for {GetType()}\n\n");
             ModTile mt = ModContent.GetModTile(Main.tile[x, y].TileType);
-            if (mt is EntityTile et)
+            if (mt is EntityTile)
             {
                 return EntityTile.tileType2TE[Main.tile[x, y].TileType] == GetType();
             }
