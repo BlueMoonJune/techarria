@@ -10,13 +10,11 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles.Misc
 {
-    public class StorageCrateTE : ModTileEntity
+    public class StorageCrateTE : InventoryTileEntity
     {
+        
         public Item item = new();
-        public override bool IsTileValidForEntity(int x, int y)
-        {
-            return Main.tile[x, y].TileType == ModContent.TileType<StorageCrate>();
-        }
+        public override Item[] Items => new Item[]{item};
 
         public override void SaveData(TagCompound tag)
         {
@@ -29,14 +27,37 @@ namespace Techarria.Content.Tiles.Misc
             item = tag.Get<Item>("item");
             base.LoadData(tag);
         }
+
+        public override bool InsertItem(Item item)
+        {
+            TileEntity.ByPosition.TryGetValue(Position, out TileEntity TE);
+            StorageCrateTE tileEntity = TE as StorageCrateTE;
+            if (tileEntity == null) return false;
+
+            Item myItem = tileEntity.item;
+            if (myItem == null || myItem.IsAir)
+            {
+                myItem = item.Clone();
+                myItem.stack = 1;
+                tileEntity.item = myItem;
+                return true;
+            }
+            if (item.type == myItem.type && myItem.stack < 9999999 /* <- max storage within a single storage crate */)
+            {
+                myItem.stack++;
+                return true;
+            }
+            return false;
+
+        }
     }
 
     // Where the TE ends and the Tile starts
-    public class StorageCrate : ModTile
+    public class StorageCrate : EntityTile<StorageCrateTE>
     {
         public static int maxStorage = 9999999;
 
-        public override void SetStaticDefaults()
+        public override void PreStaticDefaults()
         {
             // Spelunker
             Main.tileSpelunker[Type] = true;
@@ -54,30 +75,18 @@ namespace Techarria.Content.Tiles.Misc
 
             DustType = DustID.Stone;
 
-            // placement
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            width = 2;
+            height = 2;
+        }
+
+        public override void ModifyTileObjectData()
+        {
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
             TileObjectData.newTile.AnchorInvalidTiles = new int[] { TileID.MagicalIceBlock };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.addTile(Type);
-        }
-        public virtual StorageCrateTE GetTileEntity(int i, int j)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-            i -= tile.TileFrameX / 18 % 2;
-            j -= tile.TileFrameY / 18 % 2;
-            TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity te);
-            return te as StorageCrateTE;
-        }
-        public override void PlaceInWorld(int i, int j, Item item)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-            i -= tile.TileFrameX / 18 % 2;
-            j -= tile.TileFrameY / 18 % 2;
-            ModContent.GetInstance<StorageCrateTE>().Place(i, j);
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -96,14 +105,6 @@ namespace Techarria.Content.Tiles.Misc
                 }
                 return;
             }
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            StorageCrateTE tileEntity = GetTileEntity(i, j);
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, tileEntity.item.type, tileEntity.item.stack);
-            if (tileEntity.item.IsAir)
-                ModContent.GetInstance<StorageCrateTE>().Kill(i, j);
         }
 
         public override bool RightClick(int i, int j)
