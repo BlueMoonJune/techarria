@@ -115,7 +115,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class SoulCondenser : PowerConsumer<SoulCondenserTE>
+	public class SoulCondenser : EntityTile<SoulCondenserTE>, PowerConsumer
 	{
 		public static int width = 3;
         public static int height = 3;

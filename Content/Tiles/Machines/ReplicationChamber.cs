@@ -52,7 +52,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class ReplicationChamber : PowerConsumer<ReplicationChamberTE>
+	public class ReplicationChamber : EntityTile<ReplicationChamberTE>, PowerConsumer
 	{
 		public override void SetStaticDefaults()
 		{

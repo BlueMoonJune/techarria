@@ -2,7 +2,7 @@
 
 namespace Techarria.Content.Tiles
 {
-	public abstract class PowerConsumer<T> : EntityTile<T> where T : ModTileEntity
+	public interface PowerConsumer
     {
         public virtual bool IsConsumer(int i, int j)
         {

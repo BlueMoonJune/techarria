@@ -78,7 +78,7 @@ namespace Techarria.Content.Tiles.Machines
         }
     }
 
-	public class PlayerInterface : PowerConsumer<PlayerInterfaceTE>
+	public class PlayerInterface : EntityTile<PlayerInterfaceTE>, PowerConsumer
 	{
 		public override void SetStaticDefaults() {
 

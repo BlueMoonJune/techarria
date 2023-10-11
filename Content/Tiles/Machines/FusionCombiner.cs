@@ -151,7 +151,7 @@ namespace Techarria.Content.Tiles.Machines
 	}
 
 	// Where the TE ends and the Tile starts
-	public class FusionCombiner : PowerConsumer<FusionCombinerTE>
+	public class FusionCombiner : EntityTile<FusionCombinerTE>, PowerConsumer
 	{
 		public override void SetStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;

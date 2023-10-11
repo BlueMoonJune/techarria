@@ -141,7 +141,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class GreenhouseController : PowerConsumer<GreenhouseControllerTE>
+	public class GreenhouseController : EntityTile<GreenhouseControllerTE>, PowerConsumer
 	{
 		public override void SetStaticDefaults() {
 

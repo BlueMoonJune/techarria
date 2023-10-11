@@ -10,14 +10,11 @@ using Techarria.Content.Dusts;
 
 namespace Techarria.Content.Tiles.Machines.Logic
 {
-	public class AdvancedBlockBreakerTE : ModTileEntity
+	public class AdvancedBlockBreakerTE : InventoryTileEntity
 	{
 		public List<Item> items = new();
-		public override bool IsTileValidForEntity(int x, int y) {
-			return Main.tile[x, y].TileType == ModContent.TileType<AdvancedBlockBreaker>();
-		}
 
-		public void InsertItem(Item input) {
+		public void AddItem(Item input) {
 			foreach (Item item in items) {
 				if (item.type == input.type) {
 					item.stack += input.stack;
@@ -40,7 +37,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 
 	// where the TE ends and the tile starts
-	public class AdvancedBlockBreaker : ModTile
+	public class AdvancedBlockBreaker : EntityTile<AdvancedBlockBreakerTE>
 	{
 		public static int power = 110;
 
@@ -125,7 +122,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 				for (int x = 0; x < chest.item.Length; x++) {
 					Item item = chest.item[x];
-					tileEntity.InsertItem(item);
+					tileEntity.AddItem(item);
 					chest.item[x].TurnToAir();
 				}
 				Main.LocalPlayer.PickTile(tx, ty, power);
@@ -137,7 +134,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 				for (int x = 0; x < chest.item.Length; x++) {
 					Item item = chest.item[x];
-					tileEntity.InsertItem(item);
+					tileEntity.AddItem(item);
 					chest.item[x].TurnToAir();
 				}
 				Main.LocalPlayer.PickTile(tx, ty - 1, power);
@@ -147,7 +144,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 			for (int x = 0; x < Main.item.Length; x++) {
 				if (Main.item[x] != preItems[x] && !Main.item[x].IsAir) {
-					tileEntity.InsertItem(Main.item[x].Clone());
+					tileEntity.AddItem(Main.item[x].Clone());
 					Main.item[x].TurnToAir();
 				}
 			}

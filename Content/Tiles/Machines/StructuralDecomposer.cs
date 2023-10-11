@@ -172,7 +172,7 @@ namespace Techarria.Content.Tiles.Machines
 	}
 
 	// Where the TE ends and the Tile starts
-	public class StructuralDecomposer : PowerConsumer<StructuralDecomposerTE>
+	public class StructuralDecomposer : EntityTile<StructuralDecomposerTE>, PowerConsumer
 	{
 		public override void SetStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;

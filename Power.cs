@@ -68,6 +68,11 @@ namespace Techarria
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return C.GetHashCode() << 30 ^ X.GetHashCode() << 15 ^ Y.GetHashCode();
+        }
     }
 
     public class Power

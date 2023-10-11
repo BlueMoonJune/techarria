@@ -56,7 +56,7 @@ namespace Techarria.Content.Tiles.FluidTransfer
 		}
 	}
 
-	public class FluidPump : PowerConsumer<FluidPumpTE>
+	public class FluidPump : EntityTile<FluidPumpTE>, PowerConsumer
 	{
 		public override void SetStaticDefaults() {
 

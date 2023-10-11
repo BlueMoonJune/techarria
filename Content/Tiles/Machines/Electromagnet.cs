@@ -14,7 +14,7 @@ using Techarria.Common.Global;
 
 namespace Techarria.Content.Tiles.Machines
 {
-    public class Electromagnet : PowerConsumer<EmptyTE>
+    public class Electromagnet : ModTile, PowerConsumer
     {
         public override void SetStaticDefaults()
         {
