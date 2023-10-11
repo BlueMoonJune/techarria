@@ -36,7 +36,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class ChargingRack : PowerConsumer
+	public class ChargingRack : PowerConsumer<ChargingRackTE>
 	{
 		public static Dictionary<int, string> capacitorTextures = new();
 

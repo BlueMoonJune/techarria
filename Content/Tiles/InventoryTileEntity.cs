@@ -13,11 +13,11 @@ namespace Techarria.Content.Tiles
 {
     public abstract class InventoryTileEntity : ModTileEntity
     {
-        int X => Position.X;
-        int Y => Position.Y;
-        EntityTile TileType => EntityTile.te2Tile[GetType()];
-        int Width => TileType.width;
-        int Height => TileType.height;
+        public int X => Position.X;
+        public int Y => Position.Y;
+        public EntityTile TileType => EntityTile.te2Tile[GetType()];
+        public int Width => TileType.width;
+        public int Height => TileType.height;
 
         /// <summary>
         /// An array of all items in this container

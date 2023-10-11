@@ -18,8 +18,6 @@ namespace Techarria.Transfer
             y = j;
         }
 
-        public static Point16 negOne = new Point16(-1, -1);
-
         public static Point16 GetTopLeft(int i, int j)
         {
             if (!Main.tile[i, j].HasTile) return negOne;

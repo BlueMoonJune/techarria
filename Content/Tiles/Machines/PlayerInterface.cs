@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Techarria.Content.Items;
 using Terraria;
 using Terraria.DataStructures;
@@ -9,7 +10,75 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles.Machines
 {
-	public class PlayerInterface : PowerConsumer
+	public class PlayerInterfaceTE : InventoryTileEntity
+	{
+		public static Rectangle rect = new Rectangle(16, 16, 16, 32);
+
+		public override Item[] Items {
+			get
+			{
+				List<Item> list = new List<Item>();
+				foreach (Player player in Main.player) {
+					Rectangle offset = rect;
+					rect.X += Position.X * 16;
+					rect.Y += Position.Y * 16;
+					if (player.getRect().Intersects(offset))
+						foreach (Item item in player.inventory)
+							if (!item.IsAir && !item.favorited)
+								list.Add(item);
+				}
+				return list.ToArray();
+			}
+		}
+
+        public override bool InsertItem(Item item)
+        {
+            Rectangle scanRect = new Rectangle(X * 16 + 16, Y * 16 + 16, 16, 32);
+            foreach (Player player in Main.player)
+            {
+                if (player.getRect().Intersects(scanRect))
+                {
+                    if (item.headSlot >= 0 && player.armor[0].IsAir)
+                    {
+                        player.armor[0] = item.Clone();
+                        player.armor[0].stack = 1;
+                        return true;
+                    }
+                    if (item.bodySlot >= 0 && player.armor[1].IsAir)
+                    {
+                        player.armor[1] = item.Clone();
+                        player.armor[1].stack = 1;
+                        return true;
+                    }
+                    if (item.legSlot >= 0 && player.armor[2].IsAir)
+                    {
+                        player.armor[2] = item.Clone();
+                        player.armor[2].stack = 1;
+                        return true;
+                    }
+                    for (int i = 0; i < player.inventory.Length; i++)
+                    {
+                        Item slot = player.inventory[i];
+                        if (slot.IsAir)
+                        {
+                            slot = item.Clone();
+                            slot.stack = 1;
+                            player.inventory[i] = slot;
+                            return true;
+                        }
+                        if (slot.type == item.type && slot.stack < slot.maxStack)
+                        {
+                            slot.stack++;
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
+	public class PlayerInterface : PowerConsumer<PlayerInterfaceTE>
 	{
 		public override void SetStaticDefaults() {
 
@@ -22,10 +91,8 @@ namespace Techarria.Content.Tiles.Machines
 			DustType = ModContent.DustType<Dusts.Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.addTile(Type);
+			width = 3;
+			height = 3;
 
 			// Etc
 			LocalizedText name = CreateMapEntryName();

@@ -80,7 +80,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 		}
 	}
 
-	public abstract class BeamDrill : PowerConsumer
+	public abstract class BeamDrill : PowerConsumer<BeamDrillTE>
 	{
 		public int power = 0; //pickaxe power
 		public int range = 0; //range in tiles

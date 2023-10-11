@@ -268,7 +268,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class BlastFurnace : PowerConsumer
+	public class BlastFurnace : PowerConsumer<BlastFurnaceTE>
 	{
 		public override void SetStaticDefaults() {
 			Main.tileNoAttach[Type] = true;

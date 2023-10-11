@@ -141,7 +141,8 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class GreenhouseController : PowerConsumer {
+	public class GreenhouseController : PowerConsumer<GreenhouseControllerTE>
+	{
 		public override void SetStaticDefaults() {
 
 			// Spelunker

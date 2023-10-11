@@ -36,7 +36,7 @@ namespace Techarria.Content.Tiles
         public override void SetStaticDefaults()
         {
             Console.WriteLine($"Loading EntityTile<{typeof(T)}>");
-            te2Tile.Add(typeof(T), this);
+            te2Tile.TryAdd(typeof(T), this);
             tileType2TE.Add(Type, typeof(T));
             tileType2Tile.Add(Type, this);
 

@@ -18,7 +18,7 @@ using Terraria.ObjectData;
 
 namespace Techarria.Content.Tiles.Machines
 {
-	public class CryoChamberTE : ModTileEntity
+	public class ReplicationChamberTE : ModTileEntity
 	{
 		public Item output = new();
 		public Item item = new();
@@ -32,7 +32,7 @@ namespace Techarria.Content.Tiles.Machines
 		public int oldY = 0;
 		public override bool IsTileValidForEntity(int x, int y)
 		{
-			return Main.tile[x, y].TileType == ModContent.TileType<CryoChamber>();
+			return Main.tile[x, y].TileType == ModContent.TileType<ReplicationChamber>();
 		}
 
 		public override void SaveData(TagCompound tag)
@@ -52,7 +52,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class CryoChamber : PowerConsumer
+	public class ReplicationChamber : PowerConsumer<ReplicationChamberTE>
 	{
 		public override void SetStaticDefaults()
 		{
@@ -77,12 +77,12 @@ namespace Techarria.Content.Tiles.Machines
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 
-		public static CryoChamberTE GetTileEntity(int i, int j)
+		public static ReplicationChamberTE GetTileEntity(int i, int j)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 4;
-			return TileEntity.ByPosition[new Point16(i, j)] as CryoChamberTE;
+			return TileEntity.ByPosition[new Point16(i, j)] as ReplicationChamberTE;
 		}
 
 		public override void PlaceInWorld(int i, int j, Item item)
@@ -90,21 +90,21 @@ namespace Techarria.Content.Tiles.Machines
 			Tile tile = Framing.GetTileSafely(i, j);
 			i -= tile.TileFrameX / 18 % 3;
 			j -= tile.TileFrameY / 18 % 4;
-			ModContent.GetInstance<CryoChamberTE>().Place(i, j);
+			ModContent.GetInstance<ReplicationChamberTE>().Place(i, j);
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 
-			CryoChamberTE tileEntity = GetTileEntity(i, j);
+			ReplicationChamberTE tileEntity = GetTileEntity(i, j);
 			Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), tileEntity.item.type, tileEntity.item.stack);
 
-			ModContent.GetInstance<CryoChamberTE>().Kill(i, j);
+			ModContent.GetInstance<ReplicationChamberTE>().Kill(i, j);
 		}
 
 		public override bool RightClick(int i, int j)
 		{
-			CryoChamberTE tileEntity = GetTileEntity(i, j);
+			ReplicationChamberTE tileEntity = GetTileEntity(i, j);
 			Item item = tileEntity.item;
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
 			if (subTile.X <= 2 && subTile.Y <= 2)
@@ -197,7 +197,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 		public override void MouseOver(int i, int j)
 		{
-			CryoChamberTE tileEntity = GetTileEntity(i, j);
+			ReplicationChamberTE tileEntity = GetTileEntity(i, j);
 			
 			Item item = tileEntity.item;
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
@@ -228,7 +228,7 @@ namespace Techarria.Content.Tiles.Machines
 
         public override void InsertPower(int i, int j, int amount)
 		{
-			CryoChamberTE tileEntity = GetTileEntity(i, j);
+			ReplicationChamberTE tileEntity = GetTileEntity(i, j);
 
 			if (tileEntity.bannerEnemyId != 0)
             {

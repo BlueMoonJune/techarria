@@ -192,7 +192,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class ArcFurnace : PowerConsumer
+	public class ArcFurnace : PowerConsumer<ArcFurnaceTE>
 	{
 		public override void SetStaticDefaults() {
 			Main.tileNoAttach[Type] = true;

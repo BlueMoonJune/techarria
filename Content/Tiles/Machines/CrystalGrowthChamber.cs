@@ -49,7 +49,7 @@ namespace Techarria.Content.Tiles.Machines
         }
     }
 
-    public class CrystalGrowthChamber : PowerConsumer
+    public class CrystalGrowthChamber : PowerConsumer<CrystalGrowthChamberTE>
     {
         public override void SetStaticDefaults()
         {
