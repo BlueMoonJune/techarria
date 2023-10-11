@@ -5,7 +5,7 @@ using Terraria.Localization;
 
 namespace Techarria.Content.Items.Placeables
 {
-	public class InfinityCrate : ModItem
+    public class InfinityCrate : ModItem
     {
 		public override bool IsLoadingEnabled(Mod mod)
 		{
@@ -22,7 +22,7 @@ namespace Techarria.Content.Items.Placeables
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.InfinityCrate>());
+			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Misc.InfinityCrate>());
 			Item.value = 100;
 			Item.maxStack = 99;
 			Item.width = 32;

@@ -1,78 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
 	public abstract class ContainerInterface
 	{
+		public static Point16 negOne = new Point16(-1, -1);
+
 		public int x = 0;
 		public int y = 0;
 		public int dir = 0;
 
 		public static ContainerInterface Find(int x, int y) {
-			Point point = StorageCrateInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new StorageCrateInterface(point.X, point.Y);
-
-			point = FluidTankInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new FluidTankInterface(point.X, point.Y);
-
-			point = FluidPumpInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new FluidPumpInterface(point.X, point.Y);
-
-			point = ChestInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
+            Point16 point = ChestInterface.FindTopLeft(x, y);
+			if (point != negOne)
 				return new ChestInterface(point.X, point.Y);
 
-            point = PlayerInterfaceInterface.FindTopLeft(x, y);
-            if (point != Point.Zero)
-                return new PlayerInterfaceInterface(point.X, point.Y);
-
-            if (ModLoader.TryGetMod("MagicStorage", out Mod _)) {
-				point = MagicStorageInterface.FindTopLeft(x, y);
-				if (point != Point.Zero)
-					return new MagicStorageInterface(point.X, point.Y);
-			}
-			point = GelatinousTurbineInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new GelatinousTurbineInterface(point.X, point.Y);
-
-			point = BlastFurnaceInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new BlastFurnaceInterface(point.X, point.Y);
-
-			point = CastingTableInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new CastingTableInterface(point.X, point.Y);
-
-			point = RotaryAssemblerInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new RotaryAssemblerInterface(point.X, point.Y);
-
-			point = ArcFurnaceInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new ArcFurnaceInterface(point.X, point.Y);
-
-			point = ChargingRackInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new ChargingRackInterface(point.X, point.Y);
-
-			point = CashCompactorInterface.FindTopLeft(x, y);
-			if (point != Point.Zero)
-				return new CashCompactorInterface(point.X, point.Y);
-
-            if (ItemDropperInterface.Check(x, y))
-                return new ItemDropperInterface(x, y);
-
-            if (ItemPlacerInterface.Check(x, y))
-				return new ItemPlacerInterface(x, y);
-
-			if (AdvancedBlockBreakerInterface.Check(x, y))
-				return new AdvancedBlockBreakerInterface(x, y);
+            point = InventoryEntityInterface.GetTopLeft(x, y);
+			if (point != negOne)
+				return new InventoryEntityInterface(point.X, point.Y);
 
 			return null;
 		}
@@ -84,7 +33,12 @@ namespace Techarria.Transfer
 			return item;
 		}
 
-		public virtual bool ExtractItem(Item item) {
+        /// <summary>
+        /// Extracts an item from this container
+		/// By default, decrements the stack size by one
+        /// </summary>
+        /// <returns>If the extraction was successful</returns>
+        public virtual bool ExtractItem(Item item) {
 			decrementItem(item);
 			return true;
 		}

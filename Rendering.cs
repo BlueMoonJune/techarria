@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using System;
 using Terraria.DataStructures;
-using Techarria.Content.Tiles;
 using Techarria.Content.Tiles.Machines;
 using System.Collections.Generic;
 using Techarria.Common.Global;
@@ -17,10 +16,11 @@ using Terraria.UI.Chat;
 using ReLogic.Graphics;
 using Terraria.GameContent.Creative;
 using Techarria.Content.Tiles.FluidTransfer;
+using Techarria.Content.Tiles.Misc;
 
 namespace Techarria
 {
-	internal class Rendering : ModSystem
+    internal class Rendering : ModSystem
     {
 		static GraphicsDevice graphicsDevice;
 

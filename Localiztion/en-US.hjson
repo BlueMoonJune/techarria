@@ -867,6 +867,8 @@ Mods: {
 			ItemDropper.MapEntry: Item Dropper
 			SoulGrinder.MapEntry: Soul Grinder
 			TravelingMarket.MapEntry: Traveling Market
+			CrystalGrowthChamber.MapEntry: Crystal Growth Chamber
+			SoulCondenser.MapEntry: Soul Condenser
 		}
 
 		Configs: {

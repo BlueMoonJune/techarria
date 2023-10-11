@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MagicStorage.UI;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +13,21 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 
+using TE = Techarria.Content.Tiles.Machines.GelatinousTurbineTE;
+
 namespace Techarria.Content.Tiles.Machines
 {
-	public class GelatinousTurbineTE : ModTileEntity
+    public class GelatinousTurbineTE : InventoryTileEntity
 	{
-		public Item item;
+		public Item item = new();
 		public int burnTime = 0;
 		public float pulseFraction = 0;
 		public int frame = 0;
 		public static Rectangle particleRect = new(4, 22, 16, 6);
 
-		public static Dictionary<int, int> fuelItems = new Dictionary<int, int>()
+        public override Item[] Items => new Item[] {item};
+
+        public static Dictionary<int, int> fuelItems = new Dictionary<int, int>()
 		{
 			{ItemID.Gel, 600}, //10 seconds
             {ItemID.PinkGel, 3600}, //1 minute
@@ -29,11 +35,20 @@ namespace Techarria.Content.Tiles.Machines
 			{ItemID.VolatileGelatin, 438000} // 2 hours
         };
 
-		public override bool IsTileValidForEntity(int x, int y) {
-			return Main.tile[x, y].TileType == ModContent.TileType<GelatinousTurbine>();
-		}
+        public override bool InsertItem(Item item)
+        {
+            if (this.item.IsAir)
+            {
+                this.item = item.Clone();
+				this.item.stack = 1;
+            }
+            if (this.item.type != item.type) return false;
+            if (this.item.stack >= this.item.maxStack) return false;
+            this.item.stack++;
+            return true;
+        }
 
-		public override void Update() {
+        public override void Update() {
 
 
 			if (burnTime > 0) {
@@ -117,9 +132,9 @@ namespace Techarria.Content.Tiles.Machines
 	}
 
 	// Where the TE ends and the Tile starts
-	public class GelatinousTurbine : ModTile
+	public class GelatinousTurbine : EntityTile<TE>
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -127,43 +142,14 @@ namespace Techarria.Content.Tiles.Machines
 
 			DustType = ModContent.DustType<Spikesteel>();
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.addTile(Type);
+			width = 3;
+			height = 2;
 
-			// Etc
 			AddMapEntry(new Color(200, 200, 200), Language.GetText("Gelatinous Turbine"));
 		}
 
-		public GelatinousTurbineTE GetTileEntity(int i, int j) 
-		{
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
-			return TileEntity.ByPosition[new Point16(i, j)] as GelatinousTurbineTE;
-		}
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
-			ModContent.GetInstance<GelatinousTurbineTE>().Place(i, j);
-		}
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			GelatinousTurbineTE tileEntity = GetTileEntity(i, j);
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, tileEntity.item.type, tileEntity.item.stack);
-			ModContent.GetInstance<GelatinousTurbineTE>().Kill(i, j);
-		}
-
-		public static bool AcceptsItem(Item item) {
-			return item.type == ItemID.Gel || item.type == ItemID.PinkGel;
-		}
-
 		public override bool RightClick(int i, int j) {
-			GelatinousTurbineTE tileEntity = GetTileEntity(i, j);
+			TE tileEntity = GetTileEntity(i, j);
 			Item item = tileEntity.item;
 			Item playerItem;
 			if (!Main.mouseItem.IsAir) {
@@ -173,7 +159,7 @@ namespace Techarria.Content.Tiles.Machines
 				playerItem = Main.player[Main.myPlayer].HeldItem;
 			}
 
-			if (item.IsAir && AcceptsItem(playerItem)) {
+			if (item.IsAir && TE.fuelItems.ContainsKey(item.type)) {
 				item = playerItem.Clone();
 				item.stack = 1;
 				tileEntity.item = item;
@@ -202,7 +188,7 @@ namespace Techarria.Content.Tiles.Machines
 			return false;
 		}
 		public override void MouseOver(int i, int j) {
-			GelatinousTurbineTE tileEntity = GetTileEntity(i, j);
+            TE tileEntity = GetTileEntity(i, j);
 			Item item = tileEntity.item;
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;

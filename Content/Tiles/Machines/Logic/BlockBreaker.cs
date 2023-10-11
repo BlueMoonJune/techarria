@@ -48,8 +48,8 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			int tx = i + xOff;
 			int ty = j + yOff;
 
-			Point pos = ChestInterface.FindTopLeft(tx, ty);
-			if (pos != Point.Zero) {
+			Point16 pos = ChestInterface.FindTopLeft(tx, ty);
+			if (pos != ContainerInterface.negOne) {
 				Chest chest = Main.chest[Chest.FindChest(pos.X, pos.Y)];
 
 				for (int x = 0; x < chest.item.Length; x++) {
@@ -61,7 +61,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 				return;
 			}
 			pos = ChestInterface.FindTopLeft(tx, ty - 1);
-			if (pos != Point.Zero) {
+			if (pos != ContainerInterface.negOne) {
 				Chest chest = Main.chest[Chest.FindChest(pos.X, pos.Y)];
 
 				for (int x = 0; x < chest.item.Length; x++) {

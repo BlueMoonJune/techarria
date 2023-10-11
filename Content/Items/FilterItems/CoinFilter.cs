@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Misc;
 using Terraria;
 using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.FilterItems
 {
-	/// <summary>
-	/// Prevents extraction of singular items
-	/// </summary>
-	public class CoinFilter : FilterItem
+    /// <summary>
+    /// Prevents extraction of singular items
+    /// </summary>
+    public class CoinFilter : FilterItem
     {
         public override void SetStaticDefaults()
         {

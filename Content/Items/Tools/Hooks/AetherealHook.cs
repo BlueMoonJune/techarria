@@ -2,15 +2,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
-using Techarria.Content.Tiles;
 using Techarria.Content.Tiles.Machines;
+using Techarria.Content.Tiles.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.Tools.Hooks
 {
-	internal class AetherealHook : ModItem
+    internal class AetherealHook : ModItem
 	{
 		public override void SetDefaults() {
 			// Copy values from the Amethyst Hook

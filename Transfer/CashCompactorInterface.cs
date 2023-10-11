@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Misc;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace Techarria.Transfer
 {
-	public class CashCompactorInterface : ContainerInterface
+    public class CashCompactorInterface : ContainerInterface
     {
         public CashCompactorInterface(int i, int j)
         {

@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Techarria.Content.Dusts;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Techarria.Structures
 {
-	public class StructureWalls {
+    public class StructureWalls {
 		public List<Point> eastWalls = new();
 		public List<Point> westWalls = new();
 		public List<Point> floors = new();

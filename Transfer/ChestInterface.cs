@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ObjectData;
 
@@ -14,18 +15,18 @@ namespace Techarria.Transfer
             y = j;
         }
 
-        public static Point FindTopLeft(int i, int j)
+        public static Point16 FindTopLeft(int i, int j)
         {
 			int fX = Main.tile[i, j].TileFrameX;
 
 			if (i < 0 || j < 0 || (Chest.IsLocked(i, j) && !(fX >= 18 * 4 && fX < 18 * 6 || fX >= 18 * 8 && fX < 18 * 10)))
             {
-                return new Point();
+                return negOne;
             }
             int chest = Chest.FindChest(i, j);
             if (chest >= 0)
             {
-                return new Point(i, j);
+                return new Point16(i, j);
             }
             if (Main.tileContainer[Main.tile[i, j].TileType])
             {
@@ -46,9 +47,9 @@ namespace Techarria.Transfer
                 }
 
 				
-                return new Point(i - partX, j - partY);
+                return new Point16(i - partX, j - partY);
             }
-            return new Point();
+            return negOne;
         }
 
         public override List<Item> GetItems()

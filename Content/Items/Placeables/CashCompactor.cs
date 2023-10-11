@@ -20,7 +20,7 @@ namespace Techarria.Content.Items.Placeables
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.CashCompactor>());
+			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Misc.CashCompactor>());
 			Item.value = 100;
 			Item.maxStack = 99;
 			Item.width = 32;

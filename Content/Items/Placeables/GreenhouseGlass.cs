@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Placeables
 {
-	public class GreenhouseGlass : ModItem
+    public class GreenhouseGlass : ModItem
 	{
 		public override void SetStaticDefaults() {
 
@@ -21,7 +21,7 @@ namespace Techarria.Content.Items.Placeables
 			Item.autoReuse = true;
 			Item.maxStack = 999;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.GreenhouseGlass>();
+			Item.createTile = ModContent.TileType<Tiles.Misc.GreenhouseGlass>();
 			Item.width = 16;
 			Item.height = 16;
 		}
@@ -38,7 +38,7 @@ namespace Techarria.Content.Items.Placeables
 			Item.autoReuse = true;
 			Item.maxStack = 999;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.GreenhouseAccentGlass>();
+			Item.createTile = ModContent.TileType<Tiles.Misc.GreenhouseAccentGlass>();
 			Item.width = 16;
 			Item.height = 16;
 		}

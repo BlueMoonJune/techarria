@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace Techarria.Content.Items.Placeables
 {
-	public class InvertedBiorepulsionField : ModItem
+    public class InvertedBiorepulsionField : ModItem
 	{
 		public override void SetStaticDefaults() {
 
@@ -22,7 +22,7 @@ namespace Techarria.Content.Items.Placeables
 			Item.autoReuse = true;
 			Item.maxStack = 999;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.InvertedBiorepulsionField>();
+			Item.createTile = ModContent.TileType<Tiles.Misc.InvertedBiorepulsionField>();
 			Item.width = 16;
 			Item.height = 16;
 		}

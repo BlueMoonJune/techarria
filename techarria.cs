@@ -9,12 +9,12 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using ReLogic.Content;
 using System.Collections.Generic;
-using Techarria.Content.Tiles;
+using Techarria.Content.Tiles.Misc;
 
 namespace Techarria
 {
 
-	public class Techarria : Mod
+    public class Techarria : Mod
     {
         public static float GenerationMultiplier = 1;
         public static float CapacityMultiplier = 1;
