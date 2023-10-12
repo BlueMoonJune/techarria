@@ -16,7 +16,7 @@ using Terraria.UI.Chat;
 using ReLogic.Graphics;
 using Terraria.GameContent.Creative;
 using Techarria.Content.Tiles.FluidTransfer;
-using Techarria.Content.Tiles.Misc;
+using Techarria.Content.Tiles.StorageCrates;
 
 namespace Techarria
 {

@@ -4,15 +4,12 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-namespace Techarria.Content.Tiles.Misc
-{
-    public class JourneyCrateTE : StorageCrateTE
-    {
-        public override bool IsTileValidForEntity(int x, int y)
-        {
-            return Main.tile[x, y].TileType == ModContent.TileType<JourneyCrate>();
-        }
+using TE = Techarria.Content.Tiles.StorageCrates.JourneyCrateTE;
 
+namespace Techarria.Content.Tiles.StorageCrates
+{
+    public class JourneyCrateTE : CrateEntity
+    {
         public override void Update()
         {
             if (CreativeItemSacrificesCatalog.Instance.TryGetSacrificeCountCapToUnlockInfiniteItems(item.type, out int researchAmount) && item.stack >= researchAmount)
@@ -23,19 +20,11 @@ namespace Techarria.Content.Tiles.Misc
     }
 
     // Where the TE ends and the Tile starts
-    public class JourneyCrate : StorageCrate
+    public class JourneyCrate : CrateTile<TE>
     {
-        public override void PlaceInWorld(int i, int j, Item item)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-            i -= tile.TileFrameX / 18 % 2;
-            j -= tile.TileFrameY / 18 % 2;
-            ModContent.GetInstance<JourneyCrateTE>().Place(i, j);
-        }
-
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            StorageCrateTE tileEntity = GetTileEntity(i, j);
+            TE tileEntity = GetTileEntity(i, j);
             Item item = tileEntity.item;
             if (!item.IsAir)
             {
@@ -59,13 +48,10 @@ namespace Techarria.Content.Tiles.Misc
 
             base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
         }
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-        }
 
         public override void MouseOver(int i, int j)
         {
-            StorageCrateTE tileEntity = GetTileEntity(i, j);
+            TE tileEntity = GetTileEntity(i, j);
             Item item = tileEntity.item;
             Player player = Main.LocalPlayer;
             player.noThrow = 2;

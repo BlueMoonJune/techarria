@@ -3,15 +3,12 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace Techarria.Content.Tiles.Misc
-{
-    public class InfinityCrateTE : StorageCrateTE
-    {
-        public override bool IsTileValidForEntity(int x, int y)
-        {
-            return Main.tile[x, y].TileType == ModContent.TileType<InfinityCrate>();
-        }
+using TE = Techarria.Content.Tiles.StorageCrates.InfinityCrateTE;
 
+namespace Techarria.Content.Tiles.StorageCrates
+{
+    public class InfinityCrateTE : CrateEntity
+    {
         public override void Update()
         {
             item.stack = 99999;
@@ -19,19 +16,11 @@ namespace Techarria.Content.Tiles.Misc
     }
 
     // Where the TE ends and the Tile starts
-    public class InfinityCrate : StorageCrate
+    public class InfinityCrate : CrateTile<TE>
     {
-        public override void PlaceInWorld(int i, int j, Item item)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-            i -= tile.TileFrameX / 18 % 2;
-            j -= tile.TileFrameY / 18 % 2;
-            ModContent.GetInstance<InfinityCrateTE>().Place(i, j);
-        }
-
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            StorageCrateTE tileEntity = GetTileEntity(i, j);
+            TE tileEntity = GetTileEntity(i, j);
             Item item = tileEntity.item;
             if (!item.IsAir)
             {
@@ -50,7 +39,7 @@ namespace Techarria.Content.Tiles.Misc
 
         public override void MouseOver(int i, int j)
         {
-            StorageCrateTE tileEntity = GetTileEntity(i, j);
+            TE tileEntity = GetTileEntity(i, j);
             Item item = tileEntity.item;
             Player player = Main.LocalPlayer;
             player.noThrow = 2;

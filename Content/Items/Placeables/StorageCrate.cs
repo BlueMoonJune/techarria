@@ -20,7 +20,7 @@ namespace Techarria.Content.Items.Placeables
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Misc.StorageCrate>());
+			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.StorageCrates.StorageCrate>());
 			Item.value = 100;
 			Item.maxStack = 99;
 			Item.width = 32;
