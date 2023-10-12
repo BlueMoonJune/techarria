@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Techarria.Content.Dusts;
 using Techarria.Content.Items.RecipeItems;
@@ -107,14 +109,14 @@ namespace Techarria.Content.Tiles.Machines
         }
 	}
 
-	public class ArcFurnaceTE : ModTileEntity
+	public class ArcFurnaceTE : InventoryTileEntity
 	{
-		public float baseTemp = 25;
-
 		public Item output = new();
 		public List<Item> inputs = new();
 
-		public int charge = 0;
+		public override Item[] Items => new Item[] { output };
+
+        public int charge = 0;
 
 		public int displayCycle = 0;
 
@@ -139,47 +141,59 @@ namespace Techarria.Content.Tiles.Machines
 			charge = 0;
 		}
 
-		public bool InsertItem(Item item, bool decrement = true) {
+		public override bool InsertItem(Item item) {
 
-			foreach (Item input in inputs) {
+            if (item == null || item.IsAir) return false;
+            foreach (Item input in inputs) {
 				if (item.type == input.type && input.stack < input.maxStack) {
 					input.stack++;
-					if (decrement) {
-						item.stack--;
-						if (item.stack <= 0) {
-							item.TurnToAir();
-						}
-					}
 					return true;
 				}
 			}
 
-			if (item != null && !item.IsAir) {
-				Item copy = item.Clone();
-				copy.stack = 1;
-				inputs.Add(copy);
-				item.stack--;
-				if (item.stack <= 0) {
-					item.TurnToAir();
-				}
-				return true;
-			}
-			return false;
+			Item copy = item.Clone();
+			copy.stack = 1;
+			inputs.Add(copy);
+			return true;
 		}
 
-		public Item ExtractItem() {
-			if (inputs.Count > 0) {
-				Item extracted = inputs[0].Clone();
+		public Item TakeItem() {
+			Item extracted = null;
+            if (output != null && !output.IsAir)
+			{ 
+				extracted = output.Clone();
+				output.TurnToAir();
+			}
+			else if (inputs.Count > 0) 
+			{
+				extracted = inputs[0].Clone();
 				inputs[0].stack--;
 				if (inputs[0].stack <= 0) {
 					inputs.RemoveAt(0);
 				}
 				extracted.stack = 1;
-				return extracted;
 			}
 
-			return null;
+			return extracted;
 		}
+
+		public bool PutItem(Item item)
+		{
+			if (item == null || item.IsAir || item.favorited) return false;
+			foreach (Item input in inputs)
+			{
+				if (input.type == item.type)
+				{
+					input.stack += item.stack;
+					item.TurnToAir();
+					return true;
+				}
+			}
+
+            inputs.Add(item.Clone());
+			item.TurnToAir();
+			return true;
+        }
 
 		public override void SaveData(TagCompound tag) {
 			tag.Add("inputs", inputs);
@@ -194,7 +208,7 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class ArcFurnace : EntityTile<ArcFurnaceTE>, IPowerConsumer 
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLavaDeath[Type] = false;
@@ -203,11 +217,8 @@ namespace Techarria.Content.Tiles.Machines
 			DustType = ModContent.DustType<Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style5x4);
-			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.addTile(Type);
+			width = 5;
+			height = 4;
 
 			// Etc
 			LocalizedText name = CreateMapEntryName();
@@ -215,29 +226,11 @@ namespace Techarria.Content.Tiles.Machines
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 
-		public static ArcFurnaceTE GetTileEntity(int i, int j) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 5;
-			j -= tile.TileFrameY / 18 % 4;
-			return TileEntity.ByPosition[new Point16(i, j)] as ArcFurnaceTE;
-		}
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 5;
-			j -= tile.TileFrameY / 18 % 4;
-			ModContent.GetInstance<ArcFurnaceTE>().Place(i, j);
-		}
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-
-			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
-			foreach (Item input in tileEntity.inputs) {
-				Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), input);
-			}
-
-			ModContent.GetInstance<ArcFurnaceTE>().Kill(i, j);
-		}
+        public override void ModifyTileObjectData()
+        {
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.LavaDeath = false;
+        }
 
 		public override bool RightClick(int i, int j) {
 			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
@@ -248,11 +241,11 @@ namespace Techarria.Content.Tiles.Machines
 			else
 				playerItem = Main.player[Main.myPlayer].HeldItem;
 
-			if (tileEntity.InsertItem(playerItem)) {
+			if (tileEntity.PutItem(playerItem)) {
 				return true;
 			}
 
-			Item item = tileEntity.ExtractItem();
+			Item item = tileEntity.TakeItem();
 			if (item != null) {
 				Item.NewItem(new EntitySource_TileInteraction(Main.player[Main.myPlayer], i, j), new Rectangle(i * 16, j * 16, 16, 16), item);
 			}
