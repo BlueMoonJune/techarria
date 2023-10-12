@@ -5,16 +5,16 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 
+using TE = Techarria.Content.Tiles.Machines.Logic.ItemDropperTE;
+
 namespace Techarria.Content.Tiles.Machines.Logic
 {
-	public class ItemDropperTE : ModTileEntity
+	public class ItemDropperTE : InventoryTileEntity
 	{
 		public Item item = new();
-		public override bool IsTileValidForEntity(int x, int y) {
-			return Main.tile[x, y].TileType == ModContent.TileType<ItemDropper>();
-		}
+        public override Item[] ExtractableItems => new Item[] { item };
 
-		public override void SaveData(TagCompound tag) {
+        public override void SaveData(TagCompound tag) {
 			tag.Add("item", item);
 			base.SaveData(tag);
 		}
@@ -23,13 +23,32 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			item = tag.Get<Item>("item");
 			base.LoadData(tag);
 		}
-	}
+
+        public override bool InsertItem(Item item)
+        {
+            Item myItem = this.item;
+            if (myItem == null || myItem.IsAir)
+            {
+                myItem = item.Clone();
+                myItem.stack = 1;
+                this.item = myItem;
+                return true;
+            }
+            if (myItem.type == item.type && myItem.stack < myItem.maxStack)
+            {
+                myItem.stack++;
+                return true;
+            }
+
+            return false;
+        }
+    }
 
 
 	// where the TE ends and the tile starts
-	public class ItemDropper : ModTile
+	public class ItemDropper : EntityTile<TE>
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -42,6 +61,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			HitSound = SoundID.Tink;
 		}
 
+		// rotates the tile
 		public override bool Slope(int i, int j) {
 			Tile tile = Framing.GetTileSafely(i, j);
 			tile.TileFrameX = (short)((tile.TileFrameX + 16) % 64);
@@ -50,14 +70,6 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
 			return false;
-		}
-
-		public static ItemDropperTE GetTileEntity(int i, int j) {
-			return TileEntity.ByPosition[new Point16(i, j)] as ItemDropperTE;
-		}
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			ModContent.GetInstance<ItemDropperTE>().Place(i, j);
 		}
 
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) {

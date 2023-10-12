@@ -71,10 +71,6 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			return false;
 		}
 
-		public override void PlaceInWorld(int i, int j, Item item) {
-			ModContent.GetInstance<ItemPlacerTE>().Place(i, j);
-		}
-
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) {
 			if (effectOnly || noItem || fail) { return; }
 			ItemPlacerTE tileEntity = GetTileEntity(i, j);
