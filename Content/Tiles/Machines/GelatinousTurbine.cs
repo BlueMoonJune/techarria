@@ -25,7 +25,7 @@ namespace Techarria.Content.Tiles.Machines
 		public int frame = 0;
 		public static Rectangle particleRect = new(4, 22, 16, 6);
 
-        public override Item[] Items => new Item[] {item};
+        public override Item[] ExtractableItems => new Item[] {item};
 
         public static Dictionary<int, int> fuelItems = new Dictionary<int, int>()
 		{

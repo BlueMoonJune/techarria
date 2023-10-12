@@ -14,7 +14,7 @@ namespace Techarria.Content.Tiles.Machines
 	{
 		public static Rectangle rect = new Rectangle(16, 16, 16, 32);
 
-		public override Item[] Items {
+		public override Item[] ExtractableItems {
 			get
 			{
 				List<Item> list = new List<Item>();
@@ -80,7 +80,7 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class PlayerInterface : EntityTile<PlayerInterfaceTE>, IPowerConsumer
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 
 			Main.tileLavaDeath[Type] = false;
 			Main.tileNoAttach[Type] = true;

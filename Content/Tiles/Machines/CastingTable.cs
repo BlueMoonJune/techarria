@@ -40,7 +40,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class CastingTableTE : ModTileEntity
+	public class CastingTableTE : InventoryTileEntity
 	{
 		public int oldY = 0;
 		public Item item = new();
@@ -48,60 +48,31 @@ namespace Techarria.Content.Tiles.Machines
 		public float baseTemp = 25f;
 		public float temp = 25f;
 
-		public override bool IsTileValidForEntity(int x, int y) {
+        public override Item[] ExtractableItems => new Item[] { item };
+
+        public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<CastingTable>();
 		}
 
-		public bool LeftCovered() {
-			Tile LeftTile = Main.tile[Position.X, Position.Y - 1];
-			return
-				LeftTile.HasTile &&
-				Main.tileSolid[LeftTile.TileType] &&
-				!Main.tileSolidTop[LeftTile.TileType] &&
-				!LeftTile.IsActuated
-			;
-		}
-
-		public bool RightCovered() {
-			Tile RightTile = Main.tile[Position.X + 1, Position.Y - 1];
-			return
-				RightTile.HasTile &&
-				Main.tileSolid[RightTile.TileType] &&
-				!Main.tileSolidTop[RightTile.TileType] &&
-				!RightTile.IsActuated
-			;
-		}
-
-		public bool IsCovered() {
-			return RightCovered() || LeftCovered();
-		}
-
-		public bool IsFullyCovered() {
-			return LeftCovered() && RightCovered();
-		}
-
-		public bool InsertMolten(Item i) {
+		public override bool InsertItem(Item i) {
 			if (i.ModItem is MoltenBlob blob) {
-				if (!IsFullyCovered()) {
-					WorldGen.PlaceLiquid(Position.X, Position.Y - 1, (byte)LiquidID.Lava, 32);
-					WorldGen.PlaceLiquid(Position.X + 1, Position.Y - 1, (byte)LiquidID.Lava, 32);
-					temp = Math.Max(blob.temp, temp);
-					return true;
-
-				}
 
 				if (item.IsAir && !mold.IsAir) {
 					temp = blob.temp;
 					item = i.Clone();
+					item.stack = 1;
 					return true;
 				}
 			}
 			return false;
 		}
 
+
 		public override void Update() {
 
-			if (oldY != Position.Y) {
+			ulong a = 18446744073709551615;
+
+            if (oldY != Position.Y) {
 				oldY = Position.Y;
 				baseTemp = HelperMethods.GetBaseTemp(Position.Y);
 			}
@@ -131,9 +102,9 @@ namespace Techarria.Content.Tiles.Machines
 	}
 
 	// Where the TE ends and the Tile starts
-	public class CastingTable : ModTile
+	public class CastingTable : EntityTile<CastingTableTE>
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -143,37 +114,13 @@ namespace Techarria.Content.Tiles.Machines
 			DustType = ModContent.DustType<Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
-			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.addTile(Type);
+			width = 2;
+			height = 1;
 
 			// Etc
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Player Interface");
 			AddMapEntry(new Color(200, 200, 200), name);
-		}
-
-		public static CastingTableTE GetTileEntity(int i, int j) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 2;
-			j -= tile.TileFrameY / 18 % 1;
-			return TileEntity.ByPosition[new Point16(i, j)] as CastingTableTE;
-		}
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 2;
-			j -= tile.TileFrameY / 18 % 1;
-			ModContent.GetInstance<CastingTableTE>().Place(i, j);
-		}
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			CastingTableTE tileEntity = GetTileEntity(i, j);
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, tileEntity.item);
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, tileEntity.mold);
-			ModContent.GetInstance<CastingTableTE>().Kill(i, j);
 		}
 
 		public static bool AcceptsItem(Item item) {
@@ -199,7 +146,7 @@ namespace Techarria.Content.Tiles.Machines
 			if (playerItem.ModItem is MoltenBlob) {
 				Item tempItem = playerItem.Clone();
 				tempItem.stack = 1;
-				if (tileEntity.InsertMolten(tempItem)) {
+				if (tileEntity.InsertItem(tempItem)) {
 					playerItem.stack--;
 					if (playerItem.stack <= 0) {
 						playerItem.TurnToAir();
@@ -207,13 +154,13 @@ namespace Techarria.Content.Tiles.Machines
 					return true;
 				}
 			}
-			if (!tileEntity.item.IsAir && !tileEntity.IsCovered()) {
+			if (!tileEntity.item.IsAir) {
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, tileEntity.item);
 				tileEntity.item.TurnToAir();
 				return true;
 			}
 
-			if (!tileEntity.mold.IsAir && !tileEntity.IsCovered()) {
+			if (!tileEntity.mold.IsAir) {
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, tileEntity.mold);
 				tileEntity.mold.TurnToAir();
 				return true;

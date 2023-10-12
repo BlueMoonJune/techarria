@@ -13,7 +13,7 @@ namespace Techarria.Content.Tiles.StorageCrates
     public abstract class CrateEntity : InventoryTileEntity
     {
         public Item item = new();
-        public override Item[] Items => new Item[] { item };
+        public override Item[] ExtractableItems => new Item[] { item };
 
         public override bool InsertItem(Item item)
         {

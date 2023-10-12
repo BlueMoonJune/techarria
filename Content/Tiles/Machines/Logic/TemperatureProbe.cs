@@ -22,13 +22,8 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 		public int? GetTemp() {
 			Point target = new Point(Position.X, Position.Y) + direction;
-			if (Main.tile[target].TileType == ModContent.TileType<BlastFurnace>()) {
-				BlastFurnaceTE te = BlastFurnace.GetTileEntity(target.X, target.Y);
-				return te != null ? (int)te.temp : 0;
-			}
-			if (Main.tile[target].TileType == ModContent.TileType<CastingTable>()) {
-				CastingTableTE te = CastingTable.GetTileEntity(target.X, target.Y);
-				return te != null ? (int)te.temp : 0;
+			if (ModContent.GetModTile(Main.tile[target].TileType) is ITemperatureTile temp) {
+				return (int?)temp.GetTemp(target.X, target.Y);
 			}
 			return null;
 		}

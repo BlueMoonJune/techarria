@@ -20,13 +20,21 @@ namespace Techarria.Content.Tiles
         public int Height => TileType.height;
 
         /// <summary>
-        /// An array of all items in this container
+        /// An array of all extractable items in this container
         /// </summary>
         /// <returns></returns>
-        public virtual Item[] Items
+        public virtual Item[] ExtractableItems
         {
             get { return Array.Empty<Item>(); }
         }
+
+
+        /// <summary>
+        /// An array of all items in this container
+        /// All these items will be dropped when destroyed
+        /// </summary>
+        /// <returns></returns>
+        public virtual Item[] AllItems => ExtractableItems;
 
         /// <summary>
         /// Inserts an item into this container
@@ -64,7 +72,7 @@ namespace Techarria.Content.Tiles
         /// Checks if the container is empty
         /// </summary>
         /// <returns></returns>
-        public virtual bool IsEmpty() { return Items.Count() == 0; }
+        public virtual bool IsEmpty() { return ExtractableItems.Count() == 0; }
 
         public override bool IsTileValidForEntity(int x, int y)
         {
@@ -87,7 +95,7 @@ namespace Techarria.Content.Tiles
 
         public override void OnKill()
         {
-            foreach (Item item in Items)
+            foreach (Item item in AllItems)
             {
                 Item.NewItem(new EntitySource_TileBreak(X, Y), X * 16, Y * 16, Width * 16, Height * 16, item);
             }

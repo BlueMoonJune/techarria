@@ -20,6 +20,8 @@ namespace Techarria.Content.Tiles
 
         public int width = 1;
         public int height = 1;
+        public int oriX = -1;
+        public int oriY = -1;
 
         public Point16 GetTopLeft(int i, int j)
         {
@@ -48,13 +50,20 @@ namespace Techarria.Content.Tiles
             for (int i = 0; i < height; i++) {
                 TileObjectData.newTile.CoordinateHeights[i] = 16;
             }
+            if (oriX < 0) oriX = width / 2;
+            if (oriY < 0) oriY = height / 2;
+            TileObjectData.newTile.Origin = new Point16(oriX, oriY);
+
             ModifyTileObjectData();
             TileObjectData.addTile(Type);
         }
 
         public virtual void PreStaticDefaults() { }
 
-        public virtual void ModifyTileObjectData() { }
+        public virtual void ModifyTileObjectData()
+        {
+            TileObjectData.newTile.LavaDeath = false;
+        }
 
         public T GetTileEntity(int i, int j)
         {
@@ -64,7 +73,8 @@ namespace Techarria.Content.Tiles
 
         public override void PlaceInWorld(int i, int j, Item item)
         {
-            ModContent.GetInstance<T>().Place(i, j);
+            Point16 p = GetTopLeft(i, j);
+            ModContent.GetInstance<T>().Place(p.X, p.Y);
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

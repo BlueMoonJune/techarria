@@ -49,7 +49,26 @@ namespace Techarria.Content.Tiles.Machines
 
 		public float degrees = 0;
 
-        public override Item[] Items => new Item[] { GetResult() };
+        public override Item[] ExtractableItems => new Item[] { GetResult() };
+
+        public override Item[] AllItems
+		{
+			get
+			{
+				List<Item> items = new List<Item>();
+                foreach (List<Item> segment in this.items)
+                {
+                    if (segment == null) continue;
+                    foreach (Item item in segment)
+                    {
+                        items.Add(item);
+                    }
+                }
+                items.Add(seed);
+
+                return items.ToArray();
+            }
+		}
 
         public int step { get { return (int)MathF.Round(degrees / 45f); } }
 
@@ -220,19 +239,6 @@ namespace Techarria.Content.Tiles.Machines
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Rotarty Assembler");
 			AddMapEntry(new Color(200, 200, 200), name);
-		}
-
-        public override void ModifyTileObjectData()
-        {
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.LavaDeath = false;
-        }
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 4;
-			ModContent.GetInstance<RotaryAssemblerTE>().Place(i, j);
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {

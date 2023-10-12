@@ -14,7 +14,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 	{
 		public List<Item> items = new();
 
-        public override Item[] Items => items.ToArray();
+        public override Item[] ExtractableItems => items.ToArray();
 
         public void AddItem(Item input) {
 			foreach (Item item in items) {

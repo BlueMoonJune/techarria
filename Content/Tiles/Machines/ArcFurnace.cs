@@ -114,9 +114,18 @@ namespace Techarria.Content.Tiles.Machines
 		public Item output = new();
 		public List<Item> inputs = new();
 
-		public override Item[] Items => new Item[] { output };
+		public override Item[] ExtractableItems => new Item[] { output };
 
-        public int charge = 0;
+        public override Item[] AllItems 
+		{
+			get
+			{
+				Item[] result = new Item[inputs.Count+1];
+				result[0] = output;
+				inputs.CopyTo(result, 1);
+				return result;
+			}
+		}
 
 		public int displayCycle = 0;
 
@@ -124,24 +133,26 @@ namespace Techarria.Content.Tiles.Machines
 			return Main.tile[x, y].TileType == ModContent.TileType<ArcFurnace>();
 		}
 
-		public override void Update() 
+		public void InsertCharge(int amount) 
 		{
-			if (charge > 0) {
-				foreach (ArcFurnaceRecipe recipe in ArcFurnaceRecipe.recipes) {
-					if (recipe.CanCraft(inputs, charge)) {
-						Item result = recipe.Craft(inputs);
-						if (result.type == output.type) {
-							output.stack += result.stack;
-						} else {
-							output = result;
-						}
+			foreach (ArcFurnaceRecipe recipe in ArcFurnaceRecipe.recipes) {
+				if (recipe.CanCraft(inputs, amount)) {
+					Item result = recipe.Craft(inputs);
+					if (result.type == output.type) {
+						output.stack += result.stack;
+					} else {
+						output = result;
 					}
 				}
 			}
-			charge = 0;
 		}
 
-		public override bool InsertItem(Item item) {
+        public override void Update()
+        {
+            displayCycle++;
+        }
+
+        public override bool InsertItem(Item item) {
 
             if (item == null || item.IsAir) return false;
             foreach (Item input in inputs) {
@@ -226,12 +237,6 @@ namespace Techarria.Content.Tiles.Machines
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 
-        public override void ModifyTileObjectData()
-        {
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.LavaDeath = false;
-        }
-
 		public override bool RightClick(int i, int j) {
 			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
 			Point16 subTile = new Point16(i, j) - tileEntity.Position;
@@ -305,27 +310,7 @@ namespace Techarria.Content.Tiles.Machines
 		}
 
 		public void InsertPower(int i, int j, int amount) {
-			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
-
-			tileEntity.charge += amount;
-		}
-
-		public override void PostDraw(int i, int j, SpriteBatch spriteBatch) {
-			/*
-			ArcFurnaceTE tileEntity = GetTileEntity(i, j);
-			Point16 subTile = new Point16(i, j) - tileEntity.Position;
-			if (subTile.X == 1 && subTile.Y == 3) {
-				float temp = tileEntity.temp;
-
-				Vector2 TileOffset = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
-				Vector2 pos = new Vector2(i, j) * 16 - Main.screenPosition + TileOffset;
-
-				Rectangle sourceRect = new Rectangle(0, 30 - (int)temp / 500 * 2, 16, (int)temp / 500 * 2);
-				Rectangle destRect = new Rectangle((int)pos.X, (int)pos.Y - 16 + 30 - (int)temp / 500 * 2, 16, (int)temp / 500 * 2);
-				spriteBatch.Draw(ModContent.Request<Texture2D>("Techarria/Content/Tiles/Machines/ArcFurnace_Overlay").Value, destRect, sourceRect, Lighting.GetColor(i, j));
-
-			}*/
-
+			GetTileEntity(i, j).InsertCharge(amount);
 		}
 	}
 }

@@ -33,7 +33,7 @@ namespace Techarria.Transfer
             TileEntity.ByPosition.TryGetValue(new Point16(x, y), out TileEntity TE);
             InventoryTileEntity tileEntity = TE as InventoryTileEntity;
             if (tileEntity == null) return new List<Item>();
-            return tileEntity.Items.ToList();
+            return tileEntity.ExtractableItems.ToList();
         }
 
         public override bool InsertItem(Item item)
