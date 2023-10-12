@@ -41,7 +41,7 @@ namespace Techarria.Transfer
             TileEntity.ByPosition.TryGetValue(new Point16(x, y), out TileEntity TE);
             InventoryTileEntity tileEntity = TE as InventoryTileEntity;
             if (tileEntity == null) return false;
-            return tileEntity.InsertItem(item);
+            return tileEntity.InsertItem(item) || tileEntity.InsertItem(item, dir);
         }
 
         public override bool ExtractItem(Item item)

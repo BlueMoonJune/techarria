@@ -43,12 +43,15 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class RotaryAssemblerTE : ModTileEntity
+	public class RotaryAssemblerTE : InventoryTileEntity
 	{
 		public List<Point> wireHits = new();
 
 		public float degrees = 0;
-		public int step { get { return (int)MathF.Round(degrees / 45f); } }
+
+        public override Item[] Items => new Item[] { GetResult() };
+
+        public int step { get { return (int)MathF.Round(degrees / 45f); } }
 
 		public Item seed = new();
 		public List<Item>[] items = new List<Item>[8];
@@ -59,7 +62,7 @@ namespace Techarria.Content.Tiles.Machines
 			return Main.tile[x, y].TileType == ModContent.TileType<RotaryAssembler>();
 		}
 
-		public bool InsertItem(Item item, Direction dir) {
+		public override bool InsertItem(Item item, Direction dir) {
 			Item temp = item.Clone();
 			temp.stack = 1;
 			if (seed.IsAir) {
@@ -179,7 +182,13 @@ namespace Techarria.Content.Tiles.Machines
 			seed.TurnToAir();
 		}
 
-		public override void SaveData(TagCompound tag) {
+        public override bool ExtractItem(Item item)
+        {
+            Craft();
+            return true;
+        }
+
+        public override void SaveData(TagCompound tag) {
 			//tag.Add("items", items);
 			//tag.Add("seed", seed);
 			base.SaveData(tag);
@@ -192,9 +201,9 @@ namespace Techarria.Content.Tiles.Machines
 		}
 	}
 
-	public class RotaryAssembler : ModTile
+	public class RotaryAssembler : EntityTile<RotaryAssemblerTE>
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLavaDeath[Type] = false;
@@ -204,11 +213,8 @@ namespace Techarria.Content.Tiles.Machines
 			DustType = ModContent.DustType<Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-			TileObjectData.newTile.StyleHorizontal = false;
-			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.addTile(Type);
+			width = 3;
+			height = 3;
 
 			// Etc
 			LocalizedText name = CreateMapEntryName();
@@ -216,12 +222,11 @@ namespace Techarria.Content.Tiles.Machines
 			AddMapEntry(new Color(200, 200, 200), name);
 		}
 
-		public static RotaryAssemblerTE GetTileEntity(int i, int j) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 4;
-			return TileEntity.ByPosition[new Point16(i, j)] as RotaryAssemblerTE;
-		}
+        public override void ModifyTileObjectData()
+        {
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.LavaDeath = false;
+        }
 
 		public override void PlaceInWorld(int i, int j, Item item) {
 			Tile tile = Framing.GetTileSafely(i, j);
@@ -232,14 +237,18 @@ namespace Techarria.Content.Tiles.Machines
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
 
-			/*
 			RotaryAssemblerTE tileEntity = GetTileEntity(i, j);
-			foreach (Item input in tileEntity.inputs) {
-				Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), input);
-			}
-			*/
+			foreach (List<Item> segment in tileEntity.items)
+			{
+				if (segment == null) continue;
+				foreach (Item item in segment)
+				{
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), item);
+				}
+				Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), tileEntity.seed);
 
-			ModContent.GetInstance<RotaryAssemblerTE>().Kill(i, j);
+				ModContent.GetInstance<RotaryAssemblerTE>().Kill(i, j);
+			}
 		}
 
 		public override bool RightClick(int i, int j) {

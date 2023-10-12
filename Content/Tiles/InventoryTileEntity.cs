@@ -39,6 +39,17 @@ namespace Techarria.Content.Tiles
         }
 
         /// <summary>
+        /// Inserts an item into this container
+        /// Version that takes the insertion direction into consideration
+        /// DO NOT override both methods
+        /// </summary>
+        /// <param name="item">The item to insert</param>
+        /// <returns>Whether this was sucessful or not</returns>
+        public virtual bool InsertItem(Item item, Direction dir) {
+            return false; 
+        }
+
+        /// <summary>
         /// Extracts an item from this container
         /// By default, decrements the stack size by one
         /// </summary>
