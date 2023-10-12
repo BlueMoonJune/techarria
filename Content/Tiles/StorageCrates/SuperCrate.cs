@@ -88,7 +88,7 @@ namespace Techarria.Content.Tiles.StorageCrates
 
         public override bool RightClick(int i, int j)
         {
-            CrateEntity tileEntity = GetTileEntity(i, j);
+            T tileEntity = GetTileEntity(i, j);
             Item item = tileEntity.item;
             Item playerItem;
             if (!Main.mouseItem.IsAir)
