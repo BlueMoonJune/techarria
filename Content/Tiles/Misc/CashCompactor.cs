@@ -15,12 +15,17 @@ using Terraria.UI.Chat;
 
 namespace Techarria.Content.Tiles.Misc
 {
-    public class CashCompactorTE : ModTileEntity
+    public class CashCompactorTE : InventoryTileEntity
     {
         public static int[] coinTypes = new int[4] { ItemID.CopperCoin, ItemID.SilverCoin, ItemID.GoldCoin, ItemID.PlatinumCoin };
-        public static int[] coinValues = new int[4] { 1, 100, 10000, 1000000 };
+        public static long[] coinValues = new long[4] { 1, 100, 10000, 1000000 };
 
         public long amount = 0;
+
+        public override Item[] ExtractableItems => GetPossibleCoins();
+
+        public override Item[] AllItems => GetCompactedCoins();
+
         public override bool IsTileValidForEntity(int x, int y)
         {
             return Main.tile[x, y].TileType == ModContent.TileType<CashCompactor>();
@@ -82,6 +87,26 @@ namespace Techarria.Content.Tiles.Misc
             return coins;
         }
 
+        public override bool ExtractItem(Item item)
+        {
+            amount -= coinValues[new List<int>(coinTypes).FindIndex(value => value == item.type)];
+            return true;
+        }
+
+        public override bool InsertItem(Item item)
+        {
+
+            List<int> coinTypeList = new List<int>(coinTypes);
+            int index = coinTypeList.FindIndex(value => value == item.type);
+            if (index >= 0)
+            {
+                amount += coinValues[index];
+                return true;
+            }
+
+            return false;
+        }
+
         public override void SaveData(TagCompound tag)
         {
             tag.Add("amount", amount);
@@ -96,9 +121,9 @@ namespace Techarria.Content.Tiles.Misc
     }
 
     // Where the TE ends and the Tile starts
-    public class CashCompactor : ModTile
+    public class CashCompactor : EntityTile<CashCompactorTE>
     {
-        public override void SetStaticDefaults()
+        public override void PreStaticDefaults()
         {
             // Spelunker
             Main.tileSpelunker[Type] = true;
@@ -113,38 +138,16 @@ namespace Techarria.Content.Tiles.Misc
             Main.tileFrameImportant[Type] = true;
 
             // placement
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
-            TileObjectData.newTile.Origin = new Point16(0, 1);
+            width = 4;
+            height = 2;
+        }
+
+        public override void ModifyTileObjectData()
+        {
             TileObjectData.newTile.AnchorInvalidTiles = new int[] { TileID.MagicalIceBlock };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.addTile(Type);
-        }
-        public static CashCompactorTE GetTileEntity(int i, int j)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-            i -= tile.TileFrameX / 18 % 4;
-            j -= tile.TileFrameY / 18 % 2;
-            TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity te);
-            return te as CashCompactorTE;
-        }
-        public override void PlaceInWorld(int i, int j, Item item)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-            i -= tile.TileFrameX / 18 % 4;
-            j -= tile.TileFrameY / 18 % 2;
-            ModContent.GetInstance<CashCompactorTE>().Place(i, j);
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            CashCompactorTE tileEntity = GetTileEntity(i, j);
-            foreach (Item coin in tileEntity.GetCompactedCoins())
-            {
-                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 32, coin);
-            }
-            ModContent.GetInstance<CashCompactorTE>().Kill(i, j);
         }
 
         public override bool RightClick(int i, int j)
