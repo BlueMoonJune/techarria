@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 
+using TE = Techarria.Content.Tiles.Machines.Logic.ItemPlacerTE;
+
 namespace Techarria.Content.Tiles.Machines.Logic
 {
-	public class ItemPlacerTE : ModTileEntity
+	public class ItemPlacerTE : InventoryTileEntity
 	{
 		public Item item = new();
-		public override bool IsTileValidForEntity(int x, int y) {
-			return Main.tile[x, y].TileType == ModContent.TileType<ItemPlacer>();
-		}
+        public override Item[] ExtractableItems => new Item[] { item };
 
 		public override void SaveData(TagCompound tag) {
 			tag.Add("item", item);
@@ -23,13 +23,32 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			item = tag.Get<Item>("item");
 			base.LoadData(tag);
 		}
-	}
+
+        public override bool InsertItem(Item item)
+        {
+            Item myItem = this.item;
+            if (myItem == null || myItem.IsAir)
+            {
+                myItem = item.Clone();
+                myItem.stack = 1;
+                this.item = myItem;
+                return true;
+            }
+            if (myItem.type == item.type && myItem.stack < myItem.maxStack)
+            {
+                myItem.stack++;
+                return true;
+            }
+
+            return false;
+        }
+    }
 
 
 	// where the TE ends and the tile starts
-	public class ItemPlacer : ModTile
+	public class ItemPlacer : EntityTile<TE>
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -37,11 +56,11 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			AddMapEntry(Color.Gray, CreateMapEntryName());
 
 			DustType = DustID.Stone;
-			//ItemDrop = ModContent.ItemType<Items.Placeables.Machines.Logic.ItemPlacer>();
 
 			HitSound = SoundID.Tink;
 		}
 
+		// rotates the tile
 		public override bool Slope(int i, int j) {
 			Tile tile = Framing.GetTileSafely(i, j);
 			tile.TileFrameX = (short)((tile.TileFrameX + 16) % 64);
@@ -50,10 +69,6 @@ namespace Techarria.Content.Tiles.Machines.Logic
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
 			return false;
-		}
-
-		public static ItemPlacerTE GetTileEntity(int i, int j) {
-			return TileEntity.ByPosition[new Point16(i, j)] as ItemPlacerTE;
 		}
 
 		public override void PlaceInWorld(int i, int j, Item item) {
@@ -70,7 +85,7 @@ namespace Techarria.Content.Tiles.Machines.Logic
 		}
 
 		public override bool RightClick(int i, int j) {
-			ItemPlacerTE tileEntity = GetTileEntity(i, j);
+			TE tileEntity = GetTileEntity(i, j);
 			Item item = tileEntity.item;
 			Item playerItem;
 			if (!Main.mouseItem.IsAir) {
