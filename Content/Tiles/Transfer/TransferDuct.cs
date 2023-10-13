@@ -241,6 +241,7 @@ namespace Techarria.Content.Tiles.Transfer
 		/// <param name="y">Y coordinates</param>
 		/// <param name="dir">Direction of item transfer. -1 causes no motion and is used for transfer failure</param>
 		public virtual void CreateParticles(int x, int y, int dir) {
+			if (!Main.rand.NextBool(60)) return;
 			var dust1 = Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
 			var dust2 = Dust.NewDustDirect(new Vector2(x, y) * 16 + new Vector2(dirToX(dir), dirToY(dir)) * 8 + new Vector2(4), 0, 0, ModContent.DustType<TransferDust>());
 			if (dir >= 0) {
@@ -290,7 +291,7 @@ namespace Techarria.Content.Tiles.Transfer
 		public override void HitWire(int i, int j) {
 			ContainerInterface container = FindAdjacentContainer(i, j);
 			if (container != null && !container.IsEmpty()) {
-				for (int x = 0; x < 2; x++) {
+				if (Main.rand.NextBool(10)) {
 					var suction = Dust.NewDustDirect(new Vector2(i + dirToX(container.dir), j + dirToY(container.dir)) * 16 + new Vector2(-4), 24, 24, ModContent.DustType<Suction>());
 					suction.customData = new List<Vector2>() { new(i * 16 + 8, j * 16 + 8), new(i * 16 + 8 + dirToX(container.dir)*32, j * 16 + 8 + dirToY(container.dir)*32), };
 					suction.velocity = new Vector2(-dirToX(container.dir), -dirToY(container.dir)) * 0.5f;

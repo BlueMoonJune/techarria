@@ -21,7 +21,7 @@ namespace Techarria.Transfer
 
             point = InventoryEntityInterface.GetTopLeft(x, y);
 			if (point != negOne)
-				return new InventoryEntityInterface(point.X, point.Y);
+				return new InventoryEntityInterface(x, y);
 
 			return null;
 		}

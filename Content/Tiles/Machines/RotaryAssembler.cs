@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Techarria.Content.Dusts;
+using Techarria.Transfer;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -81,14 +82,14 @@ namespace Techarria.Content.Tiles.Machines
 			return Main.tile[x, y].TileType == ModContent.TileType<RotaryAssembler>();
 		}
 
-		public override bool InsertItem(Item item, Direction dir) {
+		public override bool InsertItem(Item item, ContainerInterface info) {
 			Item temp = item.Clone();
 			temp.stack = 1;
 			if (seed.IsAir) {
 				seed = temp;
 				return true;
 			}
-			int segment = dir.Rotated(2) * 2 - step;
+			int segment = ((Direction)info.dir).Rotated(2) * 2 - step;
 			segment = (segment % 8 + 8) % 8;
 			if (items[segment] == null) {
 				items[segment] = new List<Item>();

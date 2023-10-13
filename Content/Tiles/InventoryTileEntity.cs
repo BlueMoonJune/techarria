@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Techarria.Transfer;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -28,6 +29,7 @@ namespace Techarria.Content.Tiles
             get { return Array.Empty<Item>(); }
         }
 
+        public virtual Item[] GetExtractableItemsForInterface(ContainerInterface interf) => ExtractableItems;
 
         /// <summary>
         /// An array of all items in this container
@@ -48,12 +50,13 @@ namespace Techarria.Content.Tiles
 
         /// <summary>
         /// Inserts an item into this container
-        /// Version that takes the insertion direction into consideration
+        /// Version that takes the insertion info into consideration
         /// DO NOT override both methods
         /// </summary>
         /// <param name="item">The item to insert</param>
+        /// <param name="info">The ContainerInterface that is inserting items</param>
         /// <returns>Whether this was sucessful or not</returns>
-        public virtual bool InsertItem(Item item, Direction dir) {
+        public virtual bool InsertItem(Item item, ContainerInterface info) {
             return false; 
         }
 
@@ -66,6 +69,21 @@ namespace Techarria.Content.Tiles
         {
             decrementItem(item);
             return true;
+        }
+
+
+        /// <summary>
+        /// Extracts an item from this container
+        /// By default, decrements the stack size by one
+        /// Version that takes the insertion info into consideration
+        /// DO NOT override both methods
+        /// </summary>
+        /// <param name="item">The item to insert</param>
+        /// <param name="info">The ContainerInterface that is extracting items</param>
+        /// <returns>Whether this was sucessful or not</returns>
+        public virtual bool ExtractItem(Item item, ContainerInterface info)
+        {
+            return false;
         }
 
         /// <summary>

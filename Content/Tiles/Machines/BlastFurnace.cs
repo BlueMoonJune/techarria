@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Techarria.Content.Dusts;
 using Techarria.Content.Items.RecipeItems;
+using Techarria.Transfer;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -86,13 +88,40 @@ namespace Techarria.Content.Tiles.Machines
 		}
     }
 
-	public class BlastFurnaceTE : ModTileEntity
+	public class BlastFurnaceTE : InventoryTileEntity
 	{
 		public float baseTemp = 25;
 
 		public Item output = new();
 		public List<Item> inputs = new();
-		public float progress = 0;
+
+        public override Item[] GetExtractableItemsForInterface(ContainerInterface interf)
+        {
+            Point16 p = new(interf.x, interf.y);
+			Point16 subtile = p - Position;
+			if (subtile.X == 1 && subtile.Y == 0)
+			{
+				return inputs.ToArray();
+			}
+			if (subtile.Y == 3 && GetRecipe() != null)
+			{
+				return new Item[] { GetRecipe().createItem };
+			}
+			return Array.Empty<Item>();
+        }
+
+        public override Item[] AllItems
+        {
+            get
+            {
+                Item[] result = new Item[inputs.Count + 1];
+                result[0] = output;
+                inputs.CopyTo(result, 1);
+                return result;
+            }
+        }
+
+        public float progress = 0;
 		public float temp = 25f;
 		public int frame = 0;
 		public static Rectangle particleRect = new(6, 6, 24, 16);
@@ -202,7 +231,7 @@ namespace Techarria.Content.Tiles.Machines
 			return false;
 		}
 
-		public bool InsertItem(Item item) {
+		public override bool InsertItem(Item item) {
 			int itemCount = 10;
 			foreach (Item input in inputs) {
 				itemCount += input.stack;
@@ -241,7 +270,18 @@ namespace Techarria.Content.Tiles.Machines
 			return false;
 		}
 
-		public Item ExtractItem() {
+        public override bool ExtractItem(Item item)
+        {
+			Recipe recipe = GetRecipe();
+			if (recipe != null && item == recipe.createItem)
+				Craft();
+			else
+				decrementItem(item);
+			return true;
+        }
+
+
+        public Item ExtractItem() {
 			if (inputs.Count > 0) {
 				Item extracted = inputs[0].Clone();
 				inputs[0].stack--;
@@ -270,7 +310,7 @@ namespace Techarria.Content.Tiles.Machines
 
 	public class BlastFurnace : EntityTile<BlastFurnaceTE>, IPowerConsumer
 	{
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLavaDeath[Type] = false;
@@ -279,41 +319,13 @@ namespace Techarria.Content.Tiles.Machines
 			DustType = ModContent.DustType<Spikesteel>();
 			AdjTiles = new int[] { TileID.Tables };
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
-			TileObjectData.newTile.StyleHorizontal = false;
-			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.CoordinateHeights = new int[4] {16, 16, 16, 18};
-			TileObjectData.addTile(Type);
+			width = 3;
+			height = 4;
 
 			// Etc
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Blast Furnace");
 			AddMapEntry(new Color(200, 200, 200), name);
-		}
-
-		public static BlastFurnaceTE GetTileEntity(int i, int j) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 4;
-			return TileEntity.ByPosition[new Point16(i, j)] as BlastFurnaceTE;
-		}
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 4;
-			ModContent.GetInstance<BlastFurnaceTE>().Place(i, j);
-		}
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-
-			BlastFurnaceTE tileEntity = GetTileEntity(i, j);
-			foreach (Item input in tileEntity.inputs) {
-				Item.NewItem(new EntitySource_TileBreak(i, j), new Rectangle(i * 16, j * 16, 48, 64), input);
-			}
-
-			ModContent.GetInstance<BlastFurnaceTE>().Kill(i, j);
 		}
 
 		public override bool RightClick(int i, int j) {

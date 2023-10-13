@@ -71,7 +71,6 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			return false;
 		}
 
-			ModContent.GetInstance<ItemPlacerTE>().Place(i, j);
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) {
 			if (effectOnly || noItem || fail) { return; }
 			ItemPlacerTE tileEntity = GetTileEntity(i, j);
@@ -147,84 +146,84 @@ namespace Techarria.Content.Tiles.Machines.Logic
 			}
 			int num5 = -1;
 			int num6 = 1;
-			if (num4 != -1 && Main.rand.Next(num4) == 0) {
+			if (num4 != -1 && Main.rand.NextBool(num4)) {
 				num5 = 3380;
-				if (Main.rand.Next(5) == 0) {
+				if (Main.rand.NextBool(5)) {
 					num6 += Main.rand.Next(2);
 				}
-				if (Main.rand.Next(10) == 0) {
+				if (Main.rand.NextBool(10)) {
 					num6 += Main.rand.Next(3);
 				}
-				if (Main.rand.Next(15) == 0) {
+				if (Main.rand.NextBool(15)) {
 					num6 += Main.rand.Next(4);
 				}
 			}
-			else if (Main.rand.Next(2) == 0) {
-				if (Main.rand.Next(12000) == 0) {
+			else if (Main.rand.NextBool(2)) {
+				if (Main.rand.NextBool(12000)) {
 					num5 = 74;
-					if (Main.rand.Next(14) == 0) {
+					if (Main.rand.NextBool(14)) {
 						num6 += Main.rand.Next(0, 2);
 					}
-					if (Main.rand.Next(14) == 0) {
+					if (Main.rand.NextBool(14)) {
 						num6 += Main.rand.Next(0, 2);
 					}
-					if (Main.rand.Next(14) == 0) {
+					if (Main.rand.NextBool(14)) {
 						num6 += Main.rand.Next(0, 2);
 					}
 				}
-				else if (Main.rand.Next(800) == 0) {
+				else if (Main.rand.NextBool(800)) {
 					num5 = 73;
-					if (Main.rand.Next(6) == 0) {
+					if (Main.rand.NextBool(6)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(6) == 0) {
+					if (Main.rand.NextBool(6)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(6) == 0) {
+					if (Main.rand.NextBool(6)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(6) == 0) {
+					if (Main.rand.NextBool(6)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(6) == 0) {
+					if (Main.rand.NextBool(6)) {
 						num6 += Main.rand.Next(1, 20);
 					}
 				}
-				else if (Main.rand.Next(60) == 0) {
+				else if (	Main.rand.NextBool(60)) {
 					num5 = 72;
-					if (Main.rand.Next(4) == 0) {
+					if (Main.rand.NextBool(4)) {
 						num6 += Main.rand.Next(5, 26);
 					}
-					if (Main.rand.Next(4) == 0) {
+					if (Main.rand.NextBool(4)) {
 						num6 += Main.rand.Next(5, 26);
 					}
-					if (Main.rand.Next(4) == 0) {
+					if (Main.rand.NextBool(4)) {
 						num6 += Main.rand.Next(5, 26);
 					}
-					if (Main.rand.Next(4) == 0) {
+					if (Main.rand.NextBool(4)) {
 						num6 += Main.rand.Next(5, 25);
 					}
 				}
 				else {
 					num5 = 71;
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(10, 26);
 					}
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(10, 26);
 					}
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(10, 26);
 					}
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(10, 25);
 					}
 				}
 			}
-			else if (num != -1 && Main.rand.Next(num) == 0) {
+			else if (num != -1 && Main.rand.NextBool(num)) {
 				num5 = 1242;
 			}
-			else if (num2 != -1 && Main.rand.Next(num2) == 0) {
+			else if (num2 != -1 && Main.rand.NextBool(num2)) {
 				num5 = Main.rand.Next(6) switch {
 					0 => 181,
 					1 => 180,
@@ -233,104 +232,104 @@ namespace Techarria.Content.Tiles.Machines.Logic
 					4 => 178,
 					_ => 182,
 				};
-				if (Main.rand.Next(20) == 0) {
+				if (Main.rand.NextBool(20)) {
 					num6 += Main.rand.Next(0, 2);
 				}
-				if (Main.rand.Next(30) == 0) {
+				if (Main.rand.NextBool(30)) {
 					num6 += Main.rand.Next(0, 3);
 				}
-				if (Main.rand.Next(40) == 0) {
+				if (Main.rand.NextBool(40)) {
 					num6 += Main.rand.Next(0, 4);
 				}
-				if (Main.rand.Next(50) == 0) {
+				if (Main.rand.NextBool(50)) {
 					num6 += Main.rand.Next(0, 5);
 				}
-				if (Main.rand.Next(60) == 0) {
+				if (Main.rand.NextBool(60)) {
 					num6 += Main.rand.Next(0, 6);
 				}
 			}
-			else if (num3 != -1 && Main.rand.Next(num3) == 0) {
+			else if (num3 != -1 && Main.rand.NextBool(num3)) {
 				num5 = 999;
-				if (Main.rand.Next(20) == 0) {
+				if (Main.rand.NextBool(20)) {
 					num6 += Main.rand.Next(0, 2);
 				}
-				if (Main.rand.Next(30) == 0) {
+				if (Main.rand.NextBool(30)) {
 					num6 += Main.rand.Next(0, 3);
 				}
-				if (Main.rand.Next(40) == 0) {
+				if (Main.rand.NextBool(40)) {
 					num6 += Main.rand.Next(0, 4);
 				}
-				if (Main.rand.Next(50) == 0) {
+				if (Main.rand.NextBool(50)) {
 					num6 += Main.rand.Next(0, 5);
 				}
-				if (Main.rand.Next(60) == 0) {
+				if (Main.rand.NextBool(60)) {
 					num6 += Main.rand.Next(0, 6);
 				}
 			}
-			else if (Main.rand.Next(3) == 0) {
-				if (Main.rand.Next(5000) == 0) {
+			else if (Main.rand.NextBool(3)) {
+				if (Main.rand.NextBool(5000)) {
 					num5 = 74;
-					if (Main.rand.Next(10) == 0) {
+					if (Main.rand.NextBool(10)) {
 						num6 += Main.rand.Next(0, 3);
 					}
-					if (Main.rand.Next(10) == 0) {
+					if (Main.rand.NextBool(10)) {
 						num6 += Main.rand.Next(0, 3);
 					}
-					if (Main.rand.Next(10) == 0) {
+					if (Main.rand.NextBool(10)) {
 						num6 += Main.rand.Next(0, 3);
 					}
-					if (Main.rand.Next(10) == 0) {
+					if (Main.rand.NextBool(10)) {
 						num6 += Main.rand.Next(0, 3);
 					}
-					if (Main.rand.Next(10) == 0) {
+					if (Main.rand.NextBool(10)) {
 						num6 += Main.rand.Next(0, 3);
 					}
 				}
-				else if (Main.rand.Next(400) == 0) {
+				else if (Main.rand.NextBool(400)) {
 					num5 = 73;
-					if (Main.rand.Next(5) == 0) {
+					if (Main.rand.NextBool(5)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(5) == 0) {
+					if (Main.rand.NextBool(5)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(5) == 0) {
+					if (Main.rand.NextBool(5)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(5) == 0) {
+					if (Main.rand.NextBool(5)) {
 						num6 += Main.rand.Next(1, 21);
 					}
-					if (Main.rand.Next(5) == 0) {
+					if (Main.rand.NextBool(5)) {
 						num6 += Main.rand.Next(1, 20);
 					}
 				}
-				else if (Main.rand.Next(30) == 0) {
+				else if (Main.rand.NextBool(30)) {
 					num5 = 72;
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(5, 26);
 					}
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(5, 26);
 					}
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(5, 26);
 					}
-					if (Main.rand.Next(3) == 0) {
+					if (Main.rand.NextBool(3)) {
 						num6 += Main.rand.Next(5, 25);
 					}
 				}
 				else {
 					num5 = 71;
-					if (Main.rand.Next(2) == 0) {
+					if (Main.rand.NextBool(2)) {
 						num6 += Main.rand.Next(10, 26);
 					}
-					if (Main.rand.Next(2) == 0) {
+					if (Main.rand.NextBool(2)) {
 						num6 += Main.rand.Next(10, 26);
 					}
-					if (Main.rand.Next(2) == 0) {
+					if (Main.rand.NextBool(2)) {
 						num6 += Main.rand.Next(10, 26);
 					}
-					if (Main.rand.Next(2) == 0) {
+					if (Main.rand.NextBool(2)) {
 						num6 += Main.rand.Next(10, 25);
 					}
 				}
@@ -346,27 +345,27 @@ namespace Techarria.Content.Tiles.Machines.Logic
 					6 => 701,
 					_ => 702,
 				};
-				if (Main.rand.Next(20) == 0) {
+				if (Main.rand.NextBool(20)) {
 					num6 += Main.rand.Next(0, 2);
 				}
-				if (Main.rand.Next(30) == 0) {
+				if (Main.rand.NextBool(30)) {
 					num6 += Main.rand.Next(0, 3);
 				}
-				if (Main.rand.Next(40) == 0) {
+				if (Main.rand.NextBool(40)) {
 					num6 += Main.rand.Next(0, 4);
 				}
-				if (Main.rand.Next(50) == 0) {
+				if (Main.rand.NextBool(50)) {
 					num6 += Main.rand.Next(0, 5);
 				}
-				if (Main.rand.Next(60) == 0) {
+				if (Main.rand.NextBool(60)) {
 					num6 += Main.rand.Next(0, 6);
 				}
 			}
 			ItemLoader.ExtractinatorUse(ref num5, ref num6, extractType, TileID.Extractinator);
 			if (num5 > 0) {
 				int number = Item.NewItem(new EntitySource_TileUpdate(i, j), i*16, j*16, 16, 16, num5, num6, noBroadcast: false, -1);
-				if (Main.netMode == 1) {
-					NetMessage.SendData(21, -1, -1, null, number, 1f);
+				if (Main.netMode == NetmodeID.MultiplayerClient) {
+					NetMessage.SendData(MessageID.SyncItem, -1, -1, null, number, 1f);
 				}
 			}
 		}
