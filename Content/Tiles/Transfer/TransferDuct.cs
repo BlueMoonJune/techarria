@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Techarria.Transfer;
 using System;
 using System.Collections.Generic;
+using Techarria.Content.Sounds;
 
 namespace Techarria.Content.Tiles.Transfer
 {
@@ -102,8 +103,6 @@ namespace Techarria.Content.Tiles.Transfer
 				Main.tile[i, j].TileColor == Main.tile[x, y].TileColor;
 		}
 
-		public static SoundStyle transferSound = new("Techarria/Content/Sounds/Transfer", SoundType.Sound);
-
 		public override void SetStaticDefaults() {
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = false;
@@ -121,8 +120,6 @@ namespace Techarria.Content.Tiles.Transfer
 			//ItemDrop = ModContent.ItemType<Items.Placeables.Transfer.TransferDuct>();
 
 			HitSound = SoundID.Tink;
-
-			transferSound.PitchVariance = 1f;
 		}
 
 		public override bool Slope(int i, int j) {
@@ -301,7 +298,7 @@ namespace Techarria.Content.Tiles.Transfer
 						continue;
 					ContainerInterface target = EvaluatePath(i, j, item, (container.dir + 2) % 4, 0);
 					if (target != null && target.InsertItem(item)) {
-						SoundEngine.PlaySound(transferSound, new Vector2(i, j) * 16);
+						TransferSound.PlaySound(new(i, j));
 						container.ExtractItem(item);
 						return;
 					}
