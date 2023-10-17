@@ -1,5 +1,7 @@
 ﻿using Terraria;
 using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.FilterItems
 {
@@ -29,6 +31,14 @@ namespace Techarria.Content.Items.FilterItems
         {
             bool accepts = item.stack > 1;
             return accepts;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<StackPreserver>());
+            recipe.AddIngredient(ItemID.ChestLock);
+            recipe.AddIngredient(ItemID.Cobweb);
+            recipe.Register();
         }
     }
 }

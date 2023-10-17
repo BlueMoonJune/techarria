@@ -1,14 +1,5 @@
 
 -- Needs Recipe --
-CoinFilter
-StackPreserver
-
-BiorepulsionField
-InvertedBiorepulsionField
-
-GreenhouseAccentGlass
-GreenhouseGlass
-
 Electromagnet
 GelatinousTurbine
 Button
@@ -37,8 +28,7 @@ FusionCombiner
 GreenhouseController
 AdvancedBlockBreaker
 StructuralDecomposer
-FilterDuct
-HotGlueGun
+HotGlueGun //include 'solvent'
 
 -- Needs a RENAME --
 AdhesiveSolvent

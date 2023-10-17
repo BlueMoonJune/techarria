@@ -41,7 +41,7 @@ namespace Techarria.Content.Items.Placeables.Transfer
             Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.Filter>());
             recipe.AddTile(TileID.Anvils);
             recipe.AddIngredient<Transfer.TransferDuct>();
-            recipe.AddIngredient(ItemID.Actuator);
+            recipe.AddIngredient(ItemID.Cobweb);
             recipe.Register();
         }
     }

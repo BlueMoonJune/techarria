@@ -2,6 +2,8 @@
 using Techarria.Content.Tiles.Misc;
 using Terraria;
 using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Techarria.Content.Items.FilterItems
 {
@@ -30,6 +32,14 @@ namespace Techarria.Content.Items.FilterItems
         public override bool AcceptsItem(Item item)
         {
 			return new List<int>(CashCompactorTE.coinTypes).Contains(item.type);
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<StackPreserver>());
+            recipe.AddIngredient(ItemID.CopperCoin);
+            recipe.AddIngredient(ItemID.Cobweb);
+            recipe.Register();
         }
     }
 }

@@ -1,5 +1,4 @@
 CoinFilter
-StackPreserver
 FluidBottle
 Honey
 Lava
@@ -9,10 +8,6 @@ IndustrialCoal
 MechanicalScrap
 Sprocket
 Multimeter
-BiorepulsionField
-GreenhouseAccentGlass
-GreenhouseGlass
-InvertedBiorepulsionField
 JourneyCrate
 Electromagnet
 GelatinousTurbine

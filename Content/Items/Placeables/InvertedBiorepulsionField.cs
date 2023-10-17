@@ -26,5 +26,13 @@ namespace Techarria.Content.Items.Placeables
 			Item.width = 16;
 			Item.height = 16;
 		}
-	}
+
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<InvertedBiorepulsionField>());
+            recipe.AddIngredient<BiorepulsionField>();
+            recipe.Register();
+        }
+    }
 }

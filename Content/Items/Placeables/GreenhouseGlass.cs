@@ -24,8 +24,22 @@ namespace Techarria.Content.Items.Placeables
 			Item.createTile = ModContent.TileType<Tiles.Misc.GreenhouseGlass>();
 			Item.width = 16;
 			Item.height = 16;
-		}
-	}
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<GreenhouseGlass>(), 20);
+            recipe.AddTile(TileID.GlassKiln);
+            recipe.AddIngredient(ItemID.Glass, 20);
+            recipe.AddRecipeGroup(RecipeGroupID.IronBar);
+            recipe.Register();
+
+            recipe = Recipe.Create(ModContent.ItemType<GreenhouseGlass>(), 20);
+            recipe.AddTile(TileID.GlassKiln);
+            recipe.AddIngredient<GreenhouseAccentGlass>();
+            recipe.Register();
+        }
+    }
 
 	public class GreenhouseAccentGlass : GreenhouseGlass
     {
@@ -41,6 +55,15 @@ namespace Techarria.Content.Items.Placeables
 			Item.createTile = ModContent.TileType<Tiles.Misc.GreenhouseAccentGlass>();
 			Item.width = 16;
 			Item.height = 16;
-		}
-	}
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<GreenhouseAccentGlass>(), 20);
+            recipe.AddTile(TileID.GlassKiln);
+            recipe.AddIngredient<GreenhouseGlass>();
+            recipe.Register();
+        }
+
+    }
 }

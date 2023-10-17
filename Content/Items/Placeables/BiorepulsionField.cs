@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using Techarria.Content.Items.FilterItems;
 
 namespace Techarria.Content.Items.Placeables
 {
@@ -26,5 +27,19 @@ namespace Techarria.Content.Items.Placeables
 			Item.width = 16;
 			Item.height = 16;
 		}
-	}
+
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BiorepulsionField>());
+            recipe.AddIngredient(ItemID.Glass);
+            recipe.AddIngredient(ItemID.Wire);
+            recipe.Register();
+
+			recipe = Recipe.Create(ModContent.ItemType<BiorepulsionField>());
+            recipe.AddIngredient<InvertedBiorepulsionField>();
+            recipe.Register();
+        }
+
+    }
 }
