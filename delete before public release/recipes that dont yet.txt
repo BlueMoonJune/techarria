@@ -1,0 +1,44 @@
+
+-- Needs Recipe --
+CoinFilter
+StackPreserver
+
+BiorepulsionField
+InvertedBiorepulsionField
+
+GreenhouseAccentGlass
+GreenhouseGlass
+
+Electromagnet
+GelatinousTurbine
+Button
+LuminiteEviscerator
+RotaryAssembler
+SoulCondenser
+CoordinateProbe
+BiofusingHook
+DematerializationHook
+
+-- Has recipe but is not registered --
+Sprocket
+AetherealHook
+
+-- Unimplemented way to obtain --
+MechanicalScrap
+
+-- Needs implementation in general --
+Skullotron
+Multimeter
+DroneNode
+
+-- Needs new recipe --
+ArcFurnace
+FusionCombiner
+GreenhouseController
+AdvancedBlockBreaker
+StructuralDecomposer
+FilterDuct
+HotGlueGun
+
+-- Needs a RENAME --
+AdhesiveSolvent

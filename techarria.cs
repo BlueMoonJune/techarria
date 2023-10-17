@@ -10,6 +10,8 @@ using Terraria.Graphics.Shaders;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Techarria.Content.Tiles.Misc;
+using System.Windows.Forms;
+using System.IO;
 
 namespace Techarria
 {
@@ -111,7 +113,32 @@ namespace Techarria
 			invertedBiorepulsionFieldType = ModContent.TileType<InvertedBiorepulsionField>();
 		}
 
-		private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
+        public override void PostAddRecipes()
+        {
+
+            string missingRecipes = "";
+
+            foreach (ModItem modItem in GetContent<ModItem>())
+            {
+                int type = modItem.Type;
+                foreach (Recipe recipe in Main.recipe)
+                {
+                    Console.WriteLine($"Recipe produces item type {recipe.createItem.type}, needs type");
+                    if (recipe.createItem.type == type)
+                    {
+                        Console.WriteLine($"\n\n\n\nRecipe Found\n\n\n\n");
+                        goto RecipeFound;
+                    }
+                }
+                missingRecipes += $"{modItem.Name}\n";
+            RecipeFound:
+                continue;
+            }
+
+            File.WriteAllText("C:/Users/bluem/OneDrive/Documents/My Games/Terraria/tModLoader/ModSources/Techarria/delete before public release/random bullshit my code spat out.txt", missingRecipes);
+        }
+
+        private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
         {
             orig(self);
             foreach (Wire wire in Power.DisplayInfos.Keys)

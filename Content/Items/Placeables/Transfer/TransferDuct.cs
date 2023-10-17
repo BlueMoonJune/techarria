@@ -40,7 +40,7 @@ namespace Techarria.Content.Items.Placeables.Transfer
         }
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.TransferDuct>());
+            Recipe recipe = Recipe.Create(ModContent.ItemType<Transfer.TransferDuct>(), 5);
             recipe.AddTile(TileID.SteampunkBoiler);
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5);
             recipe.AddIngredient(ItemID.SoulofFlight);

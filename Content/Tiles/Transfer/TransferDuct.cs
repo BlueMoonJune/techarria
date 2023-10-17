@@ -294,7 +294,7 @@ namespace Techarria.Content.Tiles.Transfer
 					suction.velocity = new Vector2(-dirToX(container.dir), -dirToY(container.dir)) * 0.5f;
 				}
 				foreach (Item item in container.GetItems()) {
-					if (item == null)
+					if (item == null || item.IsAir)
 						continue;
 					ContainerInterface target = EvaluatePath(i, j, item, (container.dir + 2) % 4, 0);
 					if (target != null && target.InsertItem(item)) {
