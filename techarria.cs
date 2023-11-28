@@ -113,6 +113,7 @@ namespace Techarria
 			invertedBiorepulsionFieldType = ModContent.TileType<InvertedBiorepulsionField>();
 		}
 
+        /*
         public override void PostAddRecipes()
         {
 
@@ -137,6 +138,7 @@ namespace Techarria
 
             File.WriteAllText("C:/Users/bluem/OneDrive/Documents/My Games/Terraria/tModLoader/ModSources/Techarria/delete before public release/random bullshit my code spat out.txt", missingRecipes);
         }
+        */
 
         private void DrawPowerTransfer(Terraria.On_Main.orig_DrawWires orig, Main self)
         {

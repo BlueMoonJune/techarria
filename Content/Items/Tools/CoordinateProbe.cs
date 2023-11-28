@@ -28,6 +28,13 @@ namespace Techarria.Content.Items.Tools
 			Item.autoReuse = true; // Automatically re-swing/re-use this item after its swinging animation is over.
 		}
 
+        public override void UpdateInventory(Player player)
+        {
+			InfoDisplay.Compass.Active();
+            InfoDisplay.DepthMeter.Active();
+			InfoDisplay.Watches.Active();
+        }
+
         public override void UseAnimation(Player player)
         {
 			if (player.whoAmI == Main.myPlayer)
@@ -44,6 +51,16 @@ namespace Techarria.Content.Items.Tools
 				
 			}
 
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<CoordinateProbe>());
+            recipe.AddTile(TileID.HeavyWorkBench);
+            recipe.AddIngredient(ItemID.GPS);
+            recipe.AddIngredient(ItemID.Wire, 5);
+			recipe.AddIngredient(ItemID.AnnouncementBox);
+            recipe.Register();
         }
     }
 }

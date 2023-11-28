@@ -2,11 +2,26 @@
 -- Needs Recipe --
 Electromagnet
 GelatinousTurbine
-Button
+	Furnace
+	5 Spikesteel Sheet
+	5 Wire
+
 LuminiteEviscerator
+	Lihzahrd Laser = O
+	4 Lumite = -
+
+	---
+	-O-
+	---
+
+	Lunar Energy //Lunar infusion thing
+
 RotaryAssembler
+	
 SoulCondenser
+
 CoordinateProbe
+
 BiofusingHook
 DematerializationHook
 

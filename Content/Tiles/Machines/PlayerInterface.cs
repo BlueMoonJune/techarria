@@ -19,10 +19,13 @@ namespace Techarria.Content.Tiles.Machines
 			{
 				List<Item> list = new List<Item>();
 				foreach (Player player in Main.player) {
-					Rectangle offset = rect;
-					rect.X += Position.X * 16;
-					rect.Y += Position.Y * 16;
-					if (player.getRect().Intersects(offset))
+					Rectangle offset = new(
+						rect.X + Position.X * 16,
+						rect.Y + Position.Y * 16,
+						rect.Width,
+						rect.Height
+					);
+                    if (player.getRect().Intersects(offset))
 						foreach (Item item in player.inventory)
 							if (!item.IsAir && !item.favorited)
 								list.Add(item);

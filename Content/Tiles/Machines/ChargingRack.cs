@@ -14,18 +14,37 @@ using Techarria.Content.Items.Materials;
 
 namespace Techarria.Content.Tiles.Machines
 {
-	public class ChargingRackTE : ModTileEntity
+	public class ChargingRackTE : InventoryTileEntity
 	{
 		public Item item = new Item();
 
 		public bool fullyCharged = false;
 
+		public override Item[] ExtractableItems => new Item[] { item };
 
-		public override bool IsTileValidForEntity(int x, int y) {
+        public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x, y].TileType == ModContent.TileType<ChargingRack>();
 		}
 
-		public override void SaveData(TagCompound tag) {
+        public override bool InsertItem(Item item)
+        {
+            Item myItem = this.item;
+            if (myItem == null || myItem.IsAir)
+            {
+                myItem = item.Clone();
+                myItem.stack = 1;
+                this.item = myItem;
+                return true;
+            }
+            if (item.type == myItem.type && myItem.stack < myItem.maxStack)
+            {
+                myItem.stack++;
+                return true;
+            }
+            return false;
+        }
+
+        public override void SaveData(TagCompound tag) {
 			tag.Add("item", item);
 			base.SaveData(tag);
 		}
@@ -40,7 +59,7 @@ namespace Techarria.Content.Tiles.Machines
 	{
 		public static Dictionary<int, string> capacitorTextures = new();
 
-		public override void SetStaticDefaults() {
+		public override void PreStaticDefaults() {
 			Main.tileLavaDeath[Type] = false;
 			Main.tileNoAttach[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -48,50 +67,18 @@ namespace Techarria.Content.Tiles.Machines
 
 			DustType = ModContent.DustType<Spikesteel>();
 
-			// Placement
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
-			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.addTile(Type);
+			width = 3; 
+			height = 2;
 
 			// map info
 			AddMapEntry(new Color(200, 200, 200), Language.GetText("Charging Rack"));
 		}
 
-		public ChargingRackTE GetTileEntity(int i, int j) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
-			TileEntity.ByPosition.TryGetValue(new Point16(i, j), out TileEntity tileEntity);
-			return tileEntity as ChargingRackTE;
-		}
-
-		public override void PlaceInWorld(int i, int j, Item item) {
-			Tile tile = Framing.GetTileSafely(i, j);
-			i -= tile.TileFrameX / 18 % 3;
-			j -= tile.TileFrameY / 18 % 2;
-			ModContent.GetInstance<ChargingRackTE>().Place(i, j);
-		}
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			ChargingRackTE tileEntity = GetTileEntity(i, j);
-			Item item = tileEntity.item;
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, item);
-			ModContent.GetInstance<ChargingRackTE>().Kill(i, j);
-		}
-
-		public static bool AcceptsItem(Item item) {
-			return item.ModItem is Capacitor;
-		}
-
 		public override bool RightClick(int i, int j) {
 			ChargingRackTE tileEntity = GetTileEntity(i, j);
-			Point16 subtile = new Point16(i, j) - tileEntity.Position;
 			if (tileEntity == null)
 				return false;
 
-			Item item = tileEntity.item;
 			Item playerItem;
 			if (!Main.mouseItem.IsAir) {
 				playerItem = Main.mouseItem;

@@ -53,24 +53,26 @@ namespace Techarria.VanillaChanges
                 .AddIngredient(ItemID.Diamond)
                 .Register();
 
-            // souls ------------ subject to major change ------------
-            // night
-            Recipe.Create(ItemID.SoulofNight, 50)
-                .AddTile<SoulGrinder>()
-                .AddCondition(Condition.InEvilBiome)
-                .AddIngredient(ItemID.SlimeCrown) 
-                .Register();
-            // light
-            Recipe.Create(ItemID.SoulofLight, 50)
-                .AddTile<SoulGrinder>()
-                .AddCondition(Condition.InHallow)
-                .AddIngredient(ItemID.SlimeCrown)
-                .Register();
-
             // life crystal
             Recipe.Create(ItemID.LifeCrystal)
                 .AddTile(TileID.Solidifier)
                 .AddIngredient(ItemID.Heart, 5)
+                .Register();
+
+
+            // Compass
+            Recipe.Create(ItemID.Compass)
+                .AddTile(TileID.HeavyWorkBench)
+                .AddCondition(Condition.NearWater)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 5)
+                .Register();
+
+
+            // Depth Meter
+            Recipe.Create(ItemID.DepthMeter)
+                .AddTile(TileID.HeavyWorkBench)
+                .AddCondition(Condition.NearWater)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 5)
                 .Register();
         }
     }
